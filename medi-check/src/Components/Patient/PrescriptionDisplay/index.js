@@ -22,14 +22,14 @@ function PrescriptionDisplay() {
         let response = await fetch(url);
         let obj = await response.json();
         console.log(obj.fullInteractionTypeGroup[0].fullInteractionType);
-        return obj.fullInteractionTypeGroup[0].fullInteractionType;
+        setData(obj.fullInteractionTypeGroup[0].fullInteractionType);
       } catch (error) {
         console.log(error);
-        return [];
+        setData([]);
       }
     }
     let arr = fetchData(dummy);
-    // console.log(dummy);
+    console.log('arr', arr);
     setData(arr);
   }, []);
   return <div className="hi">{data.length}</div>;
