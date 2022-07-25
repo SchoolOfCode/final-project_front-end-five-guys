@@ -6,7 +6,7 @@ let dummy = [
   'acetaminophen',
   'aclidinium',
   'benzydamine',
-  'cisoprolol',
+  'Bisoprolol',
   'Chlorhexidine',
   'Codeine',
   'Cyanocobalamin',
