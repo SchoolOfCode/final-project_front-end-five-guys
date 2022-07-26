@@ -26,10 +26,6 @@ function UserSearchBar() {
         let obj = await response.json();
         let filtered =
           obj.fullInteractionTypeGroup[0].fullInteractionType.filter((info) => {
-            console.log(
-              info.minConcept[0].name.toLowerCase(),
-              info.minConcept[1].name.toLowerCase()
-            );
             return (
               search === info.minConcept[0].name.toLowerCase() ||
               search === info.minConcept[1].name.toLowerCase()
