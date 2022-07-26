@@ -17,7 +17,7 @@ export default function useNewDrugInteractions(nameArray, searchedDrug) {
       try {
         let response = await fetch(url + '&sources=ONCHigh');
         let obj = await response.json();
-        console.log(obj);
+        console.log('interaction full obj', obj);
         // console.log(obj.fullInteractionTypeGroup[0].fullInteractionType);
         setData(obj.fullInteractionTypeGroup[0].fullInteractionType);
       } catch (error) {

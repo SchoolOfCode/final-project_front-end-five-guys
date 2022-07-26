@@ -26,11 +26,17 @@ function UserSearchBar() {
         let obj = await response.json();
         let filtered =
           obj.fullInteractionTypeGroup[0].fullInteractionType.filter((info) => {
+            console.log(
+              info.minConcept[0].name.toLowerCase(),
+              info.minConcept[1].name.toLowerCase()
+            );
             return (
-              search === info.minConcept[0].name ||
-              search === info.minConcept[1].name
+              search === info.minConcept[0].name.toLowerCase() ||
+              search === info.minConcept[1].name.toLowerCase()
             );
           });
+        console.log('interaction full obj', obj, search);
+
         console.log(filtered);
         setResults(filtered);
       } catch (error) {
@@ -40,14 +46,14 @@ function UserSearchBar() {
 
     if (search) {
       console.log('search');
-      Fetch(search);
+      Fetch(search.toLowerCase());
     }
   }, [search]);
 
   function handleChange(event) {
     event.preventDefault();
     console.log('eve', event.target[0].value);
-    setSearch(event.target[0].value);
+    setSearch(event.target[0].value.toLowerCase());
   }
   return (
     <>
