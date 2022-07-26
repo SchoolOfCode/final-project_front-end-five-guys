@@ -1,26 +1,14 @@
-import "./App.css";
-import PatientList from "../Doctor/PatientList";
+
+import './App.css';
+import PrescriptionDisplay from '../Patient/PrescriptionDisplay';
 
 function App() {
-    return (
-        <div className="App">
-            {/* <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header> */}
-            <PatientList />
-        </div>
-    );
+  return (
+    <div className="App">
+      <PrescriptionDisplay></PrescriptionDisplay>
+    </div>
+  );
+
 }
 
 export default App;

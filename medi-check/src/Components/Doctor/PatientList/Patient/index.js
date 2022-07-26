@@ -1,5 +1,9 @@
+
 //dummy list for mock data for front end
-export const dummyList = [
+//dummy data for front end
+
+const dummyList = [
+
   {
     Title: "Mr",
     FirstNames: "Roger",
