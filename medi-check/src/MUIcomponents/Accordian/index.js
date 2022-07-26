@@ -48,59 +48,40 @@ export default function CustomizedAccordions({ drugArray }) {
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
-
+  console.log('accv', drugArray);
   return (
     <div>
       {/* Need to map over the array and render all of the drug info in the right place */}
-      {drugArray.map}
-      <Accordion
-        expanded={expanded === 'panel1'}
-        onChange={handleChange('panel1')}
-      >
-        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-          <Typography>Collapsible Group Item #1</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum
-            dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada
-            lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        expanded={expanded === 'panel2'}
-        onChange={handleChange('panel2')}
-      >
-        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-          <Typography>Collapsible Group Item #2</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum
-            dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada
-            lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        expanded={expanded === 'panel3'}
-        onChange={handleChange('panel3')}
-      >
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-          <Typography>Collapsible Group Item #3</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum
-            dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada
-            lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
+      {drugArray.map((item, index) => {
+        return (
+          <Accordion
+            expanded={expanded === `panel${index}`}
+            onChange={handleChange(`panel${index}`)}
+          >
+            <AccordionSummary
+              aria-controls={`panel${index}d-content`}
+              id={`panel${index}d-header`}
+            >
+              <Typography>{item.drug}</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <div className="msg">
+                {item.interactionInfo.map((item) => {
+                  console.log('help', item);
+                  return (
+                    <div>
+                      {item.drugs.reduce(
+                        (prevDrug, currDrug) =>
+                          prevDrug.name + '+' + currDrug.name
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </AccordionDetails>
+          </Accordion>
+        );
+      })}
     </div>
   );
 }
