@@ -1,4 +1,4 @@
-#accordian-container{
+.accordian-container {
   border: 3px solid black;
   padding: 2rem;
 }
