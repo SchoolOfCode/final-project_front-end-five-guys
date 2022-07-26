@@ -6,7 +6,6 @@ function Item({ medicine }) {
     >
       <div className="msg">
         {medicine.interactionInfo.map((item) => {
-          console.log('help', item);
           return (
             <div>
               {item.drugs.reduce(

@@ -48,7 +48,7 @@ export default function CustomizedAccordions({ drugArray }) {
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
-  console.log('accv', drugArray);
+  console.log('ac', drugArray);
   return (
     <div>
       {/* Need to map over the array and render all of the drug info in the right place */}
@@ -69,12 +69,15 @@ export default function CustomizedAccordions({ drugArray }) {
                 {item.interactionInfo.map((item) => {
                   console.log('help', item);
                   return (
-                    <div>
-                      {item.drugs.reduce(
-                        (prevDrug, currDrug) =>
-                          prevDrug.name + '+' + currDrug.name
-                      )}
-                    </div>
+                    <>
+                      <div>
+                        {item.drugs.reduce(
+                          (prevDrug, currDrug) =>
+                            prevDrug.name + '+' + currDrug.name
+                        )}
+                      </div>
+                      <div>{item.description}</div>
+                    </>
                   );
                 })}
               </div>

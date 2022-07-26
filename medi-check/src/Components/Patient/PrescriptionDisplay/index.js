@@ -1,5 +1,5 @@
 import useInteractions from '../../../Hooks/useInteractionsFromName';
-import Item from './Item';
+// import Item from './Item';
 import { dummy, testInteractions } from './dummyData';
 import CustomizedAccordions from '../../../MUIcomponents/Accordian';
 
@@ -28,13 +28,7 @@ function PrescriptionDisplay() {
     };
   });
 
-  return (
-    <CustomizedAccordions drugArray={combo}>
-      {combo.map((item) => {
-        return <Item medicine={item} />;
-      })}
-    </CustomizedAccordions>
-  );
+  return <CustomizedAccordions drugArray={combo}></CustomizedAccordions>;
 }
 
 export default PrescriptionDisplay;
