@@ -51,7 +51,6 @@ export default function CustomizedAccordions({ drugArray }) {
   console.log('ac', drugArray);
   return (
     <div>
-      {/* Need to map over the array and render all of the drug info in the right place */}
       {drugArray.map((item, index) => {
         return (
           <Accordion
@@ -62,7 +61,10 @@ export default function CustomizedAccordions({ drugArray }) {
               aria-controls={`panel${index}d-content`}
               id={`panel${index}d-header`}
             >
-              <Typography>{item.drug}</Typography>
+              {/* Here we need to append the doctor prescription info in */}
+              <Typography>
+                {item.drug} {item.drugInfo}
+              </Typography>
             </AccordionSummary>
             <AccordionDetails>
               <div className="msg">

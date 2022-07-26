@@ -7,7 +7,7 @@ export default function useInteractions(nameArray) {
       let url = 'https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=';
       for (let i = 0; i < nameArray.length; i++) {
         let res = await fetch(
-          `https://rxnav.nlm.nih.gov/REST/rxcui.json?name=${nameArray[i]}`
+          `https://rxnav.nlm.nih.gov/REST/rxcui.json?name=${nameArray[i].name}`
         );
         let json = await res.json();
         // console.log(nameArray, json);

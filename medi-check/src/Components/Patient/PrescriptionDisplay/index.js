@@ -10,10 +10,11 @@ function PrescriptionDisplay() {
   let itemInteractions = testInteractions;
 
   //This is taking the API data and for each drug interaction it is grouping together the drug, the drug it is interacting with, and the description
-  let combo = dummy.map((item) => {
+  let combo = dummy.map((obj) => {
     let overview = itemInteractions.filter((info) => {
       return (
-        item === info.minConcept[0].name || item === info.minConcept[1].name
+        obj.name === info.minConcept[0].name ||
+        obj.name === info.minConcept[1].name
       );
     });
     let relevantInfo = overview.map((item) => {
@@ -23,8 +24,15 @@ function PrescriptionDisplay() {
       };
     });
     return {
-      drug: item,
+      drug: obj.name,
       interactionInfo: relevantInfo,
+      drugInfo:
+        obj.dosage +
+        obj.measurement +
+        ' ' +
+        obj.freq1 +
+        ' time(s) per ' +
+        obj.freq2,
     };
   });
 
