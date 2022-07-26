@@ -1,0 +1,8 @@
+.mappedPatient {
+  list-style-type: none;
+  /* display: flex; */
+}
+
+.individualPatient {
+  max-width: 25vw;
+}
