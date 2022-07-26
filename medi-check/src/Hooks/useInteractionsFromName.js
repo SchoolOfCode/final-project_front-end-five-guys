@@ -10,7 +10,7 @@ export default function useInteractions(nameArray) {
           `https://rxnav.nlm.nih.gov/REST/rxcui.json?name=${nameArray[i]}`
         );
         let json = await res.json();
-        console.log(nameArray, json);
+        // console.log(nameArray, json);
         url += `+${json.idGroup.rxnormId[0]}`;
       }
       try {
