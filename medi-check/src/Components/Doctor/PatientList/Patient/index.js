@@ -1,6 +1,9 @@
+
+//dummy list for mock data for front end
 //dummy data for front end
 
-const patientList = [
+const dummyList = [
+
   {
     Title: "Mr",
     FirstNames: "Roger",
@@ -59,4 +62,14 @@ const patientList = [
   },
 ];
 
-export default patientList;
+//fn component with props, parent lives in PatientList/index.js, changes key properties to be more semantic
+export function Patient(props) {
+  return (
+    // a link might need to change in order for it to work
+    // <a href="localhost:3000/users/{patient.id}">
+    <li>
+      {props.title} {props.firstname} {props.surname} NHS Number: {props.nhs}
+    </li>
+    // </a>
+  );
+}
