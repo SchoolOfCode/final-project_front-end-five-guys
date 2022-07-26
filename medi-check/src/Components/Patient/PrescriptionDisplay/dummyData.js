@@ -5,6 +5,7 @@ let dummy = [
     measurement: 'mg',
     freq1: '2',
     freq2: 'day',
+    status: 'paused',
   },
   {
     name: 'apixaban',
@@ -12,6 +13,7 @@ let dummy = [
     measurement: 'mg',
     freq1: '2',
     freq2: 'day',
+    status: 'paused',
   },
   {
     name: 'atorvastatin',
@@ -19,6 +21,7 @@ let dummy = [
     measurement: 'ml',
     freq1: '3',
     freq2: 'week',
+    status: 'active',
   },
   {
     name: 'resveratrol',
@@ -26,6 +29,7 @@ let dummy = [
     measurement: 'puff',
     freq1: '3',
     freq2: 'day',
+    status: 'active',
   },
   {
     name: 'acetaminophen',
@@ -33,6 +37,7 @@ let dummy = [
     measurement: 'mg',
     freq1: '3',
     freq2: 'hour',
+    status: 'active',
   },
   {
     name: 'fluconazole',
@@ -40,6 +45,7 @@ let dummy = [
     measurement: 'mg',
     freq1: '1',
     freq2: 'year',
+    status: 'active',
   },
   {
     name: 'simvastatin',
@@ -47,6 +53,7 @@ let dummy = [
     measurement: 'mg',
     freq1: '2',
     freq2: 'day',
+    status: 'active',
   },
   {
     name: 'Ciprofloxacin',
@@ -54,6 +61,7 @@ let dummy = [
     measurement: 'mg',
     freq1: '2',
     freq2: 'day',
+    status: 'active',
   },
   {
     name: 'tiZANidine',
@@ -61,6 +69,7 @@ let dummy = [
     measurement: 'mg',
     freq1: '3',
     freq2: 'day',
+    status: 'inactive',
   },
   {
     name: 'Gliclazide',
@@ -68,6 +77,7 @@ let dummy = [
     measurement: 'mg',
     freq1: '5',
     freq2: 'day',
+    status: 'inactive',
   },
   {
     name: 'Ramelteon',
@@ -75,6 +85,7 @@ let dummy = [
     measurement: 'mg',
     freq1: '5',
     freq2: 'day',
+    status: 'inactive',
   },
   {
     name: 'fluvoxaMINE',
@@ -82,6 +93,7 @@ let dummy = [
     measurement: 'mg',
     freq1: '5',
     freq2: 'day',
+    status: 'inactive',
   },
   {
     name: 'Rifampin',
@@ -89,6 +101,7 @@ let dummy = [
     measurement: 'mg',
     freq1: '5',
     freq2: 'day',
+    status: 'active',
   },
   {
     name: 'ritonavir',
@@ -96,6 +109,7 @@ let dummy = [
     measurement: 'mg',
     freq1: '5',
     freq2: 'day',
+    status: 'paused',
   },
 ];
 

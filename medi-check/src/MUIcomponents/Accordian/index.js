@@ -50,18 +50,33 @@ export default function CustomizedAccordions({ drugArray }) {
     setExpanded(newExpanded ? panel : false);
   };
   // console.log('ac', drugArray);
+
+function sortByStatus(strOne, strTwo){
+ const nameOne = strOne.toLowerCase();
+ const nameTwo = strTwo.toLowerCase();
+
+    if(nameOne > nameTwo){
+      return 1
+    }
+    if(nameOne < nameTwo){
+      return -1
+    }
+    return 0
+  
+  }
   return (
-    <div key={uuidv4()}>
+    <section id = "accordian-container" key={uuidv4()}>
       {drugArray
         .sort((a, b) => {
           return b.interactionInfo.length - a.interactionInfo.length;
-        })
+        }).sort((a, b) => {return sortByStatus(a.status, b.status)})
         .map((item, index) => {
           return (
             <Accordion
               expanded={expanded === `panel${index}`}
               onChange={handleChange(`panel${index}`)}
               key={uuidv4()}
+              id = {item.status}
             >
               <AccordionSummary
                 aria-controls={`panel${index}d-content`}
@@ -75,7 +90,7 @@ export default function CustomizedAccordions({ drugArray }) {
                   <div className="interaction">A</div>
                 )}
                 <Typography>
-                  {item.drug} {item.drugInfo}
+                  {item.drug} {item.drugInfo} {item.status}
                 </Typography>
               </AccordionSummary>
               <AccordionDetails key={uuidv4()}>
@@ -98,6 +113,6 @@ export default function CustomizedAccordions({ drugArray }) {
             </Accordion>
           );
         })}
-    </div>
+    </section>
   );
 }

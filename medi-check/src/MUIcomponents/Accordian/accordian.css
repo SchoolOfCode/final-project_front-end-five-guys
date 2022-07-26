@@ -1,3 +1,8 @@
+#accordian-container{
+  border: 3px solid black;
+  padding: 2rem;
+}
+
 .interaction,
 .noInteraction {
   width: 20px;
@@ -8,4 +13,8 @@
 .interaction {
   border: 2px solid red;
   color: red;
+}
+
+#paused {
+  background-color: gray;
 }

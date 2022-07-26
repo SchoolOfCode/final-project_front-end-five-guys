@@ -33,10 +33,17 @@ function PrescriptionDisplay() {
         obj.freq1 +
         ' time(s) per ' +
         obj.freq2,
+      status: obj.status
     };
-  });
+  })
+//filter out inactive
+const history = combo.filter((info) => {return info.status === 'inactive'})
+//fliter active and paused
+const current = combo.filter((info) => {return info.status === 'active' || info.status === 'paused'})
 
-  return <CustomizedAccordions drugArray={combo}></CustomizedAccordions>;
+  return (
+  <CustomizedAccordions drugArray={current}></CustomizedAccordions>
+  );
 }
 
 export default PrescriptionDisplay;
