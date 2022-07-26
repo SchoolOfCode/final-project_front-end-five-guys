@@ -5,7 +5,8 @@ import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-
+import { v4 as uuidv4 } from 'uuid';
+import './accordian.css';
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
@@ -48,45 +49,55 @@ export default function CustomizedAccordions({ drugArray }) {
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
-  console.log('ac', drugArray);
+  // console.log('ac', drugArray);
   return (
-    <div>
-      {drugArray.map((item, index) => {
-        return (
-          <Accordion
-            expanded={expanded === `panel${index}`}
-            onChange={handleChange(`panel${index}`)}
-          >
-            <AccordionSummary
-              aria-controls={`panel${index}d-content`}
-              id={`panel${index}d-header`}
+    <div key={uuidv4()}>
+      {drugArray
+        .sort((a, b) => {
+          return b.interactionInfo.length - a.interactionInfo.length;
+        })
+        .map((item, index) => {
+          return (
+            <Accordion
+              expanded={expanded === `panel${index}`}
+              onChange={handleChange(`panel${index}`)}
+              key={uuidv4()}
             >
-              {/* Here we need to append the doctor prescription info in */}
-              <Typography>
-                {item.drug} {item.drugInfo}
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <div className="msg">
-                {item.interactionInfo.map((item) => {
-                  console.log('help', item);
-                  return (
-                    <>
-                      <div>
-                        {item.drugs.reduce(
-                          (prevDrug, currDrug) =>
-                            prevDrug.name + '+' + currDrug.name
-                        )}
+              <AccordionSummary
+                aria-controls={`panel${index}d-content`}
+                id={`panel${index}d-header`}
+                key={uuidv4()}
+              >
+                {/* Here we need to append the doctor prescription info in */}
+                {item.interactionInfo.length === 0 ? (
+                  <div className="noInteraction"></div>
+                ) : (
+                  <div className="interaction">A</div>
+                )}
+                <Typography>
+                  {item.drug} {item.drugInfo}
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails key={uuidv4()}>
+                <div className="msg" key={uuidv4()}>
+                  {item.interactionInfo.map((item) => {
+                    return (
+                      <div key={uuidv4()}>
+                        <div key={uuidv4()}>
+                          {item.drugs.reduce(
+                            (prevDrug, currDrug) =>
+                              prevDrug.name + '+' + currDrug.name
+                          )}
+                        </div>
+                        <div>{item.description}</div>
                       </div>
-                      <div>{item.description}</div>
-                    </>
-                  );
-                })}
-              </div>
-            </AccordionDetails>
-          </Accordion>
-        );
-      })}
+                    );
+                  })}
+                </div>
+              </AccordionDetails>
+            </Accordion>
+          );
+        })}
     </div>
   );
 }
