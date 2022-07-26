@@ -1,6 +1,8 @@
 import useInteractions from '../../../Hooks/useInteractionsFromName';
 import Item from './Item';
 import { dummy, testInteractions } from './dummyData';
+import CustomizedAccordions from '../../../MUIcomponents/Accordian';
+
 //Will fetch backend to get the patient prescription names and information, then plug that into the API twice.
 //Working on functionality now, not completeness
 function PrescriptionDisplay() {
@@ -27,11 +29,11 @@ function PrescriptionDisplay() {
   });
 
   return (
-    <>
+    <CustomizedAccordions drugArray={combo}>
       {combo.map((item) => {
         return <Item medicine={item} />;
       })}
-    </>
+    </CustomizedAccordions>
   );
 }
 
