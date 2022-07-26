@@ -1,11 +1,29 @@
-import Patient from "./Patient";
 //pass in patientList from Patient list (from db)
-function PatientList({ list }) {
+import { Patient } from "./Patient";
+import { useEffect, useState } from "react";
+import { dummyList } from "./Patient";
+const pxlist = dummyList;
+function PatientList() {
+    const [list, setList] = useState();
+    useEffect(() => {
+        // pull info by doctors id
+        setList([...pxlist]); //this is imported for proof of concept
+        console.log(pxlist);
+    }, []);
+    console.log(list);
     return (
         <div>
-            {list.map((patient) => {
-                <li>{props.firstName}</li>;
-            })}
+            <ul>
+                {list.map((patient) => {
+                    return (
+                        <Patient
+                            firstname={patient.FirstNames}
+                            surname={patient.Surname}
+                            nhs={patient.nhsNumber}
+                        ></Patient>
+                    );
+                })}
+            </ul>
         </div>
     );
 }
