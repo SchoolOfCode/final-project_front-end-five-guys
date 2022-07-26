@@ -2,7 +2,7 @@
 
 # final-project_front-end_five-guys
 
-##authors
+## authors
 
 - Ben Greenwood
 - Brycen Barron-Borden
