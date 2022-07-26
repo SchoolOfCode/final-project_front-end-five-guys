@@ -14,3 +14,4 @@ export default PatientList;
 //    <PatientList list={patientList} />
 //import PatientList from "../Doctor/PatientList";
 // import patientList from "../Doctor/PatientList/Patient";
+//
