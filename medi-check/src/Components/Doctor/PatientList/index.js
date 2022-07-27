@@ -31,10 +31,6 @@ function PatientList({ list }) {
     }
   }
   function handleSort(sortBy) {
-    console.log('about to sort', {
-      type: sortBy,
-      reverse: sortBy === filter.type ? !filter.reverse : false,
-    });
     setFilter({
       type: sortBy,
       reverse: sortBy === filter.type ? !filter.reverse : false,
