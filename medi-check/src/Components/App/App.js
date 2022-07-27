@@ -1,3 +1,4 @@
+
 import PatientNavBar from '../Patient/NavBar';
 import './App.css';
 import PrescriptionDisplay from '../Patient/PrescriptionDisplay';
@@ -8,6 +9,7 @@ function App() {
       <PatientNavBar />
       <UserSearchBar></UserSearchBar>
       <PrescriptionDisplay></PrescriptionDisplay>
+
     </div>
   );
 }
