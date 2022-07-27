@@ -12,9 +12,6 @@ function App() {
     </div>
   );
 }
-      <PatientNavBar/>
-      <PrescriptionDisplay></PrescriptionDisplay>
-    </div>
-  );
+
 
 export default App;
