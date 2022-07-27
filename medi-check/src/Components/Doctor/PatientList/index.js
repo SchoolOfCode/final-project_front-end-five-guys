@@ -1,6 +1,6 @@
 //pass in patientList from Patient list (from db)
-import "./index.css";
-import { Patient } from "./Patient";
+import './index.css';
+import { Patient } from './Patient';
 
 function PatientList({ list }) {
   return (
