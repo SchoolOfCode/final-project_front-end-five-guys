@@ -16,12 +16,22 @@ function UserSearchBar() {
         `https://rxnav.nlm.nih.gov/REST/rxcui.json?name=${search}`
       );
       let json = await res.json();
+      if (json.idGroup.rxnormId === undefined) {
+        setResults([
+          'There was an error in your search, please provide a proper drug name',
+        ]);
+      }
       url += `+${json.idGroup.rxnormId[0]}`;
       for (let i = 0; i < dummy.length; i++) {
         let res = await fetch(
           `https://rxnav.nlm.nih.gov/REST/rxcui.json?name=${dummy[i].name}`
         );
         let json = await res.json();
+        if (json.idGroup.rxnormId === undefined) {
+          setResults([
+            'There was an error in your search, please provide a proper drug name',
+          ]);
+        }
         console.log(search, json);
         url += `+${json.idGroup.rxnormId[0]}`;
       }
@@ -37,7 +47,7 @@ function UserSearchBar() {
           });
         console.log('interaction full obj', obj, search);
         if (filtered.length === 0) {
-          filtered.push('No results');
+          filtered.push('No interactions with given drug');
         }
         // console.log(filtered);
         setResults(filtered);
@@ -67,30 +77,9 @@ function UserSearchBar() {
         <input
           type="text"
           placeholder="Drug Name or rxNorm identifier number"
-          // placeholder={Math.random()}
         ></input>
         <button>Search</button>
       </form>
-      {/* {search && results.length === 0 && (
-        <div id="searchModal">
-          <div id="searchResults2">
-            <CircularIndeterminate></CircularIndeterminate>
-          </div>
-        </div>
-      )}
-      <div id="searchModal" className={results.length === 0 ? 'hide' : 'show'}>
-        <div
-          id="searchResults"
-          className={results.length === 0 ? 'hide' : 'show'}
-        >
-          <button className="cancelModal" onClick={cancelModal}>
-            X
-          </button>
-          {results.map((item) => {
-            return <div key={uuidv4()}>{item.comment}</div>;
-          })}
-        </div>
-      </div> */}
     </>
   );
 }

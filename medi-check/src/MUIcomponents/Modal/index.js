@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
 import { v4 as uuidv4 } from 'uuid';
 
 const style = {
@@ -18,49 +17,18 @@ const style = {
   pb: 3,
 };
 
-function ChildModal() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  return (
-    <React.Fragment>
-      <Button onClick={handleOpen}>Open Child Modal</Button>
-      <Modal
-        hideBackdrop
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="child-modal-title"
-        aria-describedby="child-modal-description"
-      >
-        <Box sx={{ ...style, width: 200 }}>
-          <h2 id="child-modal-title">Text in a child modal</h2>
-          <p id="child-modal-description">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-          </p>
-          <Button onClick={handleClose}>Close Child Modal</Button>
-        </Box>
-      </Modal>
-    </React.Fragment>
-  );
-}
-
 export default function NestedModal({ open, setOpen, results }) {
   // const [open, setOpen] = React.useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
   const handleClose = () => {
     setOpen(false);
   };
   console.log('restul', results);
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      {/* <Button onClick={handleOpen}>Open modal</Button> */}
       <Modal
         open={open}
         onClose={(event, reason) => {
@@ -73,9 +41,24 @@ export default function NestedModal({ open, setOpen, results }) {
       >
         <Box sx={{ ...style, width: 400 }}>
           <button onClick={handleClose}>X</button>
-          {results.map((item) => {
-            return <div key={uuidv4()}>{item.comment}</div>;
-          })}
+          {typeof results[0] === 'string' && (
+            <div>
+              <h4>{results[0]}</h4>
+            </div>
+          )}
+          {typeof results[0] !== 'string' &&
+            results.map((item) => {
+              console.log(item);
+              return (
+                // { typeof item === 'string' ? <div> <h4>{item}</h4></div>: <div></div>}
+                <div key={uuidv4()}>
+                  <h4>
+                    {item.minConcept[0].name} + {item.minConcept[1].name}
+                  </h4>
+                  {item.interactionPair[0].description}
+                </div>
+              );
+            })}
         </Box>
       </Modal>
     </div>
