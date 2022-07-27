@@ -5,13 +5,11 @@ import UserSearchBar from '../Patient/Searchbar';
 function App() {
   return (
     <div className="App">
-
-    <PatientNavBar/>
+      <PatientNavBar />
       <UserSearchBar></UserSearchBar>
       <PrescriptionDisplay></PrescriptionDisplay>
     </div>
   );
 }
-
 
 export default App;
