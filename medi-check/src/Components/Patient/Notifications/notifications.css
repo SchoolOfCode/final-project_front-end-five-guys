@@ -1,0 +1,8 @@
+.notification-box {
+    display: flex;
+    justify-content: space-around;
+    width: 25vw;
+    height: 5vw;
+    border: 0.2rem solid black;
+    padding: 1rem;
+}
