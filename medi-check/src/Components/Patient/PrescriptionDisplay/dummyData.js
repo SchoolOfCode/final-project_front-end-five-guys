@@ -60,7 +60,7 @@ let dummy = [
     dosage: '1000',
     measurement: 'mg',
     freq1: '1',
-    freq2: 'year',
+    freq2: 'hour',
     status: 'active',
   },
   {
