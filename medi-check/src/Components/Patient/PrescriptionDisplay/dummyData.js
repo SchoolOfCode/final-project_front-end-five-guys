@@ -8,6 +8,22 @@ let dummy = [
     status: 'paused',
   },
   {
+    name: 'Irinotecan',
+    dosage: '200',
+    measurement: 'mg',
+    freq1: '2',
+    freq2: 'day',
+    status: 'paused',
+  },
+  {
+    name: 'simvastatin',
+    dosage: '200',
+    measurement: 'mg',
+    freq1: '2',
+    freq2: 'day',
+    status: 'paused',
+  },
+  {
     name: 'apixaban',
     dosage: '400',
     measurement: 'mg',
@@ -44,7 +60,7 @@ let dummy = [
     dosage: '1000',
     measurement: 'mg',
     freq1: '1',
-    freq2: 'year',
+    freq2: 'hour',
     status: 'active',
   },
   {
