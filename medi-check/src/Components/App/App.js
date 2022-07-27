@@ -1,13 +1,10 @@
 import "./App.css";
-import PrescriptionDisplay from "../Patient/PrescriptionDisplay";
-import PatientList from "../Doctor/PatientList";
-import SearchBar from "../Doctor/Searchbar+CreatePatient";
+import { DoctorHome } from "../Doctor/DoctorHome";
 
 function App() {
   return (
     <div className="App">
-      <PatientList />
-      <SearchBar />
+      <DoctorHome />
     </div>
   );
 }
