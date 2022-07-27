@@ -33,10 +33,27 @@ function PrescriptionDisplay() {
         obj.freq1 +
         ' time(s) per ' +
         obj.freq2,
+      status: obj.status,
     };
   });
+  //filter out inactive
+  const history = combo.filter((info) => {
+    return info.status === 'inactive';
+  });
+  //fliter active and paused
+  const current = combo.filter((info) => {
+    return info.status === 'active' || info.status === 'paused';
+  });
 
-  return <CustomizedAccordions drugArray={combo}></CustomizedAccordions>;
+  return (
+    <>
+      <h3>Current Prescriptions</h3>
+      <CustomizedAccordions drugArray={current}></CustomizedAccordions>
+      <h3>Past Prescriptions</h3>
+
+      <CustomizedAccordions drugArray={history}></CustomizedAccordions>
+    </>
+  );
 }
 
 export default PrescriptionDisplay;
