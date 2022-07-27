@@ -7,7 +7,10 @@ import DoctorHome from '../Doctor/DoctorHome';
 function App() {
   return (
     <div className="App">
-      <DoctorHome></DoctorHome>
+      {/* <DoctorHome></DoctorHome> */}
+      <PatientNavBar />
+      <UserSearchBar />
+      <PrescriptionDisplay></PrescriptionDisplay>
     </div>
   );
 }
