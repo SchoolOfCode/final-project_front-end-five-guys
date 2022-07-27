@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { v4 as uuidv4 } from 'uuid';
 
 const style = {
   position: 'absolute',
@@ -16,14 +17,25 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal(data) {
+export default function BasicModal({data, notifications}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  console.log("inside modal", data)
+
+  function caption(){
+  let caption = ""
+    if (notifications.length === 1){
+  caption = "You need to renew your prescription for:"
+    } else {
+      caption = "You need to renew your prescriptions for:"
+    }
+    return caption
+  }
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      <Button onClick={handleOpen}>{notifications}</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -31,12 +43,13 @@ export default function BasicModal(data) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            {data}
+          <Typography id="modal-modal-title" variant="h5" component="h2">
+            {caption()}
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          {data.map((alert) => {return <Typography key={uuidv4()} id="modal-modal-description" sx={{ mt: 2, ml: 4 }}>
+            {alert}
+          </Typography> })}
+          
         </Box>
       </Modal>
     </div>

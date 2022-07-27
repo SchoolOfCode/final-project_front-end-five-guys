@@ -21,10 +21,10 @@ for new prescription requirement we will need to:
 
 */
 import { useEffect, useState } from "react"
-import BasicModal from "../../../MUIcomponents/modal"
+import BasicModal from "../../../MUIcomponents/PrescriptionModal"
 import "./notifications.css"
 
-const dummyData = 
+export const dummyData = [
 {
     name: 'simvastatin',
     dosage: '200',
@@ -34,31 +34,35 @@ const dummyData =
     amount: 14,
     prescription_date: "2022-7-20",
     status: 'paused',
-  }
-
-//   {
-//     name: 'apixaban',
-//     dosage: '400',
-//     measurement: 'mg',
-//     freq1: '2',
-//     freq2: 'day',
-//     status: 'paused',
-//   }
-//   {
-//     name: 'atorvastatin',
-//     dosage: '100',
-//     measurement: 'ml',
-//     freq1: '3',
-//     freq2: 'week',
-//     status: 'active',
-//   },
+  },
+    {
+    name: 'apixaban',
+    dosage: '400',
+    measurement: 'mg',
+    freq1: '2',
+    freq2: 'day',
+    amount: 14,
+    prescription_date: "2022-7-20",
+    status: 'paused',
+  },
+  {
+    name: 'atorvastatin',
+    dosage: '100',
+    measurement: 'ml',
+    freq1: '2',
+    freq2: 'day',
+    amount: 14,
+    prescription_date: "2022-7-20",
+    status: 'active',
+  },
+]
 
 //  ******controlled drugs have a default max 6 months timeline*****
 
-const issues = ["You Need to renew your prescription for awesomeness pills", "Please make an appointment with your doctor regarding you blood sugar levels"]
 
-export default function Notifications(){
-const [alerts, SetAlerts] = useState(issues)
+
+export function Notifications({data}){
+const [alerts, SetAlerts] = useState([])
 const [notifications, SetNotifications] = useState(0)
 
 
@@ -107,25 +111,29 @@ function prescriptionEndDate(date, obj){
 
    
    
-    function compareDates(dummyData){
+    function compareDates(prescription){
+        const alertArr = alerts
         const today = new Date();
-        const dateOfIssue = findDate(dummyData);
-        const endDate = prescriptionEndDate(dateOfIssue, dummyData)
+        const dateOfIssue = findDate(prescription);
+        const endDate = prescriptionEndDate(dateOfIssue, prescription)
         const result = dateDiffInDays(today, endDate)
         if (result < 7) {
             SetNotifications((notifications) => {return notifications +1})
+            alertArr.push(prescription.name)
             // SetNotifications(notifications +1)
         }
+        SetAlerts(alertArr)
+        console.log("alerts", alerts)
     
     }
-compareDates(dummyData)
+data.map((data) => {return compareDates(data)})
 },[]
 )
 return(
 <div className = "notification-box">
     <h2>Notifications</h2>
-    <button>{notifications}</button>
-    {/* {alerts.map((alerts) => {return <BasicModal data = {alerts}/>})} */}
+    {/* <button>{notifications}</button> */}
+    <BasicModal data = {alerts} notifications = {notifications}/>
 </div>
 )
 }

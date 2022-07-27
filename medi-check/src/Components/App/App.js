@@ -1,14 +1,12 @@
-import PatientNavBar from '../Patient/NavBar';
 import './App.css';
-import PrescriptionDisplay from '../Patient/PrescriptionDisplay';
-import Notifications from '../Patient/Notifications';
+import { PatientHome } from "../Patient/PatientHome" 
+
+
 
 function App() {
   return (
     <div className="App">
-      <PatientNavBar/>
-      <Notifications/>
-      <PrescriptionDisplay></PrescriptionDisplay>
+     <PatientHome/>
     </div>
   );
 
