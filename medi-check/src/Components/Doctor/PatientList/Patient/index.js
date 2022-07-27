@@ -18,7 +18,7 @@ export const dummyList = [
   },
   {
     Title: "Miss",
-    FirstNames: "Regina",
+    FirstNames: "Victoria",
     Surname: "Smooth",
     dob: 27092000,
     gender: "Female",
