@@ -37,11 +37,16 @@ export default function SearchBar(props) {
 
   //function used to call patient data from back end from search
   function searchByName() {
+    let temp = [];
     for (let i = 0; i < list.length; i++) {
-      if (list[i].FirstNames.toLowerCase() === search.toLowerCase()) {
-        props.setList([list[i]]);
+      if (
+        list[i].FirstNames.toLowerCase() === search.toLowerCase() ||
+        list[i].Surname.toLowerCase() === search.toLowerCase()
+      ) {
+        temp.push(list[i]);
       }
     }
+    props.setList(temp);
   }
 
   return (
