@@ -2,6 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
+import { v4 as uuidv4 } from 'uuid';
 
 const style = {
   position: 'absolute',
@@ -48,30 +49,33 @@ function ChildModal() {
   );
 }
 
-export default function NestedModal() {
-  const [open, setOpen] = React.useState(false);
+export default function NestedModal({ open, setOpen, results }) {
+  // const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
-
+  console.log('restul', results);
   return (
     <div>
       <Button onClick={handleOpen}>Open modal</Button>
       <Modal
         open={open}
-        onClose={handleClose}
+        onClose={(event, reason) => {
+          if (reason !== 'backdropClick') {
+            handleClose();
+          }
+        }}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
         <Box sx={{ ...style, width: 400 }}>
-          <h2 id="parent-modal-title">Text in a modal</h2>
-          <p id="parent-modal-description">
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </p>
-          <ChildModal />
+          <button onClick={handleClose}>X</button>
+          {results.map((item) => {
+            return <div key={uuidv4()}>{item.comment}</div>;
+          })}
         </Box>
       </Modal>
     </div>

@@ -3,10 +3,11 @@ import CircularIndeterminate from '../../../MUIcomponents/Loading';
 import { dummy } from '../PrescriptionDisplay/dummyData';
 import './search.css';
 import { v4 as uuidv4 } from 'uuid';
-
+import NestedModal from '../../../MUIcomponents/Modal';
 function UserSearchBar() {
   const [search, setSearch] = useState('');
   const [results, setResults] = useState([]);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     async function Fetch(search) {
@@ -57,16 +58,11 @@ function UserSearchBar() {
     event.preventDefault();
     console.log('eve', event.target[0].value);
     setSearch(event.target[0].value.toLowerCase());
-  }
-  function cancelModal() {
-    document.getElementById('searchModal').classList.add('hide');
-    document.getElementById('searchResults').classList.add('hide');
-    document.getElementById('searchModal').classList.remove('show');
-    document.getElementById('searchResults').classList.remove('show');
-    setSearch('');
+    setOpen(true);
   }
   return (
     <>
+      <NestedModal open={open} setOpen={setOpen} results={results} />
       <form onSubmit={handleChange}>
         <input
           type="text"
@@ -75,7 +71,7 @@ function UserSearchBar() {
         ></input>
         <button>Search</button>
       </form>
-      {search && results.length === 0 && (
+      {/* {search && results.length === 0 && (
         <div id="searchModal">
           <div id="searchResults2">
             <CircularIndeterminate></CircularIndeterminate>
@@ -94,7 +90,7 @@ function UserSearchBar() {
             return <div key={uuidv4()}>{item.comment}</div>;
           })}
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
