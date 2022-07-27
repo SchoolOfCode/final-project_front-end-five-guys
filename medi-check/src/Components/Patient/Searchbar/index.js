@@ -49,7 +49,7 @@ function UserSearchBar() {
 
     if (search) {
       console.log('search');
-      Fetch(search.toLowerCase());
+      Fetch(search.trim().toLowerCase());
     } else {
     }
   }, [search]);
