@@ -1,9 +1,10 @@
-import PatientList from "../PatientList";
-import SearchBar from "../Searchbar+CreatePatient";
-import { useEffect, useState } from "react";
-import { dummyList } from "../PatientList/Patient";
+import PatientList from '../PatientList';
+import SearchBar from '../Searchbar+CreatePatient';
+import { useEffect, useState } from 'react';
+import { dummyList } from '../PatientList/Patient';
+import Footer from '../Footer';
 
-export function DoctorHome() {
+function DoctorHome() {
   const [list, setList] = useState([]);
   //used for reset button to trigger fresh patient list recall
   const [reset, setReset] = useState(0);
@@ -23,6 +24,9 @@ export function DoctorHome() {
         setReset={setReset}
         reset={reset}
       />
+      <Footer />
     </div>
   );
 }
+
+export default DoctorHome;
