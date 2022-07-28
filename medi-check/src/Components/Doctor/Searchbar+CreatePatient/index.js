@@ -1,8 +1,7 @@
-////
-import { useState } from "react";
+import { useState } from 'react';
 
 export default function SearchBar(props) {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const list = props.list;
 
   function handleChange(e) {
@@ -22,15 +21,18 @@ export default function SearchBar(props) {
     e.preventDefault();
     let number = props.reset;
     number++;
+    props.setFilteredList([]);
     props.setReset(number);
-    setSearch("");
+
+    setSearch('');
   }
 
   //function used to call patient data from back end from search
   function searchByNHSNumber() {
     for (let i = 0; i < list.length; i++) {
       if (list[i].nhsNumber === Number(search)) {
-        props.setList([list[i]]);
+        // props.setList([list[i]]);
+        props.setFilteredList([list[i]]);
       }
     }
   }
@@ -47,7 +49,8 @@ export default function SearchBar(props) {
         temp.push(list[i]);
       }
     }
-    props.setList(temp);
+    props.setFilteredList(temp);
+    // props.setList(temp);
   }
 
   return (

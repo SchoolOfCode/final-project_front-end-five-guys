@@ -6,6 +6,7 @@ import Footer from '../Footer';
 
 function DoctorHome() {
   const [list, setList] = useState([]);
+  const [filteredList, setFilteredList] = useState([]);
   //used for reset button to trigger fresh patient list recall
   const [reset, setReset] = useState(0);
 
@@ -17,9 +18,16 @@ function DoctorHome() {
 
   return (
     <div>
-      <PatientList list={list} />
+      {filteredList.length === 0 ? (
+        <PatientList list={list} />
+      ) : (
+        <PatientList list={filteredList} />
+      )}
+      {/* {!filteredList && <PatientList list={list} />} */}
+      {/* <PatientList list={list} /> */}
       <SearchBar
         list={list}
+        setFilteredList={setFilteredList}
         setList={setList}
         setReset={setReset}
         reset={reset}
