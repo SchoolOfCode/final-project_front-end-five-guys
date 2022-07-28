@@ -47,6 +47,7 @@ export default function FormDialog({ first, last }) {
   function handleSubmit(e) {
     e.preventDefault();
     //submit textfields to db and reset it. but only after checking if prescriptions clash!
+
     let inputs = document.querySelectorAll('input');
     let prescription = {
       name: inputs[1].value,
@@ -145,6 +146,8 @@ export default function FormDialog({ first, last }) {
               error={
                 !Number.isInteger(Number(textFields['measurement']))
                   ? false
+                  : textFields['measurement'] === ''
+                  ? false
                   : true
               }
               fullWidth
@@ -179,6 +182,8 @@ export default function FormDialog({ first, last }) {
               required
               error={
                 !Number.isInteger(Number(textFields['frequency']))
+                  ? false
+                  : textFields['measurement'] === ''
                   ? false
                   : true
               }
