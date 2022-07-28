@@ -7,9 +7,31 @@ import DialogContent from '@mui/material/DialogContent';
 // import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ControlledSwitches from '../ControlledSwitch';
-
+import './index.css';
 export default function FormDialog({ first, last }) {
   const [open, setOpen] = React.useState(false);
+
+  //States for all of the textfields
+  // const [name, setName] = React.useState('');
+  // const [dosage, setDosage] = React.useState(0);
+  // const [measurement, setMeasurement] = React.useState('');
+  // const [quantity, setQuantity] = React.useState(0);
+  // const [frequency, setFrequency] = React.useState('');
+  const [textFields, setTextFields] = React.useState({
+    name: '',
+    dosage: 0,
+    measurement: '',
+    quantity: 0,
+    frequency: '',
+    total: 0,
+  });
+  function handleChange(event) {
+    console.log(event.target);
+    let obj = textFields;
+    obj[event.target.name] = event.target.value;
+    console.log(obj);
+    setTextFields({ ...obj });
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -17,6 +39,12 @@ export default function FormDialog({ first, last }) {
 
   const handleClose = () => {
     //check if each input is valid
+    setOpen(false);
+  };
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
     let inputs = document.querySelectorAll('input');
     console.log(inputs);
     let prescription = {
@@ -27,9 +55,8 @@ export default function FormDialog({ first, last }) {
       frequency: inputs[5].value,
       status: inputs[5].checked ? 'active' : 'paused',
     };
-    setOpen(false);
-  };
-
+    handleClose();
+  }
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
@@ -43,45 +70,55 @@ export default function FormDialog({ first, last }) {
           }
         }}
       >
-        <DialogTitle>
-          New Prescription for {first} {last}
-        </DialogTitle>
-        <DialogContent>
-          {/* <DialogContentText>
+        <form onSubmit={handleSubmit}>
+          <DialogTitle>
+            New Prescription for {first} {last}
+          </DialogTitle>
+          <DialogContent>
+            {/* <DialogContentText>
             To subscribe to this website, please enter your email address here.
             We will send updates occasionally.
           </DialogContentText> */}
-          <TextField
-            autoFocus
-            margin="dense"
-            id="drugName"
-            label="Drug Name"
-            type="text"
-            fullWidth
-            variant="standard"
-            required
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="drugTotal"
-            label="Drug Total Amount"
-            fullWidth
-            variant="standard"
-            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-            required
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="drugDosage"
-            label="Drug Dosage"
-            fullWidth
-            variant="standard"
-            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-            required
-          />
-          {/* <TextField
+            <TextField
+              autoFocus
+              margin="dense"
+              id="drugName"
+              label="Drug Name"
+              type="text"
+              name="name"
+              fullWidth
+              variant="standard"
+              onChange={handleChange}
+              error={typeof textFields['name'] === 'string' ? false : true}
+              required
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="drugTotal"
+              label="Drug Total Amount"
+              fullWidth
+              type="number"
+              onChange={handleChange}
+              variant="standard"
+              helperText="Incorrect Entry"
+              error={typeof textFields['name'] === 'number' ? false : true}
+              name="total"
+              required
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="drugDosage"
+              label="Drug Dosage"
+              fullWidth
+              variant="standard"
+              onChange={handleChange}
+              type="number"
+              required
+              name="dosage"
+            />
+            {/* <TextField
             autoFocus
             margin="dense"
             id="name"
@@ -90,37 +127,43 @@ export default function FormDialog({ first, last }) {
             fullWidth
             variant="standard"
           /> */}
-          <TextField
-            autoFocus
-            margin="dense"
-            id="drugMeasurement"
-            label="Drug Measurement (e.g. mg, puff etc.)"
-            type="text"
-            fullWidth
-            variant="standard"
-            required
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="drugQuantity"
-            label="Drug Quantity (e.g. 1 or 2)"
-            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-            fullWidth
-            variant="standard"
-            required
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="drugFrequency"
-            label="Drug Frequency (e.g. daily or twice daily etc.)"
-            type="text"
-            fullWidth
-            variant="standard"
-            required
-          />
-          {/* <TextField
+            <TextField
+              autoFocus
+              margin="dense"
+              id="drugMeasurement"
+              onChange={handleChange}
+              label="Drug Measurement (e.g. mg, puff etc.)"
+              type="text"
+              fullWidth
+              variant="standard"
+              required
+              name="measurement"
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="drugQuantity"
+              label="Drug Quantity (e.g. 1 or 2)"
+              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+              fullWidth
+              onChange={handleChange}
+              variant="standard"
+              required
+              name="quantity"
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="drugFrequency"
+              label="Drug Frequency (e.g. daily or twice daily etc.)"
+              type="text"
+              fullWidth
+              variant="standard"
+              onChange={handleChange}
+              required
+              name="frequency"
+            />
+            {/* <TextField
             autoFocus
             margin="dense"
             id="name"
@@ -129,14 +172,15 @@ export default function FormDialog({ first, last }) {
             fullWidth
             variant="standard"
           /> */}
-          <div style={{ fontSize: '1.2rem' }}>
-            Paused <ControlledSwitches></ControlledSwitches> Active{' '}
-          </div>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Prescribe</Button>
-        </DialogActions>
+            <div style={{ fontSize: '1.2rem' }}>
+              Paused <ControlledSwitches></ControlledSwitches> Active{' '}
+            </div>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button type="submit">Prescribe</Button>
+          </DialogActions>
+        </form>
       </Dialog>
     </div>
   );
