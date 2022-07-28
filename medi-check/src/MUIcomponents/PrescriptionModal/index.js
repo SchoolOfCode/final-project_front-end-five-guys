@@ -48,7 +48,6 @@ export default function FormDialog({ first, last }) {
     e.preventDefault();
 
     let inputs = document.querySelectorAll('input');
-    console.log(inputs);
     let prescription = {
       name: inputs[1].value,
       total: inputs[2].value,
@@ -56,8 +55,10 @@ export default function FormDialog({ first, last }) {
       measurement: inputs[3].value,
       quantity: inputs[4].value,
       frequency: inputs[5].value,
-      status: inputs[5].checked ? 'active' : 'paused',
+      status: inputs[5].checked ? 'paused' : 'active',
     };
+    console.log(prescription);
+
     handleClose();
   }
   return (
@@ -92,7 +93,6 @@ export default function FormDialog({ first, last }) {
               fullWidth
               variant="standard"
               onChange={handleChange}
-              error={typeof textFields['name'] === 'string' ? false : true}
               required
             />
             <TextField
@@ -142,6 +142,11 @@ export default function FormDialog({ first, last }) {
               onChange={handleChange}
               label="Drug Measurement (e.g. mg, puff etc.)"
               type="text"
+              error={
+                !Number.isInteger(Number(textFields['measurement']))
+                  ? false
+                  : true
+              }
               fullWidth
               variant="standard"
               required
@@ -155,6 +160,9 @@ export default function FormDialog({ first, last }) {
               inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
               fullWidth
               onChange={handleChange}
+              error={
+                Number.isInteger(Number(textFields['quantity'])) ? false : true
+              }
               variant="standard"
               required
               name="quantity"
@@ -169,6 +177,11 @@ export default function FormDialog({ first, last }) {
               variant="standard"
               onChange={handleChange}
               required
+              error={
+                !Number.isInteger(Number(textFields['frequency']))
+                  ? false
+                  : true
+              }
               name="frequency"
             />
             {/* <TextField
