@@ -46,7 +46,7 @@ export default function FormDialog({ first, last }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    //submit textfields to db and reset it
+    //submit textfields to db and reset it. but only after checking if prescriptions clash!
     let inputs = document.querySelectorAll('input');
     let prescription = {
       name: inputs[1].value,
