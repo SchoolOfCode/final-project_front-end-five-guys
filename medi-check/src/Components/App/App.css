@@ -11,9 +11,14 @@
 
 .App {
   width: 100vw;
-  height: 100vh;
+  height: fit-content;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+
+.App > div {
+  display: flex;
   flex-direction: column;
 }

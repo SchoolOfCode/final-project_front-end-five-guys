@@ -1,14 +1,16 @@
 import PatientNavBar from '../NavBar';
 import PrescriptionDisplay from '../PrescriptionDisplay';
-import {Notifications, dummyData} from '../Notifications';
-
+import { Notifications, dummyData } from '../Notifications';
+import UserSearchBar from '../Patient/Searchbar';
 
 export function PatientHome() {
   return (
-    <div className="App">
-      <PatientNavBar/>
-      <Notifications data = {dummyData} />
-      <PrescriptionDisplay/>
-    </div>
+    <>
+      <PatientNavBar />
+      <UserSearchBar />
+
+      <Notifications data={dummyData} />
+      <PrescriptionDisplay />
+    </>
   );
 }
