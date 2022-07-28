@@ -23,6 +23,7 @@ export default function BasicModal({data, notifications}) {
   const handleClose = () => setOpen(false);
   console.log("inside modal", data)
 
+  //function to return slightly different message for single alerts and multiple alerts
   function caption(){
   let caption = ""
     if (notifications.length === 1){

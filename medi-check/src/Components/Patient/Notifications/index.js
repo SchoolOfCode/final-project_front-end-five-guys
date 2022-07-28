@@ -57,27 +57,24 @@ export const dummyData = [
   },
 ]
 
-//  ******controlled drugs have a default max 6 months timeline*****
-
-
-
 export function Notifications({data}){
+//alerts state contains medication that will need to be renewed and notifications state holds the number of them  
 const [alerts, SetAlerts] = useState([])
 const [notifications, SetNotifications] = useState(0)
 
 
 useEffect ( ()=>{
 
+// function takes the prescription date string and formats it into a full date
 function findDate(obj){
-    let a = obj.prescription_date
-    const l = a.split("-")
-    const i = new Date()
-    i.setFullYear(l[0], l[1]-1, l[2])
-    // const p = i.toLocaleDateString()
-    return i
+    let prescription_date = obj.prescription_date
+    const date = prescription_date.split("-")
+    const newDate = new Date()
+    newDate.setFullYear(date[0], date[1]-1, date[2])
+    return newDate
 }
 
-
+//function calculates the end date of prescription
 function prescriptionEndDate(date, obj){
     let amount = obj.amount
     let freq1 = Number(obj.freq1)
@@ -92,16 +89,15 @@ function prescriptionEndDate(date, obj){
     }
     const days = amount/(freq1*times)
     const startDate = new Date(date)
-    //const test = new Date(startDate)
     startDate.setDate(startDate.getDate()+ days)
     return startDate
    }
 
    
-   const _MS_PER_DAY = 1000 * 60 * 60 * 24;
    
    // a and b are javascript Date objects
    function dateDiffInDays(a, b) {
+     const _MS_PER_DAY = 1000 * 60 * 60 * 24;
      // Discard the time and time-zone information.
      const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
      const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
@@ -110,7 +106,7 @@ function prescriptionEndDate(date, obj){
    }
 
    
-   
+   //compares prescription issue date with today's date and adds notification and alert for prescriptions with less than 7 days remaining
     function compareDates(prescription){
         const alertArr = alerts
         const today = new Date();
@@ -120,14 +116,13 @@ function prescriptionEndDate(date, obj){
         if (result < 7) {
             SetNotifications((notifications) => {return notifications +1})
             alertArr.push(prescription.name)
-            // SetNotifications(notifications +1)
         }
         SetAlerts(alertArr)
         console.log("alerts", alerts)
     
     }
 data.map((data) => {return compareDates(data)})
-},[]
+},[data, alerts]
 )
 return(
 <div className = "notification-box">
