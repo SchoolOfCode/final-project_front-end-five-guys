@@ -1,7 +1,7 @@
 import FormDialog from '../../../MUIcomponents/PrescriptionModal';
 import { v4 as uuidv4 } from 'uuid';
 function PatientFile({ info, onClick }) {
-  // console.log(info);
+  console.log(info);
   return (
     <main>
       <h4>
