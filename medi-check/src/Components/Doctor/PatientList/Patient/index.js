@@ -40,7 +40,7 @@ export const dummyList = [
         address: "129 Street Road",
         postcode: "b1 2rt",
         phoneNumber: 12101944560,
-        allergies: ["none"],
+        allergies: [],
         nhsNumber: 1234987891,
         gpSurgery: "Hall Green Health",
     },
