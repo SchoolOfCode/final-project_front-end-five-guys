@@ -1,10 +1,15 @@
 //pass in patientList from Patient list (from db)
 import { useState } from 'react';
+import PatientFile from '../PatientFile';
 import './index.css';
 import { Patient } from './Patient';
 
-function PatientList({ list }) {
+function PatientList({ list, patient, setPatient }) {
   const [filter, setFilter] = useState({ type: '', reverse: false });
+  // console.log('patient', patient);
+  function resetPatient() {
+    setPatient(null);
+  }
   function compare(a, b) {
     // console.log(a, b);
     if (filter.type === 'first') {
@@ -36,47 +41,50 @@ function PatientList({ list }) {
       reverse: sortBy === filter.type ? !filter.reverse : false,
     });
   }
-  return (
-    <div>
+  if (patient !== null) {
+    return <PatientFile info={patient} onClick={resetPatient}></PatientFile>;
+  } else {
+    return (
       <div>
-        <div
-          onClick={() => {
-            handleSort('first');
-          }}
-        >
-          First name
+        <div>
+          <div
+            onClick={() => {
+              handleSort('first');
+            }}
+          >
+            First name
+          </div>
+          <div
+            onClick={() => {
+              handleSort('last');
+            }}
+          >
+            Surname
+          </div>
+          <div
+            onClick={() => {
+              handleSort('number');
+            }}
+          >
+            NHS Number
+          </div>
         </div>
-        <div
-          onClick={() => {
-            handleSort('last');
-          }}
-        >
-          Surname
-        </div>
-        <div
-          onClick={() => {
-            handleSort('number');
-          }}
-        >
-          NHS Number
-        </div>
+        <ul className="mappedPatient">
+          {list.sort(compare).map((patient, index) => {
+            // console.log('patient-detials', patient);
+            return (
+              <Patient
+                index={index}
+                setPatient={setPatient}
+                className="individualPatient"
+                key={patient.nhsNumber}
+                patientInfo={patient}
+              ></Patient>
+            );
+          })}
+        </ul>
       </div>
-      <ul className="mappedPatient">
-        {list.sort(compare).map((patient) => {
-          return (
-            <Patient
-              className="individualPatient"
-              key={patient.nhsNumber}
-              title={patient.Title}
-              firstname={patient.FirstNames}
-              surname={patient.Surname}
-              nhs={patient.nhsNumber}
-            ></Patient>
-          );
-        })}
-      </ul>
-    </div>
-  );
+    );
+  }
 }
-
 export default PatientList;
