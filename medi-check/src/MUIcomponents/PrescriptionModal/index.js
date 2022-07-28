@@ -26,9 +26,12 @@ export default function FormDialog({ first, last }) {
     total: 0,
   });
   function handleChange(event) {
-    console.log(event.target);
     let obj = textFields;
-    obj[event.target.name] = event.target.value;
+    console.log(typeof textFields['total']);
+    Number.isInteger(Number(event.target.value));
+    !Number.isInteger(Number(event.target.value))
+      ? (obj[event.target.name] = event.target.value)
+      : (obj[event.target.name] = Number(event.target.value));
     console.log(obj);
     setTextFields({ ...obj });
   }
@@ -38,7 +41,6 @@ export default function FormDialog({ first, last }) {
   };
 
   const handleClose = () => {
-    //check if each input is valid
     setOpen(false);
   };
 
@@ -46,15 +48,17 @@ export default function FormDialog({ first, last }) {
     e.preventDefault();
 
     let inputs = document.querySelectorAll('input');
-    console.log(inputs);
     let prescription = {
       name: inputs[1].value,
-      dosage: inputs[2].value,
+      total: inputs[2].value,
+      dosage: inputs[3].value,
       measurement: inputs[3].value,
       quantity: inputs[4].value,
       frequency: inputs[5].value,
-      status: inputs[5].checked ? 'active' : 'paused',
+      status: inputs[5].checked ? 'paused' : 'active',
     };
+    console.log(prescription);
+
     handleClose();
   }
   return (
@@ -89,7 +93,6 @@ export default function FormDialog({ first, last }) {
               fullWidth
               variant="standard"
               onChange={handleChange}
-              error={typeof textFields['name'] === 'string' ? false : true}
               required
             />
             <TextField
@@ -98,12 +101,14 @@ export default function FormDialog({ first, last }) {
               id="drugTotal"
               label="Drug Total Amount"
               fullWidth
-              type="number"
+              type="text"
               onChange={handleChange}
               variant="standard"
-              helperText="Incorrect Entry"
-              error={typeof textFields['name'] === 'number' ? false : true}
               name="total"
+              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+              error={
+                Number.isInteger(Number(textFields['total'])) ? false : true
+              }
               required
             />
             <TextField
@@ -114,7 +119,10 @@ export default function FormDialog({ first, last }) {
               fullWidth
               variant="standard"
               onChange={handleChange}
-              type="number"
+              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+              error={
+                Number.isInteger(Number(textFields['dosage'])) ? false : true
+              }
               required
               name="dosage"
             />
@@ -134,6 +142,11 @@ export default function FormDialog({ first, last }) {
               onChange={handleChange}
               label="Drug Measurement (e.g. mg, puff etc.)"
               type="text"
+              error={
+                !Number.isInteger(Number(textFields['measurement']))
+                  ? false
+                  : true
+              }
               fullWidth
               variant="standard"
               required
@@ -147,6 +160,9 @@ export default function FormDialog({ first, last }) {
               inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
               fullWidth
               onChange={handleChange}
+              error={
+                Number.isInteger(Number(textFields['quantity'])) ? false : true
+              }
               variant="standard"
               required
               name="quantity"
@@ -161,6 +177,11 @@ export default function FormDialog({ first, last }) {
               variant="standard"
               onChange={handleChange}
               required
+              error={
+                !Number.isInteger(Number(textFields['frequency']))
+                  ? false
+                  : true
+              }
               name="frequency"
             />
             {/* <TextField
