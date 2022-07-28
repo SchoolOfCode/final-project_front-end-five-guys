@@ -46,7 +46,7 @@ export default function FormDialog({ first, last }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-
+    //submit textfields to db and reset it
     let inputs = document.querySelectorAll('input');
     let prescription = {
       name: inputs[1].value,
