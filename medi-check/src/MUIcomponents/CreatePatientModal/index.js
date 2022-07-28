@@ -10,6 +10,20 @@ import ControlledSwitches from "../ControlledSwitch";
 
 export default function CreatePatientDialog({ first, last }) {
     const [open, setOpen] = React.useState(false);
+    const [textFields, setTextFields] = React.useState({
+        Title: "",
+        FirstNames: "",
+        Surname: "",
+        dob: 0,
+        gender: "",
+        ethnicity: "",
+        address: "",
+        postcode: "",
+        phoneNumber: 0,
+        allergies: "",
+        nhsNumber: 0,
+        gpSurgery: "",
+    });
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -35,13 +49,29 @@ export default function CreatePatientDialog({ first, last }) {
         };
         setOpen(false);
     };
+    function handleSubmit(e) {
+        e.preventDefault();
+        console.log("handle submit");
+        // submit text fields to database and reset and cast mixed number/letter text into a string
+
+        handleClose();
+    }
+    function handleChange(event) {
+        let obj = textFields;
+        Number.isInteger(Number(event.target.value));
+        !Number.isInteger(Number(event.target.value))
+            ? (obj[event.target.name] = event.target.value)
+            : (obj[event.target.name] = Number(event.target.value));
+        console.log(obj);
+        setTextFields({ ...obj });
+    }
 
     return (
         <div>
             <Button variant="outlined" onClick={handleClickOpen}>
                 Add New Patient
             </Button>
-            {/* <form onSubmit={onSubmit}> */}
+
             <Dialog
                 open={open}
                 onClose={(event, reason) => {
@@ -50,149 +80,247 @@ export default function CreatePatientDialog({ first, last }) {
                     }
                 }}
             >
-                {/* <DialogTitle>
+                <form onSubmit={handleSubmit}>
+                    {/* <DialogTitle>
                     New Prescription for {first} {last}
                 </DialogTitle> */}
-                <DialogContent>
-                    {/* <DialogContentText>
+                    <DialogContent>
+                        {/* <DialogContentText>
             To subscribe to this website, please enter your email address here.
             We will send updates occasionally.
           </DialogContentText> */}
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="title"
-                        label="Title"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                        required
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="firstName"
-                        label="First name"
-                        fullWidth
-                        variant="standard"
-                        type="text"
-                        // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                        required
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="surname"
-                        label="Surname"
-                        fullWidth
-                        variant="standard"
-                        type="text"
-                        // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                        required
-                    />
+                        <TextField
+                            name="Title"
+                            autoFocus
+                            margin="dense"
+                            id="title"
+                            label="Title"
+                            type="text"
+                            onChange={handleChange}
+                            error={
+                                !Number.isInteger(Number(textFields["Title"]))
+                                    ? false
+                                    : textFields["Title"] === ""
+                                    ? false
+                                    : true
+                            }
+                            fullWidth
+                            variant="standard"
+                            required
+                        />
+                        <TextField
+                            name="FirstNames"
+                            autoFocus
+                            margin="dense"
+                            id="firstName"
+                            label="First name"
+                            fullWidth
+                            variant="standard"
+                            type="text"
+                            onChange={handleChange}
+                            error={
+                                !Number.isInteger(
+                                    Number(textFields["FirstNames"])
+                                )
+                                    ? false
+                                    : textFields["FirstNames"] === ""
+                                    ? false
+                                    : true
+                            }
+                            required
+                        />
+                        <TextField
+                            name="Surname"
+                            autoFocus
+                            margin="dense"
+                            id="surname"
+                            label="Surname"
+                            fullWidth
+                            variant="standard"
+                            type="text"
+                            onChange={handleChange}
+                            error={
+                                !Number.isInteger(Number(textFields["Surname"]))
+                                    ? false
+                                    : textFields["Surname"] === ""
+                                    ? false
+                                    : true
+                            }
+                            required
+                        />
 
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="dob"
-                        label="D.O.B (DDMMYYYY)"
-                        type="number"
-                        fullWidth
-                        variant="standard"
-                        required
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="gender"
-                        label="Gender"
-                        type="text"
-                        // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                        fullWidth
-                        variant="standard"
-                        required
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="ethnicity"
-                        label="Ethnicity"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                        required
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="address"
-                        label="First Line of Address"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                        required
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="postcode"
-                        label="Postcode"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                        required
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="phoneNumber"
-                        label="Phone Number"
-                        type="number"
-                        fullWidth
-                        variant="standard"
-                        required
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="allergies"
-                        label="Allergies"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                        required
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="nhsNumber"
-                        label="NHS Number"
-                        type="number"
-                        fullWidth
-                        variant="standard"
-                        required
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="gpSurgery"
-                        label="GP Surgery"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                        required
-                    />
+                        <TextField
+                            name="dob"
+                            autoFocus
+                            margin="dense"
+                            id="dob"
+                            onChange={handleChange}
+                            label="D.O.B (DDMMYYYY)"
+                            inputProps={{
+                                inputMode: "numeric",
+                                pattern: "[0-9]*",
+                            }}
+                            error={
+                                Number.isInteger(Number(textFields["dob"]))
+                                    ? false
+                                    : true
+                            }
+                            fullWidth
+                            variant="standard"
+                            required
+                        />
+                        <TextField
+                            name="gender"
+                            autoFocus
+                            margin="dense"
+                            id="gender"
+                            label="Gender"
+                            type="text"
+                            onChange={handleChange}
+                            error={
+                                !Number.isInteger(Number(textFields["gender"]))
+                                    ? false
+                                    : textFields["gender"] === ""
+                                    ? false
+                                    : true
+                            }
+                            fullWidth
+                            variant="standard"
+                            required
+                        />
+                        <TextField
+                            name="ethnicity"
+                            autoFocus
+                            margin="dense"
+                            id="ethnicity"
+                            label="Ethnicity"
+                            type="text"
+                            onChange={handleChange}
+                            error={
+                                !Number.isInteger(
+                                    Number(textFields["ethnicity"])
+                                )
+                                    ? false
+                                    : textFields["ethnicity"] === ""
+                                    ? false
+                                    : true
+                            }
+                            fullWidth
+                            variant="standard"
+                            required
+                        />
+                        <TextField
+                            name="address"
+                            autoFocus
+                            margin="dense"
+                            id="address"
+                            label="First Line of Address"
+                            type="text"
+                            onChange={handleChange}
+                            fullWidth
+                            variant="standard"
+                            required
+                        />
+                        <TextField
+                            name="postcode"
+                            autoFocus
+                            margin="dense"
+                            id="postcode"
+                            label="Postcode"
+                            type="text"
+                            onChange={handleChange}
+                            fullWidth
+                            variant="standard"
+                            required
+                        />
+                        <TextField
+                            name="phoneNumber"
+                            autoFocus
+                            margin="dense"
+                            id="phoneNumber"
+                            onChange={handleChange}
+                            label="Phone Number"
+                            inputProps={{
+                                inputMode: "numeric",
+                                pattern: "[0-9]*",
+                            }}
+                            error={
+                                Number.isInteger(
+                                    Number(textFields["phoneNumber"])
+                                )
+                                    ? false
+                                    : true
+                            }
+                            fullWidth
+                            variant="standard"
+                            required
+                        />
+                        <TextField
+                            name="allergies"
+                            autoFocus
+                            margin="dense"
+                            id="allergies"
+                            label="Allergies"
+                            type="text"
+                            onChange={handleChange}
+                            error={
+                                !Number.isInteger(
+                                    Number(textFields["allergies"])
+                                )
+                                    ? false
+                                    : textFields["allergies"] === ""
+                                    ? false
+                                    : true
+                            }
+                            fullWidth
+                            variant="standard"
+                            required
+                        />
+                        <TextField
+                            name="nhsNumber"
+                            autoFocus
+                            margin="dense"
+                            id="nhsNumber"
+                            onChange={handleChange}
+                            label="NHS Number"
+                            inputProps={{
+                                inputMode: "numeric",
+                                pattern: "[0-9]*",
+                            }}
+                            error={
+                                Number.isInteger(
+                                    Number(textFields["nhsNumber"])
+                                )
+                                    ? false
+                                    : true
+                            }
+                            fullWidth
+                            variant="standard"
+                            required
+                        />
+                        <TextField
+                            name="gpSurgery"
+                            autoFocus
+                            margin="dense"
+                            id="gpSurgery"
+                            label="GP Surgery"
+                            type="text"
+                            onChange={handleChange}
+                            fullWidth
+                            variant="standard"
+                            required
+                        />
 
-                    {/* <div style={{ fontSize: "1.2rem" }}>
+                        {/* <div style={{ fontSize: "1.2rem" }}>
                         Paused <ControlledSwitches></ControlledSwitches> Active{" "}
                     </div> */}
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleClose}>Add New Patient</Button>
-                </DialogActions>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose}>Cancel</Button>
+                        <Button type="submit">Add New Patient</Button>
+                    </DialogActions>
+                </form>
             </Dialog>
-            {/* </form> */}
         </div>
     );
 }
