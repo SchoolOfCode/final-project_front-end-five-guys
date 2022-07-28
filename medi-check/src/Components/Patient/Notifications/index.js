@@ -118,7 +118,6 @@ function prescriptionEndDate(date, obj){
             alertArr.push(prescription.name)
         }
         SetAlerts(alertArr)
-        console.log("alerts", alerts)
     
     }
 data.map((data) => {return compareDates(data)})

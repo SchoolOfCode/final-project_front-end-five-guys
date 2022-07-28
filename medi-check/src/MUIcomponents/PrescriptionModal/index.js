@@ -21,7 +21,6 @@ export default function BasicModal({data, notifications}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  console.log("inside modal", data)
 
   //function to return slightly different message for single alerts and multiple alerts
   function caption(){
