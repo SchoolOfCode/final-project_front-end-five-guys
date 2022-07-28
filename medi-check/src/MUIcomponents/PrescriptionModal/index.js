@@ -1,13 +1,14 @@
-import * as React from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+// import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import ControlledSwitches from '../ControlledSwitch';
 
-export default function FormDialog() {
+export default function FormDialog({ first, last }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -15,38 +16,60 @@ export default function FormDialog() {
   };
 
   const handleClose = () => {
+    //check if each input is valid
+    let inputs = document.querySelectorAll('input');
+    console.log(inputs);
+    let prescription = {
+      name: inputs[1].value,
+      dosage: inputs[2].value,
+      measurement: inputs[3].value,
+      quantity: inputs[4].value,
+      frequency: inputs[5].value,
+      status: inputs[5].checked ? 'active' : 'paused',
+    };
     setOpen(false);
   };
 
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Open form dialog
+        Add New Prescription
       </Button>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Subscribe</DialogTitle>
+      <Dialog
+        open={open}
+        onClose={(event, reason) => {
+          if (reason !== 'backdropClick') {
+            handleClose();
+          }
+        }}
+      >
+        <DialogTitle>
+          New Prescription for {first} {last}
+        </DialogTitle>
         <DialogContent>
-          <DialogContentText>
+          {/* <DialogContentText>
             To subscribe to this website, please enter your email address here.
             We will send updates occasionally.
-          </DialogContentText>
+          </DialogContentText> */}
           <TextField
             autoFocus
             margin="dense"
-            id="name"
+            id="drugName"
             label="Drug Name"
-            type="medication"
+            type="text"
             fullWidth
             variant="standard"
+            required
           />
           <TextField
             autoFocus
             margin="dense"
-            id="name"
+            id="drugDosage"
             label="Drug Dosage"
-            type="dosage"
             fullWidth
             variant="standard"
+            type="number"
+            required
           />
           {/* <TextField
             autoFocus
@@ -60,31 +83,34 @@ export default function FormDialog() {
           <TextField
             autoFocus
             margin="dense"
-            id="name"
+            id="drugMeasurement"
             label="Drug Measurement (e.g. mg, puff etc.)"
-            type="measurement"
+            type="text"
             fullWidth
             variant="standard"
+            required
           />
           <TextField
             autoFocus
             margin="dense"
-            id="name"
-            label="Drug Frequency (e.g. 1 or 2)"
-            type="freq1"
+            id="drugQuantity"
+            label="Drug Quantity (e.g. 1 or 2)"
+            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
             fullWidth
             variant="standard"
+            required
           />
           <TextField
             autoFocus
             margin="dense"
-            id="name"
+            id="drugFrequency"
             label="Drug Frequency (e.g. daily or twice daily etc.)"
-            type="freq2"
+            type="text"
             fullWidth
             variant="standard"
+            required
           />
-          <TextField
+          {/* <TextField
             autoFocus
             margin="dense"
             id="name"
@@ -92,11 +118,14 @@ export default function FormDialog() {
             type="status"
             fullWidth
             variant="standard"
-          />
+          /> */}
+          <div style={{ fontSize: '1.2rem' }}>
+            Paused <ControlledSwitches></ControlledSwitches> Active{' '}
+          </div>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
+          <Button onClick={handleClose}>Prescribe</Button>
         </DialogActions>
       </Dialog>
     </div>

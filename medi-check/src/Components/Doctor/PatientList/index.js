@@ -6,7 +6,7 @@ import { Patient } from './Patient';
 
 function PatientList({ list, patient, setPatient }) {
   const [filter, setFilter] = useState({ type: '', reverse: false });
-  console.log('patient', patient);
+  // console.log('patient', patient);
   function resetPatient() {
     setPatient(null);
   }
@@ -71,7 +71,7 @@ function PatientList({ list, patient, setPatient }) {
         </div>
         <ul className="mappedPatient">
           {list.sort(compare).map((patient, index) => {
-            console.log('patient-detials', patient);
+            // console.log('patient-detials', patient);
             return (
               <Patient
                 index={index}
