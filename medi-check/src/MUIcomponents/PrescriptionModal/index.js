@@ -64,6 +64,16 @@ export default function FormDialog({ first, last }) {
           <TextField
             autoFocus
             margin="dense"
+            id="drugTotal"
+            label="Drug Total Amount"
+            fullWidth
+            variant="standard"
+            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+            required
+          />
+          <TextField
+            autoFocus
+            margin="dense"
             id="drugDosage"
             label="Drug Dosage"
             fullWidth
