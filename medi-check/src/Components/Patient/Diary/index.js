@@ -71,6 +71,7 @@ export function DiaryModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <button onClick={handleClose}>x</button>
           <Typography id="modal-modal-title" variant="h2" component="h2">
             Diary
           </Typography>
