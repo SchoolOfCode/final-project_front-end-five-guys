@@ -7,6 +7,8 @@ import Footer from '../Footer';
 function DoctorHome() {
   const [list, setList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
+  const [patient, setPatient] = useState(null);
+
   //used for reset button to trigger fresh patient list recall
   const [reset, setReset] = useState(0);
 
@@ -19,9 +21,13 @@ function DoctorHome() {
   return (
     <div>
       {filteredList.length === 0 ? (
-        <PatientList list={list} />
+        <PatientList list={list} patient={patient} setPatient={setPatient} />
       ) : (
-        <PatientList list={filteredList} />
+        <PatientList
+          list={filteredList}
+          patient={patient}
+          setPatient={setPatient}
+        />
       )}
       {/* {!filteredList && <PatientList list={list} />} */}
       {/* <PatientList list={list} /> */}
@@ -31,6 +37,7 @@ function DoctorHome() {
         setList={setList}
         setReset={setReset}
         reset={reset}
+        setPatient={setPatient}
       />
       <Footer />
     </div>

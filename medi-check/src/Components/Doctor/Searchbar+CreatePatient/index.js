@@ -23,6 +23,7 @@ export default function SearchBar(props) {
     number++;
     props.setFilteredList([]);
     props.setReset(number);
+    props.setPatient(null);
 
     setSearch('');
   }
