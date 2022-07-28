@@ -198,7 +198,9 @@ export default function FormDialog({ first, last }) {
             </div>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
+            <Button type="button" onClick={handleClose}>
+              Cancel
+            </Button>
             <Button type="submit">Prescribe</Button>
           </DialogActions>
         </form>
