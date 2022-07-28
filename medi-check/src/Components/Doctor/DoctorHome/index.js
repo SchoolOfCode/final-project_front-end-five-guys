@@ -3,7 +3,7 @@ import SearchBar from '../Searchbar+CreatePatient';
 import { useEffect, useState } from 'react';
 import { dummyList } from '../PatientList/Patient';
 import Footer from '../Footer';
-
+//If running into problems based on searching consequitively, can use other idea of passing search term into patientlist and letting filter happen there.
 function DoctorHome() {
   const [list, setList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
