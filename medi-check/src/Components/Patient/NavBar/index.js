@@ -1,23 +1,16 @@
-import "./navbar.css"
+import "./navbar.css";
+import { DiaryModal } from "../Diary";
 
-export default function PatientNavBar(){
+export default function PatientNavBar() {
+  function homeClick() {}
 
-function homeClick(){
+  function allergiesClick() {}
 
-}
-function diaryClick(){
-
-}
-function allergiesClick(){
-
-}
-
-
-    return (
-        <div className = "navbar">
-            <button onClick = {homeClick}>Home</button>
-            <button onClick = {diaryClick}>Diary</button>
-            <button onClick = {allergiesClick}>Allergies</button>
-        </div>
-    )
+  return (
+    <div className="navbar">
+      <button onClick={homeClick}>Home</button>
+      <DiaryModal />
+      <button onClick={allergiesClick}>Allergies</button>
+    </div>
+  );
 }
