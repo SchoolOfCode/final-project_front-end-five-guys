@@ -32,8 +32,6 @@ export default function FormDialog({ first, last }) {
     !Number.isInteger(Number(event.target.value))
       ? (obj[event.target.name] = event.target.value)
       : (obj[event.target.name] = Number(event.target.value));
-
-    // obj[event.target.name] = event.target.value;
     console.log(obj);
     setTextFields({ ...obj });
   }
@@ -53,7 +51,8 @@ export default function FormDialog({ first, last }) {
     console.log(inputs);
     let prescription = {
       name: inputs[1].value,
-      dosage: inputs[2].value,
+      total: inputs[2].value,
+      dosage: inputs[3].value,
       measurement: inputs[3].value,
       quantity: inputs[4].value,
       frequency: inputs[5].value,
