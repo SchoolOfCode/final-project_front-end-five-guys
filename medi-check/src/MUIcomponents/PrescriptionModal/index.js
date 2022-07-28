@@ -68,7 +68,7 @@ export default function FormDialog({ first, last }) {
             label="Drug Dosage"
             fullWidth
             variant="standard"
-            type="number"
+            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
             required
           />
           {/* <TextField
