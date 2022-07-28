@@ -26,9 +26,14 @@ export default function FormDialog({ first, last }) {
     total: 0,
   });
   function handleChange(event) {
-    console.log(event.target);
     let obj = textFields;
-    obj[event.target.name] = event.target.value;
+    console.log(typeof textFields['total']);
+    Number.isInteger(Number(event.target.value));
+    !Number.isInteger(Number(event.target.value))
+      ? (obj[event.target.name] = event.target.value)
+      : (obj[event.target.name] = Number(event.target.value));
+
+    // obj[event.target.name] = event.target.value;
     console.log(obj);
     setTextFields({ ...obj });
   }
@@ -38,7 +43,6 @@ export default function FormDialog({ first, last }) {
   };
 
   const handleClose = () => {
-    //check if each input is valid
     setOpen(false);
   };
 
@@ -98,12 +102,14 @@ export default function FormDialog({ first, last }) {
               id="drugTotal"
               label="Drug Total Amount"
               fullWidth
-              type="number"
+              type="text"
               onChange={handleChange}
               variant="standard"
-              helperText="Incorrect Entry"
-              error={typeof textFields['name'] === 'number' ? false : true}
               name="total"
+              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+              error={
+                Number.isInteger(Number(textFields['total'])) ? false : true
+              }
               required
             />
             <TextField
@@ -114,7 +120,10 @@ export default function FormDialog({ first, last }) {
               fullWidth
               variant="standard"
               onChange={handleChange}
-              type="number"
+              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+              error={
+                Number.isInteger(Number(textFields['dosage'])) ? false : true
+              }
               required
               name="dosage"
             />
