@@ -20,12 +20,18 @@ export default function CreatePatientDialog({ first, last }) {
         let inputs = document.querySelectorAll("input");
         console.log(inputs);
         let newUser = {
-            name: inputs[1].value,
-            dosage: inputs[2].value,
-            measurement: inputs[3].value,
-            quantity: inputs[4].value,
-            frequency: inputs[5].value,
-            status: inputs[5].checked ? "active" : "paused",
+            Title: inputs[1].value,
+            FirstNames: inputs[2].value,
+            Surname: inputs[3].value,
+            dob: inputs[4].value,
+            gender: inputs[5].value,
+            ethnicity: inputs[6].value,
+            address: inputs[7].value,
+            postcode: inputs[8].value,
+            phoneNumber: inputs[9].value,
+            allergies: inputs[10].value,
+            nhsNumber: inputs[11].value,
+            gpSurgery: inputs[12].value,
         };
         setOpen(false);
     };
@@ -35,6 +41,7 @@ export default function CreatePatientDialog({ first, last }) {
             <Button variant="outlined" onClick={handleClickOpen}>
                 Add New Patient
             </Button>
+            {/* <form onSubmit={onSubmit}> */}
             <Dialog
                 open={open}
                 onClose={(event, reason) => {
@@ -185,6 +192,7 @@ export default function CreatePatientDialog({ first, last }) {
                     <Button onClick={handleClose}>Add New Patient</Button>
                 </DialogActions>
             </Dialog>
+            {/* </form> */}
         </div>
     );
 }
