@@ -1,0 +1,24 @@
+.mappedPatient {
+  list-style-type: none;
+  /* display: flex; */
+}
+
+.individualPatient {
+  max-width: 25vw;
+}
+/* .patient-card:nth-child(even) {
+  background-color: #91c788;
+} */
+.patient-card:nth-child(even) {
+  background-color: #d9d9d9;
+  /* margin: 0.2rem 0; */
+}
+
+.patient-card:hover {
+  cursor: pointer;
+  /* filter: brightness(0.8);
+  background-color: #91c788; */
+  text-decoration: underline;
+  /* padding-left: 0.1rem; */
+  font-weight: 600;
+}
