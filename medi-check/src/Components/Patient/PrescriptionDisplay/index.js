@@ -1,7 +1,7 @@
-import useInteractions from '../../../Hooks/useInteractionsFromName';
+//import useInteractions from '../../../Hooks/useInteractionsFromName';
 // import Item from './Item';
-import { dummy, testInteractions } from './dummyData';
-import CustomizedAccordions from '../../../MUIcomponents/Accordian';
+import { dummy, testInteractions } from "./dummyData";
+import CustomizedAccordions from "../../../MUIcomponents/Accordian";
 
 //Will fetch backend to get the patient prescription names and information, then plug that into the API twice.
 //Working on functionality now, not completeness
@@ -29,20 +29,20 @@ function PrescriptionDisplay() {
       drugInfo:
         obj.dosage +
         obj.measurement +
-        ' ' +
+        " " +
         obj.freq1 +
-        ' time(s) per ' +
+        " time(s) per " +
         obj.freq2,
       status: obj.status,
     };
   });
   //filter out inactive
   const history = combo.filter((info) => {
-    return info.status === 'inactive';
+    return info.status === "inactive";
   });
   //fliter active and paused
   const current = combo.filter((info) => {
-    return info.status === 'active' || info.status === 'paused';
+    return info.status === "active" || info.status === "paused";
   });
 
   return (

@@ -1,7 +1,7 @@
 import "./App.css";
 
 import { PatientHome } from "../Patient/PatientHome";
-import Footer from "../Doctor/Footer";
+//import Footer from "../Doctor/Footer";
 import DoctorHome from "../Doctor/DoctorHome";
 import { useState } from "react";
 
