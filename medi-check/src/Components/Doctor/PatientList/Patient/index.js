@@ -1,6 +1,6 @@
 //dummy list for mock data for front end
 //dummy data for front end
-
+import '../index.css';
 export const dummyList = [
   {
     Title: 'Mr',
@@ -68,7 +68,7 @@ export function Patient(props) {
   return (
     // a link might need to change in order for it to work
     // <a href="localhost:3000/users/{patient.id}">
-    <li onDoubleClick={handleClick}>
+    <li onDoubleClick={handleClick} className="patient-card">
       {props.patientInfo.Title} {props.patientInfo.FirstNames}{' '}
       {props.patientInfo.Surname} NHS Number: {props.patientInfo.nhsNumber}
     </li>
