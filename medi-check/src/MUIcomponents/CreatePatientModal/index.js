@@ -72,16 +72,17 @@ export default function CreatePatientDialog({ first, last }) {
         Add New Patient
       </Button>
 
-      <Dialog
-        open={open}
-        onClose={(event, reason) => {
-          if (reason !== "backdropClick") {
-            handleClose();
-          }
-        }}
-      >
-        <form onSubmit={handleSubmit}>
-          {/* <DialogTitle>
+            <Dialog
+                scroll="body"
+                open={open}
+                onClose={(event, reason) => {
+                    if (reason !== "backdropClick") {
+                        handleClose();
+                    }
+                }}
+            >
+                <form onSubmit={handleSubmit}>
+                    {/* <DialogTitle>
                     New Prescription for {first} {last}
                 </DialogTitle> */}
           <DialogContent>

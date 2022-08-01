@@ -23,11 +23,18 @@ export default function AllergiesModal({ data, notifications }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [allergy, setAllergy] = useState("");
-  console.log(allergy);
+  const [allergy, setAllergy] = useState({
+    allergy: '',
+    reaction: '',
+  });
+  console.log('alle', allergy);
+
 
   function handleText(e) {
-    setAllergy(e.target.value);
+    let updatedName = e.target.name;
+    let obj = allergy;
+    obj[updatedName] = e.target.value;
+    setAllergy({ ...obj });
   }
 
   //will be updated to submit data to db when created
@@ -63,6 +70,13 @@ export default function AllergiesModal({ data, notifications }) {
           <textarea
             style={{ resize: "none", height: "5vh", width: "15vw" }}
             onChange={handleText}
+            name="allergy"
+          ></textarea>{' '}
+          <Typography>Allergy Reaction</Typography>
+          <textarea
+            style={{ resize: 'none', height: '5vh', width: '15vw' }}
+            onChange={handleText}
+            name="reaction"
           ></textarea>
           <button onClick={handleSubmit}>Submit</button>
         </Box>
