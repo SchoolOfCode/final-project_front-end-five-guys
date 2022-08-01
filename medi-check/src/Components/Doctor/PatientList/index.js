@@ -1,25 +1,26 @@
 //pass in patientList from Patient list (from db)
-import { useState } from 'react';
-import PatientFile from '../PatientFile';
-import './index.css';
-import { Patient } from './Patient';
+import { useState } from "react";
+import PatientFile from "../PatientFile";
+import "./index.css";
+import { Patient } from "./Patient";
+import ButtonComponent from "../../../MUIcomponents/Button2";
 
 function PatientList({ list, patient, setPatient }) {
-  const [filter, setFilter] = useState({ type: '', reverse: false });
+  const [filter, setFilter] = useState({ type: "", reverse: false });
   // console.log('patient', patient);
   function resetPatient() {
     setPatient(null);
   }
   function compare(a, b) {
     // console.log(a, b);
-    if (filter.type === 'first') {
+    if (filter.type === "first") {
       if (a.FirstNames.toUpperCase() > b.FirstNames.toUpperCase()) {
         return filter.reverse ? -1 : 1;
       } else if (a.FirstNames.toUpperCase() < b.FirstNames.toUpperCase()) {
         return filter.reverse ? 1 : -1;
       }
       return 0;
-    } else if (filter.type === 'last') {
+    } else if (filter.type === "last") {
       if (a.Surname.toUpperCase() > b.Surname.toUpperCase()) {
         return filter.reverse ? -1 : 1;
       } else if (a.Surname.toUpperCase() < b.Surname.toUpperCase()) {
@@ -47,27 +48,31 @@ function PatientList({ list, patient, setPatient }) {
     return (
       <div>
         <div>
-          <div
+          {/* <div
             onClick={() => {
-              handleSort('first');
+              handleSort("first");
             }}
           >
             First name
-          </div>
-          <div
+          </div> */}
+          <ButtonComponent
             onClick={() => {
-              handleSort('last');
+              handleSort("first");
             }}
-          >
-            Surname
-          </div>
-          <div
+            text="First Name"
+          />
+          <ButtonComponent
             onClick={() => {
-              handleSort('number');
+              handleSort("last");
             }}
-          >
-            NHS Number
-          </div>
+            text="Surname"
+          />
+          <ButtonComponent
+            onClick={() => {
+              handleSort("number");
+            }}
+            text="NHS Number"
+          />
         </div>
         <ul className="mappedPatient">
           {list.sort(compare).map((patient, index) => {
