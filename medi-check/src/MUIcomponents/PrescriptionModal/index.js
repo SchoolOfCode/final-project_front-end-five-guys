@@ -44,20 +44,27 @@ export default function FormDialog({ first, last }) {
   const handleClose = () => {
     setOpen(false);
   };
-
+  function prependZero(input) {
+    if (input[0] === '.') {
+      return '0' + input;
+    }
+    return input;
+  }
   function handleSubmit(e) {
     e.preventDefault();
     //submit textfields to db and reset it. but only after checking if prescriptions clash!
-
+    //look for .3 type numbers and put a 0 on the left. Run on total, dosage, quantity
+    //Test whether or not we need to make the page refresh after sending to database or just reset state to 0
     let inputs = document.querySelectorAll('input');
     let prescription = {
       name: inputs[1].value,
-      total: inputs[2].value,
-      dosage: inputs[3].value,
-      measurement: inputs[3].value,
-      quantity: inputs[4].value,
-      frequency: inputs[5].value,
-      status: inputs[5].checked ? 'acute' : 'repeat',
+      reason: inputs[2].value,
+      total: prependZero(inputs[3].value),
+      dosage: prependZero(inputs[4].value),
+      measurement: inputs[5].value,
+      quantity: prependZero(inputs[6].value),
+      frequency: inputs[7].value,
+      status: inputs[8].checked ? 'acute' : 'repeat',
       active: true,
     };
     console.log(prescription);
@@ -116,10 +123,8 @@ export default function FormDialog({ first, last }) {
               onChange={handleChange}
               variant="standard"
               name="total"
-              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-              error={
-                Number.isInteger(Number(textFields['total'])) ? false : true
-              }
+              inputProps={{ inputMode: 'numeric', pattern: '[0-9.]*' }}
+              error={!Number.isNaN(Number(textFields['total'])) ? false : true}
               required
             />
             <TextField
@@ -130,10 +135,8 @@ export default function FormDialog({ first, last }) {
               fullWidth
               variant="standard"
               onChange={handleChange}
-              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-              error={
-                Number.isInteger(Number(textFields['dosage'])) ? false : true
-              }
+              inputProps={{ inputMode: 'numeric', pattern: '[0-9.]*' }}
+              error={!Number.isNaN(Number(textFields['dosage'])) ? false : true}
               required
               name="dosage"
             />
@@ -170,11 +173,11 @@ export default function FormDialog({ first, last }) {
               margin="dense"
               id="drugQuantity"
               label="Drug Quantity (e.g. 1 or 2)"
-              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+              inputProps={{ inputMode: 'numeric', pattern: '[0-9.]*' }}
               fullWidth
               onChange={handleChange}
               error={
-                Number.isInteger(Number(textFields['quantity'])) ? false : true
+                !Number.isNaN(Number(textFields['quantity'])) ? false : true
               }
               variant="standard"
               required
