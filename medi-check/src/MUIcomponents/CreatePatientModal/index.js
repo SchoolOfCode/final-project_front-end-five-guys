@@ -73,6 +73,7 @@ export default function CreatePatientDialog({ first, last }) {
             </Button>
 
             <Dialog
+                scroll="body"
                 open={open}
                 onClose={(event, reason) => {
                     if (reason !== "backdropClick") {
