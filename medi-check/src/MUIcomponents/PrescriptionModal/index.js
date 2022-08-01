@@ -56,7 +56,8 @@ export default function FormDialog({ first, last }) {
       measurement: inputs[3].value,
       quantity: inputs[4].value,
       frequency: inputs[5].value,
-      status: inputs[5].checked ? 'paused' : 'active',
+      status: inputs[5].checked ? 'acute' : 'repeat',
+      active: true,
     };
     console.log(prescription);
 
@@ -199,7 +200,7 @@ export default function FormDialog({ first, last }) {
             variant="standard"
           /> */}
             <div style={{ fontSize: '1.2rem' }}>
-              Paused <ControlledSwitches></ControlledSwitches> Active{' '}
+              Acute <ControlledSwitches></ControlledSwitches> Repeat{' '}
             </div>
           </DialogContent>
           <DialogActions>
