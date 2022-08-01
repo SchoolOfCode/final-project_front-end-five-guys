@@ -24,6 +24,7 @@ export default function FormDialog({ first, last }) {
     quantity: 0,
     frequency: '',
     total: 0,
+    reason: '',
   });
   function handleChange(event) {
     let obj = textFields;
@@ -81,10 +82,6 @@ export default function FormDialog({ first, last }) {
             New Prescription for {first} {last}
           </DialogTitle>
           <DialogContent>
-            {/* <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
-          </DialogContentText> */}
             <TextField
               autoFocus
               margin="dense"
@@ -92,6 +89,18 @@ export default function FormDialog({ first, last }) {
               label="Drug Name"
               type="text"
               name="name"
+              fullWidth
+              variant="standard"
+              onChange={handleChange}
+              required
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="drugReason"
+              label="Drug Reason"
+              type="text"
+              name="reason"
               fullWidth
               variant="standard"
               onChange={handleChange}
