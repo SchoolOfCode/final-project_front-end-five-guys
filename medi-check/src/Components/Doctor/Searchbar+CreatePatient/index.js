@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState } from "react";
+import "./Searchbar.css";
 
 export default function SearchBar(props) {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const list = props.list;
 
   function handleChange(e) {
@@ -25,7 +26,7 @@ export default function SearchBar(props) {
     props.setReset(number);
     props.setPatient(null);
 
-    setSearch('');
+    setSearch("");
   }
 
   //function used to call patient data from back end from search
@@ -60,8 +61,9 @@ export default function SearchBar(props) {
         <label>
           Patient Search :
           <input
+            className="search-bar"
             type="text"
-            placeholder="Enter patient name or NHS number"
+            placeholder="Search Patients"
             value={search}
             onChange={handleChange}
           ></input>
