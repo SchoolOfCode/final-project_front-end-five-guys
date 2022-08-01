@@ -21,7 +21,7 @@ for new prescription requirement we will need to:
 
 */
 import { useEffect, useState } from "react";
-import BasicModal from "../../../MUIcomponents/PrescriptionModal";
+//import BasicModal from "../../../MUIcomponents/PrescriptionModal";
 import "./notifications.css";
 import BasicPopover from "../../../MUIcomponents/Popover";
 

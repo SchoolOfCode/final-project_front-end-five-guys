@@ -1,23 +1,23 @@
-import { useState } from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import { v4 as uuidv4 } from 'uuid';
+import { useState } from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import { v4 as uuidv4 } from "uuid";
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  bgcolor: "background.paper",
+  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
 
-const Dummyallergies = ['fur', 'pollen', 'dust', 'apixaban'];
+const Dummyallergies = ["fur", "pollen", "dust", "apixaban"];
 
 export default function AllergiesModal({ data, notifications }) {
   const [open, setOpen] = useState(false);
@@ -28,6 +28,7 @@ export default function AllergiesModal({ data, notifications }) {
     reaction: '',
   });
   console.log('alle', allergy);
+
 
   function handleText(e) {
     let updatedName = e.target.name;
@@ -67,7 +68,7 @@ export default function AllergiesModal({ data, notifications }) {
           })}
           <Typography>New Allergies</Typography>
           <textarea
-            style={{ resize: 'none', height: '5vh', width: '15vw' }}
+            style={{ resize: "none", height: "5vh", width: "15vw" }}
             onChange={handleText}
             name="allergy"
           ></textarea>{' '}
