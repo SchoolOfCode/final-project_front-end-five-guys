@@ -1,14 +1,13 @@
-import useInteractions from '../../../Hooks/useInteractionsFromName';
+// import useInteractions from '../../../Hooks/useInteractionsFromName';
 // import Item from './Item';
 import { dummy, testInteractions } from './dummyData';
 import CustomizedAccordions from '../../../MUIcomponents/Accordian';
-
 //Will fetch backend to get the patient prescription names and information, then plug that into the API twice.
 //Working on functionality now, not completeness
 function PrescriptionDisplay() {
   // let itemInteractions = useInteractions(dummy);
   let itemInteractions = testInteractions;
-
+  console.log(testInteractions);
   //This is taking the API data and for each drug interaction it is grouping together the drug, the drug it is interacting with, and the description
   let combo = dummy.map((obj) => {
     let overview = itemInteractions.filter((info) => {
@@ -47,6 +46,20 @@ function PrescriptionDisplay() {
 
   return (
     <>
+      <h3>Interaction Alert</h3>
+      {itemInteractions.map((item) => {
+        return (
+          <section style={{ width: '50%' }}>
+            <h4 style={{ width: '50%' }}>
+              {' '}
+              {item.minConcept[0].name} and {item.minConcept[1].name}
+            </h4>
+            <div style={{ width: '50%' }}>
+              {item.interactionPair[0].description}
+            </div>
+          </section>
+        );
+      })}
       <h3>Current Prescriptions</h3>
       <CustomizedAccordions drugArray={current}></CustomizedAccordions>
       <h3>Past Prescriptions</h3>
