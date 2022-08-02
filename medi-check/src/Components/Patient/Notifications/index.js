@@ -21,9 +21,12 @@ for new prescription requirement we will need to:
 
 */
 import { useEffect, useState } from "react";
-import BasicModal from "../../../MUIcomponents/PrescriptionModal";
+//import BasicModal from "../../../MUIcomponents/PrescriptionModal";
 import "./notifications.css";
 import BasicPopover from "../../../MUIcomponents/Popover";
+
+//dummy data for prepaid expiry
+export const prepaid = "2022-8-20";
 
 export const dummyData = [
   {
@@ -58,10 +61,57 @@ export const dummyData = [
   },
 ];
 
-export function Notifications({ data }) {
+export function Notifications({ data, prepaid }) {
   //alerts state contains medication that will need to be renewed and notifications state holds the number of them
   const [alerts, SetAlerts] = useState([]);
   const [notifications, SetNotifications] = useState(0);
+  const [paidDate, setPaidDate] = useState("");
+
+  //works out if pre paid need updating prepaid
+  useEffect(() => {
+    // function takes the prepaid expiry date string and formats it into a full date
+    function findDate(d) {
+      const date = d.split("-");
+      const newDate = new Date();
+      newDate.setFullYear(date[0], date[1] - 1, date[2]);
+      return newDate;
+    }
+
+    // a and b are javascript Date objects
+    function dateDiffInDays(a, b) {
+      const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+      // Discard the time and time-zone information.
+      const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+      const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+      return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+    }
+
+    const today = new Date();
+    const dateOfExpiry = findDate(prepaid);
+    const result = dateDiffInDays(today, dateOfExpiry);
+    const displayDate = `${dateOfExpiry.getDay()}/${
+      dateOfExpiry.getMonth() + 1
+    }/${dateOfExpiry.getFullYear()}`;
+
+    if (result < 90 && result > 14) {
+      setPaidDate(
+        `Your pre-paid prescription expires within 3 months, on ` + displayDate
+      );
+    } else if (result < 14 && result > 0) {
+      setPaidDate(
+        `Your pre-paid prescription expires in less than a fortnight, on ` +
+          displayDate
+      );
+    } else if (result <= 0) {
+      setPaidDate(`Your pre-paid prescription has expired`);
+    }
+
+    if (paidDate !== "") {
+      SetNotifications((notifications) => {
+        return notifications + 1;
+      });
+    }
+  }, [prepaid, paidDate]);
 
   useEffect(() => {
     // function takes the prescription date string and formats it into a full date
@@ -126,7 +176,11 @@ export function Notifications({ data }) {
       <h2>Notifications</h2>
       {/* <button>{notifications}</button> */}
       {/*<BasicModal data = {alerts} notifications = {notifications}/>*/}
-      <BasicPopover data={alerts} notifications={notifications} />
+      <BasicPopover
+        data={alerts}
+        notifications={notifications}
+        prepaid={paidDate}
+      />
     </div>
   );
 }
