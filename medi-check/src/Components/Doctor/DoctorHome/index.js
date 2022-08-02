@@ -1,9 +1,11 @@
-import PatientList from '../PatientList';
-import SearchBar from '../Searchbar+CreatePatient';
-import { useEffect, useState } from 'react';
-import { dummyList } from '../PatientList/Patient';
-import Footer from '../Footer';
-import CreatePatientDialog from '../../../MUIcomponents/CreatePatientModal';
+import PatientList from "../PatientList";
+import SearchBar from "../Searchbar+CreatePatient";
+import { useEffect, useState } from "react";
+import { dummyList } from "../PatientList/Patient";
+import CreatePatientDialog from "../../../MUIcomponents/CreatePatientModal";
+
+import "./DoctorHome.css";
+import Header from "../DoctorHeader";
 //If running into problems based on searching consequitively, can use other idea of passing search term into patientlist and letting filter happen there.
 function DoctorHome() {
   const [list, setList] = useState([]);
@@ -20,29 +22,35 @@ function DoctorHome() {
   }, [reset]);
 
   return (
-    <div>
-      {filteredList.length === 0 ? (
-        <PatientList list={list} patient={patient} setPatient={setPatient} />
-      ) : (
-        <PatientList
-          list={filteredList}
-          patient={patient}
-          setPatient={setPatient}
-        />
-      )}
+    <div className="doctor-home">
+      <Header name="Smuggles" />
+      <section className="doctor-navigation">
+        <div className="searchbar">
+          <SearchBar
+            list={list}
+            setFilteredList={setFilteredList}
+            setList={setList}
+            setReset={setReset}
+            reset={reset}
+            setPatient={setPatient}
+          />
+        </div>
+
+        <CreatePatientDialog />
+      </section>
+      <div className="patient-table-con">
+        {filteredList.length === 0 ? (
+          <PatientList list={list} patient={patient} setPatient={setPatient} />
+        ) : (
+          <PatientList
+            list={filteredList}
+            patient={patient}
+            setPatient={setPatient}
+          />
+        )}
+      </div>
       {/* {!filteredList && <PatientList list={list} />} */}
       {/* <PatientList list={list} /> */}
-      <SearchBar
-        list={list}
-        setFilteredList={setFilteredList}
-        setList={setList}
-        setReset={setReset}
-        reset={reset}
-        setPatient={setPatient}
-      />
-      <CreatePatientDialog />
-
-      <Footer />
     </div>
   );
 }

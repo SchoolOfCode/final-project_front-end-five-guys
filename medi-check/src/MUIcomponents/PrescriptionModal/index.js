@@ -7,10 +7,122 @@ import DialogContent from '@mui/material/DialogContent';
 // import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ControlledSwitches from '../ControlledSwitch';
-import './index.css';
-export default function FormDialog({ first, last }) {
-  const [open, setOpen] = React.useState(false);
 
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+
+import './index.css';
+// import useInteractions from '../../Hooks/useInteractionsFromName';
+//Temp import to get the dummy data for prescriptions
+import { dummy } from '../../Components/Patient/PrescriptionDisplay/dummyData.js';
+//Easy tester drug: ketoconazole
+
+export default function FormDialog({ first, last }) {
+  console.log(Date.now(), Date.UTC());
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '500px',
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    pt: 2,
+    px: 4,
+    pb: 3,
+  };
+  const [open, setOpen] = React.useState(false);
+  const [prescription, setPrescription] = React.useState('');
+  const [openStatus, setOpenStatus] = React.useState(false);
+  const [reason, setReason] = React.useState('');
+  React.useEffect(() => {
+    if (!reason) {
+      return;
+    }
+    let inputs = document.querySelectorAll('input');
+    //send to DB
+    let prescription = {
+      name: inputs[1].value,
+      reason: inputs[2].value,
+      total: prependZero(inputs[3].value),
+      dosage: prependZero(inputs[4].value),
+      measurement: inputs[5].value,
+      quantity: prependZero(inputs[6].value),
+      frequency: inputs[7].value,
+      status: inputs[8].checked ? 'acute' : 'repeat',
+      override: reason,
+      date: new Date(),
+      monitoring: false,
+      active: true,
+    };
+    console.log('overrided,', prescription);
+  }, [reason]);
+
+  React.useEffect(() => {
+    let names = [];
+    for (let i = 0; i < dummy.length; i++) {
+      names.push(dummy[i].name);
+    }
+    names.push(prescription);
+    async function fetchData(nameArray) {
+      let url = 'https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=';
+      for (let i = 0; i < nameArray.length; i++) {
+        let res = await fetch(
+          `https://rxnav.nlm.nih.gov/REST/rxcui.json?name=${nameArray[i]}`
+        );
+        let json = await res.json();
+        console.log(nameArray[i], nameArray, json);
+        url += `+${json.idGroup.rxnormId[0]}`;
+      }
+      try {
+        let response = await fetch(url + '&sources=ONCHigh');
+        let obj = await response.json();
+        console.log('interactions here: ', obj);
+        let filtered =
+          obj.fullInteractionTypeGroup[0].fullInteractionType.filter((item) => {
+            return (
+              prescription === item.minConcept[0].name ||
+              prescription === item.minConcept[1].name
+            );
+          });
+        console.log('fil', filtered);
+        if (filtered.length === 0) {
+          console.log(
+            'There are no interactions with the new drug, good to send back to DB now'
+          );
+          let inputs = document.querySelectorAll('input');
+          let prescription = {
+            name: inputs[1].value,
+            reason: inputs[2].value,
+            total: prependZero(inputs[3].value),
+            dosage: prependZero(inputs[4].value),
+            measurement: inputs[5].value,
+            quantity: prependZero(inputs[6].value),
+            frequency: inputs[7].value,
+            status: inputs[9].checked ? 'acute' : 'repeat',
+            override: '',
+            active: true,
+            date: new Date(),
+            monitoring: inputs[8].value === 0 ? false : true,
+            monitoringSchedule: inputs[8].value,
+          };
+          console.log('sending this back to the DB:', prescription);
+          handleClose();
+          return;
+        }
+        //There is an interaction and we need to stop the closure and display the warning
+        // document.querySelector('#interactionPopup').classList.toggle('hide');
+        setOpenStatus(true);
+      } catch (error) {
+        console.log('error', error);
+      }
+    }
+    if (prescription) {
+      //Comment out this line if testing and not wanting to query the API
+      fetchData(names);
+    }
+  }, [prescription]);
   //States for all of the textfields
   // const [name, setName] = React.useState('');
   // const [dosage, setDosage] = React.useState(0);
@@ -26,6 +138,7 @@ export default function FormDialog({ first, last }) {
     total: 0,
     reason: '',
   });
+
   function handleChange(event) {
     let obj = textFields;
     console.log(typeof textFields['total']);
@@ -39,6 +152,7 @@ export default function FormDialog({ first, last }) {
 
   const handleClickOpen = () => {
     setOpen(true);
+    console.log('dum data', dummy);
   };
 
   const handleClose = () => {
@@ -56,6 +170,7 @@ export default function FormDialog({ first, last }) {
     //look for .3 type numbers and put a 0 on the left. Run on total, dosage, quantity
     //Test whether or not we need to make the page refresh after sending to database or just reset state to 0
     let inputs = document.querySelectorAll('input');
+    console.log('ion', inputs);
     let prescription = {
       name: inputs[1].value,
       reason: inputs[2].value,
@@ -64,12 +179,81 @@ export default function FormDialog({ first, last }) {
       measurement: inputs[5].value,
       quantity: prependZero(inputs[6].value),
       frequency: inputs[7].value,
-      status: inputs[8].checked ? 'acute' : 'repeat',
+      status: inputs[9].checked ? 'acute' : 'repeat',
+      override: '',
       active: true,
+      date: new Date(),
+      monitoring: inputs[8].value === 0 ? false : true,
+      monitoringSchedule: inputs[8].value,
     };
-    console.log(prescription);
+    console.log('no override,', prescription);
+    setPrescription(prescription.name);
+  }
+  function handleOverrideClick() {
+    console.log(document.querySelector('#drugInteractionOverride').value);
+    setReason(document.querySelector('#drugInteractionOverride').value);
+    setOpenStatus(false);
+    setOpen(false);
+  }
+  function ChildModal() {
+    // const [open, setOpen] = React.useState(false);
+    const [reasonText, setReasonText] = React.useState('');
+    function handleOverrideChange(e) {
+      setReasonText(e.target.value);
+    }
+    // const handleOpen = () => {
+    //   setOpen(true);
+    // };
+    const handleClose = () => {
+      setOpenStatus(false);
+      // setOpen(false);
+    };
 
-    handleClose();
+    return (
+      <React.Fragment>
+        {/* <Button >Open Child Modal</Button> */}
+        <Modal
+          hideBackdrop
+          open={openStatus}
+          onClose={handleClose}
+          aria-labelledby="child-modal-title"
+          aria-describedby="child-modal-description"
+        >
+          <Box sx={{ ...style }}>
+            <h2 id="child-modal-title">
+              WARNING: There is a severe interaction between {prescription} and
+              other drugs {first} {last} is currently prescribed
+            </h2>
+            <p id="child-modal-description">
+              If you want to continue with this prescription please provide a
+              valid reason below:
+            </p>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="drugInteractionOverride"
+              label="Reason to continue prescription"
+              type="text"
+              name="interactionReason"
+              fullWidth
+              variant="standard"
+              onChange={handleOverrideChange}
+              error={reasonText ? false : true}
+              required
+            />
+            <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+              <Button onClick={handleClose}>Cancel</Button>
+              <Button
+                onClick={handleOverrideClick}
+                disabled={reasonText ? false : true}
+              >
+                Confirm Prescription
+              </Button>
+            </div>
+          </Box>
+        </Modal>
+      </React.Fragment>
+    );
   }
   return (
     <div>
@@ -88,6 +272,8 @@ export default function FormDialog({ first, last }) {
           <DialogTitle>
             New Prescription for {first} {last}
           </DialogTitle>
+          <ChildModal />
+
           <DialogContent>
             <TextField
               autoFocus
@@ -111,6 +297,7 @@ export default function FormDialog({ first, last }) {
               fullWidth
               variant="standard"
               onChange={handleChange}
+              value="For testing"
               required
             />
             <TextField
@@ -125,6 +312,7 @@ export default function FormDialog({ first, last }) {
               name="total"
               inputProps={{ inputMode: 'numeric', pattern: '[0-9.]*' }}
               error={!Number.isNaN(Number(textFields['total'])) ? false : true}
+              value="200"
               required
             />
             <TextField
@@ -138,6 +326,7 @@ export default function FormDialog({ first, last }) {
               inputProps={{ inputMode: 'numeric', pattern: '[0-9.]*' }}
               error={!Number.isNaN(Number(textFields['dosage'])) ? false : true}
               required
+              value="100"
               name="dosage"
             />
             {/* <TextField
@@ -166,6 +355,7 @@ export default function FormDialog({ first, last }) {
               fullWidth
               variant="standard"
               required
+              value="mg"
               name="measurement"
             />
             <TextField
@@ -182,6 +372,7 @@ export default function FormDialog({ first, last }) {
               variant="standard"
               required
               name="quantity"
+              value="250"
             />
             <TextField
               autoFocus
@@ -193,6 +384,7 @@ export default function FormDialog({ first, last }) {
               variant="standard"
               onChange={handleChange}
               required
+              value="daily"
               error={
                 !Number.isInteger(Number(textFields['frequency']))
                   ? false
@@ -202,15 +394,15 @@ export default function FormDialog({ first, last }) {
               }
               name="frequency"
             />
-            {/* <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Drug Active (e.g. active or paused)"
-            type="status"
-            fullWidth
-            variant="standard"
-          /> */}
+            <TextField
+              autoFocus
+              margin="dense"
+              id="monitoring"
+              label="Monitoring (in months)"
+              type="number"
+              inputProps={{ step: 1, min: 0 }}
+              variant="standard"
+            />
             <div style={{ fontSize: '1.2rem' }}>
               Acute <ControlledSwitches></ControlledSwitches> Repeat{' '}
             </div>
