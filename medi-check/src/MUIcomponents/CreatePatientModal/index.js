@@ -4,7 +4,12 @@ import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
+import ButtonComponent from "../Button2";
+import { MdOutlineAddCircle } from "react-icons/md";
+import "./createpatient.css";
 // import DialogContentText from '@mui/material/DialogContentText';
+// import DialogTitle from "@mui/material/DialogTitle";
+// import ControlledSwitches from "../ControlledSwitch";
 //import DialogTitle from "@mui/material/DialogTitle";
 //import ControlledSwitches from "../ControlledSwitch";
 
@@ -33,20 +38,21 @@ export default function CreatePatientDialog({ first, last }) {
     //check if each input is valid
     let inputs = document.querySelectorAll("input");
     console.log(inputs);
-    // let newUser = {
-    //     Title: inputs[1].value,
-    //     FirstNames: inputs[2].value,
-    //     Surname: inputs[3].value,
-    //     dob: inputs[4].value,
-    //     gender: inputs[5].value,
-    //     ethnicity: inputs[6].value,
-    //     address: inputs[7].value,
-    //     postcode: inputs[8].value,
-    //     phoneNumber: inputs[9].value,
-    //     allergies: inputs[10].value,
-    //     nhsNumber: inputs[11].value,
-    //     gpSurgery: inputs[12].value,
-    // };
+    let newUser = {
+      Title: inputs[1].value,
+      FirstNames: inputs[2].value,
+      Surname: inputs[3].value,
+      dob: inputs[4].value,
+      gender: inputs[5].value,
+      ethnicity: inputs[6].value,
+      address: inputs[7].value,
+      postcode: inputs[8].value,
+      phoneNumber: inputs[9].value,
+      allergies: inputs[10].value,
+      nhsNumber: inputs[11].value,
+      gpSurgery: inputs[12].value,
+    };
+
     setOpen(false);
   };
   function handleSubmit(e) {
@@ -68,21 +74,24 @@ export default function CreatePatientDialog({ first, last }) {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Add New Patient
-      </Button>
+      <ButtonComponent
+        text1="Add New Patient"
+        text2={<MdOutlineAddCircle style={{ marginLeft: "0.5em" }} />}
+        onClick={handleClickOpen}
+      ></ButtonComponent>
 
-            <Dialog
-                scroll="body"
-                open={open}
-                onClose={(event, reason) => {
-                    if (reason !== "backdropClick") {
-                        handleClose();
-                    }
-                }}
-            >
-                <form onSubmit={handleSubmit}>
-                    {/* <DialogTitle>
+
+      <Dialog
+        scroll="body"
+        open={open}
+        onClose={(event, reason) => {
+          if (reason !== "backdropClick") {
+            handleClose();
+          }
+        }}
+      >
+        <form onSubmit={handleSubmit}>
+          {/* <DialogTitle>
                     New Prescription for {first} {last}
                 </DialogTitle> */}
           <DialogContent>
