@@ -3,6 +3,8 @@ import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { v4 as uuidv4 } from "uuid";
+import "./popover.css";
+// IoNotificationsOutline from "react-icons";
 
 export default function BasicPopover({ data, notifications, prepaid }) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -33,9 +35,17 @@ export default function BasicPopover({ data, notifications, prepaid }) {
 
   return (
     <div>
-      <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-        {notifications}
-      </Button>
+      <div className="notifications">
+        <Button
+          sx={{ position: "relative" }}
+          aria-describedby={id}
+          variant="contained"
+          onClick={handleClick}
+        >
+          <span>notification</span>
+        </Button>
+        <div className="notification-number">{notifications}</div>
+      </div>
       <Popover
         id={id}
         open={open}
