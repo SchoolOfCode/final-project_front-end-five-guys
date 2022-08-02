@@ -3,8 +3,10 @@ import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { v4 as uuidv4 } from "uuid";
+import "./popover.css";
+// IoNotificationsOutline from "react-icons";
 
-export default function BasicPopover({ data, notifications }) {
+export default function BasicPopover({ data, notifications, prepaid }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -21,19 +23,29 @@ export default function BasicPopover({ data, notifications }) {
   //function to return slightly different message for single alerts and multiple alerts
   function caption() {
     let caption = "";
-    if (notifications.length === 1) {
+    if (data.length === 1) {
       caption = "You need to renew your prescription for:";
-    } else {
+    } else if (data.length > 1) {
       caption = "You need to renew your prescriptions for:";
+    } else if (data.length === 0 && prepaid === "") {
+      caption = "You have no notifications";
     }
     return caption;
   }
 
   return (
     <div>
-      <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-        {notifications}
-      </Button>
+      <div className="notifications">
+        <Button
+          sx={{ position: "relative" }}
+          aria-describedby={id}
+          variant="contained"
+          onClick={handleClick}
+        >
+          <span>notification</span>
+        </Button>
+        <div className="notification-number">{notifications}</div>
+      </div>
       <Popover
         id={id}
         open={open}
@@ -44,6 +56,14 @@ export default function BasicPopover({ data, notifications }) {
           horizontal: "left",
         }}
       >
+        <Typography
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
+          sx={{ mt: 1, ml: 1 }}
+        >
+          {prepaid}
+        </Typography>
         <Typography
           id="modal-modal-title"
           variant="h6"
