@@ -18,6 +18,7 @@ import { dummy } from '../../Components/Patient/PrescriptionDisplay/dummyData.js
 //Easy tester drug: ketoconazole
 
 export default function FormDialog({ first, last }) {
+  console.log(Date.now(), Date.UTC());
   const style = {
     position: 'absolute',
     top: '50%',
@@ -51,6 +52,8 @@ export default function FormDialog({ first, last }) {
       frequency: inputs[7].value,
       status: inputs[8].checked ? 'acute' : 'repeat',
       override: reason,
+      date: new Date(),
+      monitoring: false,
       active: true,
     };
     console.log('overrided,', prescription);
@@ -97,9 +100,12 @@ export default function FormDialog({ first, last }) {
             measurement: inputs[5].value,
             quantity: prependZero(inputs[6].value),
             frequency: inputs[7].value,
-            status: inputs[8].checked ? 'acute' : 'repeat',
+            status: inputs[9].checked ? 'acute' : 'repeat',
             override: '',
             active: true,
+            date: new Date(),
+            monitoring: inputs[8].value === 0 ? false : true,
+            monitoringSchedule: inputs[8].value,
           };
           console.log('sending this back to the DB:', prescription);
           handleClose();
@@ -164,6 +170,7 @@ export default function FormDialog({ first, last }) {
     //look for .3 type numbers and put a 0 on the left. Run on total, dosage, quantity
     //Test whether or not we need to make the page refresh after sending to database or just reset state to 0
     let inputs = document.querySelectorAll('input');
+    console.log('ion', inputs);
     let prescription = {
       name: inputs[1].value,
       reason: inputs[2].value,
@@ -172,9 +179,12 @@ export default function FormDialog({ first, last }) {
       measurement: inputs[5].value,
       quantity: prependZero(inputs[6].value),
       frequency: inputs[7].value,
-      status: inputs[8].checked ? 'acute' : 'repeat',
+      status: inputs[9].checked ? 'acute' : 'repeat',
       override: '',
       active: true,
+      date: new Date(),
+      monitoring: inputs[8].value === 0 ? false : true,
+      monitoringSchedule: inputs[8].value,
     };
     console.log('no override,', prescription);
     setPrescription(prescription.name);
@@ -384,15 +394,15 @@ export default function FormDialog({ first, last }) {
               }
               name="frequency"
             />
-            {/* <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Drug Active (e.g. active or paused)"
-            type="status"
-            fullWidth
-            variant="standard"
-          /> */}
+            <TextField
+              autoFocus
+              margin="dense"
+              id="monitoring"
+              label="Monitoring (in months)"
+              type="number"
+              inputProps={{ step: 1, min: 0 }}
+              variant="standard"
+            />
             <div style={{ fontSize: '1.2rem' }}>
               Acute <ControlledSwitches></ControlledSwitches> Repeat{' '}
             </div>
