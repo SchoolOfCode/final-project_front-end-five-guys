@@ -8,9 +8,51 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import ControlledSwitches from '../ControlledSwitch';
 import './index.css';
+import useInteractions from '../../Hooks/useInteractionsFromName';
+//Temp import to get the dummy data for prescriptions
+import { dummy } from '../../Components/Patient/PrescriptionDisplay/dummyData.js';
+//Easy tester drug: ketoconazole
+
 export default function FormDialog({ first, last }) {
   const [open, setOpen] = React.useState(false);
+  const [prescription, setPrescription] = React.useState('');
 
+  React.useEffect(() => {
+    let names = [];
+    for (let i = 0; i < dummy.length; i++) {
+      names.push(dummy[i].name);
+    }
+    names.push(prescription);
+    async function fetchData(nameArray) {
+      let url = 'https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=';
+      for (let i = 0; i < nameArray.length; i++) {
+        let res = await fetch(
+          `https://rxnav.nlm.nih.gov/REST/rxcui.json?name=${nameArray[i]}`
+        );
+        let json = await res.json();
+        console.log(nameArray[i], nameArray, json);
+        url += `+${json.idGroup.rxnormId[0]}`;
+      }
+      try {
+        let response = await fetch(url + '&sources=ONCHigh');
+        let obj = await response.json();
+        console.log('interactions here: ', obj);
+        if (!obj.fullInteractionTypeGroup) {
+          handleClose();
+          return;
+        }
+        //There is an interaction and we need to stop the closure and display the warning
+        document.querySelector('#interactionPopup').classList.toggle('hide');
+        // console.log(obj.fullInteractionTypeGroup[0].fullInteractionType);
+        // setData(obj.fullInteractionTypeGroup[0].fullInteractionType);
+      } catch (error) {
+        console.log('error', error);
+      }
+    }
+    if (prescription) {
+      fetchData(names);
+    }
+  }, [prescription]);
   //States for all of the textfields
   // const [name, setName] = React.useState('');
   // const [dosage, setDosage] = React.useState(0);
@@ -39,6 +81,7 @@ export default function FormDialog({ first, last }) {
 
   const handleClickOpen = () => {
     setOpen(true);
+    console.log('dum data', dummy);
   };
 
   const handleClose = () => {
@@ -68,11 +111,13 @@ export default function FormDialog({ first, last }) {
       active: true,
     };
     console.log(prescription);
-
-    handleClose();
+    setPrescription(prescription.name);
   }
   return (
     <div>
+      {/* <section className="hide" id="interactionPopup">
+        Hi I am supposed to be hidden
+      </section> */}
       <Button variant="outlined" onClick={handleClickOpen}>
         Add New Prescription
       </Button>

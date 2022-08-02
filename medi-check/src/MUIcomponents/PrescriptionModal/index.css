@@ -1,0 +1,13 @@
+#interactionPopup {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
+  background-color: aquamarine;
+  width: 200px;
+  height: 200px;
+}
+
+.hide {
+  display: none;
+}
