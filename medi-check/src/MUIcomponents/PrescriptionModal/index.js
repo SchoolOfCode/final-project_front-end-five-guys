@@ -115,9 +115,9 @@ export default function FormDialog({ first, last }) {
   }
   return (
     <div>
-      {/* <section className="hide" id="interactionPopup">
+      <section className="hide" id="interactionPopup">
         Hi I am supposed to be hidden
-      </section> */}
+      </section>
       <Button variant="outlined" onClick={handleClickOpen}>
         Add New Prescription
       </Button>

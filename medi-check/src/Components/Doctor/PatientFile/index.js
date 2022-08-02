@@ -4,9 +4,9 @@ function PatientFile({ info, onClick }) {
   console.log(info);
   return (
     <main>
-      <section className="hide" id="interactionPopup">
+      {/* <section className="hide" id="interactionPopup">
         Hi I am supposed to be hidden
-      </section>
+      </section> */}
       <h4>
         Add new drug: <FormDialog first={info.FirstNames} last={info.Surname} />
       </h4>
