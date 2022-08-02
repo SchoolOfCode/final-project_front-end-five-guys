@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { v4 as uuidv4 } from "uuid";
 
-export default function BasicPopover({ data, notifications }) {
+export default function BasicPopover({ data, notifications, prepaid }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -21,10 +21,12 @@ export default function BasicPopover({ data, notifications }) {
   //function to return slightly different message for single alerts and multiple alerts
   function caption() {
     let caption = "";
-    if (notifications.length === 1) {
+    if (data.length === 1) {
       caption = "You need to renew your prescription for:";
-    } else {
+    } else if (data.length > 1) {
       caption = "You need to renew your prescriptions for:";
+    } else if (data.length === 0 && prepaid === "") {
+      caption = "You have no notifications";
     }
     return caption;
   }
@@ -44,6 +46,14 @@ export default function BasicPopover({ data, notifications }) {
           horizontal: "left",
         }}
       >
+        <Typography
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
+          sx={{ mt: 1, ml: 1 }}
+        >
+          {prepaid}
+        </Typography>
         <Typography
           id="modal-modal-title"
           variant="h6"
