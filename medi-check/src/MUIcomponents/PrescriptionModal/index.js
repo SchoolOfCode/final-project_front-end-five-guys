@@ -12,7 +12,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 
 import './index.css';
-import useInteractions from '../../Hooks/useInteractionsFromName';
+// import useInteractions from '../../Hooks/useInteractionsFromName';
 //Temp import to get the dummy data for prescriptions
 import { dummy } from '../../Components/Patient/PrescriptionDisplay/dummyData.js';
 //Easy tester drug: ketoconazole
@@ -120,7 +120,7 @@ export default function FormDialog({ first, last }) {
     }
     if (prescription) {
       //Comment out this line if testing and not wanting to query the API
-      // fetchData(names);
+      fetchData(names);
     }
   }, [prescription]);
   //States for all of the textfields
@@ -201,9 +201,9 @@ export default function FormDialog({ first, last }) {
     function handleOverrideChange(e) {
       setReasonText(e.target.value);
     }
-    const handleOpen = () => {
-      setOpen(true);
-    };
+    // const handleOpen = () => {
+    //   setOpen(true);
+    // };
     const handleClose = () => {
       setOpenStatus(false);
       // setOpen(false);

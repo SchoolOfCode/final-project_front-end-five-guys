@@ -10,7 +10,7 @@
 .patient-table-con {
   display: flex;
   flex-direction: row;
-  justify-content: start;
+  justify-content: flex-start;
   height: 90vh;
   width: 90%;
   background-color: #ffffff;
