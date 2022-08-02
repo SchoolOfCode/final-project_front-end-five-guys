@@ -87,6 +87,7 @@ export default function FormDialog({ first, last }) {
     total: 0,
     reason: '',
   });
+
   function handleChange(event) {
     let obj = textFields;
     console.log(typeof textFields['total']);
@@ -137,7 +138,10 @@ export default function FormDialog({ first, last }) {
   }
   function ChildModal() {
     // const [open, setOpen] = React.useState(false);
-
+    const [reasonText, setReasonText] = React.useState('');
+    function handleOverrideChange(e) {
+      setReasonText(e.target.value);
+    }
     const handleOpen = () => {
       setOpen(true);
     };
@@ -174,11 +178,16 @@ export default function FormDialog({ first, last }) {
               name="interactionReason"
               fullWidth
               variant="standard"
+              onChange={handleOverrideChange}
+              error={reasonText ? false : true}
               required
             />
             <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
               <Button onClick={handleClose}>Cancel</Button>
-              <Button onClick={handleOverrideClick}>
+              <Button
+                onClick={handleOverrideClick}
+                disabled={reasonText ? false : true}
+              >
                 Confirm Prescription
               </Button>
             </div>
