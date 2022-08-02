@@ -1,4 +1,3 @@
-section {
-  width: 80%;
-  height: 80%;
+#display-box {
+  border: 3px solid black;
 }

@@ -7,97 +7,142 @@ import ButtonComponent from "../../../MUIcomponents/Button2";
 import { IoMdArrowDropdown } from "react-icons/io";
 
 function PatientList({ list, patient, setPatient }) {
-    const [filter, setFilter] = useState({ type: "", reverse: false });
-    // console.log('patient', patient);
-    function resetPatient() {
-        setPatient(null);
-    }
-    function compare(a, b) {
-        // console.log(a, b);
-        if (filter.type === "first") {
-            if (a.FirstNames.toUpperCase() > b.FirstNames.toUpperCase()) {
-                return filter.reverse ? -1 : 1;
-            } else if (
-                a.FirstNames.toUpperCase() < b.FirstNames.toUpperCase()
-            ) {
-                return filter.reverse ? 1 : -1;
-            }
-            return 0;
-        } else if (filter.type === "last") {
-            if (a.Surname.toUpperCase() > b.Surname.toUpperCase()) {
-                return filter.reverse ? -1 : 1;
-            } else if (a.Surname.toUpperCase() < b.Surname.toUpperCase()) {
-                return filter.reverse ? 1 : -1;
-            }
-            return 0;
-        } else {
-            if (a.nhsNumber > b.nhsNumber) {
-                return filter.reverse ? -1 : 1;
-            } else if (a.nhsNumber < b.nhsNumber) {
-                return filter.reverse ? 1 : -1;
-            }
-            return 0;
-        }
-    }
-    function handleSort(sortBy) {
-        setFilter({
-            type: sortBy,
-            reverse: sortBy === filter.type ? !filter.reverse : false,
-        });
-    }
-    if (patient !== null) {
-        return (
-            <PatientFile info={patient} onClick={resetPatient}></PatientFile>
-        );
+  const [filter, setFilter] = useState({ type: "", reverse: false });
+  // console.log('patient', patient);
+  function resetPatient() {
+    setPatient(null);
+  }
+  function compare(a, b) {
+    // console.log(a, b);
+    if (filter.type === "first") {
+      if (a.FirstNames.toUpperCase() > b.FirstNames.toUpperCase()) {
+        return filter.reverse ? -1 : 1;
+      } else if (a.FirstNames.toUpperCase() < b.FirstNames.toUpperCase()) {
+        return filter.reverse ? 1 : -1;
+      }
+      return 0;
+    } else if (filter.type === "last") {
+      if (a.Surname.toUpperCase() > b.Surname.toUpperCase()) {
+        return filter.reverse ? -1 : 1;
+      } else if (a.Surname.toUpperCase() < b.Surname.toUpperCase()) {
+        return filter.reverse ? 1 : -1;
+      }
+      return 0;
     } else {
-        return (
-            <div>
-                <div>
-                    {/* <div
+      if (a.nhsNumber > b.nhsNumber) {
+        return filter.reverse ? -1 : 1;
+      } else if (a.nhsNumber < b.nhsNumber) {
+        return filter.reverse ? 1 : -1;
+      }
+      return 0;
+    }
+  }
+  function handleSort(sortBy) {
+    setFilter({
+      type: sortBy,
+      reverse: sortBy === filter.type ? !filter.reverse : false,
+    });
+  }
+  if (patient !== null) {
+    return <PatientFile info={patient} onClick={resetPatient}></PatientFile>;
+  } else {
+    return (
+      <div>
+        {/* <div> */}
+        {/* <div
             onClick={() => {
               handleSort("first");
             }}
           >
             First name
           </div> */}
-                    <ButtonComponent
-                        onClick={() => {
-                            handleSort("first");
-                        }}
-                        text1={"First Name"}
-                        text2={<IoMdArrowDropdown />}
-                    />
-                    <ButtonComponent
-                        onClick={() => {
-                            handleSort("last");
-                        }}
-                        text1={"Surname"}
-                        text2={<IoMdArrowDropdown />}
-                    />
-                    <ButtonComponent
-                        onClick={() => {
-                            handleSort("number");
-                        }}
-                        text1={"NHS Number"}
-                        text2={<IoMdArrowDropdown />}
-                    />
-                </div>
-                <ul className="mappedPatient">
-                    {list.sort(compare).map((patient, index) => {
-                        // console.log('patient-detials', patient);
-                        return (
-                            <Patient
-                                index={index}
-                                setPatient={setPatient}
-                                className="individualPatient"
-                                key={patient.nhsNumber}
-                                patientInfo={patient}
-                            ></Patient>
-                        );
-                    })}
-                </ul>
-            </div>
-        );
-    }
+        {/* <ButtonComponent
+            onClick={() => {
+              handleSort("first");
+            }}
+            text1={"First Name"}
+            text2={<IoMdArrowDropdown />}
+          />
+          <ButtonComponent
+            onClick={() => {
+              handleSort("last");
+            }}
+            text1={"Surname"}
+            text2={<IoMdArrowDropdown />}
+          />
+          <ButtonComponent
+            onClick={() => {
+              handleSort("number");
+            }}
+            text1={"NHS Number"}
+            text2={<IoMdArrowDropdown />}
+          />
+        </div>
+        <ul className="mappedPatient">
+          {list.sort(compare).map((patient, index) => {
+            // console.log('patient-detials', patient);
+            return (
+              <Patient
+                index={index}
+                setPatient={setPatient}
+                className="individualPatient"
+                key={patient.nhsNumber}
+                patientInfo={patient}
+              ></Patient>
+            );
+          })}
+        </ul> */}
+        {/* <section className="patient-table-container"> */}
+        <table className="patient-table">
+          <thead>
+            <tr>
+              <th>
+                <ButtonComponent
+                  text1={"First Name"}
+                  text2={<IoMdArrowDropdown />}
+                  onClick={() => {
+                    handleSort("first");
+                  }}
+                />
+              </th>
+              <th>
+                <ButtonComponent
+                  text1={"Surname"}
+                  text2={<IoMdArrowDropdown />}
+                  onClick={() => {
+                    handleSort("Surname");
+                  }}
+                />
+              </th>
+              <th>
+                <ButtonComponent
+                  text1={"NHS Number"}
+                  text2={<IoMdArrowDropdown />}
+                  onClick={() => {
+                    handleSort("number");
+                  }}
+                />
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {list.sort(compare).map((patient, index) => {
+              // console.log('patient-detials', patient);
+              return (
+                <Patient
+                  index={index}
+                  setPatient={setPatient}
+                  className="individualPatient"
+                  key={patient.nhsNumber}
+                  patientInfo={patient}
+                ></Patient>
+              );
+            })}
+          </tbody>
+        </table>
+        {/* </section> */}
+      </div>
+    );
+  }
 }
 export default PatientList;

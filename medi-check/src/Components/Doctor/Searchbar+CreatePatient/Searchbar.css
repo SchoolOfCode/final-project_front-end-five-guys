@@ -7,8 +7,14 @@
   font-family: Inter, sans-serif;
   font-size: 1em;
   font-weight: 400;
-  padding-top: -1em;
-  padding-bottom: -1em;
-  max-width: 12em;
+  width: 14em;
+  max-width: 15em;
+  padding: 0.3em 1em;
   box-shadow: 6px 6px 15px -5px rgba(0, 0, 0, 0.55);
+}
+
+#patient-search {
+  display: flex;
+  align-items: center;
+  gap: 1em;
 }
