@@ -176,9 +176,12 @@ export default function FormDialog({ first, last }) {
               variant="standard"
               required
             />
-
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleOverrideClick}>Submit</Button>
+            <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+              <Button onClick={handleClose}>Cancel</Button>
+              <Button onClick={handleOverrideClick}>
+                Confirm Prescription
+              </Button>
+            </div>
           </Box>
         </Modal>
       </React.Fragment>
