@@ -34,6 +34,27 @@ export default function FormDialog({ first, last }) {
   const [open, setOpen] = React.useState(false);
   const [prescription, setPrescription] = React.useState('');
   const [openStatus, setOpenStatus] = React.useState(false);
+  const [reason, setReason] = React.useState('');
+  React.useEffect(() => {
+    if (!reason) {
+      return;
+    }
+    let inputs = document.querySelectorAll('input');
+    //send to DB
+    let prescription = {
+      name: inputs[1].value,
+      reason: inputs[2].value,
+      total: prependZero(inputs[3].value),
+      dosage: prependZero(inputs[4].value),
+      measurement: inputs[5].value,
+      quantity: prependZero(inputs[6].value),
+      frequency: inputs[7].value,
+      status: inputs[8].checked ? 'acute' : 'repeat',
+      override: reason,
+      active: true,
+    };
+    console.log('overrided,', prescription);
+  }, [reason]);
 
   React.useEffect(() => {
     let names = [];
@@ -55,7 +76,32 @@ export default function FormDialog({ first, last }) {
         let response = await fetch(url + '&sources=ONCHigh');
         let obj = await response.json();
         console.log('interactions here: ', obj);
-        if (!obj.fullInteractionTypeGroup) {
+        let filtered =
+          obj.fullInteractionTypeGroup[0].fullInteractionType.filter((item) => {
+            return (
+              prescription === item.minConcept[0].name ||
+              prescription === item.minConcept[1].name
+            );
+          });
+        console.log('fil', filtered);
+        if (filtered.length === 0) {
+          console.log(
+            'There are no interactions with the new drug, good to send back to DB now'
+          );
+          let inputs = document.querySelectorAll('input');
+          let prescription = {
+            name: inputs[1].value,
+            reason: inputs[2].value,
+            total: prependZero(inputs[3].value),
+            dosage: prependZero(inputs[4].value),
+            measurement: inputs[5].value,
+            quantity: prependZero(inputs[6].value),
+            frequency: inputs[7].value,
+            status: inputs[8].checked ? 'acute' : 'repeat',
+            override: '',
+            active: true,
+          };
+          console.log('sending this back to the DB:', prescription);
           handleClose();
           return;
         }
@@ -128,13 +174,17 @@ export default function FormDialog({ first, last }) {
       quantity: prependZero(inputs[6].value),
       frequency: inputs[7].value,
       status: inputs[8].checked ? 'acute' : 'repeat',
+      override: '',
       active: true,
     };
-    console.log(prescription);
+    console.log('no override,', prescription);
     setPrescription(prescription.name);
   }
   function handleOverrideClick() {
     console.log(document.querySelector('#drugInteractionOverride').value);
+    setReason(document.querySelector('#drugInteractionOverride').value);
+    setOpenStatus(false);
+    setOpen(false);
   }
   function ChildModal() {
     // const [open, setOpen] = React.useState(false);
@@ -241,6 +291,7 @@ export default function FormDialog({ first, last }) {
               fullWidth
               variant="standard"
               onChange={handleChange}
+              value="For testing"
               required
             />
             <TextField
@@ -255,6 +306,7 @@ export default function FormDialog({ first, last }) {
               name="total"
               inputProps={{ inputMode: 'numeric', pattern: '[0-9.]*' }}
               error={!Number.isNaN(Number(textFields['total'])) ? false : true}
+              value="200"
               required
             />
             <TextField
@@ -268,6 +320,7 @@ export default function FormDialog({ first, last }) {
               inputProps={{ inputMode: 'numeric', pattern: '[0-9.]*' }}
               error={!Number.isNaN(Number(textFields['dosage'])) ? false : true}
               required
+              value="100"
               name="dosage"
             />
             {/* <TextField
@@ -296,6 +349,7 @@ export default function FormDialog({ first, last }) {
               fullWidth
               variant="standard"
               required
+              value="mg"
               name="measurement"
             />
             <TextField
@@ -312,6 +366,7 @@ export default function FormDialog({ first, last }) {
               variant="standard"
               required
               name="quantity"
+              value="250"
             />
             <TextField
               autoFocus
@@ -323,6 +378,7 @@ export default function FormDialog({ first, last }) {
               variant="standard"
               onChange={handleChange}
               required
+              value="daily"
               error={
                 !Number.isInteger(Number(textFields['frequency']))
                   ? false
