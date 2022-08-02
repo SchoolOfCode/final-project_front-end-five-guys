@@ -23,7 +23,7 @@ export default function FormDialog({ first, last }) {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: '500px',
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -132,8 +132,10 @@ export default function FormDialog({ first, last }) {
     console.log(prescription);
     setPrescription(prescription.name);
   }
-
-  function ChildModal({ openStatus, setOpenStatus }) {
+  function handleOverrideClick() {
+    console.log(document.querySelector('#drugInteractionOverride').value);
+  }
+  function ChildModal() {
     // const [open, setOpen] = React.useState(false);
 
     const handleOpen = () => {
@@ -154,12 +156,29 @@ export default function FormDialog({ first, last }) {
           aria-labelledby="child-modal-title"
           aria-describedby="child-modal-description"
         >
-          <Box sx={{ ...style, width: 200 }}>
-            <h2 id="child-modal-title">Text in a child modal</h2>
+          <Box sx={{ ...style }}>
+            <h2 id="child-modal-title">
+              WARNING: There is a severe interaction between {prescription} and
+              other drugs {first} {last} is currently prescribed
+            </h2>
             <p id="child-modal-description">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              If you want to continue with this prescription please provide a
+              valid reason below:
             </p>
-            <Button onClick={handleClose}>Close Child Modal</Button>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="drugInteractionOverride"
+              label="Reason to continue prescription"
+              type="text"
+              name="interactionReason"
+              fullWidth
+              variant="standard"
+              required
+            />
+
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={handleOverrideClick}>Submit</Button>
           </Box>
         </Modal>
       </React.Fragment>
@@ -185,7 +204,7 @@ export default function FormDialog({ first, last }) {
           <DialogTitle>
             New Prescription for {first} {last}
           </DialogTitle>
-          <ChildModal openStatus={openStatus} setOpenStatus={setOpenStatus} />
+          <ChildModal />
 
           <DialogContent>
             <TextField
