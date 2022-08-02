@@ -108,14 +108,13 @@ export default function FormDialog({ first, last }) {
         //There is an interaction and we need to stop the closure and display the warning
         // document.querySelector('#interactionPopup').classList.toggle('hide');
         setOpenStatus(true);
-        // console.log(obj.fullInteractionTypeGroup[0].fullInteractionType);
-        // setData(obj.fullInteractionTypeGroup[0].fullInteractionType);
       } catch (error) {
         console.log('error', error);
       }
     }
     if (prescription) {
-      fetchData(names);
+      //Comment out this line if testing and not wanting to query the API
+      // fetchData(names);
     }
   }, [prescription]);
   //States for all of the textfields
@@ -248,9 +247,6 @@ export default function FormDialog({ first, last }) {
   }
   return (
     <div>
-      <section className="hide" id="interactionPopup">
-        Hi I am supposed to be hidden
-      </section>
       <Button variant="outlined" onClick={handleClickOpen}>
         Add New Prescription
       </Button>
