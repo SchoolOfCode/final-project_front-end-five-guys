@@ -5,7 +5,6 @@ import { dummyList } from "../PatientList/Patient";
 import Footer from "../Footer";
 import { Accessibility } from "../../Patient/Accessibility";
 import CreatePatientDialog from "../../../MUIcomponents/CreatePatientModal";
-import Footer from "../Footer";
 import "./DoctorHome.css";
 import Header from "../DoctorHeader";
 
@@ -39,7 +38,6 @@ function DoctorHome() {
                     />
                 </div>
 
-
                 <CreatePatientDialog />
             </section>
             <div className="patient-table-con">
@@ -57,13 +55,12 @@ function DoctorHome() {
                     />
                 )}
             </div>
-               <Accessibility />
+            <Accessibility />
             <Footer />
             {/* {!filteredList && <PatientList list={list} />} */}
             {/* <PatientList list={list} /> */}
         </div>
     );
-
-
+}
 
 export default DoctorHome;

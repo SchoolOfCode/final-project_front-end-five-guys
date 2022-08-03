@@ -1,16 +1,23 @@
 import FormDialog from "../../../MUIcomponents/PrescriptionModal";
 import { v4 as uuidv4 } from "uuid";
+import "./patientFile.css";
 function PatientFile({ info, onClick }) {
     console.log(info);
     return (
-        <main className="">
+        <main>
             {/* <section className="hide" id="interactionPopup">
         Hi I am supposed to be hidden
       </section> */}
 
-            <FormDialog first={info.FirstNames} last={info.Surname} />
-
-            <button onClick={onClick}>Close</button>
+            {/* <ButtonComponent
+                sx={{ display: "none" }}
+                id="close-button"
+                text1="Close"
+                onClick={onClick}
+            ></ButtonComponent> */}
+            <button className="close-button" onClick={onClick}>
+                Close
+            </button>
             <h3>
                 {info.Title} {info.FirstNames} {info.Surname}
             </h3>
@@ -40,6 +47,7 @@ function PatientFile({ info, onClick }) {
             <h4>NHS number: {info.nhsNumber}</h4>
             <h4>GP: {info.gpSurgery}</h4>
             <h4>Current Medication: </h4>
+            <FormDialog first={info.FirstNames} last={info.Surname} />
         </main>
     );
 }
