@@ -5,6 +5,8 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import ButtonComponent from '../Button2';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import { MdOutlineAddCircle } from 'react-icons/md';
 import './createpatient.css';
 // import DialogContentText from '@mui/material/DialogContentText';
@@ -28,6 +30,7 @@ export default function CreatePatientDialog({ first, last }) {
     allergies: '',
     nhsNumber: 0,
     gpSurgery: '',
+    pregnant: false,
   });
 
   const handleClickOpen = () => {
@@ -49,8 +52,9 @@ export default function CreatePatientDialog({ first, last }) {
       postcode: inputs[8].value,
       phoneNumber: inputs[9].value,
       allergies: inputs[10].value.split(',').map((item) => item.trim()),
-      nhsNumber: inputs[11].value,
-      gpSurgery: inputs[12].value,
+      pregnant: inputs[11].checked,
+      nhsNumber: inputs[12].value,
+      gpSurgery: inputs[13].value,
     };
     console.log('newuser', newUser);
     setOpen(false);
@@ -71,7 +75,7 @@ export default function CreatePatientDialog({ first, last }) {
     console.log(obj);
     setTextFields({ ...obj });
   }
-
+  const label = { inputProps: { 'aria-label': 'Pregnancy Status' } };
   return (
     <div>
       <ButtonComponent
@@ -158,7 +162,6 @@ export default function CreatePatientDialog({ first, last }) {
               required
               value="Greenwood"
             />
-
             <TextField
               name="dob"
               autoFocus
@@ -281,6 +284,12 @@ export default function CreatePatientDialog({ first, last }) {
               variant="standard"
               required
               value="Dust, Pollen"
+            />
+            <FormControlLabel
+              control={<Checkbox {...label} />}
+              label="Pregnancy Status"
+              labelPlacement="start"
+              sx={{ margin: 0 }}
             />
             <TextField
               name="nhsNumber"
