@@ -4,6 +4,14 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Slider from "@mui/material/Slider";
+import {
+  RiEmotionNormalLine,
+  RiEmotionUnhappyLine,
+  RiEmotionSadLine,
+  RiEmotionLine,
+  RiEmotionHappyLine,
+} from "react-icons/ri";
+import "./diary.css";
 
 const style = {
   position: "absolute",
@@ -20,23 +28,23 @@ const style = {
 const marks = [
   {
     value: 0,
-    label: "unhappy",
+    label: <RiEmotionSadLine className="icon" />,
   },
   {
     value: 25,
-    label: "sad",
+    label: <RiEmotionUnhappyLine className="icon" />,
   },
   {
     value: 50,
-    label: "neutral",
+    label: <RiEmotionNormalLine className="icon" />,
   },
   {
     value: 75,
-    label: "happy",
+    label: <RiEmotionHappyLine className="icon" />,
   },
   {
     value: 100,
-    label: "great",
+    label: <RiEmotionLine className="icon" />,
   },
 ];
 
@@ -71,7 +79,9 @@ export function DiaryModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <button onClick={handleClose}>x</button>
+          <button id="close" onClick={handleClose}>
+            x
+          </button>
           <Typography id="modal-modal-title" variant="h2" component="h2">
             Diary
           </Typography>
@@ -89,8 +99,8 @@ export function DiaryModal() {
               onChange={handleSlider}
             />
           </Box>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Additional comments
+          <Typography id="side-effects-title" variant="h6" component="h2">
+            Side Effects/Mood/Symptoms
           </Typography>
           <textarea
             style={{ resize: "none", height: "10vh", width: "20vw" }}
