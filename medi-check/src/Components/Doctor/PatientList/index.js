@@ -1,27 +1,28 @@
 //pass in patientList from Patient list (from db)
-import { useState } from "react";
-import PatientFile from "../PatientFile";
-import "./index.css";
-import { Patient } from "./Patient";
-import ButtonComponent from "../../../MUIcomponents/Button2";
-import { IoMdArrowDropdown } from "react-icons/io";
+import { useState } from 'react';
+import PatientFile from '../PatientFile';
+import './index.css';
+import { Patient } from './Patient';
+import ButtonComponent from '../../../MUIcomponents/Button2';
+// import { IoMdArrowDropdown } from 'react-icons/io';
+import arrow from '../../../Assets/arrow.svg';
 
 function PatientList({ list, patient, setPatient }) {
-  const [filter, setFilter] = useState({ type: "", reverse: false });
+  const [filter, setFilter] = useState({ type: '', reverse: false });
   // console.log('patient', patient);
   function resetPatient() {
     setPatient(null);
   }
   function compare(a, b) {
     // console.log(a, b);
-    if (filter.type === "first") {
+    if (filter.type === 'first') {
       if (a.FirstNames.toUpperCase() > b.FirstNames.toUpperCase()) {
         return filter.reverse ? -1 : 1;
       } else if (a.FirstNames.toUpperCase() < b.FirstNames.toUpperCase()) {
         return filter.reverse ? 1 : -1;
       }
       return 0;
-    } else if (filter.type === "last") {
+    } else if (filter.type === 'last') {
       if (a.Surname.toUpperCase() > b.Surname.toUpperCase()) {
         return filter.reverse ? -1 : 1;
       } else if (a.Surname.toUpperCase() < b.Surname.toUpperCase()) {
@@ -37,7 +38,19 @@ function PatientList({ list, patient, setPatient }) {
       return 0;
     }
   }
-  function handleSort(sortBy) {
+  function handleSort(sortBy, e) {
+    let flipped = document.getElementsByClassName('flip');
+    for (let i = 0; i < flipped.length; i++) {
+      let changedNode = e.target.firstElementChild
+        ? e.target.firstElementChild
+        : e.target === flipped[i];
+      if (changedNode !== flipped[i]) {
+        flipped[i].classList.remove('flip');
+      }
+    }
+    e.target.firstElementChild
+      ? e.target.firstElementChild.classList.toggle('flip')
+      : e.target.classList.toggle('flip');
     setFilter({
       type: sortBy,
       reverse: sortBy === filter.type ? !filter.reverse : false,
@@ -98,28 +111,34 @@ function PatientList({ list, patient, setPatient }) {
             <tr>
               <th>
                 <ButtonComponent
-                  text1={"First Name"}
-                  text2={<IoMdArrowDropdown />}
-                  onClick={() => {
-                    handleSort("first");
+                  text1={'First Name'}
+                  text2={
+                    <img className="arrow" src={arrow} alt="sort direction" />
+                  }
+                  onClick={(e) => {
+                    handleSort('first', e);
                   }}
                 />
               </th>
               <th>
                 <ButtonComponent
-                  text1={"Surname"}
-                  text2={<IoMdArrowDropdown />}
-                  onClick={() => {
-                    handleSort("Surname");
+                  text1={'Surname'}
+                  text2={
+                    <img className="arrow" src={arrow} alt="sort direction" />
+                  }
+                  onClick={(e) => {
+                    handleSort('Surname', e);
                   }}
                 />
               </th>
               <th>
                 <ButtonComponent
-                  text1={"NHS Number"}
-                  text2={<IoMdArrowDropdown />}
-                  onClick={() => {
-                    handleSort("number");
+                  text1={'NHS Number'}
+                  text2={
+                    <img className="arrow" src={arrow} alt="sort direction" />
+                  }
+                  onClick={(e) => {
+                    handleSort('number', e);
                   }}
                 />
               </th>
