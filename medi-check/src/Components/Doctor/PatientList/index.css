@@ -15,7 +15,6 @@
 }
 
 .patient-card:hover {
-  cursor: pointer;
   /* filter: brightness(0.8);
   background-color: #91c788; */
   text-decoration: underline;
