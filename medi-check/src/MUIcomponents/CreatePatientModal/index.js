@@ -5,6 +5,8 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import ButtonComponent from '../Button2';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import { MdOutlineAddCircle } from 'react-icons/md';
 import './createpatient.css';
 // import DialogContentText from '@mui/material/DialogContentText';
@@ -28,6 +30,9 @@ export default function CreatePatientDialog({ first, last }) {
     allergies: '',
     nhsNumber: 0,
     gpSurgery: '',
+    pregnant: false,
+    age: 0,
+    weight: 0,
   });
 
   const handleClickOpen = () => {
@@ -48,11 +53,12 @@ export default function CreatePatientDialog({ first, last }) {
       address: inputs[7].value,
       postcode: inputs[8].value,
       phoneNumber: inputs[9].value,
-      allergies: inputs[10].value,
-      nhsNumber: inputs[11].value,
-      gpSurgery: inputs[12].value,
+      allergies: inputs[10].value.split(',').map((item) => item.trim()),
+      pregnant: inputs[11].checked,
+      nhsNumber: inputs[12].value,
+      gpSurgery: inputs[13].value,
     };
-    console.log(newUser);
+    console.log('newuser', newUser);
     setOpen(false);
   };
   function handleSubmit(e) {
@@ -71,7 +77,7 @@ export default function CreatePatientDialog({ first, last }) {
     console.log(obj);
     setTextFields({ ...obj });
   }
-
+  const label = { inputProps: { 'aria-label': 'Pregnancy Status' } };
   return (
     <div>
       <ButtonComponent
@@ -115,6 +121,7 @@ export default function CreatePatientDialog({ first, last }) {
               }
               fullWidth
               variant="standard"
+              value="Miss"
               required
             />
             <TextField
@@ -135,6 +142,7 @@ export default function CreatePatientDialog({ first, last }) {
                   : true
               }
               required
+              value="Catherine"
             />
             <TextField
               name="Surname"
@@ -154,8 +162,8 @@ export default function CreatePatientDialog({ first, last }) {
                   : true
               }
               required
+              value="Greenwood"
             />
-
             <TextField
               name="dob"
               autoFocus
@@ -168,6 +176,41 @@ export default function CreatePatientDialog({ first, last }) {
                 pattern: '[0-9]*',
               }}
               error={Number.isInteger(Number(textFields['dob'])) ? false : true}
+              fullWidth
+              variant="standard"
+              required
+              value="22042002"
+            />
+            <TextField
+              name="age"
+              autoFocus
+              margin="dense"
+              id="age"
+              onChange={handleChange}
+              label="Age"
+              inputProps={{
+                inputMode: 'numeric',
+                pattern: '[0-9]*',
+              }}
+              error={Number.isInteger(Number(textFields['age'])) ? false : true}
+              fullWidth
+              variant="standard"
+              required
+            />
+            <TextField
+              name="weight"
+              autoFocus
+              margin="dense"
+              id="weight"
+              onChange={handleChange}
+              label="Weight"
+              inputProps={{
+                inputMode: 'numeric',
+                pattern: '[0-9]*',
+              }}
+              error={
+                Number.isInteger(Number(textFields['weight'])) ? false : true
+              }
               fullWidth
               variant="standard"
               required
@@ -190,6 +233,7 @@ export default function CreatePatientDialog({ first, last }) {
               fullWidth
               variant="standard"
               required
+              value="Female"
             />
             <TextField
               name="ethnicity"
@@ -209,6 +253,7 @@ export default function CreatePatientDialog({ first, last }) {
               fullWidth
               variant="standard"
               required
+              value="White"
             />
             <TextField
               name="address"
@@ -221,6 +266,7 @@ export default function CreatePatientDialog({ first, last }) {
               fullWidth
               variant="standard"
               required
+              value="39 Clarendon Park Drive"
             />
             <TextField
               name="postcode"
@@ -233,6 +279,7 @@ export default function CreatePatientDialog({ first, last }) {
               fullWidth
               variant="standard"
               required
+              value="LE44QT"
             />
             <TextField
               name="phoneNumber"
@@ -253,6 +300,7 @@ export default function CreatePatientDialog({ first, last }) {
               fullWidth
               variant="standard"
               required
+              value="07859779916"
             />
             <TextField
               name="allergies"
@@ -260,7 +308,6 @@ export default function CreatePatientDialog({ first, last }) {
               margin="dense"
               id="allergies"
               label="Allergies"
-              type="text"
               onChange={handleChange}
               error={
                 !Number.isInteger(Number(textFields['allergies']))
@@ -272,6 +319,13 @@ export default function CreatePatientDialog({ first, last }) {
               fullWidth
               variant="standard"
               required
+              value="Dust, Pollen"
+            />
+            <FormControlLabel
+              control={<Checkbox {...label} />}
+              label="Pregnancy Status"
+              labelPlacement="start"
+              sx={{ margin: 0 }}
             />
             <TextField
               name="nhsNumber"
@@ -290,6 +344,7 @@ export default function CreatePatientDialog({ first, last }) {
               fullWidth
               variant="standard"
               required
+              value="9876543210"
             />
             <TextField
               name="gpSurgery"
@@ -302,11 +357,8 @@ export default function CreatePatientDialog({ first, last }) {
               fullWidth
               variant="standard"
               required
+              value="Health Hill"
             />
-
-            {/* <div style={{ fontSize: "1.2rem" }}>
-                        Paused <ControlledSwitches></ControlledSwitches> Active{" "}
-                    </div> */}
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
