@@ -1,25 +1,27 @@
 //pass in patientList from Patient list (from db)
-import { useState } from 'react';
-import PatientFile from '../PatientFile';
-import './index.css';
-import { Patient } from './Patient';
+import { useState } from "react";
+import PatientFile from "../PatientFile";
+import "./index.css";
+import { Patient } from "./Patient";
+import ButtonComponent from "../../../MUIcomponents/Button2";
+import { IoMdArrowDropdown } from "react-icons/io";
 
 function PatientList({ list, patient, setPatient }) {
-  const [filter, setFilter] = useState({ type: '', reverse: false });
+  const [filter, setFilter] = useState({ type: "", reverse: false });
   // console.log('patient', patient);
   function resetPatient() {
     setPatient(null);
   }
   function compare(a, b) {
     // console.log(a, b);
-    if (filter.type === 'first') {
+    if (filter.type === "first") {
       if (a.FirstNames.toUpperCase() > b.FirstNames.toUpperCase()) {
         return filter.reverse ? -1 : 1;
       } else if (a.FirstNames.toUpperCase() < b.FirstNames.toUpperCase()) {
         return filter.reverse ? 1 : -1;
       }
       return 0;
-    } else if (filter.type === 'last') {
+    } else if (filter.type === "last") {
       if (a.Surname.toUpperCase() > b.Surname.toUpperCase()) {
         return filter.reverse ? -1 : 1;
       } else if (a.Surname.toUpperCase() < b.Surname.toUpperCase()) {
@@ -46,28 +48,35 @@ function PatientList({ list, patient, setPatient }) {
   } else {
     return (
       <div>
-        <div>
-          <div
+        {/* <div> */}
+        {/* <div
             onClick={() => {
-              handleSort('first');
+              handleSort("first");
             }}
           >
             First name
-          </div>
-          <div
+          </div> */}
+        {/* <ButtonComponent
             onClick={() => {
-              handleSort('last');
+              handleSort("first");
             }}
-          >
-            Surname
-          </div>
-          <div
+            text1={"First Name"}
+            text2={<IoMdArrowDropdown />}
+          />
+          <ButtonComponent
             onClick={() => {
-              handleSort('number');
+              handleSort("last");
             }}
-          >
-            NHS Number
-          </div>
+            text1={"Surname"}
+            text2={<IoMdArrowDropdown />}
+          />
+          <ButtonComponent
+            onClick={() => {
+              handleSort("number");
+            }}
+            text1={"NHS Number"}
+            text2={<IoMdArrowDropdown />}
+          />
         </div>
         <ul className="mappedPatient">
           {list.sort(compare).map((patient, index) => {
@@ -82,7 +91,56 @@ function PatientList({ list, patient, setPatient }) {
               ></Patient>
             );
           })}
-        </ul>
+        </ul> */}
+        {/* <section className="patient-table-container"> */}
+        <table className="patient-table">
+          <thead>
+            <tr>
+              <th>
+                <ButtonComponent
+                  text1={"First Name"}
+                  text2={<IoMdArrowDropdown />}
+                  onClick={() => {
+                    handleSort("first");
+                  }}
+                />
+              </th>
+              <th>
+                <ButtonComponent
+                  text1={"Surname"}
+                  text2={<IoMdArrowDropdown />}
+                  onClick={() => {
+                    handleSort("Surname");
+                  }}
+                />
+              </th>
+              <th>
+                <ButtonComponent
+                  text1={"NHS Number"}
+                  text2={<IoMdArrowDropdown />}
+                  onClick={() => {
+                    handleSort("number");
+                  }}
+                />
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {list.sort(compare).map((patient, index) => {
+              // console.log('patient-detials', patient);
+              return (
+                <Patient
+                  index={index}
+                  setPatient={setPatient}
+                  className="individualPatient"
+                  key={patient.nhsNumber}
+                  patientInfo={patient}
+                ></Patient>
+              );
+            })}
+          </tbody>
+        </table>
+        {/* </section> */}
       </div>
     );
   }
