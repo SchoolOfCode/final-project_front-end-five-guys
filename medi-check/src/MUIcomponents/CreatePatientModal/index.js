@@ -10,6 +10,8 @@ import "./createpatient.css";
 // import DialogContentText from '@mui/material/DialogContentText';
 // import DialogTitle from "@mui/material/DialogTitle";
 // import ControlledSwitches from "../ControlledSwitch";
+//import DialogTitle from "@mui/material/DialogTitle";
+//import ControlledSwitches from "../ControlledSwitch";
 
 export default function CreatePatientDialog({ first, last }) {
   const [open, setOpen] = React.useState(false);
@@ -50,6 +52,7 @@ export default function CreatePatientDialog({ first, last }) {
       nhsNumber: inputs[11].value,
       gpSurgery: inputs[12].value,
     };
+
     setOpen(false);
   };
   function handleSubmit(e) {
@@ -76,6 +79,7 @@ export default function CreatePatientDialog({ first, last }) {
         text2={<MdOutlineAddCircle style={{ marginLeft: "0.5em" }} />}
         onClick={handleClickOpen}
       ></ButtonComponent>
+
 
       <Dialog
         scroll="body"
