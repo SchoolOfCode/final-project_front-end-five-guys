@@ -31,7 +31,6 @@ export default function CreatePatientDialog({ first, last }) {
     nhsNumber: 0,
     gpSurgery: '',
     pregnant: false,
-    age: 0,
     weight: 0,
   });
 
@@ -48,15 +47,15 @@ export default function CreatePatientDialog({ first, last }) {
       FirstNames: inputs[2].value,
       Surname: inputs[3].value,
       dob: inputs[4].value,
-      gender: inputs[5].value,
-      ethnicity: inputs[6].value,
-      address: inputs[7].value,
-      postcode: inputs[8].value,
-      phoneNumber: inputs[9].value,
-      allergies: inputs[10].value.split(',').map((item) => item.trim()),
+      gender: inputs[6].value,
+      ethnicity: inputs[7].value,
+      address: inputs[8].value,
+      postcode: inputs[9].value,
+      phoneNumber: inputs[10].value,
       pregnant: inputs[11].checked,
       nhsNumber: inputs[12].value,
       gpSurgery: inputs[13].value,
+      weight: inputs[5].value,
     };
     console.log('newuser', newUser);
     setOpen(false);
@@ -181,22 +180,7 @@ export default function CreatePatientDialog({ first, last }) {
               required
               value="22042002"
             />
-            <TextField
-              name="age"
-              autoFocus
-              margin="dense"
-              id="age"
-              onChange={handleChange}
-              label="Age"
-              inputProps={{
-                inputMode: 'numeric',
-                pattern: '[0-9]*',
-              }}
-              error={Number.isInteger(Number(textFields['age'])) ? false : true}
-              fullWidth
-              variant="standard"
-              required
-            />
+
             <TextField
               name="weight"
               autoFocus
@@ -214,6 +198,7 @@ export default function CreatePatientDialog({ first, last }) {
               fullWidth
               variant="standard"
               required
+              value={150}
             />
             <TextField
               name="gender"
@@ -302,25 +287,7 @@ export default function CreatePatientDialog({ first, last }) {
               required
               value="07859779916"
             />
-            <TextField
-              name="allergies"
-              autoFocus
-              margin="dense"
-              id="allergies"
-              label="Allergies"
-              onChange={handleChange}
-              error={
-                !Number.isInteger(Number(textFields['allergies']))
-                  ? false
-                  : textFields['allergies'] === ''
-                  ? false
-                  : true
-              }
-              fullWidth
-              variant="standard"
-              required
-              value="Dust, Pollen"
-            />
+
             <FormControlLabel
               control={<Checkbox {...label} />}
               label="Pregnancy Status"
