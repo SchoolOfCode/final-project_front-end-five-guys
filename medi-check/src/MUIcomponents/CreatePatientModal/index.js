@@ -31,6 +31,8 @@ export default function CreatePatientDialog({ first, last }) {
     nhsNumber: 0,
     gpSurgery: '',
     pregnant: false,
+    age: 0,
+    weight: 0,
   });
 
   const handleClickOpen = () => {
@@ -178,6 +180,40 @@ export default function CreatePatientDialog({ first, last }) {
               variant="standard"
               required
               value="22042002"
+            />
+            <TextField
+              name="age"
+              autoFocus
+              margin="dense"
+              id="age"
+              onChange={handleChange}
+              label="Age"
+              inputProps={{
+                inputMode: 'numeric',
+                pattern: '[0-9]*',
+              }}
+              error={Number.isInteger(Number(textFields['age'])) ? false : true}
+              fullWidth
+              variant="standard"
+              required
+            />
+            <TextField
+              name="weight"
+              autoFocus
+              margin="dense"
+              id="weight"
+              onChange={handleChange}
+              label="Weight"
+              inputProps={{
+                inputMode: 'numeric',
+                pattern: '[0-9]*',
+              }}
+              error={
+                Number.isInteger(Number(textFields['weight'])) ? false : true
+              }
+              fullWidth
+              variant="standard"
+              required
             />
             <TextField
               name="gender"
