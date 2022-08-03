@@ -36,6 +36,7 @@ export default function FormDialog({ first, last }) {
   const [prescription, setPrescription] = React.useState('');
   const [openStatus, setOpenStatus] = React.useState(false);
   const [reason, setReason] = React.useState('');
+  const [interactedDrugs, setInteractedDrugs] = React.useState([]);
   React.useEffect(() => {
     if (!reason) {
       return;
@@ -112,7 +113,15 @@ export default function FormDialog({ first, last }) {
           return;
         }
         //There is an interaction and we need to stop the closure and display the warning
-        // document.querySelector('#interactionPopup').classList.toggle('hide');
+        let temp = [];
+        for (let i = 0; i < filtered.length; i++) {
+          temp.push(
+            filtered[i].minConcept[0].name === prescription
+              ? filtered[i].minConcept[1].name
+              : filtered[i].minConcept[0].name
+          );
+        }
+        setInteractedDrugs([...temp]);
         setOpenStatus(true);
       } catch (error) {
         console.log('error', error);
@@ -222,7 +231,8 @@ export default function FormDialog({ first, last }) {
           <Box sx={{ ...style }}>
             <h2 id="child-modal-title">
               WARNING: There is a severe interaction between {prescription} and
-              other drugs {first} {last} is currently prescribed
+              other drugs {first} {last} is currently prescribed (
+              {interactedDrugs.reduce((curr, prev) => curr + ', ' + prev)})
             </h2>
             <p id="child-modal-description">
               If you want to continue with this prescription please provide a
