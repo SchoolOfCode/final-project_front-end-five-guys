@@ -1,19 +1,17 @@
 .footer {
-  background-color: green;
-  height: 15vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  /* font-size: --var(); */
+    background-color: var(--primary-color);
+    height: 15vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin-top: 1em;
+    /* font-size: --var(); */
 }
-.footerRow {
-  display: flex;
-  gap: 2.5em;
-}
+
 .legal {
-  flex-direction: column;
-  margin-top: 0%;
+    flex-direction: column;
+    margin-top: 0%;
 }

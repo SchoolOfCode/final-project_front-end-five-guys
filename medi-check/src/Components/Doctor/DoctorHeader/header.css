@@ -1,5 +1,19 @@
+.doctor-header {
+    padding-left: 3em;
+    display: flex;
+    height: 20vh;
+    align-items: center;
+    width: 100vw;
+    gap: 5em;
+}
 .doctor-title {
-  font-family: Inter, sans-serif;
-  font-weight: 400;
-  font-size: 4em;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 4em;
+}
+.app-logo {
+    /* height: 30%; */
+    /* transform: scale(30%); */
+    height: 8em;
+    width: 8em;
 }
