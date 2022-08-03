@@ -6,6 +6,7 @@ import { Patient } from './Patient';
 import ButtonComponent from '../../../MUIcomponents/Button2';
 // import { IoMdArrowDropdown } from 'react-icons/io';
 import arrow from '../../../Assets/arrow.svg';
+import { v4 as uuidv4 } from 'uuid';
 
 function PatientList({ list, patient, setPatient }) {
   const [filter, setFilter] = useState({ type: '', reverse: false });
@@ -152,7 +153,7 @@ function PatientList({ list, patient, setPatient }) {
                   index={index}
                   setPatient={setPatient}
                   className="individualPatient"
-                  key={patient.nhsNumber}
+                  key={uuidv4()}
                   patientInfo={patient}
                 ></Patient>
               );
