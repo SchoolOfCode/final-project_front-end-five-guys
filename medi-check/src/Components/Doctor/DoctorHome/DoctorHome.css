@@ -8,6 +8,7 @@
 }
 
 .patient-table-con {
+
     display: flex;
     flex-direction: row;
     justify-content: flex-start;

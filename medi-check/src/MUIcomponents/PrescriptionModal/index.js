@@ -7,12 +7,12 @@ import DialogContent from '@mui/material/DialogContent';
 // import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ControlledSwitches from '../ControlledSwitch';
-
+import BasicSelect from '../Box';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 
 import './index.css';
-import useInteractions from '../../Hooks/useInteractionsFromName';
+// import useInteractions from '../../Hooks/useInteractionsFromName';
 //Temp import to get the dummy data for prescriptions
 import { dummy } from '../../Components/Patient/PrescriptionDisplay/dummyData.js';
 //Easy tester drug: ketoconazole
@@ -36,11 +36,13 @@ export default function FormDialog({ first, last }) {
   const [prescription, setPrescription] = React.useState('');
   const [openStatus, setOpenStatus] = React.useState(false);
   const [reason, setReason] = React.useState('');
+  const [interactedDrugs, setInteractedDrugs] = React.useState([]);
   React.useEffect(() => {
     if (!reason) {
       return;
     }
     let inputs = document.querySelectorAll('input');
+    console.log('inputs', inputs);
     //send to DB
     let prescription = {
       name: inputs[1].value,
@@ -52,9 +54,11 @@ export default function FormDialog({ first, last }) {
       frequency: inputs[7].value,
       status: inputs[8].checked ? 'acute' : 'repeat',
       override: reason,
-      date: new Date(),
-      monitoring: false,
       active: true,
+      date: new Date(),
+      monitoring: Number(inputs[8].value) === 0 ? false : true,
+      monitoringSchedule: Number(inputs[8].value),
+      monitoringFrequency: inputs[9].value,
     };
     console.log('overrided,', prescription);
   }, [reason]);
@@ -92,6 +96,8 @@ export default function FormDialog({ first, last }) {
             'There are no interactions with the new drug, good to send back to DB now'
           );
           let inputs = document.querySelectorAll('input');
+          console.log('inputs', inputs);
+
           let prescription = {
             name: inputs[1].value,
             reason: inputs[2].value,
@@ -100,19 +106,28 @@ export default function FormDialog({ first, last }) {
             measurement: inputs[5].value,
             quantity: prependZero(inputs[6].value),
             frequency: inputs[7].value,
-            status: inputs[9].checked ? 'acute' : 'repeat',
+            status: inputs[10].checked ? 'acute' : 'repeat',
             override: '',
             active: true,
             date: new Date(),
-            monitoring: inputs[8].value === 0 ? false : true,
-            monitoringSchedule: inputs[8].value,
+            monitoring: Number(inputs[8].value) === 0 ? false : true,
+            monitoringSchedule: Number(inputs[8].value),
+            monitoringFrequency: inputs[9].value,
           };
           console.log('sending this back to the DB:', prescription);
           handleClose();
           return;
         }
         //There is an interaction and we need to stop the closure and display the warning
-        // document.querySelector('#interactionPopup').classList.toggle('hide');
+        let temp = [];
+        for (let i = 0; i < filtered.length; i++) {
+          temp.push(
+            filtered[i].minConcept[0].name === prescription
+              ? filtered[i].minConcept[1].name
+              : filtered[i].minConcept[0].name
+          );
+        }
+        setInteractedDrugs([...temp]);
         setOpenStatus(true);
       } catch (error) {
         console.log('error', error);
@@ -120,7 +135,7 @@ export default function FormDialog({ first, last }) {
     }
     if (prescription) {
       //Comment out this line if testing and not wanting to query the API
-      // fetchData(names);
+      fetchData(names);
     }
   }, [prescription]);
   //States for all of the textfields
@@ -183,10 +198,12 @@ export default function FormDialog({ first, last }) {
       override: '',
       active: true,
       date: new Date(),
-      monitoring: inputs[8].value === 0 ? false : true,
-      monitoringSchedule: inputs[8].value,
+      monitoring: Number(inputs[8].value) === 0 ? false : true,
+      monitoringSchedule: Number(inputs[8].value),
+      monitoringFrequency: inputs[9].value,
     };
-    console.log('no override,', prescription);
+    console.log('no override but do not send back to DB here,', prescription);
+
     setPrescription(prescription.name);
   }
   function handleOverrideClick() {
@@ -201,9 +218,9 @@ export default function FormDialog({ first, last }) {
     function handleOverrideChange(e) {
       setReasonText(e.target.value);
     }
-    const handleOpen = () => {
-      setOpen(true);
-    };
+    // const handleOpen = () => {
+    //   setOpen(true);
+    // };
     const handleClose = () => {
       setOpenStatus(false);
       // setOpen(false);
@@ -222,7 +239,12 @@ export default function FormDialog({ first, last }) {
           <Box sx={{ ...style }}>
             <h2 id="child-modal-title">
               WARNING: There is a severe interaction between {prescription} and
-              other drugs {first} {last} is currently prescribed
+              other drugs {first} {last} is currently prescribed{' '}
+              {interactedDrugs.length === 0 ? (
+                <></>
+              ) : (
+                interactedDrugs.reduce((curr, prev) => curr + ', ' + prev)
+              )}
             </h2>
             <p id="child-modal-description">
               If you want to continue with this prescription please provide a
@@ -398,11 +420,14 @@ export default function FormDialog({ first, last }) {
               autoFocus
               margin="dense"
               id="monitoring"
-              label="Monitoring (in months)"
+              label="Monitoring (duration)"
               type="number"
               inputProps={{ step: 1, min: 0 }}
               variant="standard"
+              value={0}
             />
+            <BasicSelect></BasicSelect>
+
             <div style={{ fontSize: '1.2rem' }}>
               Acute <ControlledSwitches></ControlledSwitches> Repeat{' '}
             </div>
