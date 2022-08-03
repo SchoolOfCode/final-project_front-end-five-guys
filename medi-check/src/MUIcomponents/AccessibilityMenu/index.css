@@ -1,0 +1,9 @@
+/* #fadein-menu {
+    height: 1px;
+    width: 1px;
+    top: 50%;
+    left: 100%;
+    position: fixed;
+    z-index: 1;
+    transform: translate(-100%, -50%);
+} */
