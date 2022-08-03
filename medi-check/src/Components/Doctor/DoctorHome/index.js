@@ -2,11 +2,13 @@ import PatientList from "../PatientList";
 import SearchBar from "../Searchbar+CreatePatient";
 import { useEffect, useState } from "react";
 import { dummyList } from "../PatientList/Patient";
+import Footer from "../Footer";
+import { Accessibility } from "../../Patient/Accessibility";
 import CreatePatientDialog from "../../../MUIcomponents/CreatePatientModal";
 import Footer from "../Footer";
-
 import "./DoctorHome.css";
 import Header from "../DoctorHeader";
+
 //If running into problems based on searching consequitively, can use other idea of passing search term into patientlist and letting filter happen there.
 function DoctorHome() {
     const [list, setList] = useState([]);
@@ -37,6 +39,7 @@ function DoctorHome() {
                     />
                 </div>
 
+
                 <CreatePatientDialog />
             </section>
             <div className="patient-table-con">
@@ -54,11 +57,13 @@ function DoctorHome() {
                     />
                 )}
             </div>
+               <Accessibility />
             <Footer />
             {/* {!filteredList && <PatientList list={list} />} */}
             {/* <PatientList list={list} /> */}
         </div>
     );
-}
+
+
 
 export default DoctorHome;
