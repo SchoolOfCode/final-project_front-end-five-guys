@@ -1,26 +1,29 @@
 * {
-    margin: 0;
-    box-sizing: border-box;
+  margin: 0;
+  box-sizing: border-box;
+}
+.mui-fixed {
+  position: fixed;
 }
 :root {
-    --font-color: rgb(0, 0, 0);
-    --bg-color: #d0d4d6;
-    --primary-color: #d8eef8;
-    --secondary-color: ##a0dcef;
-    --button-color: #eff4f6;
+  --font-color: rgb(0, 0, 0);
+  --bg-color: #d0d4d6;
+  --primary-color: #d8eef8;
+  --secondary-color: ##a0dcef;
+  --button-color: #eff4f6;
 }
 
 .App {
-    width: 100vw;
-    height: fit-content;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: var(--primary-color);
+  width: 100vw;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: var(--primary-color);
 }
 
 .App > div {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
