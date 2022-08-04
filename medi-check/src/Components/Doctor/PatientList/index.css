@@ -40,7 +40,7 @@
   padding: 0em 2em 1em 2em;
   border-radius: 1em;
   text-align: left;
-  margin: 10% 0 0 10%;
+  margin: 7% 0 0 10%;
   /* display: flex;
     flex-wrap: wrap; */
   /* border-collapse: collapse; */
@@ -74,4 +74,13 @@
 
 .arrow {
   width: 10px;
+}
+
+.sort-buttons {
+  width: 35vw;
+  margin-left: 5em;
+  display: flex;
+  justify-content: space-around;
+  background-color: #ffffff;
+  position: fixed;
 }

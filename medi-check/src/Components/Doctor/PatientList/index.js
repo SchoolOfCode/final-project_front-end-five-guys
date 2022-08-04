@@ -69,6 +69,32 @@ function PatientList({ list, patient, setPatient }) {
   } else {
     return (
       <div>
+        <section className="sort-buttons">
+          <ButtonComponent
+            text1={"First Name"}
+            text2={<img className="arrow" src={arrow} alt="sort direction" />}
+            onClick={(e) => {
+              handleSort("first", e);
+            }}
+          />
+
+          <ButtonComponent
+            text1={"Surname"}
+            text2={<img className="arrow" src={arrow} alt="sort direction" />}
+            onClick={(e) => {
+              handleSort("last", e);
+            }}
+          />
+
+          <ButtonComponent
+            text1={"NHS Number"}
+            text2={<img className="arrow" src={arrow} alt="sort direction" />}
+            onClick={(e) => {
+              handleSort("number", e);
+            }}
+          />
+        </section>
+
         {/* <div> */}
         {/* <div
             onClick={() => {
@@ -115,7 +141,7 @@ function PatientList({ list, patient, setPatient }) {
         </ul> */}
         {/* <section className="patient-table-container"> */}
         <table className="patient-table">
-          <thead>
+          {/*<thead>
             <tr>
               <th>
                 <ButtonComponent
@@ -151,7 +177,7 @@ function PatientList({ list, patient, setPatient }) {
                 />
               </th>
             </tr>
-          </thead>
+          </thead> */}
           <tbody>
             {list.sort(compare).map((patient, index) => {
               // console.log('patient-detials', patient);
