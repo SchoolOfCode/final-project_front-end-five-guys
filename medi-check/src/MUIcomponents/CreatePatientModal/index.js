@@ -49,7 +49,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
       );
       let result = await res.json();
       console.log('posted new patient', result);
-      // setList([...list, ])
+      setList([...list, result.patient[0]]);
     }
     if (Object.keys(newPatient).length !== 0) {
       createPatient();
@@ -164,7 +164,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
                   : true
               }
               required
-              value="Catherine"
+              value="Jelly"
             />
             <TextField
               name="Surname"
@@ -184,7 +184,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
                   : true
               }
               required
-              value="Greenwood"
+              value="Clarkson"
             />
             <TextField
               name="dob"
@@ -221,7 +221,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
               fullWidth
               variant="standard"
               required
-              value={150}
+              value={5}
             />
             <TextField
               name="gender"
@@ -274,7 +274,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
               fullWidth
               variant="standard"
               required
-              value="39 Clarendon Park Drive"
+              value="London Drive"
             />
             <TextField
               name="postcode"
@@ -287,7 +287,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
               fullWidth
               variant="standard"
               required
-              value="LE44QT"
+              value="LE2"
             />
             <TextField
               name="phoneNumber"
@@ -308,7 +308,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
               fullWidth
               variant="standard"
               required
-              value="07859779916"
+              value="1234567820"
             />
 
             <FormControlLabel
@@ -334,7 +334,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
               fullWidth
               variant="standard"
               required
-              value="9876543210"
+              value="9999966415"
             />
             <TextField
               name="gpSurgery"
