@@ -13,6 +13,13 @@
   --button-color: #eff4f6;
 }
 
+.dark-mode {
+  --bg-color: #d0d4d6;
+  --primary-color: #d8eef8;
+  --secondary-color: ##a0dcef;
+  --button-color: #eff4f6;
+}
+
 .App {
   width: 100vw;
   height: fit-content;

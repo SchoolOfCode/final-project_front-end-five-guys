@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./index.css";
+import AccessibilityOptions from "./AccessibilityOptions";
 
 export default function Accessibility() {
   const [open, setOpen] = useState(false);
@@ -11,7 +12,7 @@ export default function Accessibility() {
   }
 
   function accessRender() {
-    !open ? setMenu(<div style={{ height: "200px" }}>HEY</div>) : setMenu();
+    !open ? setMenu(<AccessibilityOptions />) : setMenu();
   }
 
   return (
