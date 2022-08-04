@@ -16,7 +16,14 @@ function PatientList({ list, patient, setPatient }) {
     }
     function compare(a, b) {
         // console.log(a, b);
-        if (filter.type === "first") {
+        if (filter.type === "") {
+            if (a.Surname.toUpperCase() > b.Surname.toUpperCase()) {
+                return filter.reverse ? -1 : 1;
+            } else if (a.Surname.toUpperCase() < b.Surname.toUpperCase()) {
+                return filter.reverse ? 1 : -1;
+            }
+            return 0;
+        } else if (filter.type === "first") {
             if (a.FirstNames.toUpperCase() > b.FirstNames.toUpperCase()) {
                 return filter.reverse ? -1 : 1;
             } else if (
@@ -140,7 +147,7 @@ function PatientList({ list, patient, setPatient }) {
                                         />
                                     }
                                     onClick={(e) => {
-                                        handleSort("Surname", e);
+                                        handleSort("last", e);
                                     }}
                                 />
                             </th>

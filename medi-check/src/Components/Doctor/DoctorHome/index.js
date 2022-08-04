@@ -21,7 +21,19 @@ function DoctorHome() {
     //useEffect to be filled with doctor owned user/patients via doctors_id
     useEffect(() => {
         // pull info by doctors id
-        setList([...dummyList]); //this is imported for proof of concept
+        // function compare(a, b) {
+        //     if (a.Surname.toUpperCase() > b.Surname.toUpperCase()) {
+        //         return 1;
+        //     } else if (a.Surname.toUpperCase() < b.Surname.toUpperCase()) {
+        //         return -1;
+        //     }
+        //     return 0;
+        // }
+        // // users.sort((a, b) => a.firstname.localeCompare(b.surname))
+        // const initialList = dummyList.sort(compare);
+        // console.log(initialList);
+        setList([...dummyList]);
+        // setFilteredList([...initialList]); //this is imported for proof of concept
     }, [reset]);
 
     return (
