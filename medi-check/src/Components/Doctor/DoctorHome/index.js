@@ -51,7 +51,7 @@ function DoctorHome() {
           />
         </div>
 
-        <CreatePatientDialog />
+        <CreatePatientDialog setList={setList} list={list} />
       </section>
       <div className="patient-table-con">
         {filteredList.length === 0 ? (

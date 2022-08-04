@@ -15,7 +15,7 @@ import './createpatient.css';
 //import DialogTitle from "@mui/material/DialogTitle";
 //import ControlledSwitches from "../ControlledSwitch";
 
-export default function CreatePatientDialog({ first, last, setList }) {
+export default function CreatePatientDialog({ first, last, setList, list }) {
   const DOCTOR_EMAIL = 'bens@gmail.com';
 
   const [open, setOpen] = React.useState(false);
@@ -49,8 +49,11 @@ export default function CreatePatientDialog({ first, last, setList }) {
       );
       let result = await res.json();
       console.log('posted new patient', result);
+      // setList([...list, ])
     }
-    createPatient();
+    if (newPatient) {
+      createPatient();
+    }
   }, [newPatient]);
   const handleClickOpen = () => {
     setOpen(true);
