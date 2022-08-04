@@ -1,7 +1,7 @@
 #fadein-menu {
   top: -6%;
   left: -4%;
-  /* position: fixed; */
+  /* position: relative; */
   z-index: 1;
   /* transform: translate(-100%, -50%); */
 }
@@ -9,14 +9,14 @@
   /* top: 50%;
   left: 100%; */
   /* position: fixed; */
-  z-index: 1;
+  /* z-index: 1; */
   /* transform: translate(-100%, -50%); */
 }
 .accessLogo {
   height: 80px;
   width: 80px;
   top: 50%;
-  left: 95%;
+  left: 100%;
   position: fixed;
   z-index: 1;
   transform: translate(-100%, -50%);
