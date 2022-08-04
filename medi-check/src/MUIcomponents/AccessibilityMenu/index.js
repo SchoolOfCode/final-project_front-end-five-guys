@@ -17,20 +17,23 @@ export default function FadeMenu() {
   };
   return (
     <div>
-      <Button
+      {/* <Button
         id="fadein-button"
         aria-controls={open ? "fade-menu" : undefined}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-      >
-        Open Bro
-        {/* <img
-          className="accessLogo"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Accessibility.svg/640px-Accessibility.svg.png"
-          alt="accessibilty logo"
-        /> */}
-      </Button>
+      > */}
+      <img
+        // aria-controls={open ? "fade-menu" : undefined}
+        // aria-haspopup="true"
+        // aria-expanded={open ? "true" : undefined}
+        onClick={handleClick}
+        className="accessLogo"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Accessibility.svg/640px-Accessibility.svg.png"
+        alt="accessibilty logo"
+      />
+      {/* </Button> */}
       <Menu
         id="fadein-menu"
         MenuListProps={{
