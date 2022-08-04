@@ -71,7 +71,7 @@ function PatientList({ list, patient, setPatient }) {
       <div>
         <section className="sort-buttons">
           <ButtonComponent
-            text1={"First Name"}
+            text1={"First Name  "}
             text2={<img className="arrow" src={arrow} alt="sort direction" />}
             onClick={(e) => {
               handleSort("first", e);
@@ -79,7 +79,7 @@ function PatientList({ list, patient, setPatient }) {
           />
 
           <ButtonComponent
-            text1={"Surname"}
+            text1={"Surname  "}
             text2={<img className="arrow" src={arrow} alt="sort direction" />}
             onClick={(e) => {
               handleSort("last", e);
