@@ -24,6 +24,9 @@ function DoctorHome() {
         `http://localhost:3001/patients?doctoremail=${DOCTOR_EMAIL}`
       );
       console.log(res);
+      let json = await res.json();
+      console.log(';s', json);
+      setList([...json.data]);
     }
     getPatients();
   }, []);
