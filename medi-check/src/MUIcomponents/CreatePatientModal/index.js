@@ -51,7 +51,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
       console.log('posted new patient', result);
       // setList([...list, ])
     }
-    if (newPatient) {
+    if (Object.keys(newPatient).length !== 0) {
       createPatient();
     }
   }, [newPatient]);
