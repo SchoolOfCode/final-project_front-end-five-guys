@@ -1,26 +1,26 @@
-import { useState } from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import Slider from "@mui/material/Slider";
+import { useState } from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import Slider from '@mui/material/Slider';
 import {
   RiEmotionNormalLine,
   RiEmotionUnhappyLine,
   RiEmotionSadLine,
   RiEmotionLine,
   RiEmotionHappyLine,
-} from "react-icons/ri";
-import "./diary.css";
+} from 'react-icons/ri';
+import './diary.css';
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
   width: 500,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
@@ -54,14 +54,14 @@ export function DiaryModal() {
   const handleClose = () => setOpen(false);
   const date = new Date();
   const today = date.toLocaleDateString();
-  const [entry, SetEntry] = useState({ mood: 50, comment: "" });
+  const [entry, SetEntry] = useState({ mood: 50, details: '', date: date });
 
   function handleSlider(e) {
-    SetEntry({ ...entry, mood: e.target.value });
+    SetEntry({ ...entry, mood: e.target.value / 25 });
   }
 
   function handleText(e) {
-    SetEntry({ ...entry, comment: e.target.value });
+    SetEntry({ ...entry, details: e.target.value });
   }
 
   function handleSubmit() {
@@ -103,7 +103,7 @@ export function DiaryModal() {
             Side Effects/Mood/Symptoms
           </Typography>
           <textarea
-            style={{ resize: "none", height: "10vh", width: "20vw" }}
+            style={{ resize: 'none', height: '10vh', width: '20vw' }}
             onChange={handleText}
           ></textarea>
           <button onClick={handleSubmit}>Submit entry</button>

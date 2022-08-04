@@ -171,9 +171,31 @@ export default function FormDialog({ first, last }) {
         setTextFields({ ...obj });
     }
 
-    const handleClickOpen = () => {
-        setOpen(true);
-        console.log("dum data", dummy);
+    return input;
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    //submit textfields to db and reset it. but only after checking if prescriptions clash!
+    //look for .3 type numbers and put a 0 on the left. Run on total, dosage, quantity
+    //Test whether or not we need to make the page refresh after sending to database or just reset state to 0
+    let inputs = document.querySelectorAll('input');
+    console.log('ion', inputs);
+    let prescription = {
+      name: inputs[1].value,
+      reason: inputs[2].value,
+      total: prependZero(inputs[3].value),
+      dosage: prependZero(inputs[4].value),
+      measurement: inputs[5].value,
+      quantity: prependZero(inputs[6].value),
+      frequency: inputs[7].value,
+      type: inputs[9].checked ? 'acute' : 'repeat',
+      override: '',
+      status: 'active',
+      date: new Date(),
+      monitoring: Number(inputs[8].value) === 0 ? false : true,
+      monitoringSchedule: Number(inputs[8].value),
+      monitoringFrequency: inputs[9].value,
+
     };
 
     const handleClose = () => {

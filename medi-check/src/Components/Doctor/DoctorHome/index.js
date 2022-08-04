@@ -55,8 +55,10 @@ function DoctorHome() {
                     />
                 )}
             </div>
+
             {/* <Accessibility /> */}
             <FadeMenu />
+
             <Footer />
             {/* {!filteredList && <PatientList list={list} />} */}
             {/* <PatientList list={list} /> */}
