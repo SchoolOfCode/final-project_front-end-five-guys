@@ -15,8 +15,11 @@ import './createpatient.css';
 //import DialogTitle from "@mui/material/DialogTitle";
 //import ControlledSwitches from "../ControlledSwitch";
 
-export default function CreatePatientDialog({ first, last }) {
+export default function CreatePatientDialog({ first, last, setList }) {
+  const DOCTOR_EMAIL = 'bens@gmail.com';
+
   const [open, setOpen] = React.useState(false);
+  const [newPatient, setNewPatient] = React.useState({});
   const [textFields, setTextFields] = React.useState({
     Title: '',
     FirstNames: '',
@@ -34,6 +37,21 @@ export default function CreatePatientDialog({ first, last }) {
     weight: 0,
   });
 
+  React.useEffect(() => {
+    async function createPatient() {
+      let res = await fetch(
+        `http://localhost:3001/patients?doctoremail=${DOCTOR_EMAIL}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newPatient),
+        }
+      );
+      let result = await res.json();
+      console.log('posted new patient', result);
+    }
+    createPatient();
+  }, [newPatient]);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -43,9 +61,9 @@ export default function CreatePatientDialog({ first, last }) {
     let inputs = document.querySelectorAll('input');
     console.log(inputs);
     let newUser = {
-      Title: inputs[1].value,
-      FirstNames: inputs[2].value,
-      Surname: inputs[3].value,
+      title: inputs[1].value,
+      firstName: inputs[2].value,
+      surname: inputs[3].value,
       dob: inputs[4].value,
       gender: inputs[6].value,
       ethnicity: inputs[7].value,
@@ -53,10 +71,11 @@ export default function CreatePatientDialog({ first, last }) {
       postcode: inputs[9].value,
       phoneNumber: inputs[10].value,
       pregnant: inputs[11].checked,
-      nhsNumber: inputs[12].value,
+      nhsNumber: String(inputs[12].value),
       gpSurgery: inputs[13].value,
       weight: inputs[5].value,
     };
+    setNewPatient({ ...newUser });
     console.log(newUser);
     setOpen(false);
   };
