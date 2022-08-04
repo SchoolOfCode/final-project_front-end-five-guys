@@ -3,10 +3,10 @@ import SearchBar from "../Searchbar+CreatePatient";
 import { useEffect, useState } from "react";
 import { dummyList } from "../PatientList/Patient";
 import Footer from "../Footer";
-import { Accessibility } from "../../Patient/Accessibility";
 import CreatePatientDialog from "../../../MUIcomponents/CreatePatientModal";
 import "./DoctorHome.css";
 import Header from "../DoctorHeader";
+import FadeMenu from "../../../MUIcomponents/AccessibilityMenu";
 
 //If running into problems based on searching consequitively, can use other idea of passing search term into patientlist and letting filter happen there.
 function DoctorHome() {
@@ -55,7 +55,10 @@ function DoctorHome() {
                     />
                 )}
             </div>
-            <Accessibility />
+
+            {/* <Accessibility /> */}
+            <FadeMenu />
+
             <Footer />
             {/* {!filteredList && <PatientList list={list} />} */}
             {/* <PatientList list={list} /> */}

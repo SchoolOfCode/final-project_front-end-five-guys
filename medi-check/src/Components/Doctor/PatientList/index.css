@@ -15,8 +15,7 @@
 }
 
 .patient-card:hover {
-
-    cursor: pointer;
+    cursor: default;
     /* filter: brightness(0.8);
 
   background-color: #91c788; */
@@ -61,9 +60,9 @@
 }
 
 .flip {
-  transform: rotate(-180deg);
+    transform: rotate(-180deg);
 }
 
 .arrow {
-  width: 10px;
+    width: 10px;
 }

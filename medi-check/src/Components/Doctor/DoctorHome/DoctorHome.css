@@ -8,12 +8,11 @@
 }
 
 .patient-table-con {
-
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     height: 90vh;
-    width: 90%;
+    width: 70%;
     background-color: #ffffff;
     border-radius: 1em;
     overflow-y: scroll;
@@ -26,6 +25,7 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    margin-bottom: 1em;
 }
 
 .searchbar {

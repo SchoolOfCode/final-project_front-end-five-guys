@@ -1,14 +1,14 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import ButtonComponent from '../Button2';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import { MdOutlineAddCircle } from 'react-icons/md';
-import './createpatient.css';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import ButtonComponent from "../ButtonComponent";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import { MdOutlineAddCircle } from "react-icons/md";
+import "./createpatient.css";
 // import DialogContentText from '@mui/material/DialogContentText';
 // import DialogTitle from "@mui/material/DialogTitle";
 // import ControlledSwitches from "../ControlledSwitch";
@@ -16,6 +16,7 @@ import './createpatient.css';
 //import ControlledSwitches from "../ControlledSwitch";
 
 export default function CreatePatientDialog({ first, last }) {
+
   const [open, setOpen] = React.useState(false);
   const [textFields, setTextFields] = React.useState({
     Title: '',
@@ -34,9 +35,11 @@ export default function CreatePatientDialog({ first, last }) {
     weight: 0,
   });
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
 
   const handleClose = () => {
     //check if each input is valid
@@ -56,53 +59,52 @@ export default function CreatePatientDialog({ first, last }) {
       nhsNumber: inputs[12].value,
       gpSurgery: inputs[13].value,
       weight: inputs[5].value,
+
     };
-    console.log('newuser', newUser);
-    setOpen(false);
-  };
-  function handleSubmit(e) {
-    e.preventDefault();
-    console.log('handle submit');
-    // submit text fields to database and reset and cast mixed number/letter text into a string
+    function handleSubmit(e) {
+        e.preventDefault();
+        console.log("handle submit");
+        // submit text fields to database and reset and cast mixed number/letter text into a string
 
-    handleClose();
-  }
-  function handleChange(event) {
-    let obj = textFields;
-    Number.isInteger(Number(event.target.value));
-    !Number.isInteger(Number(event.target.value))
-      ? (obj[event.target.name] = event.target.value)
-      : (obj[event.target.name] = Number(event.target.value));
-    console.log(obj);
-    setTextFields({ ...obj });
-  }
-  const label = { inputProps: { 'aria-label': 'Pregnancy Status' } };
-  return (
-    <div>
-      <ButtonComponent
-        text1="Add New Patient"
-        text2={<MdOutlineAddCircle style={{ marginLeft: '0.5em' }} />}
-        onClick={handleClickOpen}
-      ></ButtonComponent>
+        handleClose();
+    }
+    function handleChange(event) {
+        let obj = textFields;
+        Number.isInteger(Number(event.target.value));
+        !Number.isInteger(Number(event.target.value))
+            ? (obj[event.target.name] = event.target.value)
+            : (obj[event.target.name] = Number(event.target.value));
+        console.log(obj);
+        setTextFields({ ...obj });
+    }
+    const label = { inputProps: { "aria-label": "Pregnancy Status" } };
+    return (
+        <div>
+            <ButtonComponent
+                text1="Add New Patient"
+                text2={<MdOutlineAddCircle style={{ marginLeft: "0.5em" }} />}
+                onClick={handleClickOpen}
+            ></ButtonComponent>
 
-      <Dialog
-        scroll="body"
-        open={open}
-        onClose={(event, reason) => {
-          if (reason !== 'backdropClick') {
-            handleClose();
-          }
-        }}
-      >
-        <form onSubmit={handleSubmit}>
-          {/* <DialogTitle>
+            <Dialog
+                scroll="body"
+                open={open}
+                onClose={(event, reason) => {
+                    if (reason !== "backdropClick") {
+                        handleClose();
+                    }
+                }}
+            >
+                <form onSubmit={handleSubmit}>
+                    {/* <DialogTitle>
                     New Prescription for {first} {last}
                 </DialogTitle> */}
-          <DialogContent>
-            {/* <DialogContentText>
+                    <DialogContent>
+                        {/* <DialogContentText>
             To subscribe to this website, please enter your email address here.
             We will send updates occasionally.
           </DialogContentText> */}
+
             <TextField
               name="Title"
               autoFocus
@@ -335,4 +337,5 @@ export default function CreatePatientDialog({ first, last }) {
       </Dialog>
     </div>
   );
+
 }
