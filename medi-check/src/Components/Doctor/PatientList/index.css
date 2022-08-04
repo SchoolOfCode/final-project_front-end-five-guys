@@ -51,8 +51,14 @@
   padding: 1em 1em;
   max-width: 10vw;
 }
-.patient-table th {
-  position: sticky;
+.patient-table thead {
+  position: fixed;
+  margin-top: -5em;
+  background-color: #ffffff;
+}
+
+.patient-table tr:first-child {
+  top: 10em;
 }
 
 .patient-table td {
