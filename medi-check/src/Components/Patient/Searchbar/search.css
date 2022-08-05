@@ -9,7 +9,7 @@ input {
   height: fit-content;
   justify-content: center;
 
-  background-color: aliceblue;
+  background-color: var(--table-color);
   top: 50%; /* position the top  edge of the element at the middle of the parent */
   left: 50%; /* position the left edge of the element at the middle of the parent */
   padding: 1rem 2rem;
@@ -27,7 +27,7 @@ input {
   justify-content: center;
   display: flex;
   justify-content: center;
-  background-color: aliceblue;
+  background-color: var(--table-color);
   top: 50%; /* position the top  edge of the element at the middle of the parent */
   left: 50%; /* position the left edge of the element at the middle of the parent */
   padding: 1rem 2rem;
@@ -47,7 +47,7 @@ input {
   height: 100%;
   z-index: 1;
   flex: 1;
-  background-color: rgba(210, 215, 211, 0.9);
+  background-color: var(--modal-color);
 }
 .hide {
   display: none;

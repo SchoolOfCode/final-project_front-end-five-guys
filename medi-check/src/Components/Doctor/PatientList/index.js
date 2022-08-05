@@ -3,37 +3,48 @@ import { useState } from 'react';
 import PatientFile from '../PatientFile';
 import './index.css';
 import { Patient } from './Patient';
-import ButtonComponent from '../../../MUIcomponents/Button2';
+import ButtonComponent from '../../../MUIcomponents/ButtonComponent';
 // import { IoMdArrowDropdown } from 'react-icons/io';
 import arrow from '../../../Assets/arrow.svg';
 import { v4 as uuidv4 } from 'uuid';
 
 function PatientList({ list, patient, setPatient }) {
+
+  console.log('in patient:', list);
   const [filter, setFilter] = useState({ type: '', reverse: false });
+
   // console.log('patient', patient);
   function resetPatient() {
     setPatient(null);
   }
   function compare(a, b) {
-    // console.log(a, b);
-    if (filter.type === 'first') {
-      if (a.FirstNames.toUpperCase() > b.FirstNames.toUpperCase()) {
+    console.log('compare', a, b);
+    if (filter.type === '') {
+      if (a.surname.toUpperCase() > b.surname.toUpperCase()) {
         return filter.reverse ? -1 : 1;
-      } else if (a.FirstNames.toUpperCase() < b.FirstNames.toUpperCase()) {
+      } else if (a.surname.toUpperCase() < b.surname.toUpperCase()) {
+        return filter.reverse ? 1 : -1;
+      }
+      return 0;
+    } else if (filter.type === 'first') {
+      if (a.firstname.toUpperCase() > b.firstname.toUpperCase()) {
+        return filter.reverse ? -1 : 1;
+      } else if (a.firstname.toUpperCase() < b.firstname.toUpperCase()) {
         return filter.reverse ? 1 : -1;
       }
       return 0;
     } else if (filter.type === 'last') {
-      if (a.Surname.toUpperCase() > b.Surname.toUpperCase()) {
+      if (a.surname.toUpperCase() > b.surname.toUpperCase()) {
         return filter.reverse ? -1 : 1;
-      } else if (a.Surname.toUpperCase() < b.Surname.toUpperCase()) {
+      } else if (a.surname.toUpperCase() < b.surname.toUpperCase()) {
         return filter.reverse ? 1 : -1;
       }
       return 0;
     } else {
-      if (a.nhsNumber > b.nhsNumber) {
+      if (a.nhsnumber > b.nhsnumber) {
         return filter.reverse ? -1 : 1;
-      } else if (a.nhsNumber < b.nhsNumber) {
+      } else if (a.nhsnumber < b.nhsnumber) {
+
         return filter.reverse ? 1 : -1;
       }
       return 0;
@@ -41,6 +52,7 @@ function PatientList({ list, patient, setPatient }) {
   }
   function handleSort(sortBy, e) {
     let flipped = document.getElementsByClassName('flip');
+
     for (let i = 0; i < flipped.length; i++) {
       let changedNode = e.target.firstElementChild
         ? e.target.firstElementChild
@@ -52,6 +64,7 @@ function PatientList({ list, patient, setPatient }) {
     e.target.firstElementChild
       ? e.target.firstElementChild.classList.toggle('flip')
       : e.target.classList.toggle('flip');
+
     setFilter({
       type: sortBy,
       reverse: sortBy === filter.type ? !filter.reverse : false,
@@ -62,15 +75,55 @@ function PatientList({ list, patient, setPatient }) {
   } else {
     return (
       <div>
-        {/* <div> */}
-        {/* <div
+
+        <section className="sort-buttons">
+          <ButtonComponent
+            text1={"First Name  "}
+            text2={<img className="arrow" src={arrow} alt="sort direction" />}
+            onClick={(e) => {
+              handleSort("first", e);
+            }}
+          />
+
+                    <ButtonComponent
+                        text1={"Surname "}
+                        text2={
+                            <img
+                                className="arrow"
+                                src={arrow}
+                                alt="sort direction"
+                            />
+                        }
+                        onClick={(e) => {
+                            handleSort("last", e);
+                        }}
+                    />
+
+                    <ButtonComponent
+                        text1={"NHS Number"}
+                        text2={
+                            <img
+                                className="arrow"
+                                src={arrow}
+                                alt="sort direction"
+                            />
+                        }
+                        onClick={(e) => {
+                            handleSort("number", e);
+                        }}
+                    />
+                    <div className="buffer-div"></div>
+                </section>
+
+                {/* <div> */}
+                {/* <div
             onClick={() => {
               handleSort("first");
             }}
           >
             First name
           </div> */}
-        {/* <ButtonComponent
+                {/* <ButtonComponent
             onClick={() => {
               handleSort("first");
             }}
@@ -106,63 +159,71 @@ function PatientList({ list, patient, setPatient }) {
             );
           })}
         </ul> */}
+
         {/* <section className="patient-table-container"> */}
         <table className="patient-table">
-          <thead>
+
+          {/*<thead>
             <tr>
               <th>
                 <ButtonComponent
-                  text1={'First Name'}
+                  text1={"First Name"}
                   text2={
                     <img className="arrow" src={arrow} alt="sort direction" />
                   }
                   onClick={(e) => {
-                    handleSort('first', e);
+
+                    handleSort("first", e);
                   }}
                 />
               </th>
               <th>
                 <ButtonComponent
-                  text1={'Surname'}
+
+                  text1={"Surname"}
                   text2={
                     <img className="arrow" src={arrow} alt="sort direction" />
                   }
                   onClick={(e) => {
-                    handleSort('Surname', e);
+
+                    handleSort("last", e);
                   }}
                 />
               </th>
               <th>
                 <ButtonComponent
-                  text1={'NHS Number'}
+
+                  text1={"NHS Number"}
                   text2={
                     <img className="arrow" src={arrow} alt="sort direction" />
                   }
                   onClick={(e) => {
-                    handleSort('number', e);
+
+                    handleSort("number", e);
                   }}
                 />
               </th>
             </tr>
-          </thead>
-          <tbody>
-            {list.sort(compare).map((patient, index) => {
-              // console.log('patient-detials', patient);
-              return (
-                <Patient
-                  index={index}
-                  setPatient={setPatient}
-                  className="individualPatient"
-                  key={uuidv4()}
-                  patientInfo={patient}
-                ></Patient>
-              );
-            })}
-          </tbody>
-        </table>
-        {/* </section> */}
-      </div>
-    );
-  }
+
+          </thead> */}
+                    <tbody>
+                        {list.sort(compare).map((patient, index) => {
+                            // console.log('patient-detials', patient);
+                            return (
+                                <Patient
+                                    index={index}
+                                    setPatient={setPatient}
+                                    className="individualPatient"
+                                    key={uuidv4()}
+                                    patientInfo={patient}
+                                ></Patient>
+                            );
+                        })}
+                    </tbody>
+                </table>
+                {/* </section> */}
+            </div>
+        );
+    }
 }
 export default PatientList;

@@ -1,5 +1,5 @@
 .notifications {
-  color: white;
+  color: var(--table-color);
   text-decoration: none;
   padding: 15px 26px;
   position: relative;
@@ -15,6 +15,6 @@
 
   padding: 5px 10px;
   border-radius: 50%;
-  background: red;
-  color: white;
+  background: var(--alert);
+  color: var(--table-color);
 }

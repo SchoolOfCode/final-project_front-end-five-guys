@@ -20,58 +20,74 @@ for new prescription requirement we will need to:
         notify if less than 1 week(?)
 
 */
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 //import BasicModal from "../../../MUIcomponents/PrescriptionModal";
-import "./notifications.css";
-import BasicPopover from "../../../MUIcomponents/Popover";
+import './notifications.css';
+import BasicPopover from '../../../MUIcomponents/Popover';
 
 //dummy data for prepaid expiry
-export const prepaid = "2022-8-20";
+const pEmail = 'vickismith@email.com';
 
 export const dummyData = [
   {
-    name: "simvastatin",
-    dosage: "200",
-    measurement: "mg",
-    freq1: "2",
-    freq2: "day",
+    name: 'simvastatin',
+    dosage: '200',
+    measurement: 'mg',
+    freq1: '2',
+    freq2: 'day',
     amount: 14,
-    prescription_date: "2022-7-20",
-    status: "paused",
+    prescription_date: '2022-7-20',
+    status: 'paused',
   },
   {
-    name: "apixaban",
-    dosage: "400",
-    measurement: "mg",
-    freq1: "2",
-    freq2: "day",
+    name: 'apixaban',
+    dosage: '400',
+    measurement: 'mg',
+    freq1: '2',
+    freq2: 'day',
     amount: 14,
-    prescription_date: "2022-7-20",
-    status: "paused",
+    prescription_date: '2022-7-20',
+    status: 'paused',
   },
   {
-    name: "atorvastatin",
-    dosage: "100",
-    measurement: "ml",
-    freq1: "2",
-    freq2: "day",
+    name: 'atorvastatin',
+    dosage: '100',
+    measurement: 'ml',
+    freq1: '2',
+    freq2: 'day',
     amount: 14,
-    prescription_date: "2022-7-20",
-    status: "active",
+    prescription_date: '2022-7-20',
+    status: 'active',
   },
 ];
 
-export function Notifications({ data, prepaid }) {
+export function Notifications({ data }) {
   //alerts state contains medication that will need to be renewed and notifications state holds the number of them
   const [alerts, SetAlerts] = useState([]);
   const [notifications, SetNotifications] = useState(0);
-  const [paidDate, setPaidDate] = useState("");
+  const [paidDate, setPaidDate] = useState('');
+  const [patient, setPatient] = useState({});
+
+  //gets patient data
+  useEffect(() => {
+    if (pEmail) {
+      async function getPatient() {
+        let response = await fetch(
+          `https://fiveguysproject.herokuapp.com/patient?email=${pEmail}`
+        );
+        let data = await response.json();
+        console.log('patient data ', data.data[0]);
+        setPatient(data.data[0]);
+      }
+      getPatient();
+    }
+  }, []);
 
   //works out if pre paid need updating prepaid
   useEffect(() => {
     // function takes the prepaid expiry date string and formats it into a full date
     function findDate(d) {
-      const date = d.split("-");
+      const date = d.split('-');
       const newDate = new Date();
       newDate.setFullYear(date[0], date[1] - 1, date[2]);
       return newDate;
@@ -86,38 +102,46 @@ export function Notifications({ data, prepaid }) {
       return Math.floor((utc2 - utc1) / _MS_PER_DAY);
     }
 
-    const today = new Date();
-    const dateOfExpiry = findDate(prepaid);
-    const result = dateDiffInDays(today, dateOfExpiry);
-    const displayDate = `${dateOfExpiry.getDay()}/${
-      dateOfExpiry.getMonth() + 1
-    }/${dateOfExpiry.getFullYear()}`;
+    if (Object.keys(patient).length !== 0) {
+      const today = new Date();
 
-    if (result < 90 && result > 14) {
-      setPaidDate(
-        `Your pre-paid prescription expires within 3 months, on ` + displayDate
-      );
-    } else if (result < 14 && result > 0) {
-      setPaidDate(
-        `Your pre-paid prescription expires in less than a fortnight, on ` +
-          displayDate
-      );
-    } else if (result <= 0) {
-      setPaidDate(`Your pre-paid prescription has expired`);
-    }
+      const dateOfExpiry = findDate(patient.prepaid);
+      const result = dateDiffInDays(today, dateOfExpiry);
+      const displayDate = `${dateOfExpiry.getDate()}/${
+        dateOfExpiry.getMonth() + 1
+      }/${dateOfExpiry.getFullYear()}`;
 
-    if (paidDate !== "") {
-      SetNotifications((notifications) => {
-        return notifications + 1;
-      });
+      if (result < 90 && result > 14) {
+        console.log(
+          `Your pre-paid prescription expires within 3 months, on ` +
+            displayDate
+        );
+        setPaidDate(
+          `Your pre-paid prescription expires within 3 months, on ` +
+            displayDate
+        );
+      } else if (result < 14 && result > 0) {
+        setPaidDate(
+          `Your pre-paid prescription expires in less than a fortnight, on ` +
+            displayDate
+        );
+      } else if (result <= 0) {
+        setPaidDate(`Your pre-paid prescription has expired`);
+      }
+
+      if (paidDate !== '') {
+        SetNotifications((notifications) => {
+          return notifications + 1;
+        });
+      }
     }
-  }, [prepaid, paidDate]);
+  }, [patient, paidDate]);
 
   useEffect(() => {
     // function takes the prescription date string and formats it into a full date
     function findDate(obj) {
       let prescription_date = obj.prescription_date;
-      const date = prescription_date.split("-");
+      const date = prescription_date.split('-');
       const newDate = new Date();
       newDate.setFullYear(date[0], date[1] - 1, date[2]);
       return newDate;
@@ -129,11 +153,11 @@ export function Notifications({ data, prepaid }) {
       let freq1 = Number(obj.freq1);
       let freq2 = obj.freq2;
       let times = 0;
-      if (freq2 === "day") {
+      if (freq2 === 'day') {
         times = 1;
-      } else if (freq2 === "week") {
+      } else if (freq2 === 'week') {
         times = 1 / 7;
-      } else if (freq2 === "hour") {
+      } else if (freq2 === 'hour') {
         times = 24;
       }
       const days = amount / (freq1 * times);

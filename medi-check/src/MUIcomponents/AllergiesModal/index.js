@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -17,18 +17,34 @@ const style = {
   p: 4,
 };
 
-const Dummyallergies = ["fur", "pollen", "dust", "apixaban"];
+//const Dummyallergies = ["fur", "pollen", "dust", "apixaban"];
 
-export default function AllergiesModal({ data, notifications }) {
+export default function AllergiesModal() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [allergy, setAllergy] = useState({
-    allergy: '',
-    reaction: '',
+    name: "",
+    reaction: "",
   });
-  console.log('alle', allergy);
 
+  const [CurrentAllergy, setCurrentAllergy] = useState([]);
+
+  //dummy patient email for back end tie up, not needed when auth0 tied up
+  const pEmail = "rsmith123@email.com";
+
+  async function getData() {
+    let response = await fetch(
+      `http://localhost:3001/allergy/?email=${pEmail}`
+    );
+    let data = await response.json();
+    setCurrentAllergy(data.data);
+    console.log(data.data);
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   function handleText(e) {
     let updatedName = e.target.name;
@@ -39,7 +55,20 @@ export default function AllergiesModal({ data, notifications }) {
 
   //will be updated to submit data to db when created
   function handleSubmit() {
+    postAllergy();
     handleClose();
+    setCurrentAllergy([...CurrentAllergy, allergy]);
+  }
+
+  async function postAllergy() {
+    const db_url = `http://localhost:3001/allergy/${pEmail}`;
+    const newPost = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(allergy),
+    };
+    const res = await fetch(db_url, newPost);
+    console.log(res);
   }
 
   return (
@@ -55,26 +84,30 @@ export default function AllergiesModal({ data, notifications }) {
           <Typography id="modal-modal-title" variant="h5" component="h2">
             Allergies
           </Typography>
-          {Dummyallergies.map((item) => {
-            return (
-              <Typography
-                key={uuidv4()}
-                id="modal-modal-description"
-                sx={{ mt: 2, ml: 4 }}
-              >
-                {item}
-              </Typography>
-            );
-          })}
-          <Typography>New Allergies</Typography>
+          {CurrentAllergy.length > 0 ? (
+            CurrentAllergy.map((item) => {
+              return (
+                <Typography
+                  key={uuidv4()}
+                  id="modal-modal-description"
+                  sx={{ mt: 2, ml: 4 }}
+                >
+                  {item.name}
+                </Typography>
+              );
+            })
+          ) : (
+            <Typography>You have no current recorded allergies</Typography>
+          )}
+          <Typography>New Allergy</Typography>
           <textarea
             style={{ resize: "none", height: "5vh", width: "15vw" }}
             onChange={handleText}
-            name="allergy"
-          ></textarea>{' '}
-          <Typography>Allergy Reaction</Typography>
+            name="name"
+          ></textarea>{" "}
+          <Typography>New Allergy Reaction</Typography>
           <textarea
-            style={{ resize: 'none', height: '5vh', width: '15vw' }}
+            style={{ resize: "none", height: "5vh", width: "15vw" }}
             onChange={handleText}
             name="reaction"
           ></textarea>
