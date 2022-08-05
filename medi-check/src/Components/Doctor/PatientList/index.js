@@ -9,6 +9,7 @@ import arrow from '../../../Assets/arrow.svg';
 import { v4 as uuidv4 } from 'uuid';
 
 function PatientList({ list, patient, setPatient }) {
+
   console.log('in patient:', list);
   const [filter, setFilter] = useState({ type: '', reverse: false });
 
@@ -84,32 +85,45 @@ function PatientList({ list, patient, setPatient }) {
             }}
           />
 
-          <ButtonComponent
-            text1={"Surname  "}
-            text2={<img className="arrow" src={arrow} alt="sort direction" />}
-            onClick={(e) => {
-              handleSort("last", e);
-            }}
-          />
+                    <ButtonComponent
+                        text1={"Surname "}
+                        text2={
+                            <img
+                                className="arrow"
+                                src={arrow}
+                                alt="sort direction"
+                            />
+                        }
+                        onClick={(e) => {
+                            handleSort("last", e);
+                        }}
+                    />
 
-          <ButtonComponent
-            text1={"NHS Number"}
-            text2={<img className="arrow" src={arrow} alt="sort direction" />}
-            onClick={(e) => {
-              handleSort("number", e);
-            }}
-          />
-        </section>
+                    <ButtonComponent
+                        text1={"NHS Number"}
+                        text2={
+                            <img
+                                className="arrow"
+                                src={arrow}
+                                alt="sort direction"
+                            />
+                        }
+                        onClick={(e) => {
+                            handleSort("number", e);
+                        }}
+                    />
+                    <div className="buffer-div"></div>
+                </section>
 
-        {/* <div> */}
-        {/* <div
+                {/* <div> */}
+                {/* <div
             onClick={() => {
               handleSort("first");
             }}
           >
             First name
           </div> */}
-        {/* <ButtonComponent
+                {/* <ButtonComponent
             onClick={() => {
               handleSort("first");
             }}
@@ -145,6 +159,7 @@ function PatientList({ list, patient, setPatient }) {
             );
           })}
         </ul> */}
+
         {/* <section className="patient-table-container"> */}
         <table className="patient-table">
 
@@ -191,24 +206,24 @@ function PatientList({ list, patient, setPatient }) {
             </tr>
 
           </thead> */}
-          <tbody>
-            {list.sort(compare).map((patient, index) => {
-              // console.log('patient-detials', patient);
-              return (
-                <Patient
-                  index={index}
-                  setPatient={setPatient}
-                  className="individualPatient"
-                  key={uuidv4()}
-                  patientInfo={patient}
-                ></Patient>
-              );
-            })}
-          </tbody>
-        </table>
-        {/* </section> */}
-      </div>
-    );
-  }
+                    <tbody>
+                        {list.sort(compare).map((patient, index) => {
+                            // console.log('patient-detials', patient);
+                            return (
+                                <Patient
+                                    index={index}
+                                    setPatient={setPatient}
+                                    className="individualPatient"
+                                    key={uuidv4()}
+                                    patientInfo={patient}
+                                ></Patient>
+                            );
+                        })}
+                    </tbody>
+                </table>
+                {/* </section> */}
+            </div>
+        );
+    }
 }
 export default PatientList;
