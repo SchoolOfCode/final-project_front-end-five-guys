@@ -1,3 +1,4 @@
+
 import PatientList from "../PatientList";
 import SearchBar from "../Searchbar+CreatePatient";
 import { useEffect, useState } from "react";
@@ -16,12 +17,26 @@ function DoctorHome() {
 
   //used for reset button to trigger fresh patient list recall
   const [reset, setReset] = useState(0);
+  const DOCTOR_EMAIL = 'bens@gmail.com';
 
-  //useEffect to be filled with doctor owned user/patients via doctors_id
   useEffect(() => {
-    // pull info by doctors id
-    setList([...dummyList]); //this is imported for proof of concept
-  }, [reset]);
+    async function getPatients() {
+      let res = await fetch(
+        `http://localhost:3001/patients?doctoremail=${DOCTOR_EMAIL}`
+      );
+      console.log(res);
+      let json = await res.json();
+      console.log(';s', json);
+      setList([...json.data]);
+    }
+    getPatients();
+  }, []);
+  // //useEffect to be filled with doctor owned user/patients via doctors_id
+  // useEffect(() => {
+  //     // pull info by doctors id
+  //     setList([...dummyList]); //this is imported for proof of concept
+  // }, [reset]);
+
 
   return (
     <div className="doctor-home">
@@ -38,7 +53,9 @@ function DoctorHome() {
           />
         </div>
 
-        <CreatePatientDialog />
+
+        <CreatePatientDialog setList={setList} list={list} />
+
       </section>
       <div className="patient-table-con">
         {filteredList.length === 0 ? (
@@ -52,8 +69,9 @@ function DoctorHome() {
         )}
       </div>
 
-      <Accessibility />
-      {/* <FadeMenu /> */}
+      {/* <Accessibility /> */}
+      <FadeMenu />
+
 
       <Footer />
       {/* {!filteredList && <PatientList list={list} />} */}
