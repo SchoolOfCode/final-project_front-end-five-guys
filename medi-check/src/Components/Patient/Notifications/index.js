@@ -27,6 +27,7 @@ import BasicPopover from "../../../MUIcomponents/Popover";
 
 //dummy data for prepaid expiry
 export const prepaid = "2022-8-20";
+const pEmail = "vickismith@email.com";
 
 export const dummyData = [
   {
@@ -66,6 +67,22 @@ export function Notifications({ data, prepaid }) {
   const [alerts, SetAlerts] = useState([]);
   const [notifications, SetNotifications] = useState(0);
   const [paidDate, setPaidDate] = useState("");
+  const [patient, setPatient] = useState({});
+
+  //gets patient data
+  useEffect(() => {
+    if (pEmail) {
+      async function getPatient() {
+        let response = await fetch(
+          `http://localhost:3001/patient?email=${pEmail}`
+        );
+        let data = await response.json();
+        console.log("patient ", data.data[0]);
+        setPatient(data.data[0]);
+      }
+      getPatient();
+    }
+  }, []);
 
   //works out if pre paid need updating prepaid
   useEffect(() => {
@@ -85,9 +102,8 @@ export function Notifications({ data, prepaid }) {
       const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
       return Math.floor((utc2 - utc1) / _MS_PER_DAY);
     }
-
     const today = new Date();
-    const dateOfExpiry = findDate(prepaid);
+    const dateOfExpiry = findDate(patient.prepaid);
     const result = dateDiffInDays(today, dateOfExpiry);
     const displayDate = `${dateOfExpiry.getDay()}/${
       dateOfExpiry.getMonth() + 1
@@ -111,7 +127,7 @@ export function Notifications({ data, prepaid }) {
         return notifications + 1;
       });
     }
-  }, [prepaid, paidDate]);
+  }, [patient, paidDate]);
 
   useEffect(() => {
     // function takes the prescription date string and formats it into a full date
@@ -179,7 +195,7 @@ export function Notifications({ data, prepaid }) {
       <BasicPopover
         data={alerts}
         notifications={notifications}
-        prepaid={paidDate}
+        prepaid={patient.paidDate}
       />
     </div>
   );

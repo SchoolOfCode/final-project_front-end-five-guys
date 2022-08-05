@@ -30,11 +30,13 @@ export default function AllergiesModal() {
 
   const [CurrentAllergy, setCurrentAllergy] = useState([]);
 
-  //dummy patient id for back end tie up.
-  const id = 2;
+  //dummy patient email for back end tie up, not needed when auth0 tied up
+  const pEmail = "rsmith123@email.com";
 
   async function getData() {
-    let response = await fetch(`http://localhost:3001/allergy/${id}`);
+    let response = await fetch(
+      `http://localhost:3001/allergy/?email=${pEmail}`
+    );
     let data = await response.json();
     setCurrentAllergy(data.data);
     console.log(data.data);
@@ -59,7 +61,7 @@ export default function AllergiesModal() {
   }
 
   async function postAllergy() {
-    const db_url = `http://localhost:3001/allergy/${id}`;
+    const db_url = `http://localhost:3001/allergy/${pEmail}`;
     const newPost = {
       method: "POST",
       headers: { "Content-Type": "application/json" },

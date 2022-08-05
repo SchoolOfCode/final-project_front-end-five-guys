@@ -13,6 +13,9 @@ import {
 } from "react-icons/ri";
 import "./diary.css";
 
+//temporary hard coded patient email until auth0 is done
+const pEmail = "vickismith@email.com";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -72,10 +75,10 @@ export function DiaryModal() {
     postDiaryEntry();
     handleClose();
   }
-  const id = 1;
+  // const id = 1;
 
   async function postDiaryEntry() {
-    const db_url = `http://localhost:3001/diary/${id}`;
+    const db_url = `http://localhost:3001/diary/${pEmail}`;
     const newPost = {
       method: "POST",
       headers: { "Content-Type": "application/json" },

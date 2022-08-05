@@ -53,8 +53,9 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
     }
     if (Object.keys(newPatient).length !== 0) {
       createPatient();
+      setNewPatient({});
     }
-  }, [newPatient]);
+  }, [newPatient, list, setList]);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -143,7 +144,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
               }
               fullWidth
               variant="standard"
-              value="Miss"
+              defaultValue="Miss"
               required
             />
             <TextField
@@ -164,7 +165,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
                   : true
               }
               required
-              value="Jelly"
+              defaultValue="Jelly"
             />
             <TextField
               name="Surname"
@@ -184,7 +185,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
                   : true
               }
               required
-              value="Clarkson"
+              defaultValue="Clarkson"
             />
             <TextField
               name="dob"
@@ -201,7 +202,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
               fullWidth
               variant="standard"
               required
-              value="22042002"
+              defaultValue="22042002"
             />
 
             <TextField
@@ -221,7 +222,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
               fullWidth
               variant="standard"
               required
-              value={5}
+              defaultValue={5}
             />
             <TextField
               name="gender"
@@ -241,7 +242,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
               fullWidth
               variant="standard"
               required
-              value="Female"
+              defaultValue="Female"
             />
             <TextField
               name="ethnicity"
@@ -261,7 +262,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
               fullWidth
               variant="standard"
               required
-              value="White"
+              defaultValue="White"
             />
             <TextField
               name="address"
@@ -274,7 +275,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
               fullWidth
               variant="standard"
               required
-              value="London Drive"
+              defaultValue="London Drive"
             />
             <TextField
               name="postcode"
@@ -287,7 +288,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
               fullWidth
               variant="standard"
               required
-              value="LE2"
+              defaultValue="LE2"
             />
             <TextField
               name="phoneNumber"
@@ -308,7 +309,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
               fullWidth
               variant="standard"
               required
-              value="1234567820"
+              defaultValue="1234567820"
             />
 
             <FormControlLabel
@@ -334,7 +335,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
               fullWidth
               variant="standard"
               required
-              value="9999966415"
+              defaultValue="9999966415"
             />
             <TextField
               name="gpSurgery"
@@ -347,7 +348,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
               fullWidth
               variant="standard"
               required
-              value="Health Hill"
+              defaultValue="Health Hill"
             />
           </DialogContent>
           <DialogActions>

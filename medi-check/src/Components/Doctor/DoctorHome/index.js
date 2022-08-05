@@ -7,6 +7,7 @@ import CreatePatientDialog from '../../../MUIcomponents/CreatePatientModal';
 import './DoctorHome.css';
 import Header from '../DoctorHeader';
 import Accessibility from '../../Patient/Accessibility';
+
 //If running into problems based on searching consequitively, can use other idea of passing search term into patientlist and letting filter happen there.
 function DoctorHome({ setDarkMode }) {
   const [list, setList] = useState([]);
@@ -63,6 +64,7 @@ function DoctorHome({ setDarkMode }) {
           />
         )}
       </div>
+
 
       <Accessibility setDarkMode={setDarkMode} />
 
