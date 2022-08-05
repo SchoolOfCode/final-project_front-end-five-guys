@@ -1,12 +1,12 @@
-import PatientList from '../PatientList';
-import SearchBar from '../Searchbar+CreatePatient';
-import { useEffect, useState } from 'react';
-import { dummyList } from '../PatientList/Patient';
-import Footer from '../Footer';
-import CreatePatientDialog from '../../../MUIcomponents/CreatePatientModal';
-import './DoctorHome.css';
-import Header from '../DoctorHeader';
-import Accessibility from '../../Patient/Accessibility';
+import PatientList from "../PatientList";
+import SearchBar from "../Searchbar+CreatePatient";
+import { useEffect, useState } from "react";
+// import { dummyList } from '../PatientList/Patient';
+import Footer from "../Footer";
+import CreatePatientDialog from "../../../MUIcomponents/CreatePatientModal";
+import "./DoctorHome.css";
+import Header from "../DoctorHeader";
+import Accessibility from "../../Patient/Accessibility";
 
 //If running into problems based on searching consequitively, can use other idea of passing search term into patientlist and letting filter happen there.
 function DoctorHome({ setDarkMode }) {
@@ -16,7 +16,7 @@ function DoctorHome({ setDarkMode }) {
 
   //used for reset button to trigger fresh patient list recall
   const [reset, setReset] = useState(0);
-  const DOCTOR_EMAIL = 'bens@gmail.com';
+  const DOCTOR_EMAIL = "bens@gmail.com";
 
   useEffect(() => {
     async function getPatients() {
@@ -25,7 +25,7 @@ function DoctorHome({ setDarkMode }) {
       );
       console.log(res);
       let json = await res.json();
-      console.log(';s', json);
+      console.log(";s", json);
       setList([...json.data]);
     }
     getPatients();
@@ -64,7 +64,6 @@ function DoctorHome({ setDarkMode }) {
           />
         )}
       </div>
-
 
       <Accessibility setDarkMode={setDarkMode} />
 

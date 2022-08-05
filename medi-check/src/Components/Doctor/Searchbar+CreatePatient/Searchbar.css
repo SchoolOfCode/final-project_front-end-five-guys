@@ -1,20 +1,20 @@
 .search-bar {
-    text-transform: none;
-    border-style: none;
-    border-radius: 25em;
-    background-color: #eff4f6;
-    color: black;
-    font-family: Inter, sans-serif;
-    font-size: 1em;
-    font-weight: 400;
-    width: 14em;
-    max-width: 15em;
-    padding: 0.3em 1em;
-    box-shadow: 6px 6px 15px -5px rgba(0, 0, 0, 0.55);
+  text-transform: none;
+  border-style: none;
+  border-radius: 25em;
+  background-color: var(--table-alternate-rows);
+  color: var(--font-color);
+  font-family: Inter, sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  width: 14em;
+  max-width: 15em;
+  padding: 0.3em 1em;
+  box-shadow: 6px 6px 15px -5px rgba(0, 0, 0, 0.55);
 }
 
 #patient-search {
-    display: flex;
-    align-items: center;
-    gap: 1em;
+  display: flex;
+  align-items: center;
+  gap: 1em;
 }

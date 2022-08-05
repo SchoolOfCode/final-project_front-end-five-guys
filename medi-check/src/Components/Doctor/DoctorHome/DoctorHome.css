@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--primary-color);
+  background-color: var(--bg-color);
   width: 100vw;
   height: 100vh;
 }
@@ -13,7 +13,7 @@
   justify-content: flex-start;
   height: 90vh;
   width: 70%;
-  background-color: #ffffff;
+  background-color: var(--table-color);
   border-radius: 1em;
   overflow-y: scroll;
 }

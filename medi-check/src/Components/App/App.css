@@ -9,21 +9,24 @@
 /* light/ default mode */
 :root {
   --font-color: rgb(0, 0, 0);
-  --bg-color: #d0d4d6;
-  --primary-color: #d8eef8;
-  --secondary-color: ##a0dcef;
-  --button-color: #eff4f6;
+  --bg-color: #9bb6c4;
+  --modal-color: aquamarine;
+  --button-color: #a0dcef;
+  --button-hover-color: #bfe2ec;
+  --table-color: #ffffff;
+  --table-alternate-rows: #d9d9d9;
+  --alert: red;
 }
 
 .dark-mode {
-  /* --bg-color: #d0d4d6;
-  --primary-color: #030303;
-  --secondary-color: ##a0dcef;
-  --button-color: #eff4f6; */
-  --bg-color: blue;
-  --primary-color: red;
-  --secondary-color: yellow;
-  --button-color: green;
+  --font-color: white;
+  --bg-color: black;
+  --modal-color: darkblue;
+  --button-color: darkblue;
+  --button-hover-color: blue;
+  --table-color: rgb(14, 18, 59);
+  --table-alternate-rows: #d9d9d9;
+  --alert: red;
 }
 
 .App {
@@ -33,7 +36,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: var(--primary-color);
+  background-color: var(--bg-color);
 }
 
 .App > div {
