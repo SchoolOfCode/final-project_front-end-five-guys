@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./index.css";
 import AccessibilityOptions from "./AccessibilityOptions";
 
-export default function Accessibility() {
+export default function Accessibility({ setDarkMode }) {
   const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState();
 
@@ -12,7 +12,9 @@ export default function Accessibility() {
   }
 
   function accessRender() {
-    !open ? setMenu(<AccessibilityOptions />) : setMenu();
+    !open
+      ? setMenu(<AccessibilityOptions setDarkMode={setDarkMode} />)
+      : setMenu();
   }
 
   return (
