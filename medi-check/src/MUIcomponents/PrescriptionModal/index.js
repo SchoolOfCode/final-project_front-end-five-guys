@@ -72,6 +72,7 @@ export default function FormDialog({ first, last, patient_id }) {
     for (let i = 0; i < dummy.length; i++) {
       names.push(dummy[i].name);
     }
+
     names.push(prescription);
     async function fetchData(nameArray) {
       let url = 'https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=';
