@@ -55,15 +55,16 @@ export default function FormDialog({ first, last, patient_id }) {
       measurement: inputs[5].value,
       quantity: prependZero(inputs[6].value),
       frequency: inputs[7].value,
-      status: inputs[8].checked ? 'acute' : 'repeat',
+      status: 'active',
       override: reason,
-      active: true,
+      type: inputs[10].checked ? 'acute' : 'repeat',
       date: new Date(),
       monitoring: Number(inputs[8].value) === 0 ? false : true,
       monitoringSchedule: Number(inputs[8].value),
       monitoringFrequency: inputs[9].value,
     };
     console.log('overrided,', prescription);
+    setPrescriptionObj({ ...prescription });
   }, [reason]);
 
   React.useEffect(() => {
@@ -109,9 +110,9 @@ export default function FormDialog({ first, last, patient_id }) {
             measurement: inputs[5].value,
             quantity: prependZero(inputs[6].value),
             frequency: inputs[7].value,
-            status: inputs[10].checked ? 'acute' : 'repeat',
+            type: inputs[10].checked ? 'acute' : 'repeat',
             override: '',
-            active: true,
+            status: 'active',
             date: new Date(),
             monitoring: Number(inputs[8].value) === 0 ? false : true,
             monitoringSchedule: Number(inputs[8].value),
@@ -214,9 +215,9 @@ export default function FormDialog({ first, last, patient_id }) {
       measurement: inputs[5].value,
       quantity: prependZero(inputs[6].value),
       frequency: inputs[7].value,
-      status: inputs[9].checked ? 'acute' : 'repeat',
+      type: inputs[9].checked ? 'acute' : 'repeat',
       override: '',
-      active: true,
+      status: 'active',
       date: new Date(),
       monitoring: Number(inputs[8].value) === 0 ? false : true,
       monitoringSchedule: Number(inputs[8].value),
@@ -360,7 +361,7 @@ export default function FormDialog({ first, last, patient_id }) {
                 pattern: '[0-9.]*',
               }}
               error={!Number.isNaN(Number(textFields['total'])) ? false : true}
-              value="200"
+              defaultValue="200"
               required
             />
             <TextField
@@ -377,7 +378,7 @@ export default function FormDialog({ first, last, patient_id }) {
               }}
               error={!Number.isNaN(Number(textFields['dosage'])) ? false : true}
               required
-              value="100"
+              defaultValue="100"
               name="dosage"
             />
             {/* <TextField
@@ -406,7 +407,7 @@ export default function FormDialog({ first, last, patient_id }) {
               fullWidth
               variant="standard"
               required
-              value="mg"
+              defaultValue="mg"
               name="measurement"
             />
             <TextField
@@ -426,7 +427,7 @@ export default function FormDialog({ first, last, patient_id }) {
               variant="standard"
               required
               name="quantity"
-              value="250"
+              defaultValue="250"
             />
             <TextField
               autoFocus
@@ -438,7 +439,7 @@ export default function FormDialog({ first, last, patient_id }) {
               variant="standard"
               onChange={handleChange}
               required
-              value="daily"
+              defaultValue="daily"
               error={
                 !Number.isInteger(Number(textFields['frequency']))
                   ? false
@@ -456,7 +457,7 @@ export default function FormDialog({ first, last, patient_id }) {
               type="number"
               inputProps={{ step: 1, min: 0 }}
               variant="standard"
-              value={0}
+              defaultValue={0}
             />
             <BasicSelect></BasicSelect>
 
