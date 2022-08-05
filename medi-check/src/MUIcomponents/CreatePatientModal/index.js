@@ -53,8 +53,9 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
     }
     if (Object.keys(newPatient).length !== 0) {
       createPatient();
+      setNewPatient({});
     }
-  }, [newPatient]);
+  }, [newPatient, list, setList]);
   const handleClickOpen = () => {
     setOpen(true);
   };
