@@ -20,44 +20,44 @@ for new prescription requirement we will need to:
         notify if less than 1 week(?)
 
 */
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 //import BasicModal from "../../../MUIcomponents/PrescriptionModal";
-import './notifications.css';
-import BasicPopover from '../../../MUIcomponents/Popover';
+import "./notifications.css";
+import BasicPopover from "../../../MUIcomponents/Popover";
 
 //dummy data for prepaid expiry
-const pEmail = 'vickismith@email.com';
+const pEmail = "vickismith@email.com";
 
 export const dummyData = [
   {
-    name: 'simvastatin',
-    dosage: '200',
-    measurement: 'mg',
-    freq1: '2',
-    freq2: 'day',
+    name: "simvastatin",
+    dosage: "200",
+    measurement: "mg",
+    freq1: "2",
+    freq2: "day",
     amount: 14,
-    prescription_date: '2022-7-20',
-    status: 'paused',
+    prescription_date: "2022-7-20",
+    status: "paused",
   },
   {
-    name: 'apixaban',
-    dosage: '400',
-    measurement: 'mg',
-    freq1: '2',
-    freq2: 'day',
+    name: "apixaban",
+    dosage: "400",
+    measurement: "mg",
+    freq1: "2",
+    freq2: "day",
     amount: 14,
-    prescription_date: '2022-7-20',
-    status: 'paused',
+    prescription_date: "2022-7-20",
+    status: "paused",
   },
   {
-    name: 'atorvastatin',
-    dosage: '100',
-    measurement: 'ml',
-    freq1: '2',
-    freq2: 'day',
+    name: "atorvastatin",
+    dosage: "100",
+    measurement: "ml",
+    freq1: "2",
+    freq2: "day",
     amount: 14,
-    prescription_date: '2022-7-20',
-    status: 'active',
+    prescription_date: "2022-7-20",
+    status: "active",
   },
 ];
 
@@ -65,7 +65,7 @@ export function Notifications({ data }) {
   //alerts state contains medication that will need to be renewed and notifications state holds the number of them
   const [alerts, SetAlerts] = useState([]);
   const [notifications, SetNotifications] = useState(0);
-  const [paidDate, setPaidDate] = useState('');
+  const [paidDate, setPaidDate] = useState("");
   const [patient, setPatient] = useState({});
 
   //gets patient data
@@ -76,7 +76,7 @@ export function Notifications({ data }) {
           `http://localhost:3001/patient?email=${pEmail}`
         );
         let data = await response.json();
-        console.log('patient data ', data.data[0]);
+        console.log("patient data ", data.data[0]);
         setPatient(data.data[0]);
       }
       getPatient();
@@ -87,7 +87,7 @@ export function Notifications({ data }) {
   useEffect(() => {
     // function takes the prepaid expiry date string and formats it into a full date
     function findDate(d) {
-      const date = d.split('-');
+      const date = d.split("-");
       const newDate = new Date();
       newDate.setFullYear(date[0], date[1] - 1, date[2]);
       return newDate;
@@ -106,10 +106,8 @@ export function Notifications({ data }) {
       const today = new Date();
 
       const dateOfExpiry = findDate(patient.prepaid);
-      console.log('expires on', dateOfExpiry);
       const result = dateDiffInDays(today, dateOfExpiry);
-      console.log('days till expiry,', result);
-      const displayDate = `${dateOfExpiry.getDay()}/${
+      const displayDate = `${dateOfExpiry.getDate()}/${
         dateOfExpiry.getMonth() + 1
       }/${dateOfExpiry.getFullYear()}`;
 
@@ -131,7 +129,7 @@ export function Notifications({ data }) {
         setPaidDate(`Your pre-paid prescription has expired`);
       }
 
-      if (paidDate !== '') {
+      if (paidDate !== "") {
         SetNotifications((notifications) => {
           return notifications + 1;
         });
@@ -143,7 +141,7 @@ export function Notifications({ data }) {
     // function takes the prescription date string and formats it into a full date
     function findDate(obj) {
       let prescription_date = obj.prescription_date;
-      const date = prescription_date.split('-');
+      const date = prescription_date.split("-");
       const newDate = new Date();
       newDate.setFullYear(date[0], date[1] - 1, date[2]);
       return newDate;
@@ -155,11 +153,11 @@ export function Notifications({ data }) {
       let freq1 = Number(obj.freq1);
       let freq2 = obj.freq2;
       let times = 0;
-      if (freq2 === 'day') {
+      if (freq2 === "day") {
         times = 1;
-      } else if (freq2 === 'week') {
+      } else if (freq2 === "week") {
         times = 1 / 7;
-      } else if (freq2 === 'hour') {
+      } else if (freq2 === "hour") {
         times = 24;
       }
       const days = amount / (freq1 * times);
