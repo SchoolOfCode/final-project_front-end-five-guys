@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 function PatientFile({ info, onClick }) {
   const [allergies, setAllergies] = useState([]);
   const [prescriptions, setPrescriptions] = useState([]);
+  const [diary, setDiary] = useState(false);
   console.log('patient file', info);
   useEffect(() => {
     async function getAllergies() {
@@ -27,6 +28,18 @@ function PatientFile({ info, onClick }) {
     }
     getPrescriptions();
   }, [info.patient_id]);
+  useEffect(() => {
+    async function getPatientDiary() {
+      let res = await fetch(`http://localhost:3001/diary/${info.patient_id}`);
+      let json = await res.json();
+      console.log('patients diary, needs to be saved in state', json);
+      setDiary(json.data);
+    }
+    getPatientDiary();
+  }, [info.patient_id]);
+  function showDiary() {
+    console.log(diary);
+  }
   return (
     <main>
       {/* <section className="hide" id="interactionPopup">
@@ -41,6 +54,9 @@ function PatientFile({ info, onClick }) {
             ></ButtonComponent> */}
       <button className="close-button" onClick={onClick}>
         Close Patient
+      </button>
+      <button className="close-button" onClick={showDiary}>
+        Patient Diary in console
       </button>
       <section className="patientInfo">
         {/* <h3>
