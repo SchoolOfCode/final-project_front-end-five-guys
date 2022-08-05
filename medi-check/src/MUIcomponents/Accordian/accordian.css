@@ -1,5 +1,5 @@
 .accordian-container {
-  border: 3px solid black;
+  border: 3px solid var(--font-color);
   padding: 2rem;
   max-height: 500px;
   overflow-y: scroll;
@@ -13,10 +13,10 @@
 }
 
 .interaction {
-  border: 2px solid red;
-  color: red;
+  border: 2px solid var(--alert);
+  color: var(--alert);
 }
 
 #paused {
-  background-color: gray;
+  background-color: var(--table-alternate-rows);
 }

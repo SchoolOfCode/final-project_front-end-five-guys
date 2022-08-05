@@ -4,15 +4,10 @@ import { PatientHome } from "../Patient/PatientHome";
 //import Footer from "../Doctor/Footer";
 import DoctorHome from "../Doctor/DoctorHome";
 import { useState } from "react";
-import ControlledSwitchTwo from "../../MUIcomponents/ControlledSwitchTwo";
 
 function App() {
   const [display, setDisplay] = useState("");
   const [darkMode, setDarkMode] = useState(false);
-
-  const controlDark = document.querySelector(".accessLogo");
-  console.log(controlDark, "from app");
-  //lets query select dark mode in css
 
   function handlePatientClick() {
     setDisplay("patient");
@@ -22,10 +17,6 @@ function App() {
   }
 
   let mode = darkMode ? "dark-mode App" : "App";
-
-  function handleDarkMode() {
-    console.log("dark mode on");
-  }
 
   return (
     <div className={mode}>

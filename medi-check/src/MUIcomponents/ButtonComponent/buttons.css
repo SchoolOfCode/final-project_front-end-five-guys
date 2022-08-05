@@ -5,8 +5,8 @@
   text-transform: none;
   border-style: none;
   border-radius: 25em;
-  background-color: #eff4f6;
-  color: black;
+  background-color: var(--button-color);
+  color: var(--font-color);
   font-family: Inter, sans-serif;
   font-size: 1.1em;
   font-weight: 400;
@@ -16,5 +16,5 @@
 }
 
 .buttons:hover {
-  background-color: #a0dcef;
+  background-color: var(--button-hover-color);
 }
