@@ -1,29 +1,29 @@
-import { useState } from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import Slider from "@mui/material/Slider";
+import { useState } from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import Slider from '@mui/material/Slider';
 import {
   RiEmotionNormalLine,
   RiEmotionUnhappyLine,
   RiEmotionSadLine,
   RiEmotionLine,
   RiEmotionHappyLine,
-} from "react-icons/ri";
-import "./diary.css";
+} from 'react-icons/ri';
+import './diary.css';
 
 //temporary hard coded patient email until auth0 is done
-const pEmail = "vickismith@email.com";
+const pEmail = 'vickismith@email.com';
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
   width: 500,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
@@ -59,7 +59,7 @@ export function DiaryModal() {
   const today = date.toLocaleDateString();
   const [entry, SetEntry] = useState({
     mood: 50,
-    details: "",
+    details: '',
     date: today,
   });
 
@@ -78,10 +78,10 @@ export function DiaryModal() {
   // const id = 1;
 
   async function postDiaryEntry() {
-    const db_url = `http://localhost:3001/diary/${pEmail}`;
+    const db_url = `https://fiveguysproject.herokuapp.com/diary/${pEmail}`;
     const newPost = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(entry),
     };
     const res = await fetch(db_url, newPost);
@@ -122,7 +122,7 @@ export function DiaryModal() {
             Side Effects/Mood/Symptoms
           </Typography>
           <textarea
-            style={{ resize: "none", height: "10vh", width: "20vw" }}
+            style={{ resize: 'none', height: '10vh', width: '20vw' }}
             onChange={handleText}
           ></textarea>
           <button onClick={handleSubmit}>Submit entry</button>

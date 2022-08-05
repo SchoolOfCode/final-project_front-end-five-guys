@@ -9,7 +9,9 @@ function PatientFile({ info, onClick }) {
   console.log('patient file', info);
   useEffect(() => {
     async function getAllergies() {
-      let res = await fetch(`http://localhost:3001/allergy/${info.patient_id}`);
+      let res = await fetch(
+        `https://fiveguysproject.herokuapp.com/allergy/${info.patient_id}`
+      );
       let json = await res.json();
       console.log('fetched allerg', json);
       setAllergies([...json.data]);
@@ -20,7 +22,7 @@ function PatientFile({ info, onClick }) {
   useEffect(() => {
     async function getPrescriptions() {
       let res = await fetch(
-        `http://localhost:3001/prescriptions/${info.patient_id}`
+        `https://fiveguysproject.herokuapp.com/prescriptions/${info.patient_id}`
       );
       let json = await res.json();
       console.log('fetched presc', json);
@@ -30,7 +32,9 @@ function PatientFile({ info, onClick }) {
   }, [info.patient_id]);
   useEffect(() => {
     async function getPatientDiary() {
-      let res = await fetch(`http://localhost:3001/diary/${info.patient_id}`);
+      let res = await fetch(
+        `https://fiveguysproject.herokuapp.com/diary/${info.patient_id}`
+      );
       let json = await res.json();
       console.log('patients diary, needs to be saved in state', json);
       setDiary(json.data);

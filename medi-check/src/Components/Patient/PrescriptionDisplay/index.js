@@ -13,7 +13,7 @@ function PrescriptionDisplay() {
   useEffect(() => {
     async function getPrescriptions() {
       let res = await fetch(
-        `http://localhost:3001/prescriptions?email=${pEmail}`
+        `https://fiveguysproject.herokuapp.com/prescriptions?email=${pEmail}`
       );
       let json = await res.json();
       console.log('json', json);

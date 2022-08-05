@@ -31,7 +31,7 @@
 
 .App {
   width: 100vw;
-  height: fit-content;
+  height: 110vh;
   display: flex;
   justify-content: center;
   align-items: center;
