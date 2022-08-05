@@ -101,30 +101,41 @@ export function Notifications({ data }) {
       const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
       return Math.floor((utc2 - utc1) / _MS_PER_DAY);
     }
-    const today = new Date();
-    const dateOfExpiry = findDate(patient.prepaid);
-    const result = dateDiffInDays(today, dateOfExpiry);
-    const displayDate = `${dateOfExpiry.getDay()}/${
-      dateOfExpiry.getMonth() + 1
-    }/${dateOfExpiry.getFullYear()}`;
 
-    if (result < 90 && result > 14) {
-      setPaidDate(
-        `Your pre-paid prescription expires within 3 months, on ` + displayDate
-      );
-    } else if (result < 14 && result > 0) {
-      setPaidDate(
-        `Your pre-paid prescription expires in less than a fortnight, on ` +
-          displayDate
-      );
-    } else if (result <= 0) {
-      setPaidDate(`Your pre-paid prescription has expired`);
-    }
+    if (Object.keys(patient).length !== 0) {
+      const today = new Date();
 
-    if (paidDate !== '') {
-      SetNotifications((notifications) => {
-        return notifications + 1;
-      });
+      const dateOfExpiry = findDate(patient.prepaid);
+      console.log('expires on', dateOfExpiry);
+      const result = dateDiffInDays(today, dateOfExpiry);
+      console.log('days till expiry,', result);
+      const displayDate = `${dateOfExpiry.getDay()}/${
+        dateOfExpiry.getMonth() + 1
+      }/${dateOfExpiry.getFullYear()}`;
+
+      if (result < 90 && result > 14) {
+        console.log(
+          `Your pre-paid prescription expires within 3 months, on ` +
+            displayDate
+        );
+        setPaidDate(
+          `Your pre-paid prescription expires within 3 months, on ` +
+            displayDate
+        );
+      } else if (result < 14 && result > 0) {
+        setPaidDate(
+          `Your pre-paid prescription expires in less than a fortnight, on ` +
+            displayDate
+        );
+      } else if (result <= 0) {
+        setPaidDate(`Your pre-paid prescription has expired`);
+      }
+
+      if (paidDate !== '') {
+        SetNotifications((notifications) => {
+          return notifications + 1;
+        });
+      }
     }
   }, [patient, paidDate]);
 
@@ -194,7 +205,7 @@ export function Notifications({ data }) {
       <BasicPopover
         data={alerts}
         notifications={notifications}
-        prepaid={patient.paidDate}
+        prepaid={paidDate}
       />
     </div>
   );
