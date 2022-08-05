@@ -35,6 +35,7 @@ export default function FadeMenu() {
       />
       {/* </Button> */}
       <Menu
+        // disableScrollLock={true}
         id="fadein-menu"
         MenuListProps={{
           "aria-labelledby": "fade-button",

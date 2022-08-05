@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 function PatientList({ list, patient, setPatient }) {
   console.log('in patient:', list);
   const [filter, setFilter] = useState({ type: '', reverse: false });
+
   // console.log('patient', patient);
   function resetPatient() {
     setPatient(null);
@@ -42,6 +43,7 @@ function PatientList({ list, patient, setPatient }) {
       if (a.nhsnumber > b.nhsnumber) {
         return filter.reverse ? -1 : 1;
       } else if (a.nhsnumber < b.nhsnumber) {
+
         return filter.reverse ? 1 : -1;
       }
       return 0;
@@ -49,6 +51,7 @@ function PatientList({ list, patient, setPatient }) {
   }
   function handleSort(sortBy, e) {
     let flipped = document.getElementsByClassName('flip');
+
     for (let i = 0; i < flipped.length; i++) {
       let changedNode = e.target.firstElementChild
         ? e.target.firstElementChild
@@ -60,6 +63,7 @@ function PatientList({ list, patient, setPatient }) {
     e.target.firstElementChild
       ? e.target.firstElementChild.classList.toggle('flip')
       : e.target.classList.toggle('flip');
+
     setFilter({
       type: sortBy,
       reverse: sortBy === filter.type ? !filter.reverse : false,
@@ -70,6 +74,33 @@ function PatientList({ list, patient, setPatient }) {
   } else {
     return (
       <div>
+
+        <section className="sort-buttons">
+          <ButtonComponent
+            text1={"First Name  "}
+            text2={<img className="arrow" src={arrow} alt="sort direction" />}
+            onClick={(e) => {
+              handleSort("first", e);
+            }}
+          />
+
+          <ButtonComponent
+            text1={"Surname  "}
+            text2={<img className="arrow" src={arrow} alt="sort direction" />}
+            onClick={(e) => {
+              handleSort("last", e);
+            }}
+          />
+
+          <ButtonComponent
+            text1={"NHS Number"}
+            text2={<img className="arrow" src={arrow} alt="sort direction" />}
+            onClick={(e) => {
+              handleSort("number", e);
+            }}
+          />
+        </section>
+
         {/* <div> */}
         {/* <div
             onClick={() => {
@@ -116,43 +147,50 @@ function PatientList({ list, patient, setPatient }) {
         </ul> */}
         {/* <section className="patient-table-container"> */}
         <table className="patient-table">
-          <thead>
+
+          {/*<thead>
             <tr>
               <th>
                 <ButtonComponent
-                  text1={'First Name'}
+                  text1={"First Name"}
                   text2={
                     <img className="arrow" src={arrow} alt="sort direction" />
                   }
                   onClick={(e) => {
-                    handleSort('first', e);
+
+                    handleSort("first", e);
                   }}
                 />
               </th>
               <th>
                 <ButtonComponent
-                  text1={'Surname'}
+
+                  text1={"Surname"}
                   text2={
                     <img className="arrow" src={arrow} alt="sort direction" />
                   }
                   onClick={(e) => {
-                    handleSort('last', e);
+
+                    handleSort("last", e);
                   }}
                 />
               </th>
               <th>
                 <ButtonComponent
-                  text1={'NHS Number'}
+
+                  text1={"NHS Number"}
                   text2={
                     <img className="arrow" src={arrow} alt="sort direction" />
                   }
                   onClick={(e) => {
-                    handleSort('number', e);
+
+                    handleSort("number", e);
                   }}
                 />
               </th>
             </tr>
-          </thead>
+
+          </thead> */}
           <tbody>
             {list.sort(compare).map((patient, index) => {
               // console.log('patient-detials', patient);

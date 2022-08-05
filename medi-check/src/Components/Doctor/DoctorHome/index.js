@@ -1,12 +1,13 @@
-import PatientList from '../PatientList';
-import SearchBar from '../Searchbar+CreatePatient';
-import { useEffect, useState } from 'react';
-import { dummyList } from '../PatientList/Patient';
-import Footer from '../Footer';
-import CreatePatientDialog from '../../../MUIcomponents/CreatePatientModal';
-import './DoctorHome.css';
-import Header from '../DoctorHeader';
-import FadeMenu from '../../../MUIcomponents/AccessibilityMenu';
+
+import PatientList from "../PatientList";
+import SearchBar from "../Searchbar+CreatePatient";
+import { useEffect, useState } from "react";
+import { dummyList } from "../PatientList/Patient";
+import Footer from "../Footer";
+import CreatePatientDialog from "../../../MUIcomponents/CreatePatientModal";
+import "./DoctorHome.css";
+import Header from "../DoctorHeader";
+import Accessibility from "../../Patient/Accessibility";
 
 //If running into problems based on searching consequitively, can use other idea of passing search term into patientlist and letting filter happen there.
 function DoctorHome() {
@@ -36,6 +37,7 @@ function DoctorHome() {
   //     setList([...dummyList]); //this is imported for proof of concept
   // }, [reset]);
 
+
   return (
     <div className="doctor-home">
       <Header name="Smuggles" />
@@ -51,7 +53,9 @@ function DoctorHome() {
           />
         </div>
 
+
         <CreatePatientDialog setList={setList} list={list} />
+
       </section>
       <div className="patient-table-con">
         {filteredList.length === 0 ? (
@@ -67,6 +71,7 @@ function DoctorHome() {
 
       {/* <Accessibility /> */}
       <FadeMenu />
+
 
       <Footer />
       {/* {!filteredList && <PatientList list={list} />} */}
