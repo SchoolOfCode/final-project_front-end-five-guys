@@ -140,6 +140,7 @@ export default function FormDialog({ first, last }) {
       fetchData(names);
     }
   }, [prescription]);
+
   //States for all of the textfields
   // const [name, setName] = React.useState('');
   // const [dosage, setDosage] = React.useState(0);
