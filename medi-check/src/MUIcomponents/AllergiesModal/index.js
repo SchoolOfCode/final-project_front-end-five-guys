@@ -55,6 +55,7 @@ export default function AllergiesModal() {
   function handleSubmit() {
     postAllergy();
     handleClose();
+    setCurrentAllergy([...CurrentAllergy, allergy]);
   }
 
   async function postAllergy() {
