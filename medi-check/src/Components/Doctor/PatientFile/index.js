@@ -142,7 +142,11 @@ function PatientFile({ info, onClick }) {
         </div>
       </section>
       <div className="button-mover">
-        <FormDialog first={info.FirstNames} last={info.Surname} />
+        <FormDialog
+          first={info.FirstNames}
+          last={info.Surname}
+          patient_id={info.patient_id}
+        />
       </div>
     </main>
   );

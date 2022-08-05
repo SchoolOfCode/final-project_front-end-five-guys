@@ -19,7 +19,7 @@ import './index.css';
 import { dummy } from '../../Components/Patient/PrescriptionDisplay/dummyData.js';
 //Easy tester drug: ketoconazole
 
-export default function FormDialog({ first, last }) {
+export default function FormDialog({ first, last, patient_id }) {
   console.log(Date.now(), Date.UTC());
   const style = {
     position: 'absolute',
@@ -36,6 +36,7 @@ export default function FormDialog({ first, last }) {
   };
   const [open, setOpen] = React.useState(false);
   const [prescription, setPrescription] = React.useState('');
+  const [prescriptionObj, setPrescriptionObj] = React.useState({});
   const [openStatus, setOpenStatus] = React.useState(false);
   const [reason, setReason] = React.useState('');
   const [interactedDrugs, setInteractedDrugs] = React.useState([]);
@@ -117,6 +118,7 @@ export default function FormDialog({ first, last }) {
             monitoringFrequency: inputs[9].value,
           };
           console.log('sending this back to the DB:', prescription);
+          setPrescriptionObj({ ...prescription });
           handleClose();
           return;
         }
@@ -141,6 +143,23 @@ export default function FormDialog({ first, last }) {
     }
   }, [prescription]);
 
+  React.useEffect(() => {
+    async function sendPrescription() {
+      let response = await fetch(
+        `http://localhost:3001/prescriptions/${patient_id}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(prescriptionObj),
+        }
+      );
+      let json = await response.json();
+      console.log('posted pres', json);
+    }
+    if (Object.keys(prescriptionObj).length !== 0) {
+      sendPrescription();
+    }
+  }, [prescriptionObj, patient_id]);
   //States for all of the textfields
   // const [name, setName] = React.useState('');
   // const [dosage, setDosage] = React.useState(0);
@@ -204,6 +223,7 @@ export default function FormDialog({ first, last }) {
       monitoringFrequency: inputs[9].value,
     };
     console.log('no override but do not send back to DB here,', prescription);
+    setPrescriptionObj({ ...prescription });
 
     setPrescription(prescription.name);
   }
