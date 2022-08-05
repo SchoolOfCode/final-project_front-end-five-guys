@@ -5,6 +5,8 @@
 .mui-fixed {
   position: fixed;
 }
+
+/* light/ default mode */
 :root {
   --font-color: rgb(0, 0, 0);
   --bg-color: #d0d4d6;
