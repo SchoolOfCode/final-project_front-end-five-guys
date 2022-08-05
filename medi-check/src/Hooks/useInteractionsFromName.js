@@ -14,7 +14,9 @@ export default function useInteractions(prescriptionArray) {
         );
         let json = await res.json();
         console.log('nameArray', json);
-        url += `+${json.idGroup.rxnormId[0]}`;
+        if (Object.keys(json.idGroup).length !== 0) {
+          url += `+${json.idGroup.rxnormId[0]}`;
+        }
       }
 
       try {
