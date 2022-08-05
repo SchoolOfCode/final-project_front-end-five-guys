@@ -14,10 +14,14 @@
 }
 
 .dark-mode {
-  --bg-color: #d0d4d6;
-  --primary-color: #d8eef8;
+  /* --bg-color: #d0d4d6;
+  --primary-color: #030303;
   --secondary-color: ##a0dcef;
-  --button-color: #eff4f6;
+  --button-color: #eff4f6; */
+  --bg-color: blue;
+  --primary-color: red;
+  --secondary-color: yellow;
+  --button-color: green;
 }
 
 .App {

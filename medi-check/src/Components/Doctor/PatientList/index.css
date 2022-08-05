@@ -79,9 +79,11 @@
 .sort-buttons {
   width: 36vw;
   padding-top: 1.5%;
+  padding-left: 0.5%;
   margin: 0em 0em 0em 5em; /* top right bottom left */
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   background-color: #ffffff;
-  position: fixed;
+  gap: 1.5em;
+  position: absolute;
 }
