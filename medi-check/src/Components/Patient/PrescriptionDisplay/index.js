@@ -1,6 +1,6 @@
 import useInteractions from '../../../Hooks/useInteractionsFromName';
 // import Item from './Item';
-import { dummy } from './dummyData';
+// import { dummy } from './dummyData';
 import CustomizedAccordions from '../../../MUIcomponents/Accordian';
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useState } from 'react';
