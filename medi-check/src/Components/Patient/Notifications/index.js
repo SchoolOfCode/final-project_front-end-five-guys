@@ -26,7 +26,6 @@ import "./notifications.css";
 import BasicPopover from "../../../MUIcomponents/Popover";
 
 //dummy data for prepaid expiry
-export const prepaid = "2022-8-20";
 const pEmail = "vickismith@email.com";
 
 export const dummyData = [
@@ -62,7 +61,7 @@ export const dummyData = [
   },
 ];
 
-export function Notifications({ data, prepaid }) {
+export function Notifications({ data }) {
   //alerts state contains medication that will need to be renewed and notifications state holds the number of them
   const [alerts, SetAlerts] = useState([]);
   const [notifications, SetNotifications] = useState(0);
@@ -77,7 +76,7 @@ export function Notifications({ data, prepaid }) {
           `http://localhost:3001/patient?email=${pEmail}`
         );
         let data = await response.json();
-        console.log("patient ", data.data[0]);
+        console.log("patient data ", data.data[0]);
         setPatient(data.data[0]);
       }
       getPatient();
@@ -102,30 +101,39 @@ export function Notifications({ data, prepaid }) {
       const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
       return Math.floor((utc2 - utc1) / _MS_PER_DAY);
     }
-    const today = new Date();
-    const dateOfExpiry = findDate(patient.prepaid);
-    const result = dateDiffInDays(today, dateOfExpiry);
-    const displayDate = `${dateOfExpiry.getDay()}/${
-      dateOfExpiry.getMonth() + 1
-    }/${dateOfExpiry.getFullYear()}`;
 
-    if (result < 90 && result > 14) {
-      setPaidDate(
-        `Your pre-paid prescription expires within 3 months, on ` + displayDate
-      );
-    } else if (result < 14 && result > 0) {
-      setPaidDate(
-        `Your pre-paid prescription expires in less than a fortnight, on ` +
-          displayDate
-      );
-    } else if (result <= 0) {
-      setPaidDate(`Your pre-paid prescription has expired`);
-    }
+    if (Object.keys(patient).length !== 0) {
+      const today = new Date();
 
-    if (paidDate !== "") {
-      SetNotifications((notifications) => {
-        return notifications + 1;
-      });
+      const dateOfExpiry = findDate(patient.prepaid);
+      const result = dateDiffInDays(today, dateOfExpiry);
+      const displayDate = `${dateOfExpiry.getDate()}/${
+        dateOfExpiry.getMonth() + 1
+      }/${dateOfExpiry.getFullYear()}`;
+
+      if (result < 90 && result > 14) {
+        console.log(
+          `Your pre-paid prescription expires within 3 months, on ` +
+            displayDate
+        );
+        setPaidDate(
+          `Your pre-paid prescription expires within 3 months, on ` +
+            displayDate
+        );
+      } else if (result < 14 && result > 0) {
+        setPaidDate(
+          `Your pre-paid prescription expires in less than a fortnight, on ` +
+            displayDate
+        );
+      } else if (result <= 0) {
+        setPaidDate(`Your pre-paid prescription has expired`);
+      }
+
+      if (paidDate !== "") {
+        SetNotifications((notifications) => {
+          return notifications + 1;
+        });
+      }
     }
   }, [patient, paidDate]);
 
@@ -195,7 +203,7 @@ export function Notifications({ data, prepaid }) {
       <BasicPopover
         data={alerts}
         notifications={notifications}
-        prepaid={patient.paidDate}
+        prepaid={paidDate}
       />
     </div>
   );

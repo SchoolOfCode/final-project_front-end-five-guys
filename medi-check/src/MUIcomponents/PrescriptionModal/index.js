@@ -72,6 +72,7 @@ export default function FormDialog({ first, last, patient_id }) {
     for (let i = 0; i < dummy.length; i++) {
       names.push(dummy[i].name);
     }
+
     names.push(prescription);
     async function fetchData(nameArray) {
       let url = 'https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=';
@@ -101,7 +102,9 @@ export default function FormDialog({ first, last, patient_id }) {
           );
           let inputs = document.querySelectorAll('input');
           console.log('inputs', inputs);
-
+          let date = new Date();
+          let day =
+            date.getDay() < 10 ? '0' + String(date.getDay()) : date.getDay();
           let prescription = {
             name: inputs[1].value,
             reason: inputs[2].value,
@@ -113,7 +116,7 @@ export default function FormDialog({ first, last, patient_id }) {
             type: inputs[10].checked ? 'acute' : 'repeat',
             override: '',
             status: 'active',
-            date: new Date(),
+            date: `${day}-${date.getMonth()}-${date.getFullYear()}`,
             monitoring: Number(inputs[8].value) === 0 ? false : true,
             monitoringSchedule: Number(inputs[8].value),
             monitoringFrequency: inputs[9].value,
@@ -207,6 +210,8 @@ export default function FormDialog({ first, last, patient_id }) {
     //Test whether or not we need to make the page refresh after sending to database or just reset state to 0
     let inputs = document.querySelectorAll('input');
     console.log('ion', inputs);
+    let date = new Date();
+    let day = date.getDay() < 10 ? '0' + String(date.getDay()) : date.getDay();
     let prescription = {
       name: inputs[1].value,
       reason: inputs[2].value,
@@ -218,7 +223,7 @@ export default function FormDialog({ first, last, patient_id }) {
       type: inputs[9].checked ? 'acute' : 'repeat',
       override: '',
       status: 'active',
-      date: new Date(),
+      date: `${day}-${date.getMonth()}-${date.getFullYear()}`,
       monitoring: Number(inputs[8].value) === 0 ? false : true,
       monitoringSchedule: Number(inputs[8].value),
       monitoringFrequency: inputs[9].value,
