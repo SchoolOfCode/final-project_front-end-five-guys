@@ -1,17 +1,34 @@
-//import useInteractions from '../../../Hooks/useInteractionsFromName';
+import useInteractions from '../../../Hooks/useInteractionsFromName';
 // import Item from './Item';
-import { dummy, testInteractions } from './dummyData';
+// import { dummy } from './dummyData';
 import CustomizedAccordions from '../../../MUIcomponents/Accordian';
 import { v4 as uuidv4 } from 'uuid';
+import { useEffect, useState } from 'react';
 
 //Will fetch backend to get the patient prescription names and information, then plug that into the API twice.
 //Working on functionality now, not completeness
 function PrescriptionDisplay() {
-  // let itemInteractions = useInteractions(dummy);
-  let itemInteractions = testInteractions;
-  console.log(testInteractions);
+  const pEmail = 'rsmith123@email.com';
+  const [prescriptions, setPrescriptions] = useState([]);
+  useEffect(() => {
+    async function getPrescriptions() {
+      let res = await fetch(
+        `https://fiveguysproject.herokuapp.com/prescriptions?email=${pEmail}`
+      );
+      let json = await res.json();
+      console.log('json', json);
+      setPrescriptions(json.data);
+    }
+    if (pEmail) {
+      getPrescriptions();
+    }
+  }, []);
+  let itemInteractions = useInteractions(prescriptions);
+  // let itemInteractions = testInteractions;
+
+  console.log('itemInter', itemInteractions);
   //This is taking the API data and for each drug interaction it is grouping together the drug, the drug it is interacting with, and the description
-  let combo = dummy.map((obj) => {
+  let combo = prescriptions.map((obj) => {
     let overview = itemInteractions.filter((info) => {
       return (
         obj.name === info.minConcept[0].name ||

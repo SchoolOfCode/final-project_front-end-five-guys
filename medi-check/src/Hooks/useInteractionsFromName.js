@@ -1,19 +1,26 @@
 import { useEffect, useState } from 'react';
 
-export default function useInteractions(nameArray) {
+export default function useInteractions(prescriptionArray) {
   const [data, setData] = useState([]);
   useEffect(() => {
-    async function fetchData(nameArray) {
+    async function fetchData(prescriptionArray) {
+      if (prescriptionArray.length === 0) {
+        return [];
+      }
       let url = 'https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=';
-      for (let i = 0; i < nameArray.length; i++) {
+      for (let i = 0; i < prescriptionArray.length; i++) {
         let res = await fetch(
-          `https://rxnav.nlm.nih.gov/REST/rxcui.json?name=${nameArray[i].name}`
+          `https://rxnav.nlm.nih.gov/REST/rxcui.json?name=${prescriptionArray[i].name}`
         );
         let json = await res.json();
-        // console.log(nameArray, json);
-        url += `+${json.idGroup.rxnormId[0]}`;
+        console.log('nameArray', json);
+        if (Object.keys(json.idGroup).length !== 0) {
+          url += `+${json.idGroup.rxnormId[0]}`;
+        }
       }
+
       try {
+        console.log('url', url);
         let response = await fetch(url + '&sources=ONCHigh');
         let obj = await response.json();
         console.log(obj);
@@ -23,7 +30,7 @@ export default function useInteractions(nameArray) {
         console.log(error);
       }
     }
-    fetchData(nameArray);
-  }, [nameArray]);
+    fetchData(prescriptionArray);
+  }, [prescriptionArray]);
   return data;
 }
