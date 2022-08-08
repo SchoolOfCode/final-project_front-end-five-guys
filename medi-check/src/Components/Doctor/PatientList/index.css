@@ -13,6 +13,10 @@
   background-color: var(--table-alternate-rows);
   /* margin: 0.2rem 0; */
 }
+.patient-card:nth-child(odd) {
+  color: var(--dark-mode-font);
+  /* margin: 0.2rem 0; */
+}
 
 .patient-card:hover {
   cursor: default;

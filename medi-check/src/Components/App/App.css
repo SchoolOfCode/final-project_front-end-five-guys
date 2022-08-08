@@ -9,20 +9,20 @@
 /* light/ default mode */
 :root {
   --font-color: rgb(0, 0, 0);
-  --bg-color: #9bb6c4;
+  --bg-color: #d8edf8;
   --modal-color: aquamarine;
-  --button-color: #a0dcef;
+  --button-color: #eff4f6;
   --button-hover-color: #bfe2ec;
   --table-color: #ffffff;
-  --table-alternate-rows: #d9d9d9;
+  --table-alternate-rows: #e4e3e3;
   --alert: red;
 }
-
 .dark-mode {
   --font-color: white;
+  --dark-mode-font: white;
   --bg-color: black;
   --modal-color: darkblue;
-  --button-color: darkblue;
+  --button-color: rgb(10, 92, 143);
   --button-hover-color: blue;
   --table-color: rgb(14, 18, 59);
   --table-alternate-rows: #d9d9d9;
