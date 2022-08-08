@@ -40,6 +40,15 @@ export default function PendingDialog({ open, setOpen }) {
         console.log('posted new prescription!:', json);
       }
       //delete
+      const response2 = await fetch(
+        `https://fiveguysproject.herokuapp.com/pending/${prescription.pending_id}`,
+        {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+      let json2 = await response2.json();
+      console.log('deleted pending prescription:', json2);
 
       setSettledPrescription({});
     }
