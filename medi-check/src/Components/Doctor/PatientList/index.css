@@ -74,6 +74,7 @@
 
 .arrow {
   width: 10px;
+  filter: var(--arrowfilter);
 }
 
 .sort-buttons {

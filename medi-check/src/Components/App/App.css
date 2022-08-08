@@ -27,6 +27,8 @@
   --table-color: rgb(14, 18, 59);
   --table-alternate-rows: #d9d9d9;
   --alert: red;
+  --arrowfilter: invert(100%) sepia(47%) saturate(108%) hue-rotate(164deg)
+    brightness(106%) contrast(101%);
 }
 
 .App {
