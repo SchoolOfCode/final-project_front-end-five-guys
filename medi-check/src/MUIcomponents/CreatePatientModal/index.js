@@ -1,14 +1,15 @@
-import * as React from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import ButtonComponent from "../ButtonComponent";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import { MdOutlineAddCircle } from "react-icons/md";
-import "./createpatient.css";
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import ButtonComponent from '../ButtonComponent';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import { MdOutlineAddCircle } from 'react-icons/md';
+import './createpatient.css';
+//
 // import DialogContentText from '@mui/material/DialogContentText';
 // import DialogTitle from "@mui/material/DialogTitle";
 // import ControlledSwitches from "../ControlledSwitch";
@@ -88,52 +89,52 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
     console.log('handle submit');
     // submit text fields to database and reset and cast mixed number/letter text into a string
 
-        handleClose();
-    }
-    function handleChange(event) {
-        let obj = textFields;
-        Number.isInteger(Number(event.target.value));
-        !Number.isInteger(Number(event.target.value))
-            ? (obj[event.target.name] = event.target.value)
-            : (obj[event.target.name] = Number(event.target.value));
-        console.log(obj);
-        setTextFields({ ...obj });
-    }
-    const label = { inputProps: { "aria-label": "Pregnancy Status" } };
-    return (
-        <div>
-            <ButtonComponent
-                text1="Add New Patient"
-                text2={<MdOutlineAddCircle style={{ marginLeft: "0.5em" }} />}
-                onClick={handleClickOpen}
-            ></ButtonComponent>
+    handleClose();
+  }
+  function handleChange(event) {
+    let obj = textFields;
+    Number.isInteger(Number(event.target.value));
+    !Number.isInteger(Number(event.target.value))
+      ? (obj[event.target.name] = event.target.value)
+      : (obj[event.target.name] = Number(event.target.value));
+    console.log(obj);
+    setTextFields({ ...obj });
+  }
+  const label = { inputProps: { 'aria-label': 'Pregnancy Status' } };
+  return (
+    <div>
+      <ButtonComponent
+        text1='Add New Patient'
+        text2={<MdOutlineAddCircle style={{ marginLeft: '0.5em' }} />}
+        onClick={handleClickOpen}
+      ></ButtonComponent>
 
-            <Dialog
-                sx={{ overflow: "scroll" }}
-                scroll="body"
-                open={open}
-                onClose={(event, reason) => {
-                    if (reason !== "backdropClick") {
-                        handleClose();
-                    }
-                }}
-            >
-                <form onSubmit={handleSubmit}>
-                    {/* <DialogTitle>
+      <Dialog
+        sx={{ overflow: 'scroll' }}
+        scroll='body'
+        open={open}
+        onClose={(event, reason) => {
+          if (reason !== 'backdropClick') {
+            handleClose();
+          }
+        }}
+      >
+        <form onSubmit={handleSubmit}>
+          {/* <DialogTitle>
                     New Prescription for {first} {last}
                 </DialogTitle> */}
-                    <DialogContent>
-                        {/* <DialogContentText>
+          <DialogContent>
+            {/* <DialogContentText>
             To subscribe to this website, please enter your email address here.
             We will send updates occasionally.
           </DialogContentText> */}
             <TextField
-              name="Title"
+              name='Title'
               autoFocus
-              margin="dense"
-              id="title"
-              label="Title"
-              type="text"
+              margin='dense'
+              id='title'
+              label='Title'
+              type='text'
               onChange={handleChange}
               error={
                 !Number.isInteger(Number(textFields['Title']))
@@ -143,19 +144,19 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
                   : true
               }
               fullWidth
-              variant="standard"
-              defaultValue="Miss"
+              variant='standard'
+              defaultValue='Miss'
               required
             />
             <TextField
-              name="FirstNames"
+              name='FirstNames'
               autoFocus
-              margin="dense"
-              id="firstName"
-              label="First name"
+              margin='dense'
+              id='firstName'
+              label='First name'
               fullWidth
-              variant="standard"
-              type="text"
+              variant='standard'
+              type='text'
               onChange={handleChange}
               error={
                 !Number.isInteger(Number(textFields['FirstNames']))
@@ -165,17 +166,17 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
                   : true
               }
               required
-              defaultValue="Jelly"
+              defaultValue='Jelly'
             />
             <TextField
-              name="Surname"
+              name='Surname'
               autoFocus
-              margin="dense"
-              id="surname"
-              label="Surname"
+              margin='dense'
+              id='surname'
+              label='Surname'
               fullWidth
-              variant="standard"
-              type="text"
+              variant='standard'
+              type='text'
               onChange={handleChange}
               error={
                 !Number.isInteger(Number(textFields['Surname']))
@@ -185,33 +186,33 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
                   : true
               }
               required
-              defaultValue="Clarkson"
+              defaultValue='Clarkson'
             />
             <TextField
-              name="dob"
+              name='dob'
               autoFocus
-              margin="dense"
-              id="dob"
+              margin='dense'
+              id='dob'
               onChange={handleChange}
-              label="D.O.B (DDMMYYYY)"
+              label='D.O.B (DDMMYYYY)'
               inputProps={{
                 inputMode: 'numeric',
                 pattern: '[0-9]*',
               }}
               error={Number.isInteger(Number(textFields['dob'])) ? false : true}
               fullWidth
-              variant="standard"
+              variant='standard'
               required
-              defaultValue="22042002"
+              defaultValue='22042002'
             />
 
             <TextField
-              name="weight"
+              name='weight'
               autoFocus
-              margin="dense"
-              id="weight"
+              margin='dense'
+              id='weight'
               onChange={handleChange}
-              label="Weight"
+              label='Weight'
               inputProps={{
                 inputMode: 'numeric',
                 pattern: '[0-9]*',
@@ -220,17 +221,17 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
                 Number.isInteger(Number(textFields['weight'])) ? false : true
               }
               fullWidth
-              variant="standard"
+              variant='standard'
               required
               defaultValue={5}
             />
             <TextField
-              name="gender"
+              name='gender'
               autoFocus
-              margin="dense"
-              id="gender"
-              label="Gender"
-              type="text"
+              margin='dense'
+              id='gender'
+              label='Gender'
+              type='text'
               onChange={handleChange}
               error={
                 !Number.isInteger(Number(textFields['gender']))
@@ -240,17 +241,17 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
                   : true
               }
               fullWidth
-              variant="standard"
+              variant='standard'
               required
-              defaultValue="Female"
+              defaultValue='Female'
             />
             <TextField
-              name="ethnicity"
+              name='ethnicity'
               autoFocus
-              margin="dense"
-              id="ethnicity"
-              label="Ethnicity"
-              type="text"
+              margin='dense'
+              id='ethnicity'
+              label='Ethnicity'
+              type='text'
               onChange={handleChange}
               error={
                 !Number.isInteger(Number(textFields['ethnicity']))
@@ -260,43 +261,43 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
                   : true
               }
               fullWidth
-              variant="standard"
+              variant='standard'
               required
-              defaultValue="White"
+              defaultValue='White'
             />
             <TextField
-              name="address"
+              name='address'
               autoFocus
-              margin="dense"
-              id="address"
-              label="First Line of Address"
-              type="text"
+              margin='dense'
+              id='address'
+              label='First Line of Address'
+              type='text'
               onChange={handleChange}
               fullWidth
-              variant="standard"
+              variant='standard'
               required
-              defaultValue="London Drive"
+              defaultValue='London Drive'
             />
             <TextField
-              name="postcode"
+              name='postcode'
               autoFocus
-              margin="dense"
-              id="postcode"
-              label="Postcode"
-              type="text"
+              margin='dense'
+              id='postcode'
+              label='Postcode'
+              type='text'
               onChange={handleChange}
               fullWidth
-              variant="standard"
+              variant='standard'
               required
-              defaultValue="LE2"
+              defaultValue='LE2'
             />
             <TextField
-              name="phoneNumber"
+              name='phoneNumber'
               autoFocus
-              margin="dense"
-              id="phoneNumber"
+              margin='dense'
+              id='phoneNumber'
               onChange={handleChange}
-              label="Phone Number"
+              label='Phone Number'
               inputProps={{
                 inputMode: 'numeric',
                 pattern: '[0-9]*',
@@ -307,24 +308,24 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
                   : true
               }
               fullWidth
-              variant="standard"
+              variant='standard'
               required
-              defaultValue="1234567820"
+              defaultValue='1234567820'
             />
 
             <FormControlLabel
               control={<Checkbox {...label} />}
-              label="Pregnancy Status"
-              labelPlacement="start"
+              label='Pregnancy Status'
+              labelPlacement='start'
               sx={{ margin: 0 }}
             />
             <TextField
-              name="nhsNumber"
+              name='nhsNumber'
               autoFocus
-              margin="dense"
-              id="nhsNumber"
+              margin='dense'
+              id='nhsNumber'
               onChange={handleChange}
-              label="NHS Number"
+              label='NHS Number'
               inputProps={{
                 inputMode: 'numeric',
                 pattern: '[0-9]*',
@@ -333,27 +334,27 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
                 Number.isInteger(Number(textFields['nhsNumber'])) ? false : true
               }
               fullWidth
-              variant="standard"
+              variant='standard'
               required
-              defaultValue="9999966415"
+              defaultValue='9999966415'
             />
             <TextField
-              name="gpSurgery"
+              name='gpSurgery'
               autoFocus
-              margin="dense"
-              id="gpSurgery"
-              label="GP Surgery"
-              type="text"
+              margin='dense'
+              id='gpSurgery'
+              label='GP Surgery'
+              type='text'
               onChange={handleChange}
               fullWidth
-              variant="standard"
+              variant='standard'
               required
-              defaultValue="Health Hill"
+              defaultValue='Health Hill'
             />
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit">Add New Patient</Button>
+            <Button type='submit'>Add New Patient</Button>
           </DialogActions>
         </form>
       </Dialog>

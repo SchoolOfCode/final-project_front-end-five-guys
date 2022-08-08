@@ -180,7 +180,7 @@ export function Patient(props) {
   return (
     // a link might need to change in order for it to work
     // <a href="localhost:3000/users/{patient.id}">
-    <tr onDoubleClick={handleClick} className="patient-card">
+    <tr onDoubleClick={handleClick} className='patient-card'>
       <td>{props.patientInfo.firstname}</td>
       <td>{props.patientInfo.surname}</td>
       <td>{props.patientInfo.nhsnumber}</td>
