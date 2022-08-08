@@ -2,10 +2,13 @@ import FormDialog from '../../../MUIcomponents/PrescriptionModal';
 import { v4 as uuidv4 } from 'uuid';
 import './patientFile.css';
 import { useEffect, useState } from 'react';
+import DiaryDialog from '../../../MUIcomponents/DiaryDialog';
 function PatientFile({ info, onClick }) {
   const [allergies, setAllergies] = useState([]);
   const [prescriptions, setPrescriptions] = useState([]);
-  const [diary, setDiary] = useState(false);
+  const [diary, setDiary] = useState([]);
+  const [open, setOpen] = useState(false);
+
   console.log('patient file', info);
   useEffect(() => {
     async function getAllergies() {
@@ -43,6 +46,7 @@ function PatientFile({ info, onClick }) {
   }, [info.patient_id]);
   function showDiary() {
     console.log(diary);
+    setOpen(true);
   }
   return (
     <main>
@@ -59,6 +63,13 @@ function PatientFile({ info, onClick }) {
       <button className="close-button" onClick={onClick}>
         Close Patient
       </button>
+      <DiaryDialog
+        open={open}
+        setOpen={setOpen}
+        diary={diary.sort((a, b) => {
+          return a.diary_id > b.diary_id;
+        })}
+      ></DiaryDialog>
       <button className="close-button" onClick={showDiary}>
         Patient Diary in console
       </button>

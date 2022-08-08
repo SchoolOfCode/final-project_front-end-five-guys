@@ -14,7 +14,7 @@ import {
 import './diary.css';
 
 //temporary hard coded patient email until auth0 is done
-const pEmail = 'vickismith@email.com';
+const pEmail = 'rsmith123@email.com';
 
 const style = {
   position: 'absolute',
