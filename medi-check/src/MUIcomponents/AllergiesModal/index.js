@@ -1,18 +1,18 @@
-import { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import { v4 as uuidv4 } from "uuid";
+import { useState, useEffect } from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import { v4 as uuidv4 } from 'uuid';
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
@@ -24,18 +24,18 @@ export default function AllergiesModal() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [allergy, setAllergy] = useState({
-    name: "",
-    reaction: "",
+    name: '',
+    reaction: '',
   });
 
   const [CurrentAllergy, setCurrentAllergy] = useState([]);
 
   //dummy patient email for back end tie up, not needed when auth0 tied up
-  const pEmail = "rsmith123@email.com";
+  const pEmail = 'rsmith123@email.com';
 
   async function getData() {
     let response = await fetch(
-      `http://localhost:3001/allergy/?email=${pEmail}`
+      `https://fiveguysproject.herokuapp.com/allergy/?email=${pEmail}`
     );
     let data = await response.json();
     setCurrentAllergy(data.data);
@@ -61,10 +61,10 @@ export default function AllergiesModal() {
   }
 
   async function postAllergy() {
-    const db_url = `http://localhost:3001/allergy/${pEmail}`;
+    const db_url = `https://fiveguysproject.herokuapp.com/allergy/${pEmail}`;
     const newPost = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(allergy),
     };
     const res = await fetch(db_url, newPost);
@@ -101,13 +101,13 @@ export default function AllergiesModal() {
           )}
           <Typography>New Allergy</Typography>
           <textarea
-            style={{ resize: "none", height: "5vh", width: "15vw" }}
+            style={{ resize: 'none', height: '5vh', width: '15vw' }}
             onChange={handleText}
             name="name"
-          ></textarea>{" "}
+          ></textarea>{' '}
           <Typography>New Allergy Reaction</Typography>
           <textarea
-            style={{ resize: "none", height: "5vh", width: "15vw" }}
+            style={{ resize: 'none', height: '5vh', width: '15vw' }}
             onChange={handleText}
             name="reaction"
           ></textarea>
