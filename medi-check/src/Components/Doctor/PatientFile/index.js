@@ -1,8 +1,8 @@
-import FormDialog from '../../../MUIcomponents/PrescriptionModal';
-import { v4 as uuidv4 } from 'uuid';
-import './patientFile.css';
-import { useEffect, useState } from 'react';
-import DiaryDialog from '../../../MUIcomponents/DiaryDialog';
+import FormDialog from "../../../MUIcomponents/PrescriptionModal";
+import { v4 as uuidv4 } from "uuid";
+import "./patientFile.css";
+import { useEffect, useState } from "react";
+import DiaryDialog from "../../../MUIcomponents/DiaryDialog";
 function PatientFile({ info, onClick }) {
   const [allergies, setAllergies] = useState([]);
   const [prescriptions, setPrescriptions] = useState([]);
@@ -105,7 +105,7 @@ function PatientFile({ info, onClick }) {
                 <h4>Current Medication: </h4> */}
         <div className="displayPatient">
           <div className="left-column">
-            {' '}
+            {" "}
             <h4>Name:</h4>
             <h4>D.O.B:</h4>
             <h4>Gender:</h4>
@@ -119,15 +119,15 @@ function PatientFile({ info, onClick }) {
             <h4>Current Medication: </h4>
           </div>
           <div className="right-column">
-            {' '}
+            {" "}
             <h4>
               {info.title} {info.firstname} {info.surname}
             </h4>
             <h4>
               {String(info.dob).slice(0, 2) +
-                '-' +
+                "-" +
                 String(info.dob).slice(2, 4) +
-                '-' +
+                "-" +
                 String(info.dob).slice(4)}
             </h4>
             <h4>{info.gender}</h4>
@@ -140,7 +140,7 @@ function PatientFile({ info, onClick }) {
                 return (
                   <h4 key={uuidv4()}>
                     {item.name}
-                    {', '}
+                    {", "}
                     {item.reaction}
                   </h4>
                 );
@@ -168,3 +168,5 @@ function PatientFile({ info, onClick }) {
 }
 
 export default PatientFile;
+
+//new dev
