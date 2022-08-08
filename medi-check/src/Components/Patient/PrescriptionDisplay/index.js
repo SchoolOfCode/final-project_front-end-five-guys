@@ -46,6 +46,7 @@ function PrescriptionDisplay() {
       interactionInfo: relevantInfo,
       drugInfo: obj.dosage + obj.measurement + ' ' + obj.frequency,
       status: obj.status,
+      message: obj.override,
     };
   });
   //filter out inactive

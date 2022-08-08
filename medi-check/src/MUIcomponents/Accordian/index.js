@@ -97,10 +97,15 @@ export default function CustomizedAccordions({ drugArray }) {
               </AccordionSummary>
               <AccordionDetails key={uuidv4()}>
                 <div className="msg" key={uuidv4()}>
+                  <div style={{ fontWeight: 'bold' }}>
+                    Doctor's note: {item.message ? item.message : 'None'}
+                  </div>
                   {item.interactionInfo.map((item) => {
                     return (
                       <div key={uuidv4()}>
                         <div key={uuidv4()}>
+                          {' '}
+                          Interaction between:{' '}
                           {item.drugs.reduce(
                             (prevDrug, currDrug) =>
                               prevDrug.name + '+' + currDrug.name
