@@ -1,10 +1,11 @@
-import { useState } from "react";
-import Popover from "@mui/material/Popover";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import { v4 as uuidv4 } from "uuid";
-import "./popover.css";
+import { useState } from 'react';
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import { v4 as uuidv4 } from 'uuid';
+import './popover.css';
 // IoNotificationsOutline from "react-icons";
+//
 
 export default function BasicPopover({ data, notifications, prepaid }) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -18,33 +19,33 @@ export default function BasicPopover({ data, notifications, prepaid }) {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  const id = open ? 'simple-popover' : undefined;
 
   //function to return slightly different message for single alerts and multiple alerts
   function caption() {
-    let caption = "";
+    let caption = '';
     if (data.length === 1) {
-      caption = "You need to renew your prescription for:";
+      caption = 'You need to renew your prescription for:';
     } else if (data.length > 1) {
-      caption = "You need to renew your prescriptions for:";
-    } else if (data.length === 0 && prepaid === "") {
-      caption = "You have no notifications";
+      caption = 'You need to renew your prescriptions for:';
+    } else if (data.length === 0 && prepaid === '') {
+      caption = 'You have no notifications';
     }
     return caption;
   }
 
   return (
     <div>
-      <div className="notifications">
+      <div className='notifications'>
         <Button
-          sx={{ position: "relative" }}
+          sx={{ position: 'relative' }}
           aria-describedby={id}
-          variant="contained"
+          variant='contained'
           onClick={handleClick}
         >
           <span>notification</span>
         </Button>
-        <div className="notification-number">{notifications}</div>
+        <div className='notification-number'>{notifications}</div>
       </div>
       <Popover
         id={id}
@@ -52,22 +53,22 @@ export default function BasicPopover({ data, notifications, prepaid }) {
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
+          vertical: 'bottom',
+          horizontal: 'left',
         }}
       >
         <Typography
-          id="modal-modal-title"
-          variant="h6"
-          component="h2"
+          id='modal-modal-title'
+          variant='h6'
+          component='h2'
           sx={{ mt: 1, ml: 1 }}
         >
           {prepaid}
         </Typography>
         <Typography
-          id="modal-modal-title"
-          variant="h6"
-          component="h2"
+          id='modal-modal-title'
+          variant='h6'
+          component='h2'
           sx={{ mt: 1, ml: 1 }}
         >
           {caption()}

@@ -1,6 +1,7 @@
-import { useState } from "react";
-import "./index.css";
-import AccessibilityOptions from "./AccessibilityOptions";
+//
+import { useState } from 'react';
+import './index.css';
+import AccessibilityOptions from './AccessibilityOptions';
 
 export default function Accessibility({ setDarkMode }) {
   const [open, setOpen] = useState(false);
@@ -22,9 +23,9 @@ export default function Accessibility({ setDarkMode }) {
     <div>
       <img
         onClick={handleOpen}
-        className="accessLogo"
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Accessibility.svg/640px-Accessibility.svg.png"
-        alt="accessibilty logo"
+        className='accessLogo'
+        src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Accessibility.svg/640px-Accessibility.svg.png'
+        alt='accessibilty logo'
       />
       {menu}
     </div>

@@ -1,19 +1,23 @@
+//
 import FormDialog from '../../../MUIcomponents/PrescriptionModal';
 import { v4 as uuidv4 } from 'uuid';
 import './patientFile.css';
 import { useEffect, useState } from 'react';
+import DiaryDialog from '../../../MUIcomponents/DiaryDialog';
 function PatientFile({ info, onClick }) {
   const [allergies, setAllergies] = useState([]);
   const [prescriptions, setPrescriptions] = useState([]);
-  const [diary, setDiary] = useState(false);
-  console.log('patient file', info);
+  const [diary, setDiary] = useState([]);
+  const [open, setOpen] = useState(false);
+
+  // console.log('patient file', info);
   useEffect(() => {
     async function getAllergies() {
       let res = await fetch(
         `https://fiveguysproject.herokuapp.com/allergy/${info.patient_id}`
       );
       let json = await res.json();
-      console.log('fetched allerg', json);
+      // console.log('fetched allerg', json);
       setAllergies([...json.data]);
     }
     getAllergies();
@@ -25,7 +29,7 @@ function PatientFile({ info, onClick }) {
         `https://fiveguysproject.herokuapp.com/prescriptions/${info.patient_id}`
       );
       let json = await res.json();
-      console.log('fetched presc', json);
+      // console.log('fetched presc', json);
       setPrescriptions([...json.data]);
     }
     getPrescriptions();
@@ -36,14 +40,16 @@ function PatientFile({ info, onClick }) {
         `https://fiveguysproject.herokuapp.com/diary/${info.patient_id}`
       );
       let json = await res.json();
-      console.log('patients diary, needs to be saved in state', json);
+      // console.log('patients diary, needs to be saved in state', json);
       setDiary(json.data);
     }
     getPatientDiary();
   }, [info.patient_id]);
   function showDiary() {
-    console.log(diary);
+    // console.log(diary);
+    setOpen(true);
   }
+  console.log('dob', info.dob);
   return (
     <main>
       {/* <section className="hide" id="interactionPopup">
@@ -56,13 +62,20 @@ function PatientFile({ info, onClick }) {
                 text1="Close"
                 onClick={onClick}
             ></ButtonComponent> */}
-      <button className="close-button" onClick={onClick}>
+      <button className='close-button' onClick={onClick}>
         Close Patient
       </button>
-      <button className="close-button" onClick={showDiary}>
-        Patient Diary in console
+      <DiaryDialog
+        open={open}
+        setOpen={setOpen}
+        diary={diary.sort((a, b) => {
+          return a.diary_id > b.diary_id;
+        })}
+      ></DiaryDialog>
+      <button className='close-button' onClick={showDiary}>
+        Show Diary
       </button>
-      <section className="patientInfo">
+      <section className='patientInfo'>
         {/* <h3>
                     {info.Title} {info.FirstNames} {info.Surname}
                 </h3>
@@ -92,8 +105,8 @@ function PatientFile({ info, onClick }) {
                 <h4>NHS number: {info.nhsNumber}</h4>
                 <h4>GP: {info.gpSurgery}</h4>
                 <h4>Current Medication: </h4> */}
-        <div className="displayPatient">
-          <div className="left-column">
+        <div className='displayPatient'>
+          <div className='left-column'>
             {' '}
             <h4>Name:</h4>
             <h4>D.O.B:</h4>
@@ -107,16 +120,14 @@ function PatientFile({ info, onClick }) {
             <h4>GP:</h4>
             <h4>Current Medication: </h4>
           </div>
-          <div className="right-column">
+          <div className='right-column'>
             {' '}
             <h4>
               {info.title} {info.firstname} {info.surname}
             </h4>
             <h4>
               {String(info.dob).slice(0, 2) +
-                '-' +
                 String(info.dob).slice(2, 4) +
-                '-' +
                 String(info.dob).slice(4)}
             </h4>
             <h4>{info.gender}</h4>
@@ -145,7 +156,7 @@ function PatientFile({ info, onClick }) {
           </div>
         </div>
       </section>
-      <div className="button-mover">
+      <div className='button-mover'>
         <FormDialog
           first={info.FirstNames}
           last={info.Surname}
@@ -157,3 +168,5 @@ function PatientFile({ info, onClick }) {
 }
 
 export default PatientFile;
+
+//new dev

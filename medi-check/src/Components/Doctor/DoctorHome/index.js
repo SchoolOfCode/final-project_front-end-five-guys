@@ -1,3 +1,4 @@
+//
 import PatientList from '../PatientList';
 import SearchBar from '../Searchbar+CreatePatient';
 import { useEffect, useState } from 'react';
@@ -23,9 +24,9 @@ function DoctorHome({ setDarkMode }) {
       let res = await fetch(
         `https://fiveguysproject.herokuapp.com/patients?doctoremail=${DOCTOR_EMAIL}`
       );
-      console.log(res);
+      // console.log(res);
       let json = await res.json();
-      console.log(';s', json);
+      // console.log(';s', json);
       setList([...json.data]);
     }
     getPatients();
@@ -37,10 +38,10 @@ function DoctorHome({ setDarkMode }) {
   // }, [reset]);
 
   return (
-    <div className="doctor-home">
-      <Header name="Smuggles" />
-      <section className="doctor-navigation">
-        <div className="searchbar">
+    <div className='doctor-home'>
+      <Header name='Smuggles' />
+      <section className='doctor-navigation'>
+        <div className='searchbar'>
           <SearchBar
             list={list}
             setFilteredList={setFilteredList}
@@ -53,7 +54,7 @@ function DoctorHome({ setDarkMode }) {
 
         <CreatePatientDialog setList={setList} list={list} />
       </section>
-      <div className="patient-table-con">
+      <div className='patient-table-con'>
         {filteredList.length === 0 ? (
           <PatientList list={list} patient={patient} setPatient={setPatient} />
         ) : (

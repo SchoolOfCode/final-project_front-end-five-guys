@@ -1,4 +1,5 @@
 /*
+fix
 -----to get today's date ------ const date = new Date().toLocaleDateString()
 
 if (someday > today) {
@@ -21,7 +22,7 @@ for new prescription requirement we will need to:
 
 */
 import { useEffect, useState } from 'react';
-//import BasicModal from "../../../MUIcomponents/PrescriptionModal";
+//import BasicModal from '../../../MUIcomponents/PrescriptionModal';
 import './notifications.css';
 import BasicPopover from '../../../MUIcomponents/Popover';
 
@@ -76,7 +77,7 @@ export function Notifications({ data }) {
           `https://fiveguysproject.herokuapp.com/patient?email=${pEmail}`
         );
         let data = await response.json();
-        console.log('patient data ', data.data[0]);
+        // console.log('patient data ', data.data[0]);
         setPatient(data.data[0]);
       }
       getPatient();
@@ -112,10 +113,10 @@ export function Notifications({ data }) {
       }/${dateOfExpiry.getFullYear()}`;
 
       if (result < 90 && result > 14) {
-        console.log(
-          `Your pre-paid prescription expires within 3 months, on ` +
-            displayDate
-        );
+        // console.log(
+        //   `Your pre-paid prescription expires within 3 months, on ` +
+        //     displayDate
+        // );
         setPaidDate(
           `Your pre-paid prescription expires within 3 months, on ` +
             displayDate
@@ -196,7 +197,7 @@ export function Notifications({ data }) {
     });
   }, [data, alerts]);
   return (
-    <div className="notification-box">
+    <div className='notification-box'>
       <h2>Notifications</h2>
       {/* <button>{notifications}</button> */}
       {/*<BasicModal data = {alerts} notifications = {notifications}/>*/}
