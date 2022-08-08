@@ -23,9 +23,9 @@ function DoctorHome({ setDarkMode }) {
       let res = await fetch(
         `https://fiveguysproject.herokuapp.com/patients?doctoremail=${DOCTOR_EMAIL}`
       );
-      console.log(res);
+      // console.log(res);
       let json = await res.json();
-      console.log(';s', json);
+      // console.log(';s', json);
       setList([...json.data]);
     }
     getPatients();
