@@ -76,7 +76,7 @@ export function Notifications({ data }) {
           `https://fiveguysproject.herokuapp.com/patient?email=${pEmail}`
         );
         let data = await response.json();
-        console.log('patient data ', data.data[0]);
+        // console.log('patient data ', data.data[0]);
         setPatient(data.data[0]);
       }
       getPatient();
@@ -112,10 +112,10 @@ export function Notifications({ data }) {
       }/${dateOfExpiry.getFullYear()}`;
 
       if (result < 90 && result > 14) {
-        console.log(
-          `Your pre-paid prescription expires within 3 months, on ` +
-            displayDate
-        );
+        // console.log(
+        //   `Your pre-paid prescription expires within 3 months, on ` +
+        //     displayDate
+        // );
         setPaidDate(
           `Your pre-paid prescription expires within 3 months, on ` +
             displayDate

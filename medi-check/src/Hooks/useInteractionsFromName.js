@@ -13,17 +13,17 @@ export default function useInteractions(prescriptionArray) {
           `https://rxnav.nlm.nih.gov/REST/rxcui.json?name=${prescriptionArray[i].name}`
         );
         let json = await res.json();
-        console.log('nameArray', json);
+        // console.log('nameArray', json);
         if (Object.keys(json.idGroup).length !== 0) {
           url += `+${json.idGroup.rxnormId[0]}`;
         }
       }
 
       try {
-        console.log('url', url);
+        // console.log('url', url);
         let response = await fetch(url + '&sources=ONCHigh');
         let obj = await response.json();
-        console.log(obj);
+        // console.log(obj);
         // console.log(obj.fullInteractionTypeGroup[0].fullInteractionType);
         setData(obj.fullInteractionTypeGroup[0].fullInteractionType);
       } catch (error) {
