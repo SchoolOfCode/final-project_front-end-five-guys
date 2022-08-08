@@ -49,6 +49,7 @@ function PatientFile({ info, onClick }) {
     // console.log(diary);
     setOpen(true);
   }
+  console.log('dob', info.dob);
   return (
     <main>
       {/* <section className="hide" id="interactionPopup">
@@ -126,9 +127,7 @@ function PatientFile({ info, onClick }) {
             </h4>
             <h4>
               {String(info.dob).slice(0, 2) +
-                '-' +
                 String(info.dob).slice(2, 4) +
-                '-' +
                 String(info.dob).slice(4)}
             </h4>
             <h4>{info.gender}</h4>
