@@ -10,7 +10,7 @@ import './index.css';
 export default function PendingDialog({ open, setOpen }) {
   const [pending, setPending] = useState([]);
   const [prescription, setPrescription] = useState({});
-
+  const [settledPrescription, setSettledPrescription] = useState({});
   useEffect(() => {
     async function getPending() {
       const response = await fetch(
@@ -24,6 +24,29 @@ export default function PendingDialog({ open, setOpen }) {
     }
     getPending();
   }, []);
+  useEffect(() => {
+    async function updatePending() {
+      if (prescription.approval) {
+        //post
+        const response = await fetch(
+          `https://fiveguysproject.herokuapp.com/prescription/${prescription.patient_id}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(prescription),
+          }
+        );
+        let json = await response.json();
+        console.log('posted new prescription!:', json);
+      }
+      //delete
+
+      setSettledPrescription({});
+    }
+    if (Object.keys(setSettledPrescription).length !== 0) {
+      updatePending();
+    }
+  }, [settledPrescription, prescription]);
 
   console.log('pers', prescription);
 
@@ -34,7 +57,9 @@ export default function PendingDialog({ open, setOpen }) {
   function handleOpen(item) {
     setPrescription({ ...item });
   }
-
+  function handleDecision(approval) {
+    setSettledPrescription({ ...prescription, approved: approval });
+  }
   /*
 address: "122 Street Road Birmingham"
 date: "2022-07-04"
@@ -114,7 +139,7 @@ weight: "100"
             <div>{'DOB: ' + prescription.dob}</div>
             {prescription.monitoring ? (
               <div>
-                {'every ' +
+                {'Monitoring every ' +
                   prescription.monitoringschedule +
                   ' ' +
                   prescription.monitoringfrequency}
@@ -122,6 +147,24 @@ weight: "100"
             ) : (
               <></>
             )}
+            <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+              <button
+                onClick={() => {
+                  handleDecision(true);
+                }}
+              >
+                {' '}
+                Approve
+              </button>
+              <button
+                onClick={() => {
+                  handleDecision(false);
+                }}
+              >
+                {' '}
+                Deny
+              </button>
+            </div>
           </section>
         </div>
       </Dialog>
