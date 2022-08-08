@@ -150,7 +150,7 @@ export default function FormDialog({ first, last, patient_id }) {
   React.useEffect(() => {
     async function sendPrescription() {
       let response = await fetch(
-        `http://localhost:3001/prescriptions/${patient_id}`,
+        `https://fiveguysproject.herokuapp.com/prescriptions/${patient_id}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
