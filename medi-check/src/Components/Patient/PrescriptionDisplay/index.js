@@ -57,17 +57,35 @@ function PrescriptionDisplay() {
   const current = combo.filter((info) => {
     return info.status === 'active' || info.status === 'paused';
   });
-
+  //Adding doctors message to the API response for the correct drug
+  let itemInteractionsCombo = itemInteractions.map((item) => {
+    let filteredObj = combo.filter((index) => {
+      return (
+        item.minConcept[0].name === index.drug ||
+        item.minConcept[1].name === index.drug
+      );
+    });
+    let overrideMessage = filteredObj[0].message
+      ? filteredObj[0].message
+      : filteredObj[1].message;
+    console.log('asdasdasd', filteredObj);
+    return { ...item, overrideMessage };
+  });
+  console.log('lol', itemInteractionsCombo);
   return (
     <>
       <h3>Interaction Alert</h3>
-      {itemInteractions.map((item) => {
+      {itemInteractionsCombo.map((item) => {
         return (
           <section style={{ width: '50%' }} key={uuidv4()}>
             <h4 style={{ width: '50%' }}>
               {' '}
               {item.minConcept[0].name} and {item.minConcept[1].name}
             </h4>
+
+            <div style={{ width: '50%' }}>
+              Doctor's Note: {item.overrideMessage}
+            </div>
             <div style={{ width: '50%' }}>
               {item.interactionPair[0].description}
             </div>
