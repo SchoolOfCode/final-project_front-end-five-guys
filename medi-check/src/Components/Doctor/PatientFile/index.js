@@ -9,14 +9,14 @@ function PatientFile({ info, onClick }) {
   const [diary, setDiary] = useState([]);
   const [open, setOpen] = useState(false);
 
-  console.log('patient file', info);
+  // console.log('patient file', info);
   useEffect(() => {
     async function getAllergies() {
       let res = await fetch(
         `https://fiveguysproject.herokuapp.com/allergy/${info.patient_id}`
       );
       let json = await res.json();
-      console.log('fetched allerg', json);
+      // console.log('fetched allerg', json);
       setAllergies([...json.data]);
     }
     getAllergies();
@@ -28,7 +28,7 @@ function PatientFile({ info, onClick }) {
         `https://fiveguysproject.herokuapp.com/prescriptions/${info.patient_id}`
       );
       let json = await res.json();
-      console.log('fetched presc', json);
+      // console.log('fetched presc', json);
       setPrescriptions([...json.data]);
     }
     getPrescriptions();
@@ -39,13 +39,13 @@ function PatientFile({ info, onClick }) {
         `https://fiveguysproject.herokuapp.com/diary/${info.patient_id}`
       );
       let json = await res.json();
-      console.log('patients diary, needs to be saved in state', json);
+      // console.log('patients diary, needs to be saved in state', json);
       setDiary(json.data);
     }
     getPatientDiary();
   }, [info.patient_id]);
   function showDiary() {
-    console.log(diary);
+    // console.log(diary);
     setOpen(true);
   }
   return (
@@ -71,7 +71,7 @@ function PatientFile({ info, onClick }) {
         })}
       ></DiaryDialog>
       <button className="close-button" onClick={showDiary}>
-        Patient Diary in console
+        Show Diary
       </button>
       <section className="patientInfo">
         {/* <h3>
