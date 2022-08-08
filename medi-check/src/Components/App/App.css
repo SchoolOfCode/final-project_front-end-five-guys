@@ -39,6 +39,7 @@
     flex-direction: column;
     background-color: var(--bg-color);
 }
+/*merge*/
 
 .App > div {
     display: flex;
