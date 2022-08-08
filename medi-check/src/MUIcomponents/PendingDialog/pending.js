@@ -6,7 +6,7 @@ import Dialog from '@mui/material/Dialog';
 import Typography from '@mui/material/Typography';
 
 import { useState, useEffect } from 'react';
-
+import './index.css';
 export default function PendingDialog({ open, setOpen }) {
   const [pending, setPending] = useState([]);
   const [prescription, setPrescription] = useState({});
@@ -71,23 +71,59 @@ weight: "100"
 
   return (
     <>
-      <Dialog onClose={handleClose} open={open}>
-        <DialogTitle>Pending Prescriptions</DialogTitle>
-        <>
-          {' '}
-          {pending.map((item) => {
-            return (
-              <Typography
-                onClick={() => {
-                  handleOpen(item);
-                }}
-              >
-                {item.firstname} {item.surname} {item.name}
-              </Typography>
-            );
-          })}
-        </>
-        <div>{prescription.name}</div>
+      <Dialog onClose={handleClose} open={open} maxWidth="lg" fullWidth="true">
+        <div className="pendingBox">
+          <section>
+            {' '}
+            <DialogTitle>Pending Prescriptions</DialogTitle>
+            <>
+              {' '}
+              {pending.map((item) => {
+                return (
+                  <Typography
+                    onClick={() => {
+                      handleOpen(item);
+                    }}
+                  >
+                    {item.firstname} {item.surname} {item.name}
+                  </Typography>
+                );
+              })}
+            </>
+          </section>
+          <section>
+            <h4>
+              {prescription.firstname} {prescription.surname}{' '}
+              {prescription.date}
+            </h4>
+            <div>
+              {prescription.name} {'-'}
+              {prescription.quantity + ', '}
+              {prescription.dosage}
+              {prescription.measurement}
+              {', '}
+              {prescription.frequency}
+              {', '}
+              {prescription.total + ' total'}
+              {' (' + prescription.type + ')'}
+            </div>
+
+            <div>{prescription.reason}</div>
+            <div>{'Pregnancy status: ' + prescription.pregnant}</div>
+            <div>{'Weight: ' + prescription.weight + 'kg'}</div>
+            <div>{'DOB: ' + prescription.dob}</div>
+            {prescription.monitoring ? (
+              <div>
+                {'every ' +
+                  prescription.monitoringschedule +
+                  ' ' +
+                  prescription.monitoringfrequency}
+              </div>
+            ) : (
+              <></>
+            )}
+          </section>
+        </div>
       </Dialog>
     </>
   );

@@ -1,0 +1,17 @@
+.pendingBox {
+  display: flex;
+}
+
+.pendingBox > section:first-child {
+  flex: 2;
+}
+.pendingBox > section:last-child {
+  flex: 3;
+}
+
+.pendingBox > section > p {
+  cursor: pointer;
+}
+.pendingBox > section > p:hover {
+  text-decoration: underline;
+}
