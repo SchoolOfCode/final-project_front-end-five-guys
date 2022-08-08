@@ -38,6 +38,7 @@
   flex-direction: column;
   background-color: var(--bg-color);
   /* height: 110vh; */
+  overflow: auto;
 }
 /*merge*/
 
