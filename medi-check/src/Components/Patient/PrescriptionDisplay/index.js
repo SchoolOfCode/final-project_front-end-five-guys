@@ -44,13 +44,7 @@ function PrescriptionDisplay() {
     return {
       drug: obj.name,
       interactionInfo: relevantInfo,
-      drugInfo:
-        obj.dosage +
-        obj.measurement +
-        ' ' +
-        obj.freq1 +
-        ' time(s) per ' +
-        obj.freq2,
+      drugInfo: obj.dosage + obj.measurement + ' ' + obj.frequency,
       status: obj.status,
     };
   });

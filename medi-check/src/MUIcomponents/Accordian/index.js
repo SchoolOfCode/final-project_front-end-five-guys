@@ -49,7 +49,7 @@ export default function CustomizedAccordions({ drugArray }) {
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
-  // console.log('ac', drugArray);
+  console.log('ac', drugArray);
 
   function sortByStatus(strOne, strTwo) {
     const nameOne = strOne.toLowerCase();
