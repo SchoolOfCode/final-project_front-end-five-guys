@@ -16,7 +16,7 @@ function PrescriptionDisplay() {
         `https://fiveguysproject.herokuapp.com/prescriptions?email=${pEmail}`
       );
       let json = await res.json();
-      console.log('json', json);
+      // console.log('json', json);
       setPrescriptions(json.data);
     }
     if (pEmail) {
@@ -26,7 +26,7 @@ function PrescriptionDisplay() {
   let itemInteractions = useInteractions(prescriptions);
   // let itemInteractions = testInteractions;
 
-  console.log('itemInter', itemInteractions);
+  // console.log('itemInter', itemInteractions);
   //This is taking the API data and for each drug interaction it is grouping together the drug, the drug it is interacting with, and the description
   let combo = prescriptions.map((obj) => {
     let overview = itemInteractions.filter((info) => {
@@ -68,10 +68,10 @@ function PrescriptionDisplay() {
     let overrideMessage = filteredObj[0].message
       ? filteredObj[0].message
       : filteredObj[1].message;
-    console.log('asdasdasd', filteredObj);
+    // console.log('asdasdasd', filteredObj);
     return { ...item, overrideMessage };
   });
-  console.log('lol', itemInteractionsCombo);
+  // console.log('lol', itemInteractionsCombo);
   return (
     <>
       <h3>Interaction Alert</h3>
