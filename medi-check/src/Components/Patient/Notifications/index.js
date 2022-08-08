@@ -1,4 +1,5 @@
 /*
+fix
 -----to get today's date ------ const date = new Date().toLocaleDateString()
 
 if (someday > today) {
@@ -21,7 +22,7 @@ for new prescription requirement we will need to:
 
 */
 import { useEffect, useState } from 'react';
-//import BasicModal from "../../../MUIcomponents/PrescriptionModal";
+//import BasicModal from '../../../MUIcomponents/PrescriptionModal';
 import './notifications.css';
 import BasicPopover from '../../../MUIcomponents/Popover';
 
@@ -196,7 +197,7 @@ export function Notifications({ data }) {
     });
   }, [data, alerts]);
   return (
-    <div className="notification-box">
+    <div className='notification-box'>
       <h2>Notifications</h2>
       {/* <button>{notifications}</button> */}
       {/*<BasicModal data = {alerts} notifications = {notifications}/>*/}

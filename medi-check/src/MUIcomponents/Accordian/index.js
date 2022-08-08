@@ -1,3 +1,4 @@
+//
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
@@ -64,7 +65,7 @@ export default function CustomizedAccordions({ drugArray }) {
     return 0;
   }
   return (
-    <section className="accordian-container" key={uuidv4()}>
+    <section className='accordian-container' key={uuidv4()}>
       {drugArray
         .sort((a, b) => {
           return b.interactionInfo.length - a.interactionInfo.length;
@@ -87,16 +88,16 @@ export default function CustomizedAccordions({ drugArray }) {
               >
                 {/* Here we need to append the doctor prescription info in */}
                 {item.interactionInfo.length === 0 ? (
-                  <div className="noInteraction"></div>
+                  <div className='noInteraction'></div>
                 ) : (
-                  <div className="interaction">A</div>
+                  <div className='interaction'>A</div>
                 )}
                 <Typography>
                   {item.drug} {item.drugInfo} {item.status}
                 </Typography>
               </AccordionSummary>
               <AccordionDetails key={uuidv4()}>
-                <div className="msg" key={uuidv4()}>
+                <div className='msg' key={uuidv4()}>
                   <div style={{ fontWeight: 'bold' }}>
                     Doctor's note: {item.message ? item.message : 'None'}
                   </div>

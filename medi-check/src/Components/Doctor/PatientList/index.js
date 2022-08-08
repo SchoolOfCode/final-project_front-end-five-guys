@@ -73,10 +73,10 @@ function PatientList({ list, patient, setPatient }) {
   } else {
     return (
       <div>
-        <section className="sort-buttons">
+        <section className='sort-buttons'>
           <ButtonComponent
             text1={'First Name  '}
-            text2={<img className="arrow" src={arrow} alt="sort direction" />}
+            text2={<img className='arrow' src={arrow} alt='sort direction' />}
             onClick={(e) => {
               handleSort('first', e);
             }}
@@ -84,7 +84,7 @@ function PatientList({ list, patient, setPatient }) {
 
           <ButtonComponent
             text1={'Surname '}
-            text2={<img className="arrow" src={arrow} alt="sort direction" />}
+            text2={<img className='arrow' src={arrow} alt='sort direction' />}
             onClick={(e) => {
               handleSort('last', e);
             }}
@@ -92,12 +92,12 @@ function PatientList({ list, patient, setPatient }) {
 
           <ButtonComponent
             text1={'NHS Number'}
-            text2={<img className="arrow" src={arrow} alt="sort direction" />}
+            text2={<img className='arrow' src={arrow} alt='sort direction' />}
             onClick={(e) => {
               handleSort('number', e);
             }}
           />
-          <div className="buffer-div"></div>
+          <div className='buffer-div'></div>
         </section>
 
         {/* <div> */}
@@ -146,7 +146,7 @@ function PatientList({ list, patient, setPatient }) {
         </ul> */}
 
         {/* <section className="patient-table-container"> */}
-        <table className="patient-table">
+        <table className='patient-table'>
           {/*<thead>
             <tr>
               <th>
@@ -197,7 +197,7 @@ function PatientList({ list, patient, setPatient }) {
                 <Patient
                   index={index}
                   setPatient={setPatient}
-                  className="individualPatient"
+                  className='individualPatient'
                   key={uuidv4()}
                   patientInfo={patient}
                 ></Patient>

@@ -1,8 +1,9 @@
-import FormDialog from "../../../MUIcomponents/PrescriptionModal";
-import { v4 as uuidv4 } from "uuid";
-import "./patientFile.css";
-import { useEffect, useState } from "react";
-import DiaryDialog from "../../../MUIcomponents/DiaryDialog";
+//
+import FormDialog from '../../../MUIcomponents/PrescriptionModal';
+import { v4 as uuidv4 } from 'uuid';
+import './patientFile.css';
+import { useEffect, useState } from 'react';
+import DiaryDialog from '../../../MUIcomponents/DiaryDialog';
 function PatientFile({ info, onClick }) {
   const [allergies, setAllergies] = useState([]);
   const [prescriptions, setPrescriptions] = useState([]);
@@ -60,7 +61,7 @@ function PatientFile({ info, onClick }) {
                 text1="Close"
                 onClick={onClick}
             ></ButtonComponent> */}
-      <button className="close-button" onClick={onClick}>
+      <button className='close-button' onClick={onClick}>
         Close Patient
       </button>
       <DiaryDialog
@@ -70,10 +71,10 @@ function PatientFile({ info, onClick }) {
           return a.diary_id > b.diary_id;
         })}
       ></DiaryDialog>
-      <button className="close-button" onClick={showDiary}>
+      <button className='close-button' onClick={showDiary}>
         Show Diary
       </button>
-      <section className="patientInfo">
+      <section className='patientInfo'>
         {/* <h3>
                     {info.Title} {info.FirstNames} {info.Surname}
                 </h3>
@@ -103,9 +104,9 @@ function PatientFile({ info, onClick }) {
                 <h4>NHS number: {info.nhsNumber}</h4>
                 <h4>GP: {info.gpSurgery}</h4>
                 <h4>Current Medication: </h4> */}
-        <div className="displayPatient">
-          <div className="left-column">
-            {" "}
+        <div className='displayPatient'>
+          <div className='left-column'>
+            {' '}
             <h4>Name:</h4>
             <h4>D.O.B:</h4>
             <h4>Gender:</h4>
@@ -118,16 +119,16 @@ function PatientFile({ info, onClick }) {
             <h4>GP:</h4>
             <h4>Current Medication: </h4>
           </div>
-          <div className="right-column">
-            {" "}
+          <div className='right-column'>
+            {' '}
             <h4>
               {info.title} {info.firstname} {info.surname}
             </h4>
             <h4>
               {String(info.dob).slice(0, 2) +
-                "-" +
+                '-' +
                 String(info.dob).slice(2, 4) +
-                "-" +
+                '-' +
                 String(info.dob).slice(4)}
             </h4>
             <h4>{info.gender}</h4>
@@ -140,7 +141,7 @@ function PatientFile({ info, onClick }) {
                 return (
                   <h4 key={uuidv4()}>
                     {item.name}
-                    {", "}
+                    {', '}
                     {item.reaction}
                   </h4>
                 );
@@ -156,7 +157,7 @@ function PatientFile({ info, onClick }) {
           </div>
         </div>
       </section>
-      <div className="button-mover">
+      <div className='button-mover'>
         <FormDialog
           first={info.FirstNames}
           last={info.Surname}

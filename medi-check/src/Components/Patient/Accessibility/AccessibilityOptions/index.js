@@ -1,8 +1,9 @@
-import ControlledSwitchTwo from "../../../../MUIcomponents/ControlledSwitchTwo";
+import ControlledSwitchTwo from '../../../../MUIcomponents/ControlledSwitchTwo';
 // import Slider from "@mui/material/Slider";
 // import Box from "@mui/material/Box";
 // import { useState } from "react";
-import "./menu.css";
+//
+import './menu.css';
 
 export default function AccessibilityOptions({ setDarkMode }) {
   //   const [entry, SetEntry] = useState({ value: 0 });
@@ -27,9 +28,9 @@ export default function AccessibilityOptions({ setDarkMode }) {
   //     SetEntry({ ...entry, value: e.target.value });
   //   }
   return (
-    <div className="access-menu">
+    <div className='access-menu'>
       <h4>
-        Dark Mode{" "}
+        Dark Mode{' '}
         <ControlledSwitchTwo setDarkMode={setDarkMode}></ControlledSwitchTwo>
       </h4>
       {/* <h4>

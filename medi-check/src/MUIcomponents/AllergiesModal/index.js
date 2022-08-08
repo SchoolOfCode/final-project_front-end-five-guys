@@ -1,3 +1,4 @@
+//
 import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -77,11 +78,11 @@ export default function AllergiesModal() {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h5" component="h2">
+          <Typography id='modal-modal-title' variant='h5' component='h2'>
             Allergies
           </Typography>
           {CurrentAllergy.length > 0 ? (
@@ -89,7 +90,7 @@ export default function AllergiesModal() {
               return (
                 <Typography
                   key={uuidv4()}
-                  id="modal-modal-description"
+                  id='modal-modal-description'
                   sx={{ mt: 2, ml: 4 }}
                 >
                   {item.name}
@@ -103,13 +104,13 @@ export default function AllergiesModal() {
           <textarea
             style={{ resize: 'none', height: '5vh', width: '15vw' }}
             onChange={handleText}
-            name="name"
+            name='name'
           ></textarea>{' '}
           <Typography>New Allergy Reaction</Typography>
           <textarea
             style={{ resize: 'none', height: '5vh', width: '15vw' }}
             onChange={handleText}
-            name="reaction"
+            name='reaction'
           ></textarea>
           <button onClick={handleSubmit}>Submit</button>
         </Box>

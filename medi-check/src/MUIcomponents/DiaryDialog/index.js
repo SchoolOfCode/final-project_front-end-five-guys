@@ -1,3 +1,4 @@
+//
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import List from '@mui/material/List';
@@ -18,23 +19,23 @@ import {
 const marks = [
   {
     value: 0,
-    label: <RiEmotionSadLine className="icon" />,
+    label: <RiEmotionSadLine className='icon' />,
   },
   {
     value: 25,
-    label: <RiEmotionUnhappyLine className="icon" />,
+    label: <RiEmotionUnhappyLine className='icon' />,
   },
   {
     value: 50,
-    label: <RiEmotionNormalLine className="icon" />,
+    label: <RiEmotionNormalLine className='icon' />,
   },
   {
     value: 75,
-    label: <RiEmotionHappyLine className="icon" />,
+    label: <RiEmotionHappyLine className='icon' />,
   },
   {
     value: 100,
-    label: <RiEmotionLine className="icon" />,
+    label: <RiEmotionLine className='icon' />,
   },
 ];
 function DiaryDialog(props) {
