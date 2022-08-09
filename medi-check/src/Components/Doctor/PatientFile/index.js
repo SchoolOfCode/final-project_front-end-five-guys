@@ -80,7 +80,9 @@ function PatientFile({ info, onClick }) {
               <td className='headings'>DOB:</td>
               <td>
                 {String(info.dob).slice(0, 2) +
+                  '-' +
                   String(info.dob).slice(2, 4) +
+                  '-' +
                   String(info.dob).slice(4)}
               </td>
             </tr>
