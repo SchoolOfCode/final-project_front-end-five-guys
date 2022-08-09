@@ -20,14 +20,18 @@ const style = {
 
 //const Dummyallergies = ["fur", "pollen", "dust", "apixaban"];
 
-export default function AllergiesModal() {
+export default function AllergiesModal({ setAnchorEl }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const [allergy, setAllergy] = useState({
     name: '',
     reaction: '',
   });
+
+  function handleClose() {
+    setOpen(false);
+    setAnchorEl(null);
+  }
 
   const [CurrentAllergy, setCurrentAllergy] = useState([]);
 
