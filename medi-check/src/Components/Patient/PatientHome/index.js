@@ -24,7 +24,9 @@ export function PatientHome({ setDarkMode }) {
 
       <PrescriptionDisplay />
       <UserSearchBar />
-      <PatientNavBar setDarkMode={setDarkMode} />
+      <div style={{ marginTop: '30%', left: '0%' }}>
+        <PatientNavBar setDarkMode={setDarkMode} />
+      </div>
     </div>
   );
 }
