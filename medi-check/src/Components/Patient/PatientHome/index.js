@@ -7,7 +7,12 @@ import './patientHome.css';
 
 export function PatientHome() {
     return (
-        <div style={{ display: 'flex' }}>
+        <div
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+            }}
+        >
             <div className='patient-top-bar'>
                 <div>
                     <img id='patient-logo' src={logo} alt='medi-check logo' />
@@ -16,9 +21,9 @@ export function PatientHome() {
                     <Notifications data={dummyData} />
                 </div>
             </div>
-            <UserSearchBar />
-            <PrescriptionDisplay />
 
+            <PrescriptionDisplay />
+            <UserSearchBar />
             <PatientNavBar />
         </div>
     );
