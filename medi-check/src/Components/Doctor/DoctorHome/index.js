@@ -1,4 +1,3 @@
-//
 import PatientList from '../PatientList';
 import SearchBar from '../Searchbar+CreatePatient';
 import { useEffect, useState } from 'react';
@@ -8,12 +7,15 @@ import CreatePatientDialog from '../../../MUIcomponents/CreatePatientModal';
 import './DoctorHome.css';
 import Header from '../DoctorHeader';
 import Accessibility from '../../Patient/Accessibility';
+import PendingDialog from '../../../MUIcomponents/PendingDialog/pending';
+import ButtonComponent from '../../../MUIcomponents/ButtonComponent';
 
 //If running into problems based on searching consequitively, can use other idea of passing search term into patientlist and letting filter happen there.
 function DoctorHome({ setDarkMode }) {
   const [list, setList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
   const [patient, setPatient] = useState(null);
+  const [open, setOpen] = useState(false);
 
   //used for reset button to trigger fresh patient list recall
   const [reset, setReset] = useState(0);
@@ -37,6 +39,10 @@ function DoctorHome({ setDarkMode }) {
   //     setList([...dummyList]); //this is imported for proof of concept
   // }, [reset]);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
   return (
     <div className='doctor-home'>
       <Header name='Smuggles' />
@@ -51,7 +57,11 @@ function DoctorHome({ setDarkMode }) {
             setPatient={setPatient}
           />
         </div>
-
+        <ButtonComponent
+          text1={'Pending Prescriptions'}
+          onClick={handleClickOpen}
+        />
+        <PendingDialog open={open} setOpen={setOpen} />
         <CreatePatientDialog setList={setList} list={list} />
       </section>
       <div className='patient-table-con'>

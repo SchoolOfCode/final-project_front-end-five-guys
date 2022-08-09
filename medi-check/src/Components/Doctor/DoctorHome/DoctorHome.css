@@ -15,7 +15,7 @@
   width: 70%;
   background-color: var(--table-color);
   border-radius: 1em;
-  overflow-y: scroll;
+  overflow: auto;
 }
 
 .doctor-navigation {

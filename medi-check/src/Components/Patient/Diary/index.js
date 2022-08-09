@@ -34,6 +34,7 @@ const style = {
 };
 
 const marks = [
+
     {
         value: 0,
         label: <RiEmotionSadLine className='icon' />,
@@ -54,6 +55,7 @@ const marks = [
         value: 100,
         label: <RiEmotionLine className='icon' />,
     },
+
 ];
 
 export function DiaryModal() {
@@ -92,6 +94,7 @@ export function DiaryModal() {
         const res = await fetch(db_url, newPost);
         console.log(res);
     }
+
 
     return (
         <div>
