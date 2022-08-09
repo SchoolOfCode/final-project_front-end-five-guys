@@ -36,6 +36,10 @@ export default function PendingDialog({ open, setOpen }) {
 
   useEffect(() => {
     async function fetchPrescriptionsAndCheckForInteractions() {
+      if (!settledPrescription.approved) {
+        setSend(true);
+        return;
+      }
       let prescriptonResponse = await fetch(
         `https://fiveguysproject.herokuapp.com/prescriptions/${prescription.patient_id}`
       );
@@ -98,29 +102,30 @@ export default function PendingDialog({ open, setOpen }) {
         console.log('OBJECT TO SEND TO DB', prescription, 'reason', reason);
         if (settledPrescription.approved) {
           //post
-          const response = await fetch(
-            `https://fiveguysproject.herokuapp.com/prescriptions/${prescription.patient_id}`,
-            {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: reason
-                ? JSON.stringify({ ...prescription, override: reason })
-                : JSON.stringify(prescription),
-            }
-          );
-          let json = await response.json();
-          console.log('posted new prescription!:', json);
+          // const response = await fetch(
+          //   `https://fiveguysproject.herokuapp.com/prescriptions/${prescription.patient_id}`,
+          //   {
+          //     method: 'POST',
+          //     headers: { 'Content-Type': 'application/json' },
+          //     body: reason
+          //       ? JSON.stringify({ ...prescription, override: reason })
+          //       : JSON.stringify(prescription),
+          //   }
+          // );
+          // let json = await response.json();
+          // console.log('posted new prescription!:', json);
         }
         //delete
-        const response2 = await fetch(
-          `https://fiveguysproject.herokuapp.com/pending/${prescription.pending_id}`,
-          {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-          }
-        );
-        let json2 = await response2.json();
-        console.log('deleted pending prescription:', json2);
+        // const response2 = await fetch(
+        //   `https://fiveguysproject.herokuapp.com/pending/${prescription.pending_id}`,
+        //   {
+        //     method: 'DELETE',
+        //     headers: { 'Content-Type': 'application/json' },
+        //   }
+        // );
+        // let json2 = await response2.json();
+        // console.log('deleted pending prescription:', json2);
+
         let index;
         console.log('pending:', pending);
         for (let i = 0; i < pending.length; i++) {
