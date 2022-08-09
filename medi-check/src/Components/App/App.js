@@ -25,7 +25,7 @@ function App() {
       <button onClick={handlePatientClick}>Patient</button>
       <button onClick={handleDoctorClick}> Doctor</button>
       {display === 'patient' ? (
-        <PatientHome />
+        <PatientHome setDarkMode={setDarkMode} />
       ) : display === 'doctor' ? (
         <DoctorHome setDarkMode={setDarkMode} />
       ) : (

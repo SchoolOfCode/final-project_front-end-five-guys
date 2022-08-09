@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import { v4 as uuidv4 } from 'uuid';
 import './popover.css';
+import { TbBellRinging2 } from 'react-icons/tb';
 // IoNotificationsOutline from "react-icons";
 //
 
@@ -37,14 +37,13 @@ export default function BasicPopover({ data, notifications, prepaid }) {
   return (
     <div>
       <div className='notifications'>
-        <Button
+        <TbBellRinging2
+          className='bell-icon'
           sx={{ position: 'relative' }}
           aria-describedby={id}
           variant='contained'
           onClick={handleClick}
-        >
-          <span>notification</span>
-        </Button>
+        ></TbBellRinging2>
         <div className='notification-number'>{notifications}</div>
       </div>
       <Popover
@@ -57,25 +56,19 @@ export default function BasicPopover({ data, notifications, prepaid }) {
           horizontal: 'left',
         }}
       >
-        <Typography
-          id='modal-modal-title'
-          variant='h6'
-          component='h2'
-          sx={{ mt: 1, ml: 1 }}
-        >
+        <Typography className='modal-modal-title' component='h2' sx={{ m: 2 }}>
           {prepaid}
         </Typography>
         <Typography
-          id='modal-modal-title'
-          variant='h6'
+          className='modal-modal-title'
           component='h2'
-          sx={{ mt: 1, ml: 1 }}
+          sx={{ mt: 2, mr: 2, ml: 2 }}
         >
           {caption()}
         </Typography>
         {data.map((item) => {
           return (
-            <Typography key={uuidv4()} sx={{ p: 1, ml: 4 }}>
+            <Typography key={uuidv4()} sx={{ ml: 4, p: 0.5 }}>
               {item}
             </Typography>
           );
