@@ -81,7 +81,12 @@ function PrescriptionDisplay() {
                     return (
                         <section style={{ width: '50%' }} key={uuidv4()}>
                             <h3>Interaction Alert</h3>
-                            <h4 style={{ width: '50%' }}>
+                            <h4
+                                style={{
+                                    width: '50%',
+                                    color: 'var(--font-color)',
+                                }}
+                            >
                                 {' '}
                                 {item.minConcept[0].name} and{' '}
                                 {item.minConcept[1].name}

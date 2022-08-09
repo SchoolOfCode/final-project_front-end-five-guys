@@ -79,7 +79,7 @@ export default function CustomizedAccordions({ drugArray, title }) {
                         <Accordion
                             sx={{
                                 width: '100%',
-
+                                color: 'var(--font-color)',
                                 backgroundColor: 'var(--accordian-color)',
                             }}
                             expanded={expanded === `panel${index}`}
