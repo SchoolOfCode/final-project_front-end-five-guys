@@ -14,9 +14,8 @@ import './index.css';
 export default function PendingDialog({ open, setOpen }) {
   const [pending, setPending] = useState([]);
   const [prescription, setPrescription] = useState({});
-  const [prescriptionList, setPrescriptionList] = useState([]);
+  const [send, setSend] = useState(false);
   const [settledPrescription, setSettledPrescription] = useState({});
-  const [openStatus, setOpenStatus] = useState(false);
   const [openStatusC, setOpenStatusC] = useState(false);
   const [reason, setReason] = React.useState('');
   const [interactedDrugs, setInteractedDrugs] = React.useState([]);
@@ -57,6 +56,10 @@ export default function PendingDialog({ open, setOpen }) {
         let obj = await response.json();
         console.log('interactions here: ', obj);
         console.log('new drug name here: ', prescription.name);
+        if (!obj.fullInteractionTypeGroup) {
+          setSend(true);
+          return;
+        }
         let filtered =
           obj.fullInteractionTypeGroup[0].fullInteractionType.filter((item) => {
             return (
@@ -80,6 +83,8 @@ export default function PendingDialog({ open, setOpen }) {
           setInteractedDrugs([...temp]);
           console.log('about to set open status');
           setOpenStatusC(true);
+        } else {
+          setSend(true);
         }
       } catch (error) {
         console.log('error', error);
@@ -89,8 +94,8 @@ export default function PendingDialog({ open, setOpen }) {
       if (interactedDrugs.length === 0 && !reason) {
         await fetchPrescriptionsAndCheckForInteractions();
       }
-      if (reason && interactedDrugs.length !== 0) {
-        // console.log(';asdasda', settledPrescription);
+      if (send) {
+        console.log('OBJECT TO SEND TO DB', prescription, 'reason', reason);
         if (settledPrescription.approved) {
           //post
           // const response = await fetch(
@@ -146,6 +151,7 @@ export default function PendingDialog({ open, setOpen }) {
         setPrescription(
           [...pending.slice(0, index), ...pending.slice(index + 1)][0]
         );
+        setSend(false);
         setReason('');
         setInteractedDrugs([]);
         setSettledPrescription({});
@@ -160,6 +166,7 @@ export default function PendingDialog({ open, setOpen }) {
     prescription,
     pending,
     reason,
+    send,
     interactedDrugs.length,
   ]);
 
@@ -200,6 +207,7 @@ export default function PendingDialog({ open, setOpen }) {
       console.log(document.querySelector('#drugInteractionOverride').value);
       setReason(document.querySelector('#drugInteractionOverride').value);
       setOpenStatusC(false);
+      setSend(true);
     }
     // const handleOpen = () => {
     //   setOpen(true);
@@ -220,16 +228,21 @@ export default function PendingDialog({ open, setOpen }) {
           aria-describedby="child-modal-description"
         >
           <Box sx={{ ...style }}>
-            <h2 id="child-modal-title">
-              WARNING: There is a severe interaction between {prescription.name}{' '}
-              and other drugs {prescription.firstname} {prescription.surname} is
-              currently prescribed{' '}
-              {interactedDrugs.length === 0 ? (
-                <></>
-              ) : (
-                interactedDrugs.reduce((curr, prev) => curr + ', ' + prev)
-              )}
-            </h2>
+            {!prescription ? (
+              <></>
+            ) : (
+              <h2 id="child-modal-title">
+                WARNING: There is a severe interaction between{' '}
+                {prescription.name} and other drugs {prescription.firstname}{' '}
+                {prescription.surname} is currently prescribed{' '}
+                {interactedDrugs.length === 0 ? (
+                  <></>
+                ) : (
+                  interactedDrugs.reduce((curr, prev) => curr + ', ' + prev)
+                )}
+              </h2>
+            )}
+
             <p id="child-modal-description">
               If you want to continue with this prescription please provide a
               valid reason below:
