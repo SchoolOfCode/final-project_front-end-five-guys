@@ -79,11 +79,10 @@ function PrescriptionDisplay() {
             <div className='accordian-container'>
                 {itemInteractionsCombo.map((item) => {
                     return (
-                        <section style={{ width: '50%' }} key={uuidv4()}>
+                        <section style={{ width: '100%' }} key={uuidv4()}>
                             <h3>Interaction Alert</h3>
                             <h4
                                 style={{
-                                    width: '50%',
                                     color: 'var(--font-color)',
                                 }}
                             >
@@ -92,10 +91,10 @@ function PrescriptionDisplay() {
                                 {item.minConcept[1].name}
                             </h4>
 
-                            <div style={{ width: '50%' }}>
+                            <div style={{ width: '100%' }}>
                                 Doctor's Note: {item.overrideMessage}
                             </div>
-                            <div style={{ width: '50%' }}>
+                            <div style={{ width: '100%' }}>
                                 {item.interactionPair[0].description}
                             </div>
                         </section>
