@@ -32,23 +32,23 @@ const style = {
 const marks = [
   {
     value: 0,
-    label: <RiEmotionSadLine className="icon" />,
+    label: <RiEmotionSadLine className='icon' />,
   },
   {
     value: 25,
-    label: <RiEmotionUnhappyLine className="icon" />,
+    label: <RiEmotionUnhappyLine className='icon' />,
   },
   {
     value: 50,
-    label: <RiEmotionNormalLine className="icon" />,
+    label: <RiEmotionNormalLine className='icon' />,
   },
   {
     value: 75,
-    label: <RiEmotionHappyLine className="icon" />,
+    label: <RiEmotionHappyLine className='icon' />,
   },
   {
     value: 100,
-    label: <RiEmotionLine className="icon" />,
+    label: <RiEmotionLine className='icon' />,
   },
 ];
 
@@ -65,7 +65,7 @@ export function DiaryModal() {
   });
 
   function handleSlider(e) {
-    SetEntry({ ...entry, mood: e.target.value / 25 });
+    SetEntry({ ...entry, mood: e.target.value });
   }
 
   function handleText(e) {
@@ -80,10 +80,11 @@ export function DiaryModal() {
 
   async function postDiaryEntry() {
     const db_url = `https://fiveguysproject.herokuapp.com/diary/${pEmail}`;
+    const value = entry.mood / 25;
     const newPost = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(entry),
+      body: JSON.stringify({ ...entry, mood: value }),
     };
     const res = await fetch(db_url, newPost);
     console.log(res);
@@ -95,23 +96,23 @@ export function DiaryModal() {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
       >
         <Box sx={style}>
-          <button id="close" onClick={handleClose}>
+          <button id='close' onClick={handleClose}>
             x
           </button>
-          <Typography id="modal-modal-title" variant="h2" component="h2">
+          <Typography id='modal-modal-title' variant='h2' component='h2'>
             Diary
           </Typography>
           <Typography>{today}</Typography>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography id='modal-modal-title' variant='h6' component='h2'>
             How are you feeling today?
           </Typography>
           <Box sx={{ width: 400 }}>
             <Slider
-              aria-label="Restricted values"
+              aria-label='Restricted values'
               defaultValue={50}
               step={null}
               marks={marks}
@@ -119,7 +120,7 @@ export function DiaryModal() {
               onChange={handleSlider}
             />
           </Box>
-          <Typography id="side-effects-title" variant="h6" component="h2">
+          <Typography id='side-effects-title' variant='h6' component='h2'>
             Side Effects/Mood/Symptoms
           </Typography>
           <textarea

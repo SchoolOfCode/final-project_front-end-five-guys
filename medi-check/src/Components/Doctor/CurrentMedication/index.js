@@ -7,33 +7,35 @@ export default function CurrentMedication({ prescriptions, allergies }) {
 
   return (
     <section>
-      <div className='current-med-table'>
-        <tr>
-          <td className='headings'>Allergies:</td>
-          <td>
-            {allergies.map((allergy) => {
-              return (
-                <p key={uuidv4()}>
-                  {allergy.name}
-                  {', '}
-                  {allergy.reaction}
-                </p>
-              );
-            })}
-          </td>
-        </tr>
+      <div className='allergy-table'>
+        <table>
+          <th className='headings'>Allergies</th>
+          <th className='headings'>Reactions</th>
+          <tr>
+            <td>
+              {allergies.map((allergy) => {
+                return (
+                  <tr>
+                    <td className='heading' key={uuidv4()}>
+                      {allergy.name}:
+                    </td>
+                    <td>{allergy.reaction}</td>
+                  </tr>
+                );
+              })}
+            </td>
+          </tr>
+        </table>
       </div>
 
-      <th>Prescription</th>
-      {prescriptions.map((med) => {
-        return (
-          <div className='current-med-table'>
-            <table>
+      <table className='current-med-table'>
+        <th className='current-med-header'>Current Prescriptions</th>
+        {prescriptions.map((med) => {
+          return (
+            <div className='current-med-columns'>
               <tr>
                 <td className='headings'>Prescription drug:</td>
                 <td>{med.name}</td>
-              </tr>
-              <tr>
                 <td className='headings'> Date issued:</td>
                 <td>{med.date}</td>
               </tr>
@@ -46,25 +48,29 @@ export default function CurrentMedication({ prescriptions, allergies }) {
                 <td>
                   {med.dosage} {med.measurement}
                 </td>
-              </tr>
-              <tr>
                 <td className='headings'> Frequency:</td>
                 <td>
                   {med.quantity} {med.frequency}
                 </td>
-              </tr>
-              <tr>
                 <td className='headings'>Total:</td>
                 <td>{med.total}</td>
               </tr>
               <tr>
                 <td className='headings'>Status:</td>
                 <td>{med.status}</td>
+                <td className='headings'>Type:</td>
+                <td>{med.type}</td>
               </tr>
-            </table>
-          </div>
-        );
-      })}
+              {med.override && (
+                <tr>
+                  <td className='headings'>Override reason:</td>
+                  <td>{med.override}</td>
+                </tr>
+              )}
+            </div>
+          );
+        })}
+      </table>
 
       {/* {prescriptions.map((med) => {
         return (

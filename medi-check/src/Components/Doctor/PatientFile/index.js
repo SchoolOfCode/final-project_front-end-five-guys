@@ -76,8 +76,10 @@ function PatientFile({ info, onClick }) {
       <button className='close-button' id='diary' onClick={showDiary}>
         Show Diary
       </button>
-      <section className='patientInfo'>
-        {/* <h3>
+
+      <div>
+        <section className='patientInfo'>
+          {/* <h3>
                     {info.Title} {info.FirstNames} {info.Surname}
                 </h3>
                 <h4>
@@ -106,42 +108,42 @@ function PatientFile({ info, onClick }) {
                 <h4>NHS number: {info.nhsNumber}</h4>
                 <h4>GP: {info.gpSurgery}</h4>
                 <h4>Current Medication: </h4> */}
-        <table id='patient-info-table'>
-          <tr>
-            <td className='headings'>Name:</td>
-            <td>
-              {info.title} {info.firstname} {info.surname}
-            </td>
-          </tr>
-          <tr>
-            <td className='headings'>DOB:</td>
-            <td>
-              {String(info.dob).slice(0, 2) +
-                String(info.dob).slice(2, 4) +
-                String(info.dob).slice(4)}
-            </td>
-          </tr>
-          <tr>
-            <td className='headings'>Gender:</td>
-            <td>{info.gender}</td>
-          </tr>
-          <tr>
-            <td className='headings'>Ethnicity:</td>
-            <td>{info.ethnicity}</td>
-          </tr>
-          <tr>
-            <td className='headings'>Address:</td>
-            <td>{info.address}</td>
-          </tr>
-          <tr>
-            <td className='headings'>Postcode:</td>
-            <td>{info.postcode}</td>
-          </tr>
-          <tr>
-            <td className='headings'>Phone Number:</td>
-            <td>{info.phonenumber}</td>
-          </tr>
-          <tr>
+          <table id='patient-info-table'>
+            <tr>
+              <td className='headings'>Name:</td>
+              <td>
+                {info.title} {info.firstname} {info.surname}
+              </td>
+            </tr>
+            <tr>
+              <td className='headings'>DOB:</td>
+              <td>
+                {String(info.dob).slice(0, 2) +
+                  String(info.dob).slice(2, 4) +
+                  String(info.dob).slice(4)}
+              </td>
+            </tr>
+            <tr>
+              <td className='headings'>Gender:</td>
+              <td>{info.gender}</td>
+            </tr>
+            <tr>
+              <td className='headings'>Ethnicity:</td>
+              <td>{info.ethnicity}</td>
+            </tr>
+            <tr>
+              <td className='headings'>Address:</td>
+              <td>{info.address}</td>
+            </tr>
+            <tr>
+              <td className='headings'>Postcode:</td>
+              <td>{info.postcode}</td>
+            </tr>
+            <tr>
+              <td className='headings'>Phone Number:</td>
+              <td>{info.phonenumber}</td>
+            </tr>
+            {/* <tr>
             <td className='headings'>Allergies:</td>
             <td>
               {allergies.map((item) => {
@@ -154,16 +156,16 @@ function PatientFile({ info, onClick }) {
                 );
               })}
             </td>
-          </tr>
-          <tr>
-            <td className='headings'>NHS Number:</td>
-            <td>{info.nhsnumber}</td>
-          </tr>
-          <tr>
-            <td className='headings'>GP:</td>
-            <td>{info.gpsurgery}</td>
-          </tr>
-          <tr>
+          </tr> */}
+            <tr>
+              <td className='headings'>NHS Number:</td>
+              <td>{info.nhsnumber}</td>
+            </tr>
+            <tr>
+              <td className='headings'>GP:</td>
+              <td>{info.gpsurgery}</td>
+            </tr>
+            {/* <tr>
             <td className='headings'>Current Medication:</td>
             <td>
               {' '}
@@ -171,9 +173,9 @@ function PatientFile({ info, onClick }) {
                 return <p>{item.name}</p>;
               })}
             </td>
-          </tr>
-        </table>
-        {/*<div className='displayPatient'>
+          </tr> */}
+          </table>
+          {/*<div className='displayPatient'>
           <div className='left-column'>
             {' '}
             <h4>Name:</h4>
@@ -223,13 +225,14 @@ function PatientFile({ info, onClick }) {
             </h4>
           </div>
         </div> */}
-      </section>
-      <div className='button-mover'>
-        <FormDialog
-          first={info.FirstNames}
-          last={info.Surname}
-          patient_id={info.patient_id}
-        />
+        </section>
+        <div className='button-mover'>
+          <FormDialog
+            first={info.FirstNames}
+            last={info.Surname}
+            patient_id={info.patient_id}
+          />
+        </div>
       </div>
       <CurrentMedication prescriptions={prescriptions} allergies={allergies} />
     </main>
