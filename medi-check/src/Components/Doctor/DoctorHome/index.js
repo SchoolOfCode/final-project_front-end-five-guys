@@ -66,7 +66,10 @@ function DoctorHome({ setDarkMode }) {
         )}
       </div>
 
-      <Accessibility setDarkMode={setDarkMode} />
+      <Accessibility
+        setDarkMode={setDarkMode}
+        Displayclass={'accessLogo-doctor'}
+      />
 
       {/* <FadeMenu /> */}
 

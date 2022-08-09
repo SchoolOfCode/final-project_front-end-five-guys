@@ -1,4 +1,4 @@
-.accessLogo {
+.accessLogo-doctor {
   height: 80px;
   width: 80px;
   top: 50%;
@@ -16,3 +16,8 @@
     z-index: 1;
     transform: translate(-100%, -50%);
 } */
+
+.accessLogo-patient {
+  height: 4em;
+  width: 4em;
+}
