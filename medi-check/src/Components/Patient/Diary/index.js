@@ -65,7 +65,7 @@ export function DiaryModal() {
   });
 
   function handleSlider(e) {
-    SetEntry({ ...entry, mood: e.target.value / 25 });
+    SetEntry({ ...entry, mood: e.target.value });
   }
 
   function handleText(e) {
@@ -80,10 +80,11 @@ export function DiaryModal() {
 
   async function postDiaryEntry() {
     const db_url = `https://fiveguysproject.herokuapp.com/diary/${pEmail}`;
+    let value = entry.mood / 25;
     const newPost = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(entry),
+      body: JSON.stringify({ ...entry, mood: value }),
     };
     const res = await fetch(db_url, newPost);
     console.log(res);
