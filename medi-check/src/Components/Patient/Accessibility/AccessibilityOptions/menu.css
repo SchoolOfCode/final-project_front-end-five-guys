@@ -1,4 +1,4 @@
-.access-menu {
+#basic {
   color: var(--font-color);
   padding-top: 1em;
   display: flex;
@@ -12,5 +12,12 @@
   left: 90%;
   position: fixed;
   z-index: 1;
+}
+
+.access-menu {
   transform: translate(-90%, -40%);
+}
+
+.access-menu-patient {
+  transform: translate(-100%, 80%);
 }
