@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import { v4 as uuidv4 } from 'uuid';
 import './popover.css';
 import { TbBellRinging2 } from 'react-icons/tb';
