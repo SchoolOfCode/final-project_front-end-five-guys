@@ -1,3 +1,6 @@
 #display-box {
-  border: 3px solid var(--font-color);
+    border: 3px solid var(--font-color);
+}
+.patient-home-box {
+    background-color: aqua;
 }

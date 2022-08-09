@@ -1,22 +1,30 @@
 .accordian-container {
-  border: 3px solid var(--font-color);
-  padding: 2rem;
-  max-height: 500px;
-  overflow-y: scroll;
+    /* border: 3px solid var(--font-color); */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* text-align: center; */
+    background-color: var(--accordian-color);
+    border-radius: 5%;
+    padding: 2rem;
+    /* max-height: 500px; */
+    /* overflow-y: scroll; */
 }
 
 .interaction,
 .noInteraction {
-  width: 20px;
-  height: 20px;
-  border: 2px solid transparent;
+    width: 20px;
+    height: 20px;
+    border: 2px solid transparent;
 }
 
 .interaction {
-  border: 2px solid var(--alert);
-  color: var(--alert);
+    text-align: center;
+    margin: auto;
+    border: 2px solid var(--alert);
+    color: var(--alert);
 }
 
 #paused {
-  background-color: var(--table-alternate-rows);
+    background-color: var(--table-alternate-rows);
 }
