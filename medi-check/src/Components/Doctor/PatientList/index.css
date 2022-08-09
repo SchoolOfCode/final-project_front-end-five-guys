@@ -83,6 +83,7 @@
 .arrow {
   width: 10px;
   margin-left: 0.4em;
+  filter: var(--arrowfilter);
 }
 
 .sort-buttons {
