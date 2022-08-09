@@ -67,6 +67,7 @@ export default function CustomizedAccordions({ drugArray, title }) {
     return (
         <section className='accordian-container' key={uuidv4()}>
             {title}
+            <br />
             {drugArray
                 .sort((a, b) => {
                     return b.interactionInfo.length - a.interactionInfo.length;
@@ -80,7 +81,9 @@ export default function CustomizedAccordions({ drugArray, title }) {
                             sx={{
                                 width: '100%',
                                 color: 'var(--font-color)',
-                                backgroundColor: 'var(--accordian-color)',
+                                backgroundColor: 'var(--table-color)',
+                                borderRadius: '10px',
+                                marginBottom: '1em',
                             }}
                             expanded={expanded === `panel${index}`}
                             onChange={handleChange(`panel${index}`)}

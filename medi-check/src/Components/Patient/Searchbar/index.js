@@ -77,13 +77,21 @@ function UserSearchBar() {
     return (
         <div>
             <NestedModal open={open} setOpen={setOpen} results={results} />
-            <form onSubmit={handleChange}>
+            <form
+                style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: '1em',
+                }}
+                onSubmit={handleChange}
+            >
                 <input
                     type='text'
-                    placeholder='Search OTC medication'
+                    placeholder='Search OTC meds'
                     id='otc-search'
                 ></input>
-                <button>Search</button>
+                <button className='search-button'>Search</button>
             </form>
         </div>
     );

@@ -64,8 +64,35 @@ input {
     margin: 0.2rem;
 }
 #otc-search {
+    font-size: 1.25em;
+    width: 70%;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
     border-radius: 50px;
 }
 #otc-search::placeholder {
     text-align: center;
+}
+.search-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-transform: none;
+    border-style: none;
+    border-radius: 5em;
+    background-color: var(--button-color);
+    color: var(--font-color);
+    font-family: Inter, sans-serif;
+    font-size: 1.1em;
+    height: fit-content;
+    /* font-weight: 400; */
+    padding: 0.2em 1em;
+    width: auto;
+    box-shadow: 0px 8px 7px -7px rgba(0, 0, 0, 0.44);
+}
+
+.search-button:hover {
+    background-color: var(--button-hover-color);
 }
