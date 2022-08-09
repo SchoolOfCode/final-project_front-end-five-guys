@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import './patientFile.css';
 import { useEffect, useState } from 'react';
 import DiaryDialog from '../../../MUIcomponents/DiaryDialog';
+import CurrentMedication from '../CurrentMedication';
 function PatientFile({ info, onClick }) {
   const [allergies, setAllergies] = useState([]);
   const [prescriptions, setPrescriptions] = useState([]);
@@ -51,7 +52,7 @@ function PatientFile({ info, onClick }) {
   }
   console.log('dob', info.dob);
   return (
-    <main>
+    <main className='patient-section'>
       {/* <section className="hide" id="interactionPopup">
         Hi I am supposed to be hidden
       </section> */}
@@ -230,6 +231,7 @@ function PatientFile({ info, onClick }) {
           patient_id={info.patient_id}
         />
       </div>
+      <CurrentMedication prescriptions={prescriptions} allergies={allergies} />
     </main>
   );
 }

@@ -1,3 +1,7 @@
+.patient-section {
+  display: flex;
+}
+
 .close-button {
   display: flex;
   align-items: center;
