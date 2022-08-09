@@ -5,6 +5,7 @@ import Accessibility from '../../Patient/Accessibility';
 import AccountMenu from './AccountMenu';
 
 export default function PatientNavBar({ setDarkMode }) {
+
   return (
     <div className='navbar'>
       <Accessibility
@@ -15,4 +16,5 @@ export default function PatientNavBar({ setDarkMode }) {
       <DiaryModal />
     </div>
   );
+
 }
