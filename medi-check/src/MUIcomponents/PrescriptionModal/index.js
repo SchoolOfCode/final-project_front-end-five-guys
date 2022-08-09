@@ -5,6 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 // import DialogContentText from '@mui/material/DialogContentText';
+//
 import DialogTitle from '@mui/material/DialogTitle';
 import ControlledSwitches from '../ControlledSwitch';
 import BasicSelect from '../Box';
@@ -150,7 +151,7 @@ export default function FormDialog({ first, last, patient_id }) {
   React.useEffect(() => {
     async function sendPrescription() {
       let response = await fetch(
-        `http://localhost:3001/prescriptions/${patient_id}`,
+        `https://fiveguysproject.herokuapp.com/prescriptions/${patient_id}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -260,11 +261,11 @@ export default function FormDialog({ first, last, patient_id }) {
           hideBackdrop
           open={openStatus}
           onClose={handleClose}
-          aria-labelledby="child-modal-title"
-          aria-describedby="child-modal-description"
+          aria-labelledby='child-modal-title'
+          aria-describedby='child-modal-description'
         >
           <Box sx={{ ...style }}>
-            <h2 id="child-modal-title">
+            <h2 id='child-modal-title'>
               WARNING: There is a severe interaction between {prescription} and
               other drugs {first} {last} is currently prescribed{' '}
               {interactedDrugs.length === 0 ? (
@@ -273,19 +274,19 @@ export default function FormDialog({ first, last, patient_id }) {
                 interactedDrugs.reduce((curr, prev) => curr + ', ' + prev)
               )}
             </h2>
-            <p id="child-modal-description">
+            <p id='child-modal-description'>
               If you want to continue with this prescription please provide a
               valid reason below:
             </p>
             <TextField
               autoFocus
-              margin="dense"
-              id="drugInteractionOverride"
-              label="Reason to continue prescription"
-              type="text"
-              name="interactionReason"
+              margin='dense'
+              id='drugInteractionOverride'
+              label='Reason to continue prescription'
+              type='text'
+              name='interactionReason'
               fullWidth
-              variant="standard"
+              variant='standard'
               onChange={handleOverrideChange}
               error={reasonText ? false : true}
               required
@@ -328,54 +329,54 @@ export default function FormDialog({ first, last, patient_id }) {
           <DialogContent>
             <TextField
               autoFocus
-              margin="dense"
-              id="drugName"
-              label="Drug Name"
-              type="text"
-              name="name"
+              margin='dense'
+              id='drugName'
+              label='Drug Name'
+              type='text'
+              name='name'
               fullWidth
-              variant="standard"
+              variant='standard'
               onChange={handleChange}
               required
             />
             <TextField
               autoFocus
-              margin="dense"
-              id="drugReason"
-              label="Drug Reason"
-              type="text"
-              name="reason"
+              margin='dense'
+              id='drugReason'
+              label='Drug Reason'
+              type='text'
+              name='reason'
               fullWidth
-              variant="standard"
+              variant='standard'
               onChange={handleChange}
-              value="For testing"
+              value='For testing'
               required
             />
             <TextField
               autoFocus
-              margin="dense"
-              id="drugTotal"
-              label="Drug Total Amount"
+              margin='dense'
+              id='drugTotal'
+              label='Drug Total Amount'
               fullWidth
-              type="text"
+              type='text'
               onChange={handleChange}
-              variant="standard"
-              name="total"
+              variant='standard'
+              name='total'
               inputProps={{
                 inputMode: 'numeric',
                 pattern: '[0-9.]*',
               }}
               error={!Number.isNaN(Number(textFields['total'])) ? false : true}
-              defaultValue="200"
+              defaultValue='200'
               required
             />
             <TextField
               autoFocus
-              margin="dense"
-              id="drugDosage"
-              label="Drug Dosage"
+              margin='dense'
+              id='drugDosage'
+              label='Drug Dosage'
               fullWidth
-              variant="standard"
+              variant='standard'
               onChange={handleChange}
               inputProps={{
                 inputMode: 'numeric',
@@ -383,8 +384,8 @@ export default function FormDialog({ first, last, patient_id }) {
               }}
               error={!Number.isNaN(Number(textFields['dosage'])) ? false : true}
               required
-              defaultValue="100"
-              name="dosage"
+              defaultValue='100'
+              name='dosage'
             />
             {/* <TextField
             autoFocus
@@ -397,11 +398,11 @@ export default function FormDialog({ first, last, patient_id }) {
           /> */}
             <TextField
               autoFocus
-              margin="dense"
-              id="drugMeasurement"
+              margin='dense'
+              id='drugMeasurement'
               onChange={handleChange}
-              label="Drug Measurement (e.g. mg, puff etc.)"
-              type="text"
+              label='Drug Measurement (e.g. mg, puff etc.)'
+              type='text'
               error={
                 !Number.isInteger(Number(textFields['measurement']))
                   ? false
@@ -410,16 +411,16 @@ export default function FormDialog({ first, last, patient_id }) {
                   : true
               }
               fullWidth
-              variant="standard"
+              variant='standard'
               required
-              defaultValue="mg"
-              name="measurement"
+              defaultValue='mg'
+              name='measurement'
             />
             <TextField
               autoFocus
-              margin="dense"
-              id="drugQuantity"
-              label="Drug Quantity (e.g. 1 or 2)"
+              margin='dense'
+              id='drugQuantity'
+              label='Drug Quantity (e.g. 1 or 2)'
               inputProps={{
                 inputMode: 'numeric',
                 pattern: '[0-9.]*',
@@ -429,22 +430,22 @@ export default function FormDialog({ first, last, patient_id }) {
               error={
                 !Number.isNaN(Number(textFields['quantity'])) ? false : true
               }
-              variant="standard"
+              variant='standard'
               required
-              name="quantity"
-              defaultValue="250"
+              name='quantity'
+              defaultValue='250'
             />
             <TextField
               autoFocus
-              margin="dense"
-              id="drugFrequency"
-              label="Drug Frequency (e.g. daily or twice daily etc.)"
-              type="text"
+              margin='dense'
+              id='drugFrequency'
+              label='Drug Frequency (e.g. daily or twice daily etc.)'
+              type='text'
               fullWidth
-              variant="standard"
+              variant='standard'
               onChange={handleChange}
               required
-              defaultValue="daily"
+              defaultValue='daily'
               error={
                 !Number.isInteger(Number(textFields['frequency']))
                   ? false
@@ -452,16 +453,16 @@ export default function FormDialog({ first, last, patient_id }) {
                   ? false
                   : true
               }
-              name="frequency"
+              name='frequency'
             />
             <TextField
               autoFocus
-              margin="dense"
-              id="monitoring"
-              label="Monitoring (duration)"
-              type="number"
+              margin='dense'
+              id='monitoring'
+              label='Monitoring (duration)'
+              type='number'
               inputProps={{ step: 1, min: 0 }}
-              variant="standard"
+              variant='standard'
               defaultValue={0}
             />
             <BasicSelect></BasicSelect>
@@ -471,15 +472,15 @@ export default function FormDialog({ first, last, patient_id }) {
             </div>
           </DialogContent>
           <DialogActions>
-            <Button type="button" onClick={handleClose}>
+            <Button type='button' onClick={handleClose}>
               Cancel
             </Button>
-            <Button type="submit">Prescribe</Button>
+            <Button type='submit'>Prescribe</Button>
           </DialogActions>
         </form>
       </Dialog>
       <ButtonComponent
-        text1=" Add New Prescription"
+        text1=' Add New Prescription'
         text2={<MdOutlineAddCircle style={{ marginLeft: '0.5em' }} />}
         onClick={handleClickOpen}
       ></ButtonComponent>

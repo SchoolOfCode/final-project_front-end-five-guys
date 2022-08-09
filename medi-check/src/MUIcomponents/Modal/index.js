@@ -1,3 +1,4 @@
+//
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -36,8 +37,8 @@ export default function NestedModal({ open, setOpen, results }) {
             handleClose();
           }
         }}
-        aria-labelledby="parent-modal-title"
-        aria-describedby="parent-modal-description"
+        aria-labelledby='parent-modal-title'
+        aria-describedby='parent-modal-description'
       >
         <Box sx={{ ...style, width: 400 }}>
           <button onClick={handleClose}>X</button>

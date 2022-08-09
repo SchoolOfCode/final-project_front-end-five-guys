@@ -1,3 +1,4 @@
+//
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -14,7 +15,7 @@ import {
 import './diary.css';
 
 //temporary hard coded patient email until auth0 is done
-const pEmail = 'vickismith@email.com';
+const pEmail = 'rsmith123@email.com';
 
 const style = {
   position: 'absolute',
@@ -31,23 +32,23 @@ const style = {
 const marks = [
   {
     value: 0,
-    label: <RiEmotionSadLine className="icon" />,
+    label: <RiEmotionSadLine className='icon' />,
   },
   {
     value: 25,
-    label: <RiEmotionUnhappyLine className="icon" />,
+    label: <RiEmotionUnhappyLine className='icon' />,
   },
   {
     value: 50,
-    label: <RiEmotionNormalLine className="icon" />,
+    label: <RiEmotionNormalLine className='icon' />,
   },
   {
     value: 75,
-    label: <RiEmotionHappyLine className="icon" />,
+    label: <RiEmotionHappyLine className='icon' />,
   },
   {
     value: 100,
-    label: <RiEmotionLine className="icon" />,
+    label: <RiEmotionLine className='icon' />,
   },
 ];
 
@@ -94,23 +95,23 @@ export function DiaryModal() {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
       >
         <Box sx={style}>
-          <button id="close" onClick={handleClose}>
+          <button id='close' onClick={handleClose}>
             x
           </button>
-          <Typography id="modal-modal-title" variant="h2" component="h2">
+          <Typography id='modal-modal-title' variant='h2' component='h2'>
             Diary
           </Typography>
           <Typography>{today}</Typography>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography id='modal-modal-title' variant='h6' component='h2'>
             How are you feeling today?
           </Typography>
           <Box sx={{ width: 400 }}>
             <Slider
-              aria-label="Restricted values"
+              aria-label='Restricted values'
               defaultValue={50}
               step={null}
               marks={marks}
@@ -118,7 +119,7 @@ export function DiaryModal() {
               onChange={handleSlider}
             />
           </Box>
-          <Typography id="side-effects-title" variant="h6" component="h2">
+          <Typography id='side-effects-title' variant='h6' component='h2'>
             Side Effects/Mood/Symptoms
           </Typography>
           <textarea

@@ -9,16 +9,19 @@ import arrow from "../../../Assets/new-arrow.svg";
 import { v4 as uuidv4 } from "uuid";
 
 function PatientList({ list, patient, setPatient }) {
-  console.log("in patient:", list);
-  const [filter, setFilter] = useState({ type: "", reverse: false });
+
+  // console.log('in patient:', list);
+  const [filter, setFilter] = useState({ type: '', reverse: false });
 
   // console.log('patient', patient);
   function resetPatient() {
     setPatient(null);
   }
   function compare(a, b) {
-    console.log("compare", a, b);
-    if (filter.type === "") {
+
+    // console.log('compare', a, b);
+    if (filter.type === '') {
+
       if (a.surname.toUpperCase() > b.surname.toUpperCase()) {
         return filter.reverse ? -1 : 1;
       } else if (a.surname.toUpperCase() < b.surname.toUpperCase()) {
@@ -73,31 +76,37 @@ function PatientList({ list, patient, setPatient }) {
   } else {
     return (
       <div>
-        <section className="sort-buttons">
+
+        <section className='sort-buttons'>
+
           <ButtonComponent
-            text1={"First Name  "}
-            text2={<img className="arrow" src={arrow} alt="sort direction" />}
+            text1={'First Name  '}
+            text2={<img className='arrow' src={arrow} alt='sort direction' />}
             onClick={(e) => {
-              handleSort("first", e);
+              handleSort('first', e);
             }}
           />
 
           <ButtonComponent
-            text1={"Surname "}
-            text2={<img className="arrow" src={arrow} alt="sort direction" />}
+
+            text1={'Surname '}
+            text2={<img className='arrow' src={arrow} alt='sort direction' />}
             onClick={(e) => {
-              handleSort("last", e);
+              handleSort('last', e);
+
             }}
           />
 
           <ButtonComponent
-            text1={"NHS Number"}
-            text2={<img className="arrow" src={arrow} alt="sort direction" />}
+
+            text1={'NHS Number'}
+            text2={<img className='arrow' src={arrow} alt='sort direction' />}
             onClick={(e) => {
-              handleSort("number", e);
+              handleSort('number', e);
             }}
           />
-          <div className="buffer-div"></div>
+          <div className='buffer-div'></div>
+
         </section>
 
         {/* <div> */}
@@ -146,7 +155,9 @@ function PatientList({ list, patient, setPatient }) {
         </ul> */}
 
         {/* <section className="patient-table-container"> */}
-        <table className="patient-table">
+
+        <table className='patient-table'>
+
           {/*<thead>
             <tr>
               <th>
@@ -197,7 +208,9 @@ function PatientList({ list, patient, setPatient }) {
                 <Patient
                   index={index}
                   setPatient={setPatient}
-                  className="individualPatient"
+
+                  className='individualPatient'
+
                   key={uuidv4()}
                   patientInfo={patient}
                 ></Patient>

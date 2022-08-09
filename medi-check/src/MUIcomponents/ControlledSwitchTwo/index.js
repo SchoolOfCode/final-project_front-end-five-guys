@@ -1,5 +1,6 @@
-import * as React from "react";
-import Switch from "@mui/material/Switch";
+//
+import * as React from 'react';
+import Switch from '@mui/material/Switch';
 // import { useState, useContext } from "react";
 
 export default function ControlledSwitchTwo({ setDarkMode }) {
@@ -24,7 +25,7 @@ export default function ControlledSwitchTwo({ setDarkMode }) {
     <Switch
       checked={checked}
       onChange={handleChange}
-      inputProps={{ "aria-label": "controlled" }}
+      inputProps={{ 'aria-label': 'controlled' }}
     />
   );
 }

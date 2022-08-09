@@ -1,27 +1,35 @@
 .mappedPatient {
-  list-style-type: none;
-  /* display: flex; */
+    list-style-type: none;
+    /* display: flex; */
 }
 
 .individualPatient {
-  max-width: 25vw;
+    max-width: 25vw;
 }
 /* .patient-card:nth-child(even) {
   background-color: #91c788;
 } */
 .patient-card:nth-child(even) {
-  background-color: var(--table-alternate-rows);
+    background-color: var(--table-alternate-rows);
+    /* margin: 0.2rem 0; */
+}
+.patient-card:nth-child(odd) {
+    color: var(--dark-mode-font);
+    /* margin: 0.2rem 0; */
+}
+.patient-card:nth-child(odd) {
+  color: var(--dark-mode-font);
   /* margin: 0.2rem 0; */
 }
 
 .patient-card:hover {
-  cursor: default;
-  /* filter: brightness(0.8);
+    cursor: default;
+    /* filter: brightness(0.8);
 
   background-color: #91c788; */
-  text-decoration: underline;
-  /* padding-left: 0.1rem; */
-  font-weight: 600;
+    text-decoration: underline;
+    /* padding-left: 0.1rem; */
+    font-weight: 600;
 }
 
 /* .patient-table-container {
@@ -32,44 +40,44 @@
 } */
 
 .patient-table {
-  font-family: Inter, sans-serif;
-  font-size: 1.1em;
-  font-weight: 400;
-  background-color: var(--table-color);
-  width: 40vw;
-  padding: 0em 2em 1em 2em;
-  border-radius: 1em;
-  text-align: left;
-  margin: 7% 0 0 10%;
-  /* display: flex;
+    font-family: Inter, sans-serif;
+    font-size: 1.1em;
+    font-weight: 400;
+    background-color: var(--table-color);
+    width: 40vw;
+    padding: 0em 2em 1em 2em;
+    border-radius: 1em;
+    text-align: left;
+    margin: 7% 0 0 10%;
+    /* display: flex;
     flex-wrap: wrap; */
-  /* border-collapse: collapse; */
+    /* border-collapse: collapse; */
 }
 
 .patient-table td,
 .patient-table th {
-  padding: 1em 1em;
-  max-width: 10vw;
+    padding: 1em 1em;
+    max-width: 10vw;
 }
 .patient-table thead {
-  position: fixed;
-  margin-top: -5em;
-  background-color: var(--table-color);
+    position: fixed;
+    margin-top: -5em;
+    background-color: var(--table-color);
 }
 
 .patient-table tr:first-child {
-  top: 10em;
+    top: 10em;
 }
 
 .patient-table td {
-  padding-left: 2em;
+    padding-left: 2em;
 }
 .patient-table tr:nth-child(even) {
-  background-color: var(--table-alternate-rows);
+    background-color: var(--table-alternate-rows);
 }
 
 .flip {
-  transform: rotate(-180deg);
+    transform: rotate(-180deg);
 }
 
 .arrow {
@@ -78,17 +86,17 @@
 }
 
 .sort-buttons {
-  width: 38vw;
-  padding-top: 1.5%;
-  /* padding-left: 1%; */
-  margin: 0em 0em 0em 6.5em; /* top right bottom left */
-  display: flex;
-  justify-content: space-between;
-  background-color: var(--table-color);
-  gap: 10%;
-  position: absolute;
+    width: 38vw;
+    padding-top: 1.5%;
+    /* padding-left: 1%; */
+    margin: 0em 0em 0em 6.5em; /* top right bottom left */
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--table-color);
+    gap: 10%;
+    position: absolute;
 }
 .buffer-div {
-  width: 2em;
-  background-color: var(--table-color);
+    width: 2em;
+    background-color: var(--table-color);
 }
