@@ -1,65 +1,98 @@
 input {
-  width: 13rem;
+    width: 13rem;
 }
 
 #searchResults {
-  position: absolute;
-  width: 300px;
-  z-index: 2;
-  height: fit-content;
-  justify-content: center;
+    position: absolute;
+    width: 300px;
+    z-index: 2;
+    height: fit-content;
+    justify-content: center;
 
-  background-color: var(--table-color);
-  top: 50%; /* position the top  edge of the element at the middle of the parent */
-  left: 50%; /* position the left edge of the element at the middle of the parent */
-  padding: 1rem 2rem;
-  transform: translate(
-    -50%,
-    -50%
-  ); /* This is a shorthand of
+    background-color: var(--table-color);
+    top: 50%; /* position the top  edge of the element at the middle of the parent */
+    left: 50%; /* position the left edge of the element at the middle of the parent */
+    padding: 1rem 2rem;
+    transform: translate(
+        -50%,
+        -50%
+    ); /* This is a shorthand of
                                          translateX(-50%) and translateY(-50%) */
 }
 #searchResults2 {
-  position: absolute;
-  width: 300px;
-  z-index: 2;
-  height: fit-content;
-  justify-content: center;
-  display: flex;
-  justify-content: center;
-  background-color: var(--table-color);
-  top: 50%; /* position the top  edge of the element at the middle of the parent */
-  left: 50%; /* position the left edge of the element at the middle of the parent */
-  padding: 1rem 2rem;
-  transform: translate(
-    -50%,
-    -50%
-  ); /* This is a shorthand of
+    position: absolute;
+    width: 300px;
+    z-index: 2;
+    height: fit-content;
+    justify-content: center;
+    display: flex;
+    justify-content: center;
+    background-color: var(--table-color);
+    top: 50%; /* position the top  edge of the element at the middle of the parent */
+    left: 50%; /* position the left edge of the element at the middle of the parent */
+    padding: 1rem 2rem;
+    transform: translate(
+        -50%,
+        -50%
+    ); /* This is a shorthand of
                                          translateX(-50%) and translateY(-50%) */
 }
 #searchResults > div {
-  width: fit-content;
+    width: fit-content;
 }
 
 #searchModal {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  flex: 1;
-  background-color: var(--modal-color);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    flex: 1;
+    background-color: var(--modal-color);
 }
 .hide {
-  display: none;
+    display: none;
 }
 
 .show {
-  display: block;
+    display: block;
 }
 
 .cancelModal {
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 0.2rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0.2rem;
+}
+#otc-search {
+    font-size: 1.25em;
+    width: 70%;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border-radius: 50px;
+}
+#otc-search::placeholder {
+    text-align: center;
+}
+.search-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-transform: none;
+    border-style: none;
+    border-radius: 5em;
+    background-color: var(--button-color);
+    color: var(--font-color);
+    font-family: Inter, sans-serif;
+    font-size: 1.1em;
+    height: fit-content;
+    /* font-weight: 400; */
+    padding: 0.2em 1em;
+    width: auto;
+    box-shadow: 0px 8px 7px -7px rgba(0, 0, 0, 0.44);
+}
+
+.search-button:hover {
+    background-color: var(--button-hover-color);
 }

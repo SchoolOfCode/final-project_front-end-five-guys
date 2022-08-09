@@ -1,13 +1,20 @@
 //
 import './navbar.css';
 import { DiaryModal } from '../Diary';
-import AllergiesModal from '../../../MUIcomponents/AllergiesModal';
+import Accessibility from '../../Patient/Accessibility';
+import AccountMenu from './AccountMenu';
 
-export default function PatientNavBar() {
+export default function PatientNavBar({ setDarkMode }) {
+
   return (
     <div className='navbar'>
+      <Accessibility
+        setDarkMode={setDarkMode}
+        Displayclass={'accessLogo-patient'}
+      />
+      <AccountMenu />
       <DiaryModal />
-      <AllergiesModal />
     </div>
   );
+
 }

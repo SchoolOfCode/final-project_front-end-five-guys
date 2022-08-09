@@ -7,6 +7,9 @@ import Modal from '@mui/material/Modal';
 import { v4 as uuidv4 } from 'uuid';
 
 const style = {
+  display: 'flex',
+  flexDirection: 'column',
+  objectFit: 'contain',
   position: 'absolute',
   top: '50%',
   left: '50%',
@@ -20,14 +23,18 @@ const style = {
 
 //const Dummyallergies = ["fur", "pollen", "dust", "apixaban"];
 
-export default function AllergiesModal() {
+export default function AllergiesModal({ setAnchorEl }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const [allergy, setAllergy] = useState({
     name: '',
     reaction: '',
   });
+
+  function handleClose() {
+    setOpen(false);
+    setAnchorEl(null);
+  }
 
   const [CurrentAllergy, setCurrentAllergy] = useState([]);
 
@@ -82,7 +89,12 @@ export default function AllergiesModal() {
         aria-describedby='modal-modal-description'
       >
         <Box sx={style}>
-          <Typography id='modal-modal-title' variant='h5' component='h2'>
+          <Typography
+            sx={{ mb: 0.5 }}
+            id='modal-modal-title'
+            variant='h5'
+            component='h2'
+          >
             Allergies
           </Typography>
           {CurrentAllergy.length > 0 ? (
@@ -91,7 +103,7 @@ export default function AllergiesModal() {
                 <Typography
                   key={uuidv4()}
                   id='modal-modal-description'
-                  sx={{ mt: 2, ml: 4 }}
+                  sx={{ ml: 4 }}
                 >
                   {item.name}
                 </Typography>
@@ -100,19 +112,21 @@ export default function AllergiesModal() {
           ) : (
             <Typography>You have no current recorded allergies</Typography>
           )}
-          <Typography>New Allergy</Typography>
+          <Typography sx={{ mt: 1, mb: 0.4 }}>New Allergy</Typography>
           <textarea
-            style={{ resize: 'none', height: '5vh', width: '15vw' }}
+            style={{ resize: 'none', height: '5vh', width: '100%' }}
             onChange={handleText}
             name='name'
           ></textarea>{' '}
-          <Typography>New Allergy Reaction</Typography>
+          <Typography sx={{ mb: 0.4 }}>New Allergy Reaction</Typography>
           <textarea
-            style={{ resize: 'none', height: '5vh', width: '15vw' }}
+            style={{ resize: 'none', height: '5vh', width: '100%' }}
             onChange={handleText}
             name='reaction'
           ></textarea>
-          <button onClick={handleSubmit}>Submit</button>
+          <button style={{ alignSelf: 'center' }} onClick={handleSubmit}>
+            Submit
+          </button>
         </Box>
       </Modal>
     </div>

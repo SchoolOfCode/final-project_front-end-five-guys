@@ -1,20 +1,28 @@
 .notifications {
-  color: var(--table-color);
+  color: blue;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
   text-decoration: none;
-  padding: 15px 26px;
-  position: relative;
-  display: inline-block;
-  border-radius: 2px;
+  /* padding: 15px 26px; */
+}
+.bell-icon {
+  width: 4em;
+  height: 4em;
 }
 
 .notifications .notification-number {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-260%, 20%);
-
-  padding: 5px 10px;
+  /* top: 40%; */
+  /* left: 50%; */
+  transform: translate(-30%, -60%);
+  padding: 5px;
   border-radius: 50%;
+  max-width: 2.5em;
   background: var(--alert);
   color: var(--table-color);
+  text-align: center;
+}
+
+.modal-modal-title {
+  font-size: medium;
 }
