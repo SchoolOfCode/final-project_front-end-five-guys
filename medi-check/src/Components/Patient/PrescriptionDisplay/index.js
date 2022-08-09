@@ -5,11 +5,16 @@ import useInteractions from '../../../Hooks/useInteractionsFromName';
 import CustomizedAccordions from '../../../MUIcomponents/Accordian';
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 
 //Will fetch backend to get the patient prescription names and information, then plug that into the API twice.
 //Working on functionality now, not completeness
 function PrescriptionDisplay() {
-  const pEmail = 'rsmith123@email.com';
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  // const pEmail = user.email;
+  const pEmail = 'vickismith@email.com';
+
   const [prescriptions, setPrescriptions] = useState([]);
   useEffect(() => {
     async function getPrescriptions() {
@@ -20,10 +25,10 @@ function PrescriptionDisplay() {
       // console.log('json', json);
       setPrescriptions(json.data);
     }
-    if (pEmail) {
+    if (pEmail && isAuthenticated) {
       getPrescriptions();
     }
-  }, []);
+  }, [pEmail, isAuthenticated]);
   let itemInteractions = useInteractions(prescriptions);
   // let itemInteractions = testInteractions;
 
