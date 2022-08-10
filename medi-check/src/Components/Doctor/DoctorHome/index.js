@@ -1,14 +1,12 @@
 import PatientList from '../PatientList';
 import SearchBar from '../Searchbar+CreatePatient';
 import { useEffect, useState } from 'react';
-// import { dummyList } from '../PatientList/Patient';
 import Footer from '../Footer';
 import CreatePatientDialog from '../../../MUIcomponents/CreatePatientModal';
 import './DoctorHome.css';
 import Header from '../DoctorHeader';
 import Accessibility from '../../Patient/Accessibility';
 import PendingDialog from '../../../MUIcomponents/PendingDialog/pending';
-import ButtonComponent from '../../../MUIcomponents/ButtonComponent';
 
 //If running into problems based on searching consequitively, can use other idea of passing search term into patientlist and letting filter happen there.
 function DoctorHome({ setDarkMode, setLargeFont }) {
@@ -39,46 +37,41 @@ function DoctorHome({ setDarkMode, setLargeFont }) {
     //     setList([...dummyList]); //this is imported for proof of concept
     // }, [reset]);
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
 
-    return (
-        <div className='doctor-home'>
-            <Header name='Smuggles' />
-            <section className='doctor-navigation'>
-                <div className='searchbar'>
-                    <SearchBar
-                        list={list}
-                        setFilteredList={setFilteredList}
-                        setList={setList}
-                        setReset={setReset}
-                        reset={reset}
-                        setPatient={setPatient}
-                    />
-                </div>
-                <ButtonComponent
-                    text1={'Pending Prescriptions'}
-                    onClick={handleClickOpen}
-                />
-                <PendingDialog open={open} setOpen={setOpen} />
-                <CreatePatientDialog setList={setList} list={list} />
-            </section>
-            <div className='patient-table-con'>
-                {filteredList.length === 0 ? (
-                    <PatientList
-                        list={list}
-                        patient={patient}
-                        setPatient={setPatient}
-                    />
-                ) : (
-                    <PatientList
-                        list={filteredList}
-                        patient={patient}
-                        setPatient={setPatient}
-                    />
-                )}
-            </div>
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
+
+  return (
+    <div className='doctor-home'>
+      <Header name='Smuggles' />
+      <section className='doctor-navigation'>
+        <div className='searchbar'>
+          <SearchBar
+            list={list}
+            setFilteredList={setFilteredList}
+            setList={setList}
+            setReset={setReset}
+            reset={reset}
+            setPatient={setPatient}
+          />
+        </div>
+        <div className='pending-create'>
+          <PendingDialog open={open} setOpen={setOpen} />
+          <CreatePatientDialog setList={setList} list={list} />
+        </div>
+      </section>
+      <div className='patient-table-con'>
+        {filteredList.length === 0 ? (
+          <PatientList list={list} patient={patient} setPatient={setPatient} />
+        ) : (
+          <PatientList
+            list={filteredList}
+            patient={patient}
+            setPatient={setPatient}
+          />
+        )}
+      </div>
 
             <Accessibility
                 setDarkMode={setDarkMode}

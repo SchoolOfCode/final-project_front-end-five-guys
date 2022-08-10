@@ -6,6 +6,7 @@ import { CgProfile } from 'react-icons/cg';
 import AllergiesModal from '../../../../MUIcomponents/AllergiesModal';
 import './accountmenu.css';
 import { textAlign } from '@mui/system';
+import PrePaidModal from '../../../../MUIcomponents/PrePaidModal';
 
 export default function BasicMenu() {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -17,8 +18,9 @@ export default function BasicMenu() {
         setAnchorEl(null);
     };
 
+
     return (
-        <div>
+        <div id='account-menu'>
             <Button
                 id='basic-button'
                 aria-controls={open ? 'basic-menu' : undefined}
@@ -46,12 +48,13 @@ export default function BasicMenu() {
                     horizontal: 'center',
                 }}
             >
-                <MenuItem
+               {/* <MenuItem
                     onClick={handleClose}
                     sx={{ fontFamily: 'inter, sans-serif' }}
-                >
+                
                     Pre-Paid
-                </MenuItem>
+                </MenuItem> */}
+                 <PrePaidModal setAnchorEl={setAnchorEl}></PrePaidModal>
                 <MenuItem
                     onClick={handleClose}
                     sx={{ fontFamily: 'inter, sans-serif' }}
@@ -70,4 +73,5 @@ export default function BasicMenu() {
             </Menu>
         </div>
     );
+
 }

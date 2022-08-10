@@ -1,15 +1,14 @@
 //pass in patientList from Patient list (from db)
-import { useState } from "react";
-import PatientFile from "../PatientFile";
-import "./index.css";
-import { Patient } from "./Patient";
-import ButtonComponent from "../../../MUIcomponents/ButtonComponent";
+import { useState } from 'react';
+import PatientFile from '../PatientFile';
+import './index.css';
+import { Patient } from './Patient';
+import ButtonComponent from '../../../MUIcomponents/ButtonComponent';
 // import { IoMdArrowDropdown } from 'react-icons/io';
-import arrow from "../../../Assets/new-arrow.svg";
-import { v4 as uuidv4 } from "uuid";
+import arrow from '../../../Assets/new-arrow.svg';
+import { v4 as uuidv4 } from 'uuid';
 
 function PatientList({ list, patient, setPatient }) {
-
   // console.log('in patient:', list);
   const [filter, setFilter] = useState({ type: '', reverse: false });
 
@@ -18,24 +17,22 @@ function PatientList({ list, patient, setPatient }) {
     setPatient(null);
   }
   function compare(a, b) {
-
     // console.log('compare', a, b);
     if (filter.type === '') {
-
       if (a.surname.toUpperCase() > b.surname.toUpperCase()) {
         return filter.reverse ? -1 : 1;
       } else if (a.surname.toUpperCase() < b.surname.toUpperCase()) {
         return filter.reverse ? 1 : -1;
       }
       return 0;
-    } else if (filter.type === "first") {
+    } else if (filter.type === 'first') {
       if (a.firstname.toUpperCase() > b.firstname.toUpperCase()) {
         return filter.reverse ? -1 : 1;
       } else if (a.firstname.toUpperCase() < b.firstname.toUpperCase()) {
         return filter.reverse ? 1 : -1;
       }
       return 0;
-    } else if (filter.type === "last") {
+    } else if (filter.type === 'last') {
       if (a.surname.toUpperCase() > b.surname.toUpperCase()) {
         return filter.reverse ? -1 : 1;
       } else if (a.surname.toUpperCase() < b.surname.toUpperCase()) {
@@ -52,19 +49,19 @@ function PatientList({ list, patient, setPatient }) {
     }
   }
   function handleSort(sortBy, e) {
-    let flipped = document.getElementsByClassName("flip");
+    let flipped = document.getElementsByClassName('flip');
 
     for (let i = 0; i < flipped.length; i++) {
       let changedNode = e.target.firstElementChild
         ? e.target.firstElementChild
         : e.target === flipped[i];
       if (changedNode !== flipped[i]) {
-        flipped[i].classList.remove("flip");
+        flipped[i].classList.remove('flip');
       }
     }
     e.target.firstElementChild
-      ? e.target.firstElementChild.classList.toggle("flip")
-      : e.target.classList.toggle("flip");
+      ? e.target.firstElementChild.classList.toggle('flip')
+      : e.target.classList.toggle('flip');
 
     setFilter({
       type: sortBy,
@@ -76,37 +73,31 @@ function PatientList({ list, patient, setPatient }) {
   } else {
     return (
       <div>
-
-        <section className='sort-buttons'>
-
+        <section className="sort-buttons">
           <ButtonComponent
             text1={'First Name'}
-            text2={<img className='arrow' src={arrow} alt='sort direction' />}
+            text2={<img className="arrow" src={arrow} alt="sort direction" />}
             onClick={(e) => {
               handleSort('first', e);
             }}
           />
 
           <ButtonComponent
-
             text1={'Surname '}
-            text2={<img className='arrow' src={arrow} alt='sort direction' />}
+            text2={<img className="arrow" src={arrow} alt="sort direction" />}
             onClick={(e) => {
               handleSort('last', e);
-
             }}
           />
 
           <ButtonComponent
-
             text1={'NHS Number'}
-            text2={<img className='arrow' src={arrow} alt='sort direction' />}
+            text2={<img className="arrow" src={arrow} alt="sort direction" />}
             onClick={(e) => {
               handleSort('number', e);
             }}
           />
-          <div className='buffer-div'></div>
-
+          <div className="buffer-div"></div>
         </section>
 
         {/* <div> */}
@@ -156,8 +147,7 @@ function PatientList({ list, patient, setPatient }) {
 
         {/* <section className="patient-table-container"> */}
 
-        <table className='patient-table'>
-
+        <table className="patient-table">
           {/*<thead>
             <tr>
               <th>
@@ -208,9 +198,7 @@ function PatientList({ list, patient, setPatient }) {
                 <Patient
                   index={index}
                   setPatient={setPatient}
-
-                  className='individualPatient'
-
+                  className="individualPatient"
                   key={uuidv4()}
                   patientInfo={patient}
                 ></Patient>

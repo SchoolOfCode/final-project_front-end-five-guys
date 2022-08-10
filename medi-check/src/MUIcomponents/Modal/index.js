@@ -26,7 +26,7 @@ export default function NestedModal({ open, setOpen, results }) {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log('restul', results);
+  // console.log('restul', results);
   return (
     <div>
       {/* <Button onClick={handleOpen}>Open modal</Button> */}
@@ -37,8 +37,8 @@ export default function NestedModal({ open, setOpen, results }) {
             handleClose();
           }
         }}
-        aria-labelledby='parent-modal-title'
-        aria-describedby='parent-modal-description'
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
       >
         <Box sx={{ ...style, width: 400 }}>
           <button onClick={handleClose}>X</button>
@@ -49,7 +49,7 @@ export default function NestedModal({ open, setOpen, results }) {
           )}
           {typeof results[0] !== 'string' &&
             results.map((item) => {
-              console.log(item);
+              // console.log(item);
               return (
                 // { typeof item === 'string' ? <div> <h4>{item}</h4></div>: <div></div>}
                 <div key={uuidv4()}>

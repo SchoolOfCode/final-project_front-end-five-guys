@@ -1,4 +1,3 @@
-//
 import { useState } from 'react';
 import './Searchbar.css';
 import ButtonComponent from '../../../MUIcomponents/ButtonComponent';
@@ -49,8 +48,8 @@ export default function SearchBar(props) {
     let reg = new RegExp(search.toLowerCase());
     for (let i = 0; i < list.length; i++) {
       if (
-        list[i].FirstNames.toLowerCase().match(reg) ||
-        list[i].Surname.toLowerCase().match(reg)
+        list[i].firstname.toLowerCase().match(reg) ||
+        list[i].surname.toLowerCase().match(reg)
       ) {
         temp.push(list[i]);
       }
