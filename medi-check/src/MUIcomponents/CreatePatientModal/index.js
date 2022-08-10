@@ -100,6 +100,10 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
     console.log(obj);
     setTextFields({ ...obj });
   }
+  function cancel() {
+    document.getElementById('myForm').reset();
+    setOpen(false);
+  }
   const label = { inputProps: { 'aria-label': 'Pregnancy Status' } };
   return (
     <div>
@@ -119,7 +123,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
           }
         }}
       >
-        <form onSubmit={handleSubmit}>
+        <form id="myForm" onSubmit={handleSubmit}>
           {/* <DialogTitle>
                     New Prescription for {first} {last}
                 </DialogTitle> */}
@@ -353,7 +357,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={cancel}>Cancel</Button>
             <Button type="submit">Add New Patient</Button>
           </DialogActions>
         </form>
