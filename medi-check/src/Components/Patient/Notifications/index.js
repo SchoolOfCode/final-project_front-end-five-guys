@@ -27,39 +27,6 @@ import './notifications.css';
 import BasicPopover from '../../../MUIcomponents/Popover';
 import { useAuth0 } from '@auth0/auth0-react';
 
-export const dummyData = [
-  {
-    name: 'simvastatin',
-    dosage: '200',
-    measurement: 'mg',
-    freq1: '2',
-    freq2: 'day',
-    amount: 14,
-    prescription_date: '2022-7-20',
-    status: 'paused',
-  },
-  {
-    name: 'apixaban',
-    dosage: '400',
-    measurement: 'mg',
-    freq1: '2',
-    freq2: 'day',
-    amount: 14,
-    prescription_date: '2022-7-20',
-    status: 'paused',
-  },
-  {
-    name: 'atorvastatin',
-    dosage: '100',
-    measurement: 'ml',
-    freq1: '2',
-    freq2: 'day',
-    amount: 14,
-    prescription_date: '2022-7-20',
-    status: 'active',
-  },
-];
-
 export function Notifications({ data }) {
   const { user, isAuthenticated, isLoading } = useAuth0();
 
@@ -79,9 +46,9 @@ export function Notifications({ data }) {
       let response = await fetch(
         `https://fiveguysproject.herokuapp.com/patient?email=${pEmail}`
       );
-      let data = await response.json();
-      console.log('patient data ', data.data[0]);
-      setPatient(data.data[0]);
+      let json = await response.json();
+      console.log('patient data ', json.data[0]);
+      setPatient(json.data[0]);
     }
 
     if (pEmail && isAuthenticated) {

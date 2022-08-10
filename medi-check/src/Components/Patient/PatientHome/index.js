@@ -79,7 +79,7 @@ export function PatientHome({ registered, setRegistered }) {
   return (
     <>
       <PatientNavBar />
-      <Notifications data={dummyData} />
+      <Notifications />
       <UserSearchBar />
       <PrescriptionDisplay />
     </>
