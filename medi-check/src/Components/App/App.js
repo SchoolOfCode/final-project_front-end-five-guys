@@ -1,7 +1,5 @@
 import './App.css';
-//
 import { PatientHome } from '../Patient/PatientHome';
-//import Footer from "../Doctor/Footer";
 import DoctorHome from '../Doctor/DoctorHome';
 import { useState, useEffect } from 'react';
 
@@ -27,7 +25,7 @@ function App() {
         } else {
             setMode('App');
         }
-    }, [darkMode, largeFont, mode]);
+    }, [darkMode, largeFont]);
 
     return (
         <div className={mode}>
@@ -41,7 +39,10 @@ function App() {
                     setLargeFont={setLargeFont}
                 />
             ) : display === 'doctor' ? (
-                <DoctorHome setDarkMode={setDarkMode} />
+                <DoctorHome
+                    setDarkMode={setDarkMode}
+                    setLargeFont={setLargeFont}
+                />
             ) : (
                 <p>Please select a home page to display: </p>
             )}
