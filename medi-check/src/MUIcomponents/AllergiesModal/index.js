@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { v4 as uuidv4 } from 'uuid';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const style = {
   position: 'absolute',
@@ -30,22 +31,25 @@ export default function AllergiesModal() {
   });
 
   const [CurrentAllergy, setCurrentAllergy] = useState([]);
+  const { user, isAuthenticated, isLoading } = useAuth0();
 
   //dummy patient email for back end tie up, not needed when auth0 tied up
-  const pEmail = 'rsmith123@email.com';
-
-  async function getData() {
-    let response = await fetch(
-      `https://fiveguysproject.herokuapp.com/allergy/?email=${pEmail}`
-    );
-    let data = await response.json();
-    setCurrentAllergy(data.data);
-    console.log(data.data);
-  }
+  // const pEmail = 'rsmith123@email.com';
+  const pEmail = user.email;
 
   useEffect(() => {
-    getData();
-  }, []);
+    async function getData() {
+      let response = await fetch(
+        `https://fiveguysproject.herokuapp.com/allergy/?email=${pEmail}`
+      );
+      let data = await response.json();
+      setCurrentAllergy(data.data);
+      console.log(data.data);
+    }
+    if (pEmail && isAuthenticated) {
+      getData();
+    }
+  }, [pEmail, isAuthenticated]);
 
   function handleText(e) {
     let updatedName = e.target.name;
@@ -78,11 +82,11 @@ export default function AllergiesModal() {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby='modal-modal-title'
-        aria-describedby='modal-modal-description'
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id='modal-modal-title' variant='h5' component='h2'>
+          <Typography id="modal-modal-title" variant="h5" component="h2">
             Allergies
           </Typography>
           {CurrentAllergy.length > 0 ? (
@@ -90,7 +94,7 @@ export default function AllergiesModal() {
               return (
                 <Typography
                   key={uuidv4()}
-                  id='modal-modal-description'
+                  id="modal-modal-description"
                   sx={{ mt: 2, ml: 4 }}
                 >
                   {item.name}
@@ -104,13 +108,13 @@ export default function AllergiesModal() {
           <textarea
             style={{ resize: 'none', height: '5vh', width: '15vw' }}
             onChange={handleText}
-            name='name'
+            name="name"
           ></textarea>{' '}
           <Typography>New Allergy Reaction</Typography>
           <textarea
             style={{ resize: 'none', height: '5vh', width: '15vw' }}
             onChange={handleText}
-            name='reaction'
+            name="reaction"
           ></textarea>
           <button onClick={handleSubmit}>Submit</button>
         </Box>
