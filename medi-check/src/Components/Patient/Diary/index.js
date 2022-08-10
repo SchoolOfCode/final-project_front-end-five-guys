@@ -34,28 +34,26 @@ const style = {
 };
 
 const marks = [
-
-  {
-    value: 0,
-    label: <RiEmotionSadLine className='icon' />,
-  },
-  {
-    value: 25,
-    label: <RiEmotionUnhappyLine className='icon' />,
-  },
-  {
-    value: 50,
-    label: <RiEmotionNormalLine className='icon' />,
-  },
-  {
-    value: 75,
-    label: <RiEmotionHappyLine className='icon' />,
-  },
-  {
-    value: 100,
-    label: <RiEmotionLine className='icon' />,
-  },
-
+    {
+        value: 0,
+        label: <RiEmotionSadLine className='icon' />,
+    },
+    {
+        value: 25,
+        label: <RiEmotionUnhappyLine className='icon' />,
+    },
+    {
+        value: 50,
+        label: <RiEmotionNormalLine className='icon' />,
+    },
+    {
+        value: 75,
+        label: <RiEmotionHappyLine className='icon' />,
+    },
+    {
+        value: 100,
+        label: <RiEmotionLine className='icon' />,
+    },
 ];
 
 export function DiaryModal() {
@@ -69,15 +67,14 @@ export function DiaryModal() {
         details: '',
         date: today,
     });
-    
+
     function handleText(e) {
         SetEntry({ ...entry, details: e.target.value });
     }
 
-
-  function handleSlider(e) {
-    SetEntry({ ...entry, mood: e.target.value });
-  }
+    function handleSlider(e) {
+        SetEntry({ ...entry, mood: e.target.value });
+    }
 
     function handleSubmit() {
         postDiaryEntry();
@@ -85,23 +82,17 @@ export function DiaryModal() {
     }
     // const id = 1;
 
-
-
-
-
-  async function postDiaryEntry() {
-    const db_url = `https://fiveguysproject.herokuapp.com/diary/${pEmail}`;
-    const value = entry.mood / 25;
-    const newPost = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...entry, mood: value }),
-    };
-    const res = await fetch(db_url, newPost);
-    console.log(res);
-  }
-
-
+    async function postDiaryEntry() {
+        const db_url = `https://fiveguysproject.herokuapp.com/diary/${pEmail}`;
+        const value = entry.mood / 25;
+        const newPost = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...entry, mood: value }),
+        };
+        const res = await fetch(db_url, newPost);
+        console.log(res);
+    }
 
     return (
         <div>
@@ -110,7 +101,7 @@ export function DiaryModal() {
                     style={{
                         width: '4em',
                         height: '4em',
-                        color: 'var(--font-color)',
+                        color: '#1976d2',
                     }}
                 />
             </Button>

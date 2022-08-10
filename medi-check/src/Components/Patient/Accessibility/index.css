@@ -1,11 +1,15 @@
 .accessLogo-doctor {
-  height: 80px;
-  width: 80px;
-  top: 50%;
-  left: 100%;
-  position: fixed;
-  z-index: 1;
-  transform: translate(-100%, -50%);
+    height: 80px;
+    width: 80px;
+    top: 50%;
+    left: 100%;
+    position: fixed;
+    z-index: 1;
+    transform: translate(-100%, -50%);
+    cursor: grab;
+}
+.accessLogo-doctor:hover {
+    cursor: pointer;
 }
 /* .accessLogo-button {
     height: 1px;
@@ -18,6 +22,9 @@
 } */
 
 .accessLogo-patient {
-  height: 4em;
-  width: 4em;
+    height: 4em;
+    width: 4em;
+}
+.accessLogo-patient {
+    cursor: pointer;
 }

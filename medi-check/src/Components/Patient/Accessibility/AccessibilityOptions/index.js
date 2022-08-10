@@ -10,21 +10,25 @@ export default function AccessibilityOptions({
     setDarkMode,
     styleClass,
     setLargeFont,
+    onClick,
+    setOpen,
 }) {
     return (
-        <div id='basic' className={styleClass}>
-            <h4>
-                Dark Mode{' '}
-                <ControlledSwitchTwo
-                    setDarkMode={setDarkMode}
-                ></ControlledSwitchTwo>
-            </h4>
-            <h4>
-                Large Font{' '}
-                <ControlledSwitchThree
-                    setLargeFont={setLargeFont}
-                ></ControlledSwitchThree>
-            </h4>
+        <div>
+            <div id='basic' className={styleClass}>
+                <h4>
+                    Dark Mode{' '}
+                    <ControlledSwitchTwo
+                        setDarkMode={setDarkMode}
+                    ></ControlledSwitchTwo>
+                </h4>
+                <h4>
+                    Large Font{' '}
+                    <ControlledSwitchThree
+                        setLargeFont={setLargeFont}
+                    ></ControlledSwitchThree>
+                </h4>
+            </div>
         </div>
     );
 }
