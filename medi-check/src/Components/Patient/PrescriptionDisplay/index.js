@@ -77,7 +77,10 @@ function PrescriptionDisplay() {
     // console.log('asdasdasd', filteredObj);
     return { ...item, overrideMessage };
   });
-  // console.log('lol', itemInteractionsCombo);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <h3>Interaction Alert</h3>

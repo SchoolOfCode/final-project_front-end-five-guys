@@ -16,8 +16,6 @@ import { MdOutlineAddCircle } from 'react-icons/md';
 
 import './index.css';
 // import useInteractions from '../../Hooks/useInteractionsFromName';
-//Temp import to get the dummy data for prescriptions
-import { dummy } from '../../Components/Patient/PrescriptionDisplay/dummyData.js';
 //Easy tester drug: ketoconazole
 
 export default function FormDialog({ first, last, patient_id }) {
@@ -191,7 +189,6 @@ export default function FormDialog({ first, last, patient_id }) {
   }
   const handleClickOpen = () => {
     setOpen(true);
-    console.log('dum data', dummy);
   };
   const handleClose = () => {
     setOpen(false);

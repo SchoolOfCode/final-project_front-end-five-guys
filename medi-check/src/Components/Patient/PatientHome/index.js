@@ -1,6 +1,6 @@
 import PatientNavBar from '../NavBar';
 import PrescriptionDisplay from '../PrescriptionDisplay';
-import { Notifications, dummyData } from '../Notifications';
+import { Notifications } from '../Notifications';
 import UserSearchBar from '../Searchbar';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';

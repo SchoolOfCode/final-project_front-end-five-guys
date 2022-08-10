@@ -96,7 +96,9 @@ export function DiaryModal() {
       postDiaryEntry();
     }
   });
-
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
       <Button onClick={handleOpen}>Diary</Button>

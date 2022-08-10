@@ -177,6 +177,9 @@ export function Notifications() {
       return compareDates(data);
     });
   }, [data, alerts]);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="notification-box">
       <h2>Notifications</h2>

@@ -1,4 +1,3 @@
-//
 import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -75,7 +74,9 @@ export default function AllergiesModal() {
     const res = await fetch(db_url, newPost);
     console.log(res);
   }
-
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
       <Button onClick={handleOpen}>Allergies</Button>
