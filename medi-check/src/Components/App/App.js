@@ -16,12 +16,12 @@ function App() {
         setDisplay('doctor');
     }
     useEffect(() => {
-        if (darkMode) {
-            setMode('dark-mode App');
+        if (darkMode && largeFont) {
+            setMode('dark-mode large-font App');
         } else if (largeFont) {
             setMode('large-font App');
-        } else if (darkMode && largeFont) {
-            setMode('dark-mode large-font App');
+        } else if (darkMode) {
+            setMode('dark-mode App');
         } else {
             setMode('App');
         }
