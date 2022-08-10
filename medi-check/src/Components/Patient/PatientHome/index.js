@@ -13,12 +13,12 @@ export function PatientHome({ registered, setRegistered }) {
 
   useEffect(() => {
     async function checkCode() {
-      console.log('sending off code', code);
+      // console.log('sending off code', code);
       let codeCheck = await fetch(
         `https://fiveguysproject.herokuapp.com/signup?code=${code}`
       );
       let json = await codeCheck.json();
-      console.log('in there?', json);
+      // console.log('in there?', json);
       if (!json.data) {
         setError('Please input a valid sign up code');
         return;
@@ -31,15 +31,15 @@ export function PatientHome({ registered, setRegistered }) {
           }
         );
         let json = await codeUpdate.json();
-        console.log('in there 2?', json.data[0].patient_id);
+        // console.log('in there 2?', json.data[0].patient_id);
         let alignUser = await fetch(
           `https://fiveguysproject.herokuapp.com/patients?id=${json.data[0].patient_id}&email=${user.email}`,
           {
             method: 'PUT',
           }
         );
-        let json2 = await alignUser.json();
-        console.log('IN THERE 3???,', json2);
+        await alignUser.json();
+        // console.log('IN THERE 3???,', json2);
         setRegistered(true);
       }
     }

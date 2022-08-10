@@ -32,7 +32,7 @@ function App() {
       } else {
         setDisplay('doctor');
       }
-      console.log(doctorData);
+      // console.log(doctorData);
     }
     if (isAuthenticated) {
       findUser();

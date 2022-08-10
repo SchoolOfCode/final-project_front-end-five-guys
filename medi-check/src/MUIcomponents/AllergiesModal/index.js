@@ -43,7 +43,7 @@ export default function AllergiesModal() {
       );
       let data = await response.json();
       setCurrentAllergy(data.data);
-      console.log(data.data);
+      // console.log(data.data);
     }
     if (pEmail && isAuthenticated) {
       getData();
@@ -71,8 +71,8 @@ export default function AllergiesModal() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(allergy),
     };
-    const res = await fetch(db_url, newPost);
-    console.log(res);
+    await fetch(db_url, newPost);
+    // console.log(res);
   }
   if (isLoading) {
     return <div>Loading...</div>;

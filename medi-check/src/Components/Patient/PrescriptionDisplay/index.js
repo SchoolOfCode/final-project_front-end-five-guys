@@ -14,7 +14,7 @@ function PrescriptionDisplay() {
 
   const pEmail = user.email;
   // const pEmail = 'vickismith@email.com';
-  console.log(user.email);
+  // console.log(user.email);
   const [prescriptions, setPrescriptions] = useState([]);
   useEffect(() => {
     async function getPrescriptions() {

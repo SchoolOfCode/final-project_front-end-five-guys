@@ -88,8 +88,8 @@ export function DiaryModal() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(entry),
       };
-      const res = await fetch(db_url, newPost);
-      console.log(res);
+      await fetch(db_url, newPost);
+      // console.log(res);
       setSubmit(false);
     }
     if (submit && isAuthenticated) {
