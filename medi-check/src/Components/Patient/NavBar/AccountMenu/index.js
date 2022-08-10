@@ -5,6 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { CgProfile } from 'react-icons/cg';
 import AllergiesModal from '../../../../MUIcomponents/AllergiesModal';
 import './accountmenu.css';
+import PrePaidModal from '../../../../MUIcomponents/PrePaidModal';
 
 export default function BasicMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -17,7 +18,7 @@ export default function BasicMenu() {
   };
 
   return (
-    <div>
+    <div id='account-menu'>
       <Button
         id='basic-button'
         aria-controls={open ? 'basic-menu' : undefined}
@@ -44,7 +45,7 @@ export default function BasicMenu() {
           horizontal: 'center',
         }}
       >
-        <MenuItem onClick={handleClose}>Pre-Paid</MenuItem>
+        <PrePaidModal setAnchorEl={setAnchorEl}></PrePaidModal>
         <MenuItem onClick={handleClose}>OTC </MenuItem>
         <AllergiesModal setAnchorEl={setAnchorEl}>Allergies</AllergiesModal>
       </Menu>
