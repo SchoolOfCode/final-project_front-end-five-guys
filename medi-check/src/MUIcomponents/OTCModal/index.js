@@ -3,9 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import PrePaidDateCalender from '../PrePaidDateCalender';
-import './PrePaidModal.css';
-
+import './index.css';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -18,7 +16,7 @@ const style = {
   p: 4,
 };
 
-export default function PrePaidModal({ setAnchorEl }) {
+export default function OTCModal({ setAnchorEl }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
 
@@ -33,9 +31,9 @@ export default function PrePaidModal({ setAnchorEl }) {
   }
 
   return (
-    <div id="pre-paid-modal">
+    <div id="otc-modal">
       <Button onClick={handleOpen} sx={{ width: '100%' }}>
-        Pre-paid
+        OTC
       </Button>
       <Modal
         open={open}
@@ -51,8 +49,7 @@ export default function PrePaidModal({ setAnchorEl }) {
             If you have renewed it, please click below to update our records
             accordingly.
           </Typography>
-          <PrePaidDateCalender id="calender"></PrePaidDateCalender>
-          <div id="pre-paid-modal-buttons">
+          <div id="otc-buttons">
             <Button onClick={submitDate}>Submit</Button>
             <Button onClick={handleClose}>Close</Button>
           </div>

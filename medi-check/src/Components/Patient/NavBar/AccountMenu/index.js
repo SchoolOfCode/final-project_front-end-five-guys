@@ -6,6 +6,7 @@ import { CgProfile } from 'react-icons/cg';
 import AllergiesModal from '../../../../MUIcomponents/AllergiesModal';
 import './accountmenu.css';
 import PrePaidModal from '../../../../MUIcomponents/PrePaidModal';
+import OTCModal from '../../../../MUIcomponents/OTCModal';
 
 export default function BasicMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -18,18 +19,18 @@ export default function BasicMenu() {
   };
 
   return (
-    <div id='account-menu'>
+    <div id="account-menu">
       <Button
-        id='basic-button'
+        id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup='true'
+        aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <CgProfile id='profile-button' />
+        <CgProfile id="profile-button" />
       </Button>
       <Menu
-        id='basic-menu'
+        id="basic-menu"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
@@ -46,7 +47,7 @@ export default function BasicMenu() {
         }}
       >
         <PrePaidModal setAnchorEl={setAnchorEl}></PrePaidModal>
-        <MenuItem onClick={handleClose}>OTC </MenuItem>
+        <OTCModal setAnchorEl={setAnchorEl}></OTCModal>
         <AllergiesModal setAnchorEl={setAnchorEl}>Allergies</AllergiesModal>
       </Menu>
     </div>
