@@ -5,7 +5,7 @@ import ControlledSwitchTwo from '../../../../MUIcomponents/ControlledSwitchTwo';
 //
 import './menu.css';
 
-export default function AccessibilityOptions({ setDarkMode }) {
+export default function AccessibilityOptions({ setDarkMode, styleClass }) {
   //   const [entry, SetEntry] = useState({ value: 0 });
   //   const marks = [
   //     {
@@ -28,7 +28,7 @@ export default function AccessibilityOptions({ setDarkMode }) {
   //     SetEntry({ ...entry, value: e.target.value });
   //   }
   return (
-    <div className='access-menu'>
+    <div id='basic' className={styleClass}>
       <h4>
         Dark Mode{' '}
         <ControlledSwitchTwo setDarkMode={setDarkMode}></ControlledSwitchTwo>

@@ -2,10 +2,12 @@ import PatientNavBar from '../NavBar';
 import PrescriptionDisplay from '../PrescriptionDisplay';
 import { Notifications } from '../Notifications';
 import UserSearchBar from '../Searchbar';
+import logo from '../../../Assets/medi-check.png';
+import './patientHome.css';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
 
-export function PatientHome({ registered, setRegistered }) {
+export function PatientHome({ registered, setRegistered,setDarkMode}) {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
@@ -76,12 +78,28 @@ export function PatientHome({ registered, setRegistered }) {
       </div>
     );
   }
-  return (
-    <>
-      <PatientNavBar />
-      <Notifications />
-      <UserSearchBar />
-      <PrescriptionDisplay />
-    </>
-  );
-}
+   return (
+        <div
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+                padding: '1em',
+            }}
+        >
+            <div className='patient-top-bar'>
+                <div>
+                    <img id='patient-logo' src={logo} alt='medi-check logo' />
+                </div>
+                <div>
+                    <Notifications data={dummyData} />
+                </div>
+            </div>
+
+            <PrescriptionDisplay />
+            <UserSearchBar />
+            <div style={{ marginTop: '30%', left: '0%' }}>
+                <PatientNavBar setDarkMode={setDarkMode} />
+            </div>
+        </div>
+    );
+

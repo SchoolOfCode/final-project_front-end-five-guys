@@ -12,7 +12,7 @@
   flex-direction: row;
   justify-content: flex-start;
   height: 90vh;
-  width: 70%;
+  width: 80%;
   background-color: var(--table-color);
   border-radius: 1em;
   overflow: auto;

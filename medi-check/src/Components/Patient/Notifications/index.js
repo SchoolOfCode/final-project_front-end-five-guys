@@ -24,6 +24,8 @@ for new prescription requirement we will need to:
 import { useEffect, useState } from 'react';
 //import BasicModal from '../../../MUIcomponents/PrescriptionModal';
 import './notifications.css';
+import logo from '../../../Assets/medi-check.png';
+
 import BasicPopover from '../../../MUIcomponents/Popover';
 import { useAuth0 } from '@auth0/auth0-react';
 
@@ -180,17 +182,18 @@ export function Notifications() {
   if (isLoading) {
     return <div>Loading...</div>;
   }
-  return (
-    <div className="notification-box">
-      <h2>Notifications</h2>
-      {/* <button>{notifications}</button> */}
-      {/*<BasicModal data = {alerts} notifications = {notifications}/>*/}
-      <BasicPopover
-        data={alerts}
-        notifications={notifications}
-        prepaid={paidDate}
-      />
-    </div>
-  );
+   return (
+        <div>
+            {/* <button>{notifications}</button> */}
+            {/*<BasicModal data = {alerts} notifications = {notifications}/>*/}
+            <BasicPopover
+                data={alerts}
+                notifications={notifications}
+                prepaid={paidDate}
+            />
+        </div>
+    );
+  
+
 }
 // {alerts.map((alert) => {return <p key = {alert + 1}> {alert} </p>})}

@@ -14,13 +14,18 @@ import {
 } from 'react-icons/ri';
 import './diary.css';
 import { useAuth0 } from '@auth0/auth0-react';
+import { ImBook } from 'react-icons/im/';
+
 
 const style = {
+  display: 'flex',
+  flexDirection: 'column',
+  objectFit: 'contain',
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 500,
+  width: '90%',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -30,23 +35,23 @@ const style = {
 const marks = [
   {
     value: 0,
-    label: <RiEmotionSadLine className="icon" />,
+    label: <RiEmotionSadLine className='icon' />,
   },
   {
     value: 25,
-    label: <RiEmotionUnhappyLine className="icon" />,
+    label: <RiEmotionUnhappyLine className='icon' />,
   },
   {
     value: 50,
-    label: <RiEmotionNormalLine className="icon" />,
+    label: <RiEmotionNormalLine className='icon' />,
   },
   {
     value: 75,
-    label: <RiEmotionHappyLine className="icon" />,
+    label: <RiEmotionHappyLine className='icon' />,
   },
   {
     value: 100,
-    label: <RiEmotionLine className="icon" />,
+    label: <RiEmotionLine className='icon' />,
   },
 ];
 
@@ -67,12 +72,12 @@ export function DiaryModal() {
     date: today,
   });
 
-  function handleSlider(e) {
-    SetEntry({ ...entry, mood: e.target.value / 25 });
-  }
-
   function handleText(e) {
     SetEntry({ ...entry, details: e.target.value });
+  }
+
+  function handleSlider(e) {
+    SetEntry({ ...entry, mood: e.target.value });
   }
 
   function handleSubmit() {
@@ -83,10 +88,12 @@ export function DiaryModal() {
   useEffect(() => {
     async function postDiaryEntry() {
       const db_url = `https://fiveguysproject.herokuapp.com/diary/${pEmail}`;
+          const value = entry.mood / 25;
+
       const newPost = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(entry),
+       body: JSON.stringify({ ...entry, mood: value }),
       };
       await fetch(db_url, newPost);
       // console.log(res);
@@ -98,30 +105,44 @@ export function DiaryModal() {
   });
   if (isLoading) {
     return <div>Loading...</div>;
+
   }
   return (
     <div>
-      <Button onClick={handleOpen}>Diary</Button>
+      <Button onClick={handleOpen}>
+        <ImBook
+          style={{
+            width: '4em',
+            height: '4em',
+            color: 'var(--font-color)',
+          }}
+        />
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
       >
         <Box sx={style}>
-          <button id="close" onClick={handleClose}>
+          <button id='close' onClick={handleClose}>
             x
           </button>
-          <Typography id="modal-modal-title" variant="h2" component="h2">
+          <Typography
+            style={{}}
+            id='modal-modal-title'
+            variant='h2'
+            component='h2'
+          >
             Diary
           </Typography>
           <Typography>{today}</Typography>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography id='modal-modal-title' variant='h6' component='h2'>
             How are you feeling today?
           </Typography>
-          <Box sx={{ width: 400 }}>
+          <Box sx={{ width: '100%' }}>
             <Slider
-              aria-label="Restricted values"
+              aria-label='Restricted values'
               defaultValue={50}
               step={null}
               marks={marks}
@@ -129,14 +150,21 @@ export function DiaryModal() {
               onChange={handleSlider}
             />
           </Box>
-          <Typography id="side-effects-title" variant="h6" component="h2">
+          <Typography id='side-effects-title' variant='h6' component='h2'>
             Side Effects/Mood/Symptoms
           </Typography>
           <textarea
-            style={{ resize: 'none', height: '10vh', width: '20vw' }}
+            style={{
+              resize: 'none',
+              height: '10vh',
+              width: '100%',
+            }}
             onChange={handleText}
           ></textarea>
-          <button onClick={handleSubmit}>Submit entry</button>
+
+          <button style={{ alignSelf: 'center' }} onClick={handleSubmit}>
+            Submit entry
+          </button>
         </Box>
       </Modal>
     </div>

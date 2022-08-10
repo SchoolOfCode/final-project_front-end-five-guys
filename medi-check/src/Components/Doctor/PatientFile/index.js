@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import './patientFile.css';
 import { useEffect, useState } from 'react';
 import DiaryDialog from '../../../MUIcomponents/DiaryDialog';
+import CurrentMedication from '../CurrentMedication';
 function PatientFile({ info, onClick }) {
   const [allergies, setAllergies] = useState([]);
   const [prescriptions, setPrescriptions] = useState([]);
@@ -51,17 +52,7 @@ function PatientFile({ info, onClick }) {
   }
   console.log('dob', info.dob);
   return (
-    <main>
-      {/* <section className="hide" id="interactionPopup">
-        Hi I am supposed to be hidden
-      </section> */}
-
-      {/* <ButtonComponent
-                sx={{ display: "none" }}
-                id="close-button"
-                text1="Close"
-                onClick={onClick}
-            ></ButtonComponent> */}
+    <main className='patient-section'>
       <button className='close-button' onClick={onClick}>
         Close Patient
       </button>
@@ -75,161 +66,116 @@ function PatientFile({ info, onClick }) {
       <button className='close-button' id='diary' onClick={showDiary}>
         Show Diary
       </button>
-      <section className='patientInfo'>
-        {/* <h3>
-                    {info.Title} {info.FirstNames} {info.Surname}
-                </h3>
-                <h4>
-                    D.O.B:{" "}
-                    {String(info.dob).slice(0, 2) +
-                        "-" +
-                        String(info.dob).slice(2, 4) +
-                        "-" +
-                        String(info.dob).slice(4)}
-                </h4>
-                <h4>Gender: {info.gender}</h4>
-                <h4>Ethnicity: {info.ethnicity}</h4>
-                <h4>Address: {info.address}</h4>
-                <h4>Postcode: {info.postcode.toUpperCase()}</h4>
-                <h4>Phone Number: {info.phoneNumber}</h4>
-                <div>
-                    <h4>Allergies:</h4>
-                    {info.allergies.length === 0 ? (
-                        <h5>none</h5>
-                    ) : (
-                        info.allergies.map((item) => {
-                            return <h5 key={uuidv4()}>{item}</h5>;
-                        })
-                    )}
-                </div>
-                <h4>NHS number: {info.nhsNumber}</h4>
-                <h4>GP: {info.gpSurgery}</h4>
-                <h4>Current Medication: </h4> */}
-        <table id='patient-info-table'>
-          <tr>
-            <td className='headings'>Name:</td>
-            <td>
-              {info.title} {info.firstname} {info.surname}
-            </td>
-          </tr>
-          <tr>
-            <td className='headings'>DOB:</td>
-            <td>
-              {String(info.dob).slice(0, 2) +
-                String(info.dob).slice(2, 4) +
-                String(info.dob).slice(4)}
-            </td>
-          </tr>
-          <tr>
-            <td className='headings'>Gender:</td>
-            <td>{info.gender}</td>
-          </tr>
-          <tr>
-            <td className='headings'>Ethnicity:</td>
-            <td>{info.ethnicity}</td>
-          </tr>
-          <tr>
-            <td className='headings'>Address:</td>
-            <td>{info.address}</td>
-          </tr>
-          <tr>
-            <td className='headings'>Postcode:</td>
-            <td>{info.postcode}</td>
-          </tr>
-          <tr>
-            <td className='headings'>Phone Number:</td>
-            <td>{info.phonenumber}</td>
-          </tr>
-          <tr>
-            <td className='headings'>Allergies:</td>
-            <td>
-              {allergies.map((item) => {
-                return (
-                  <p key={uuidv4()}>
-                    {item.name}
-                    {', '}
-                    {item.reaction}
-                  </p>
-                );
-              })}
-            </td>
-          </tr>
-          <tr>
-            <td className='headings'>NHS Number:</td>
-            <td>{info.nhsnumber}</td>
-          </tr>
-          <tr>
-            <td className='headings'>GP:</td>
-            <td>{info.gpsurgery}</td>
-          </tr>
-          <tr>
-            <td className='headings'>Current Medication:</td>
-            <td>
-              {' '}
-              {prescriptions.map((item) => {
-                return <p>{item.name}</p>;
-              })}
-            </td>
-          </tr>
-        </table>
-        {/*<div className='displayPatient'>
-          <div className='left-column'>
-            {' '}
-            <h4>Name:</h4>
-            <h4>D.O.B:</h4>
-            <h4>Gender:</h4>
-            <h4>Ethnicity: </h4>
-            <h4>Address: </h4>
-            <h4>Postcode: </h4>
-            <h4>Phone Number: </h4>
-            <h4>Allergies:</h4>
-            <h4>NHS number: </h4>
-            <h4>GP:</h4>
-            <h4>Current Medication: </h4>
-          </div>
-          <div className='right-column'>
-            {' '}
-            <h4>
-              {info.title} {info.firstname} {info.surname}
-            </h4>
-            <h4>
-              {String(info.dob).slice(0, 2) +
-                String(info.dob).slice(2, 4) +
-                String(info.dob).slice(4)}
-            </h4>
-            <h4>{info.gender}</h4>
-            <h4> {info.ethnicity}</h4>
-            <h4>{info.address}</h4>
-            <h4> {info.postcode.toUpperCase()}</h4>
-            <h4>{info.phonenumber}</h4>
-            <div>
-              {allergies.map((item) => {
-                return (
-                  <h4 key={uuidv4()}>
-                    {item.name}
-                    {', '}
-                    {item.reaction}
-                  </h4>
-                );
-              })}
+
+      <div>
+        <section className='patientInfo'>
+          <table id='patient-info-table'>
+            <tr>
+              <td className='headings'>Name:</td>
+              <td>
+                {info.title} {info.firstname} {info.surname}
+              </td>
+            </tr>
+            <tr>
+              <td className='headings'>DOB:</td>
+              <td>
+                {String(info.dob).slice(0, 2) +
+                  '-' +
+                  String(info.dob).slice(2, 4) +
+                  '-' +
+                  String(info.dob).slice(4)}
+              </td>
+            </tr>
+            <tr>
+              <td className='headings'>Gender:</td>
+              <td>{info.gender}</td>
+            </tr>
+            <tr>
+              <td className='headings'>Ethnicity:</td>
+              <td>{info.ethnicity}</td>
+            </tr>
+            <tr>
+              <td className='headings'>Address:</td>
+              <td>{info.address}</td>
+            </tr>
+            <tr>
+              <td className='headings'>Postcode:</td>
+              <td>{info.postcode}</td>
+            </tr>
+            <tr>
+              <td className='headings'>Phone Number:</td>
+              <td>{info.phonenumber}</td>
+            </tr>
+            <tr>
+              <td className='headings'>NHS Number:</td>
+              <td>{info.nhsnumber}</td>
+            </tr>
+            <tr>
+              <td className='headings'>GP:</td>
+              <td>{info.gpsurgery}</td>
+            </tr>
+          </table>
+        </section>
+        <div>
+          <table>
+            <div className='allergy-table'>
+              <tr className='allergy-column'>
+                <th className='allergy-heading'>Allergies</th>
+                <td>
+                  {allergies.map((allergy) => {
+                    return (
+                      <tr>
+                        <td className='heading' key={uuidv4()}>
+                          {allergy.name}:
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </td>
+              </tr>
+
+              <tr className='reactions-column'>
+                <td className='reactions-header'>Reactions</td>
+                {allergies.map((allergy) => {
+                  return (
+                    <tr>
+                      <td>{allergy.reaction}</td>
+                    </tr>
+                  );
+                })}
+              </tr>
+
+              {/* <th>
+              <td>Allergy</td>
+              <td>Reactions</td>
+            </th>
+
+            <tr>
+              <td>
+                {allergies.map((allergy) => {
+                  return (
+                    <tr className='allergy-info'>
+                      <td className='allergy-type' key={uuidv4()}>
+                        {allergy.name}:
+                      </td>
+                      <td className='allergy-reaction'>{allergy.reaction}</td>
+                    </tr>
+                  );
+                })}
+              </td>
+            </tr> */}
             </div>
-            <h4>{info.nhsnumber}</h4>
-            <h4>{info.gpsurgery}</h4>
-            <h4>
-              {prescriptions.map((item) => {
-                return <div key={uuidv4()}>{item.name}</div>;
-              })}
-            </h4>
-          </div>
-        </div> */}
-      </section>
-      <div className='button-mover'>
-        <FormDialog
-          first={info.FirstNames}
-          last={info.Surname}
-          patient_id={info.patient_id}
-        />
+          </table>
+        </div>
+        <div className='button-mover'>
+          <FormDialog
+            first={info.FirstNames}
+            last={info.Surname}
+            patient_id={info.patient_id}
+          />
+        </div>
       </div>
+      <CurrentMedication prescriptions={prescriptions} allergies={allergies} />
     </main>
   );
 }
