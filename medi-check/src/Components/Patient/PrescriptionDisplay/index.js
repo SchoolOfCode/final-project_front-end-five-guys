@@ -5,28 +5,33 @@ import useInteractions from '../../../Hooks/useInteractionsFromName';
 import CustomizedAccordions from '../../../MUIcomponents/Accordian';
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import './prescriptionDisplay.css';
 
 //Will fetch backend to get the patient prescription names and information, then plug that into the API twice.
 //Working on functionality now, not completeness
 function PrescriptionDisplay() {
-    const pEmail = 'rsmith123@email.com';
-    const [prescriptions, setPrescriptions] = useState([]);
-    useEffect(() => {
-        async function getPrescriptions() {
-            let res = await fetch(
-                `https://fiveguysproject.herokuapp.com/prescriptions?email=${pEmail}`
-            );
-            let json = await res.json();
-            // console.log('json', json);
-            setPrescriptions(json.data);
-        }
-        if (pEmail) {
-            getPrescriptions();
-        }
-    }, []);
-    let itemInteractions = useInteractions(prescriptions);
-    // let itemInteractions = testInteractions;
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  const pEmail = user.email;
+  // const pEmail = 'vickismith@email.com';
+  // console.log(user.email);
+  const [prescriptions, setPrescriptions] = useState([]);
+  useEffect(() => {
+    async function getPrescriptions() {
+      let res = await fetch(
+        `https://fiveguysproject.herokuapp.com/prescriptions?email=${pEmail}`
+      );
+      let json = await res.json();
+      // console.log('json', json);
+      setPrescriptions(json.data);
+    }
+    if (pEmail && isAuthenticated) {
+      getPrescriptions();
+    }
+  }, [pEmail, isAuthenticated]);
+  let itemInteractions = useInteractions(prescriptions);
+  // let itemInteractions = testInteractions;
 
     // console.log('itemInter', itemInteractions);
     //This is taking the API data and for each drug interaction it is grouping together the drug, the drug it is interacting with, and the description
@@ -59,22 +64,17 @@ function PrescriptionDisplay() {
     const current = combo.filter((info) => {
         return info.status === 'active' || info.status === 'paused';
     });
-    //Adding doctors message to the API response for the correct drug
-    let itemInteractionsCombo = itemInteractions.map((item) => {
-        let filteredObj = combo.filter((index) => {
-            return (
-                item.minConcept[0].name === index.drug ||
-                item.minConcept[1].name === index.drug
-            );
-        });
-        let overrideMessage = filteredObj[0].message
-            ? filteredObj[0].message
-            : filteredObj[1].message;
-        // console.log('asdasdasd', filteredObj);
-        return { ...item, overrideMessage };
-    });
-    // console.log('lol', itemInteractionsCombo);
-    return (
+    let overrideMessage = filteredObj[0].message
+      ? filteredObj[0].message
+      : filteredObj[1].message;
+    // console.log('asdasdasd', filteredObj);
+    return { ...item, overrideMessage };
+  });
+  console.log(itemInteractions, itemInteractionsCombo);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  return (
         <div>
             <div className='accordian-container'>
                 {itemInteractionsCombo.map((item) => {
@@ -113,6 +113,8 @@ function PrescriptionDisplay() {
             ></CustomizedAccordions>
         </div>
     );
+  
+
 }
 
 export default PrescriptionDisplay;

@@ -1,10 +1,10 @@
-//
 import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { v4 as uuidv4 } from 'uuid';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const style = {
     display: 'flex',
@@ -32,28 +32,27 @@ export default function AllergiesModal({ setAnchorEl }) {
         reaction: '',
     });
 
-    function handleClose() {
-        setOpen(false);
-        setAnchorEl(null);
-    }
+  const [CurrentAllergy, setCurrentAllergy] = useState([]);
+  const { user, isAuthenticated, isLoading } = useAuth0();
 
-    const [CurrentAllergy, setCurrentAllergy] = useState([]);
+  //dummy patient email for back end tie up, not needed when auth0 tied up
+  // const pEmail = 'rsmith123@email.com';
+  const pEmail = user.email;
 
-    //dummy patient email for back end tie up, not needed when auth0 tied up
-    const pEmail = 'rsmith123@email.com';
-
+  useEffect(() => {
     async function getData() {
-        let response = await fetch(
-            `https://fiveguysproject.herokuapp.com/allergy/?email=${pEmail}`
-        );
-        let data = await response.json();
-        setCurrentAllergy(data.data);
-        console.log(data.data);
+      let response = await fetch(
+        `https://fiveguysproject.herokuapp.com/allergy/?email=${pEmail}`
+      );
+      let data = await response.json();
+      setCurrentAllergy(data.data);
+      // console.log(data.data);
     }
+    if (pEmail && isAuthenticated) {
+      getData();
+    }
+  }, [pEmail, isAuthenticated]);
 
-    useEffect(() => {
-        getData();
-    }, []);
 
     function handleText(e) {
         let updatedName = e.target.name;
@@ -69,18 +68,20 @@ export default function AllergiesModal({ setAnchorEl }) {
         setCurrentAllergy([...CurrentAllergy, allergy]);
     }
 
-    async function postAllergy() {
-        const db_url = `https://fiveguysproject.herokuapp.com/allergy/${pEmail}`;
-        const newPost = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(allergy),
-        };
-        const res = await fetch(db_url, newPost);
-        console.log(res);
-    }
-
-    return (
+  async function postAllergy() {
+    const db_url = `https://fiveguysproject.herokuapp.com/allergy/${pEmail}`;
+    const newPost = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(allergy),
+    };
+    await fetch(db_url, newPost);
+    // console.log(res);
+  }
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+ return (
         <div>
             <Button onClick={handleOpen}>Allergies</Button>
             <Modal
@@ -138,4 +139,5 @@ export default function AllergiesModal({ setAnchorEl }) {
             </Modal>
         </div>
     );
+
 }
