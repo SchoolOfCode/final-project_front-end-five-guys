@@ -52,8 +52,8 @@ function PatientFile({ info, onClick }) {
   }
   console.log('dob', info.dob);
   return (
-    <main className='patient-section'>
-      <button className='close-button' onClick={onClick}>
+    <main className="patient-section">
+      <button className="close-button" onClick={onClick}>
         Close Patient
       </button>
       <DiaryDialog
@@ -63,21 +63,21 @@ function PatientFile({ info, onClick }) {
           return a.diary_id > b.diary_id;
         })}
       ></DiaryDialog>
-      <button className='close-button' id='diary' onClick={showDiary}>
+      <button className="close-button" id="diary" onClick={showDiary}>
         Show Diary
       </button>
 
       <div>
-        <section className='patientInfo'>
-          <table id='patient-info-table'>
+        <section className="patientInfo">
+          <table id="patient-info-table">
             <tr>
-              <td className='headings'>Name:</td>
+              <td className="headings">Name:</td>
               <td>
                 {info.title} {info.firstname} {info.surname}
               </td>
             </tr>
             <tr>
-              <td className='headings'>DOB:</td>
+              <td className="headings">DOB:</td>
               <td>
                 {String(info.dob).slice(0, 2) +
                   '-' +
@@ -87,45 +87,45 @@ function PatientFile({ info, onClick }) {
               </td>
             </tr>
             <tr>
-              <td className='headings'>Gender:</td>
+              <td className="headings">Gender:</td>
               <td>{info.gender}</td>
             </tr>
             <tr>
-              <td className='headings'>Ethnicity:</td>
+              <td className="headings">Ethnicity:</td>
               <td>{info.ethnicity}</td>
             </tr>
             <tr>
-              <td className='headings'>Address:</td>
+              <td className="headings">Address:</td>
               <td>{info.address}</td>
             </tr>
             <tr>
-              <td className='headings'>Postcode:</td>
+              <td className="headings">Postcode:</td>
               <td>{info.postcode}</td>
             </tr>
             <tr>
-              <td className='headings'>Phone Number:</td>
+              <td className="headings">Phone Number:</td>
               <td>{info.phonenumber}</td>
             </tr>
             <tr>
-              <td className='headings'>NHS Number:</td>
+              <td className="headings">NHS Number:</td>
               <td>{info.nhsnumber}</td>
             </tr>
             <tr>
-              <td className='headings'>GP:</td>
+              <td className="headings">GP:</td>
               <td>{info.gpsurgery}</td>
             </tr>
           </table>
         </section>
         <div>
           <table>
-            <div className='allergy-table'>
-              <tr className='allergy-column'>
-                <th className='allergy-heading'>Allergies</th>
+            <div className="allergy-table">
+              <tr className="allergy-column">
+                <th className="allergy-heading">Allergies</th>
                 <td>
                   {allergies.map((allergy) => {
                     return (
                       <tr>
-                        <td className='heading' key={uuidv4()}>
+                        <td className="heading" key={uuidv4()}>
                           {allergy.name}:
                         </td>
                       </tr>
@@ -134,8 +134,8 @@ function PatientFile({ info, onClick }) {
                 </td>
               </tr>
 
-              <tr className='reactions-column'>
-                <td className='reactions-header'>Reactions</td>
+              <tr className="reactions-column">
+                <td className="reactions-header">Reactions</td>
                 {allergies.map((allergy) => {
                   return (
                     <tr>
@@ -167,11 +167,13 @@ function PatientFile({ info, onClick }) {
             </div>
           </table>
         </div>
-        <div className='button-mover'>
+        <div className="button-mover">
           <FormDialog
             first={info.FirstNames}
             last={info.Surname}
             patient_id={info.patient_id}
+            prescriptions={prescriptions}
+            setPrescriptions={setPrescriptions}
           />
         </div>
       </div>

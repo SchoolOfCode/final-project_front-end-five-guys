@@ -16,11 +16,15 @@ import { MdOutlineAddCircle } from 'react-icons/md';
 
 import './index.css';
 // import useInteractions from '../../Hooks/useInteractionsFromName';
-//Temp import to get the dummy data for prescriptions
-import { dummy } from '../../Components/Patient/PrescriptionDisplay/dummyData.js';
 //Easy tester drug: ketoconazole
 
-export default function FormDialog({ first, last, patient_id }) {
+export default function FormDialog({
+  first,
+  last,
+  patient_id,
+  prescriptions,
+  setPrescriptions,
+}) {
   console.log(Date.now(), Date.UTC());
   const style = {
     position: 'absolute',
@@ -79,7 +83,9 @@ export default function FormDialog({ first, last, patient_id }) {
         );
         let json = await res.json();
         console.log(nameArray[i], nameArray, json);
-        url += `+${json.idGroup.rxnormId[0]}`;
+        if (json.idGroup.rxnormId) {
+          url += `+${json.idGroup.rxnormId[0]}`;
+        }
       }
       try {
         let response = await fetch(url + '&sources=ONCHigh');
@@ -156,11 +162,13 @@ export default function FormDialog({ first, last, patient_id }) {
       );
       let json = await response.json();
       console.log('posted pres', json);
+      setPrescriptions([...prescriptions, prescriptionObj]);
+      setPrescriptionObj({});
     }
     if (Object.keys(prescriptionObj).length !== 0) {
       sendPrescription();
     }
-  }, [prescriptionObj, patient_id]);
+  }, [prescriptionObj, patient_id, prescriptions, setPrescriptions]);
   //States for all of the textfields
   // const [name, setName] = React.useState('');
   // const [dosage, setDosage] = React.useState(0);
@@ -189,7 +197,6 @@ export default function FormDialog({ first, last, patient_id }) {
   }
   const handleClickOpen = () => {
     setOpen(true);
-    console.log('dum data', dummy);
   };
   const handleClose = () => {
     setOpen(false);
@@ -471,7 +478,9 @@ export default function FormDialog({ first, last, patient_id }) {
             <Button type="button" onClick={handleClose}>
               Cancel
             </Button>
-            <Button type="submit">Prescribe</Button>
+            <Button type="submit" onClick={handleClose}>
+              Prescribe
+            </Button>
           </DialogActions>
         </form>
       </Dialog>

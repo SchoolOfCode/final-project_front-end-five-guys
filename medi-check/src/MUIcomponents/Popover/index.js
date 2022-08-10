@@ -36,15 +36,19 @@ export default function BasicPopover({ data, notifications, prepaid }) {
 
   return (
     <div>
-      <div className='notifications'>
+      <div className="notifications">
         <TbBellRinging2
-          className='bell-icon'
+          className="bell-icon"
           sx={{ position: 'relative' }}
           aria-describedby={id}
-          variant='contained'
+          variant="contained"
           onClick={handleClick}
         ></TbBellRinging2>
-        <div className='notification-number'>{notifications}</div>
+        {notifications === 0 ? (
+          <></>
+        ) : (
+          <div className="notification-number">{notifications}</div>
+        )}
       </div>
       <Popover
         id={id}
@@ -56,12 +60,12 @@ export default function BasicPopover({ data, notifications, prepaid }) {
           horizontal: 'left',
         }}
       >
-        <Typography className='modal-modal-title' component='h2' sx={{ m: 2 }}>
+        <Typography className="modal-modal-title" component="h2" sx={{ m: 2 }}>
           {prepaid}
         </Typography>
         <Typography
-          className='modal-modal-title'
-          component='h2'
+          className="modal-modal-title"
+          component="h2"
           sx={{ mt: 2, mr: 2, ml: 2 }}
         >
           {caption()}

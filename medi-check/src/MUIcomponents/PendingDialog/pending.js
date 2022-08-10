@@ -2,6 +2,8 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
+import { v4 as uuidv4 } from 'uuid';
+
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import Typography from '@mui/material/Typography';
@@ -299,6 +301,7 @@ export default function PendingDialog({ open, setOpen }) {
                 {pending.map((item) => {
                   return (
                     <Typography
+                      key={uuidv4()}
                       onClick={() => {
                         handleOpen(item);
                       }}

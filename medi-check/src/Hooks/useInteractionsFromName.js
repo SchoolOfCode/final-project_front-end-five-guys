@@ -22,6 +22,11 @@ export default function useInteractions(prescriptionArray) {
 
       try {
         // console.log('url', url);
+        if (
+          url === 'https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis='
+        ) {
+          return;
+        }
         let response = await fetch(url + '&sources=ONCHigh');
         let obj = await response.json();
         // console.log(obj);

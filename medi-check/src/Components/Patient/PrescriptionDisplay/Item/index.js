@@ -1,5 +1,5 @@
 function Item({ medicine }) {
-  console.log(medicine);
+  // console.log(medicine);
   return (
     <div
       style={{ padding: '0.5rem', margin: '0.5rem', border: '1px solid red' }}
