@@ -3,6 +3,9 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import TextField from '@mui/material/TextField';
+import { useAuth0 } from '@auth0/auth0-react';
+
 import './index.css';
 const style = {
   position: 'absolute',
@@ -17,17 +20,48 @@ const style = {
 };
 
 export default function OTCModal({ setAnchorEl }) {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const { user, isAuthenticated, isLoading } = useAuth0();
 
+  const [open, setOpen] = useState(false);
+  const [submit, setSubmit] = useState(false);
+  const handleOpen = () => setOpen(true);
+  useEffect(() => {
+    async function submitMe() {
+      console.log({
+        name: document.getElementById('nameOTC').value,
+        reason: document.getElementById('reasonOTC').value,
+        amount: document.getElementById('amountOTC').value,
+      });
+
+      let res = await fetch(
+        `https://fiveguysproject.herokuapp.com/otc/${user.email}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: document.getElementById('nameOTC').value,
+            reason: document.getElementById('reasonOTC').value,
+            amount: document.getElementById('amountOTC').value,
+          }),
+        }
+      );
+      let json = await res.json();
+      console.log('winner?', json);
+      setSubmit(false);
+      handleClose();
+    }
+    if (submit && !isLoading && isAuthenticated) {
+      submitMe();
+    }
+  });
   function handleClose() {
     setOpen(false);
     setAnchorEl(null);
   }
 
   //function to call useeffect to submit to db
-  async function submitDate() {
-    handleClose();
+  function submitOTC() {
+    setSubmit(true);
   }
 
   return (
@@ -43,15 +77,47 @@ export default function OTCModal({ setAnchorEl }) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Your Pre-paid prescription expiry date is :
+            Register a medicine you are taking over the counter:
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2, mb: 3 }}>
-            If you have renewed it, please click below to update our records
-            accordingly.
-          </Typography>
+          <TextField
+            name="name"
+            autoFocus
+            margin="dense"
+            id="nameOTC"
+            label="Name"
+            type="text"
+            fullWidth
+            variant="standard"
+            defaultValue="Ibuprofen"
+            required
+          />
+          <TextField
+            name="Daily amount"
+            autoFocus
+            margin="dense"
+            id="amountOTC"
+            label="Amount"
+            type="number"
+            fullWidth
+            variant="standard"
+            defaultValue="4"
+            required
+          />
+          <TextField
+            name="reason"
+            autoFocus
+            margin="dense"
+            id="reasonOTC"
+            label="Reason"
+            type="text"
+            fullWidth
+            variant="standard"
+            defaultValue="Chronic headaches"
+            required
+          />
           <div id="otc-buttons">
-            <Button onClick={submitDate}>Submit</Button>
-            <Button onClick={handleClose}>Close</Button>
+            <Button onClick={submitOTC}>Add</Button>
+            <Button onClick={handleClose}>Cancel</Button>
           </div>
         </Box>
       </Modal>
