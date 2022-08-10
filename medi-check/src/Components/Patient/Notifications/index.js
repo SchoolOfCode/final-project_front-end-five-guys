@@ -25,9 +25,7 @@ import { useEffect, useState } from 'react';
 //import BasicModal from '../../../MUIcomponents/PrescriptionModal';
 import './notifications.css';
 import BasicPopover from '../../../MUIcomponents/Popover';
-
-//dummy data for prepaid expiry
-const pEmail = 'vickismith@email.com';
+import { useAuth0 } from '@auth0/auth0-react';
 
 export const dummyData = [
   {
@@ -63,6 +61,12 @@ export const dummyData = [
 ];
 
 export function Notifications({ data }) {
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  //dummy data for prepaid expiry
+  // const pEmail = 'vickismith@email.com';
+  const pEmail = user.email;
+
   //alerts state contains medication that will need to be renewed and notifications state holds the number of them
   const [alerts, SetAlerts] = useState([]);
   const [notifications, SetNotifications] = useState(0);
@@ -71,18 +75,19 @@ export function Notifications({ data }) {
 
   //gets patient data
   useEffect(() => {
-    if (pEmail) {
-      async function getPatient() {
-        let response = await fetch(
-          `https://fiveguysproject.herokuapp.com/patient?email=${pEmail}`
-        );
-        let data = await response.json();
-        // console.log('patient data ', data.data[0]);
-        setPatient(data.data[0]);
-      }
+    async function getPatient() {
+      let response = await fetch(
+        `https://fiveguysproject.herokuapp.com/patient?email=${pEmail}`
+      );
+      let data = await response.json();
+      console.log('patient data ', data.data[0]);
+      setPatient(data.data[0]);
+    }
+
+    if (pEmail && isAuthenticated) {
       getPatient();
     }
-  }, []);
+  }, [pEmail, isAuthenticated]);
 
   //works out if pre paid need updating prepaid
   useEffect(() => {
@@ -103,7 +108,7 @@ export function Notifications({ data }) {
       return Math.floor((utc2 - utc1) / _MS_PER_DAY);
     }
 
-    if (Object.keys(patient).length !== 0) {
+    if (Object.keys(patient).length !== 0 && patient.prepaid) {
       const today = new Date();
 
       const dateOfExpiry = findDate(patient.prepaid);
@@ -197,7 +202,7 @@ export function Notifications({ data }) {
     });
   }, [data, alerts]);
   return (
-    <div className='notification-box'>
+    <div className="notification-box">
       <h2>Notifications</h2>
       {/* <button>{notifications}</button> */}
       {/*<BasicModal data = {alerts} notifications = {notifications}/>*/}

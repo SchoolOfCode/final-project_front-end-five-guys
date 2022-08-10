@@ -1,5 +1,5 @@
 //
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -13,9 +13,7 @@ import {
   RiEmotionHappyLine,
 } from 'react-icons/ri';
 import './diary.css';
-
-//temporary hard coded patient email until auth0 is done
-const pEmail = 'rsmith123@email.com';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const style = {
   position: 'absolute',
@@ -53,7 +51,12 @@ const marks = [
 ];
 
 export function DiaryModal() {
+  //temporary hard coded patient email until auth0 is done
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  // const pEmail = 'rsmith123@email.com';
+  const pEmail = user.email;
   const [open, setOpen] = useState(false);
+  const [submit, setSubmit] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const date = new Date();
@@ -73,21 +76,26 @@ export function DiaryModal() {
   }
 
   function handleSubmit() {
-    postDiaryEntry();
     handleClose();
+    setSubmit(true);
   }
   // const id = 1;
-
-  async function postDiaryEntry() {
-    const db_url = `https://fiveguysproject.herokuapp.com/diary/${pEmail}`;
-    const newPost = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(entry),
-    };
-    const res = await fetch(db_url, newPost);
-    console.log(res);
-  }
+  useEffect(() => {
+    async function postDiaryEntry() {
+      const db_url = `https://fiveguysproject.herokuapp.com/diary/${pEmail}`;
+      const newPost = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(entry),
+      };
+      const res = await fetch(db_url, newPost);
+      console.log(res);
+      setSubmit(false);
+    }
+    if (submit && isAuthenticated) {
+      postDiaryEntry();
+    }
+  });
 
   return (
     <div>

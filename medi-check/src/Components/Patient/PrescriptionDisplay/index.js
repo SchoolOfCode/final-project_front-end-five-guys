@@ -12,9 +12,9 @@ import { useAuth0 } from '@auth0/auth0-react';
 function PrescriptionDisplay() {
   const { user, isAuthenticated, isLoading } = useAuth0();
 
-  // const pEmail = user.email;
-  const pEmail = 'vickismith@email.com';
-
+  const pEmail = user.email;
+  // const pEmail = 'vickismith@email.com';
+  console.log(user.email);
   const [prescriptions, setPrescriptions] = useState([]);
   useEffect(() => {
     async function getPrescriptions() {
