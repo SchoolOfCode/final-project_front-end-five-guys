@@ -47,7 +47,7 @@ function DiaryDialog(props) {
             <>
               <Typography>{item.date}</Typography>
               <Typography>{item.details}</Typography>
-              {marks[item.mood - 1].label}
+              {marks[item.mood].label}
             </>
           );
         })}
