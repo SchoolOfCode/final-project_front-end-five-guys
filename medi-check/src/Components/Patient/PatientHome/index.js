@@ -50,6 +50,7 @@ export function PatientHome({ registered, setRegistered, setDarkMode }) {
       setSubmit(false);
     }
   }, [submit, user, code, setRegistered, isAuthenticated]);
+
   function handleChange(e) {
     setCode(e.target.value);
   }
@@ -86,9 +87,9 @@ export function PatientHome({ registered, setRegistered, setDarkMode }) {
         padding: '1em',
       }}
     >
-      <div className="patient-top-bar">
+      <div className='patient-top-bar'>
         <div>
-          <img id="patient-logo" src={logo} alt="medi-check logo" />
+          <img id='patient-logo' src={logo} alt='medi-check logo' />
         </div>
         <div>
           <Notifications />
