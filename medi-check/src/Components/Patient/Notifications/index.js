@@ -27,7 +27,7 @@ import './notifications.css';
 import BasicPopover from '../../../MUIcomponents/Popover';
 import { useAuth0 } from '@auth0/auth0-react';
 
-export function Notifications({ data }) {
+export function Notifications() {
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   //dummy data for prepaid expiry
@@ -39,6 +39,7 @@ export function Notifications({ data }) {
   const [notifications, SetNotifications] = useState(0);
   const [paidDate, setPaidDate] = useState('');
   const [patient, setPatient] = useState({});
+  const [data, setData] = useState([]);
 
   //gets patient data
   useEffect(() => {
@@ -48,7 +49,15 @@ export function Notifications({ data }) {
       );
       let json = await response.json();
       console.log('patient data ', json.data[0]);
-      setPatient(json.data[0]);
+      setPatient({ ...json.data[0] });
+
+      let response2 = await fetch(
+        `https://fiveguysproject.herokuapp.com/prescriptions?email=${pEmail}`
+      );
+      let json2 = await response2.json();
+      console.log('patient data2 ', json2.data);
+
+      setData(json2.data ? [...json2.data] : []);
     }
 
     if (pEmail && isAuthenticated) {
@@ -113,7 +122,7 @@ export function Notifications({ data }) {
   useEffect(() => {
     // function takes the prescription date string and formats it into a full date
     function findDate(obj) {
-      let prescription_date = obj.prescription_date;
+      let prescription_date = obj.date;
       const date = prescription_date.split('-');
       const newDate = new Date();
       newDate.setFullYear(date[0], date[1] - 1, date[2]);

@@ -79,7 +79,9 @@ export default function FormDialog({ first, last, patient_id }) {
         );
         let json = await res.json();
         console.log(nameArray[i], nameArray, json);
-        url += `+${json.idGroup.rxnormId[0]}`;
+        if (json.idGroup.rxnormId) {
+          url += `+${json.idGroup.rxnormId[0]}`;
+        }
       }
       try {
         let response = await fetch(url + '&sources=ONCHigh');
