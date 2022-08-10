@@ -27,6 +27,7 @@ const style = {
 export default function AllergiesModal({ setAnchorEl }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const [allergy, setAllergy] = useState({
     name: '',
     reaction: '',
