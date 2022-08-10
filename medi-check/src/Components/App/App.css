@@ -1,7 +1,6 @@
 * {
     margin: 0;
     box-sizing: border-box;
-    /* font-size: large; */
 }
 .mui-fixed {
     position: fixed;
@@ -20,7 +19,6 @@
     --alert: red;
 }
 .dark-mode {
-
     --font-color: white;
     --dark-mode-font: white;
     --bg-color: black;
@@ -31,8 +29,8 @@
     --table-color: rgb(14, 18, 59);
     --table-alternate-rows: #d9d9d9;
     --alert: red;
-      --arrowfilter: invert(100%) sepia(47%) saturate(108%) hue-rotate(164deg)
-    brightness(106%) contrast(101%);
+    --arrowfilter: invert(100%) sepia(47%) saturate(108%) hue-rotate(164deg)
+        brightness(106%) contrast(101%);
 }
 
 .App {
@@ -44,9 +42,12 @@
     flex-direction: column;
     background-color: var(--bg-color);
     /* height: 110vh; */
-      overflow: auto;
+    overflow: auto;
 }
 .App > div {
     display: flex;
     flex-direction: column;
+}
+.large-font {
+    font-size: larger;
 }

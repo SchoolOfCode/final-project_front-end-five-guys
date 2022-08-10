@@ -5,7 +5,7 @@ import UserSearchBar from '../Searchbar';
 import logo from '../../../Assets/medi-check.png';
 import './patientHome.css';
 
-export function PatientHome({ setDarkMode }) {
+export function PatientHome({ setDarkMode, setLargeFont }) {
     return (
         <div
             style={{
@@ -26,7 +26,10 @@ export function PatientHome({ setDarkMode }) {
             <PrescriptionDisplay />
             <UserSearchBar />
             <div style={{ marginTop: '30%', left: '0%' }}>
-                <PatientNavBar setDarkMode={setDarkMode} />
+                <PatientNavBar
+                    setDarkMode={setDarkMode}
+                    setLargeFont={setLargeFont}
+                />
             </div>
         </div>
     );
