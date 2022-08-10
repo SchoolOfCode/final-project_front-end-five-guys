@@ -77,34 +77,39 @@ function PrescriptionDisplay() {
     // console.log('asdasdasd', filteredObj);
     return { ...item, overrideMessage };
   });
-
+  console.log(itemInteractions, itemInteractionsCombo);
   if (isLoading) {
     return <div>Loading...</div>;
   }
   return (
     <>
-      <h3>Interaction Alert</h3>
-      {itemInteractionsCombo.map((item) => {
-        return (
-          <section style={{ width: '50%' }} key={uuidv4()}>
-            <h4 style={{ width: '50%' }}>
-              {' '}
-              {item.minConcept[0].name} and {item.minConcept[1].name}
-            </h4>
+      {itemInteractionsCombo.length === 0 ? (
+        <></>
+      ) : (
+        <>
+          <h3>Interaction Alert</h3>
+          {itemInteractionsCombo.map((item) => {
+            return (
+              <section style={{ width: '50%' }} key={uuidv4()}>
+                <h4 style={{ width: '50%' }}>
+                  {' '}
+                  {item.minConcept[0].name} and {item.minConcept[1].name}
+                </h4>
 
-            <div style={{ width: '50%' }}>
-              Doctor's Note: {item.overrideMessage}
-            </div>
-            <div style={{ width: '50%' }}>
-              {item.interactionPair[0].description}
-            </div>
-          </section>
-        );
-      })}
+                <div style={{ width: '50%' }}>
+                  Doctor's Note: {item.overrideMessage}
+                </div>
+                <div style={{ width: '50%' }}>
+                  {item.interactionPair[0].description}
+                </div>
+              </section>
+            );
+          })}
+        </>
+      )}
       <h3>Current Prescriptions</h3>
       <CustomizedAccordions drugArray={current}></CustomizedAccordions>
       <h3>Past Prescriptions</h3>
-
       <CustomizedAccordions drugArray={history}></CustomizedAccordions>
     </>
   );
