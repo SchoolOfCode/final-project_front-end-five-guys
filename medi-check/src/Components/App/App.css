@@ -1,52 +1,53 @@
 * {
-    margin: 0;
-    box-sizing: border-box;
-    /* font-size: large; */
+  margin: 0;
+  box-sizing: border-box;
 }
 .mui-fixed {
-    position: fixed;
+  position: fixed;
 }
 
 /* light/ default mode */
 :root {
-    --font-color: rgb(0, 0, 0);
-    --bg-color: #d8edf8;
-    --modal-color: aquamarine;
-    --button-color: #eff4f6;
-    --button-hover-color: #bfe2ec;
-    --accordian-color: #bfe2ec;
-    --table-color: #ffffff;
-    --table-alternate-rows: #e4e3e3;
-    --alert: red;
+  --font-color: rgb(0, 0, 0);
+  --bg-color: #d8edf8;
+  --modal-color: aquamarine;
+  --button-color: #eff4f6;
+  --button-hover-color: #bfe2ec;
+  --accordian-color: #bfe2ec;
+  --table-color: #ffffff;
+  --table-alternate-rows: #e4e3e3;
+  --alert: red;
 }
 .dark-mode {
-
-    --font-color: white;
-    --dark-mode-font: white;
-    --bg-color: black;
-    --modal-color: darkblue;
-    --button-color: rgb(10, 92, 143);
-    --button-hover-color: blue;
-    --accordian-color: rgb(14, 18, 59);
-    --table-color: rgb(14, 18, 59);
-    --table-alternate-rows: #d9d9d9;
-    --alert: red;
-      --arrowfilter: invert(100%) sepia(47%) saturate(108%) hue-rotate(164deg)
+  --font-color: white;
+  --dark-mode-font: white;
+  --bg-color: black;
+  --modal-color: darkblue;
+  --button-color: rgb(10, 92, 143);
+  --button-hover-color: blue;
+  --accordian-color: rgb(14, 18, 59);
+  --table-color: rgb(14, 18, 59);
+  --table-alternate-rows: #d9d9d9;
+  --alert: red;
+  --arrowfilter: invert(100%) sepia(47%) saturate(108%) hue-rotate(164deg)
     brightness(106%) contrast(101%);
 }
 
 .App {
-    width: 100vw;
-    height: fit-content;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: var(--bg-color);
-    /* height: 110vh; */
-      overflow: auto;
+  width: 100vw;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: var(--bg-color);
+  /* height: 110vh; */
+  overflow: auto;
 }
 .App > div {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+}
+.large-font {
+  font-size: large;
 }

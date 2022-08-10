@@ -7,7 +7,7 @@ import './patientHome.css';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
 
-export function PatientHome({ registered, setRegistered, setDarkMode }) {
+export function PatientHome({ registered, setRegistered, setDarkMode, setLargeFont}) {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
@@ -67,6 +67,7 @@ export function PatientHome({ registered, setRegistered, setDarkMode }) {
         {error && <div>{error}</div>}
         <div>
           Welcome, please input your code to register your account to your email
+
         </div>
         <input onChange={handleChange}></input>
         <button
@@ -99,7 +100,7 @@ export function PatientHome({ registered, setRegistered, setDarkMode }) {
       <PrescriptionDisplay />
       <UserSearchBar />
       <div style={{ marginTop: '30%', left: '0%' }}>
-        <PatientNavBar setDarkMode={setDarkMode} />
+        <PatientNavBar setDarkMode={setDarkMode} setLargeFont={setLargeFont}/>
       </div>
     </div>
   );

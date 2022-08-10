@@ -1,7 +1,5 @@
 import './App.css';
-//
 import { PatientHome } from '../Patient/PatientHome';
-//import Footer from "../Doctor/Footer";
 import DoctorHome from '../Doctor/DoctorHome';
 import { useEffect, useState } from 'react';
 import LoginButton from '../../Auth0/login';
@@ -12,6 +10,22 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [status, setStatus] = useState(false);
   const { user, isAuthenticated, isLoading } = useAuth0();
+   const [largeFont, setLargeFont] = useState(false);
+    const [mode, setMode] = useState('App');
+
+  
+  useEffect(() => {
+        if (darkMode && largeFont) {
+            setMode('dark-mode large-font App');
+        } else if (largeFont) {
+            setMode('large-font App');
+        } else if (darkMode) {
+            setMode('dark-mode App');
+        } else {
+            setMode('App');
+        }
+    }, [darkMode, largeFont]);
+  
   useEffect(() => {
     async function findUser() {
       let doctorCheck = await fetch(
@@ -57,10 +71,10 @@ function App() {
       <button onClick={handlePatientClick}>Patient</button>
       <button onClick={handleDoctorClick}> Doctor</button>
       {display === 'patient' ? (
-        <PatientHome registered={status} setRegistered={setStatus} setDarkMode={setDarkMode} />
+        <PatientHome registered={status} setRegistered={setStatus} setDarkMode={setDarkMode} setLargeFont={setLargeFont} />
 
       ) : display === 'doctor' ? (
-        <DoctorHome setDarkMode={setDarkMode} />
+        <DoctorHome setDarkMode={setDarkMode} setLargeFont={setLargeFont} />
       ) : (
         <p>Please select a home page to display: </p>
       )}

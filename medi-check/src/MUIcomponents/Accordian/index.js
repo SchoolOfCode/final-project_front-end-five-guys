@@ -101,7 +101,9 @@ export default function CustomizedAccordions({ drugArray, title }) {
                                 ) : (
                                     <div className='interaction'>A</div>
                                 )}
-                                <Typography>
+                                <Typography
+                                    sx={{ fontSize: 'var(--large-font)' }}
+                                >
                                     {item.drug} {item.drugInfo} {item.status}
                                 </Typography>
                             </AccordionSummary>
