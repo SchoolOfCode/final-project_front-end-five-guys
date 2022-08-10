@@ -8,6 +8,7 @@ import CurrentMedication from '../CurrentMedication';
 function PatientFile({ info, onClick }) {
   const [allergies, setAllergies] = useState([]);
   const [prescriptions, setPrescriptions] = useState([]);
+  const [OTC, setOTC] = useState([]);
   const [diary, setDiary] = useState([]);
   const [open, setOpen] = useState(false);
 
@@ -35,6 +36,7 @@ function PatientFile({ info, onClick }) {
     }
     getPrescriptions();
   }, [info.patient_id]);
+
   useEffect(() => {
     async function getPatientDiary() {
       let res = await fetch(
@@ -46,11 +48,22 @@ function PatientFile({ info, onClick }) {
     }
     getPatientDiary();
   }, [info.patient_id]);
+  useEffect(() => {
+    async function getOTC() {
+      let res = await fetch(
+        `https://fiveguysproject.herokuapp.com/otc?id=${info.patient_id}`
+      );
+      let json = await res.json();
+      console.log('OTC ionfo:', json);
+      setOTC(json);
+    }
+    getOTC();
+  }, [info.patient_id]);
   function showDiary() {
     // console.log(diary);
     setOpen(true);
   }
-  console.log('dob', info.dob);
+  // console.log('dob', info.dob);
   return (
     <main className="patient-section">
       <button className="close-button" onClick={onClick}>
@@ -144,26 +157,6 @@ function PatientFile({ info, onClick }) {
                   );
                 })}
               </tr>
-
-              {/* <th>
-              <td>Allergy</td>
-              <td>Reactions</td>
-            </th>
-
-            <tr>
-              <td>
-                {allergies.map((allergy) => {
-                  return (
-                    <tr className='allergy-info'>
-                      <td className='allergy-type' key={uuidv4()}>
-                        {allergy.name}:
-                      </td>
-                      <td className='allergy-reaction'>{allergy.reaction}</td>
-                    </tr>
-                  );
-                })}
-              </td>
-            </tr> */}
             </div>
           </table>
         </div>
