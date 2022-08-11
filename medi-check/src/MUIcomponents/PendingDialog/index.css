@@ -16,12 +16,6 @@
   text-decoration: underline;
 }
 
-.pending-title {
-  font-family: Inter, sans-serif;
-  font-weight: bold;
-  margin-left: -1.2em;
-}
-
 .pending-patients {
   margin: 0 0 1em 1em;
 }

@@ -293,10 +293,16 @@ export default function PendingDialog({ open, setOpen }) {
         ) : (
           <div className='pendingBox'>
             <section className='pending-patients'>
-              <DialogTitle className='pending-title'>
+              <DialogTitle
+                sx={{
+                  fontSize: '1.1em',
+                  fontWeight: 'bold',
+                  marginLeft: '-1.3em',
+                  fontFamily: 'Inter, sans-serif',
+                }}
+              >
                 Prescriptions Pending for:
               </DialogTitle>
-
               <>
                 {pending.map((item) => {
                   return (
