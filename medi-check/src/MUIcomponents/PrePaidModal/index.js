@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import PrePaidDateCalender from '../PrePaidDateCalender';
 import './PrePaidModal.css';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const style = {
   position: 'absolute',
@@ -18,9 +19,39 @@ const style = {
   p: 4,
 };
 
-export default function PrePaidModal({ setAnchorEl }) {
+export default function PrePaidModal({ setAnchorEl, patient }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
+  const [value, setValue] = useState(new Date());
+  const [submit, setSubmit] = useState(false);
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  const pEmail = user.email;
+
+  //update prepaid field
+  useEffect(() => {
+    async function postPrePaid() {
+      const db_url = `https://fiveguysproject.herokuapp.com/patient/${pEmail}`;
+
+      let date = `${value.getFullYear()}-${
+        value.getMonth() + 1
+      }-${value.getDate()}`;
+
+      const newPost = {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prepaid: date }),
+      };
+      await fetch(db_url, newPost);
+      setSubmit(false);
+    }
+    if (submit && isAuthenticated) {
+      postPrePaid();
+    }
+  });
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   function handleClose() {
     setOpen(false);
@@ -29,6 +60,7 @@ export default function PrePaidModal({ setAnchorEl }) {
 
   //function to call useeffect to submit to db
   async function submitDate() {
+    setSubmit(true);
     handleClose();
   }
 
@@ -51,8 +83,13 @@ export default function PrePaidModal({ setAnchorEl }) {
             If you have renewed it, please click below to update our records
             accordingly.
           </Typography>
-          <PrePaidDateCalender id="calender"></PrePaidDateCalender>
-          <div id="pre-paid-modal-buttons">
+
+          <PrePaidDateCalender
+            id='calender'
+            value={value}
+            setValue={setValue}
+          ></PrePaidDateCalender>
+          <div id='pre-paid-modal-buttons'>
             <Button onClick={submitDate}>Submit</Button>
             <Button onClick={handleClose}>Close</Button>
           </div>

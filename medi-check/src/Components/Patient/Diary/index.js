@@ -99,6 +99,7 @@ export function DiaryModal() {
       // console.log(res);
       setSubmit(false);
     }
+
     if (submit && isAuthenticated) {
       postDiaryEntry();
     }

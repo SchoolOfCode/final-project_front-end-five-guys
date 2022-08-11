@@ -6,11 +6,10 @@ import { v4 as uuidv4 } from 'uuid';
 
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
-
 import Typography from '@mui/material/Typography';
-
 import Modal from '@mui/material/Modal';
 import { useState, useEffect } from 'react';
+import ButtonComponent from '../ButtonComponent';
 import './index.css';
 export default function PendingDialog({ open, setOpen }) {
   const [pending, setPending] = useState([]);
@@ -229,14 +228,14 @@ export default function PendingDialog({ open, setOpen }) {
           hideBackdrop
           open={openStatusC}
           onClose={handleCloseChild}
-          aria-labelledby="child-modal-title"
-          aria-describedby="child-modal-description"
+          aria-labelledby='child-modal-title'
+          aria-describedby='child-modal-description'
         >
           <Box sx={{ ...style }}>
             {!prescription ? (
               <></>
             ) : (
-              <h2 id="child-modal-title">
+              <h2 id='child-modal-title'>
                 WARNING: There is a severe interaction between{' '}
                 {prescription.name} and other drugs {prescription.firstname}{' '}
                 {prescription.surname} is currently prescribed{' '}
@@ -248,19 +247,19 @@ export default function PendingDialog({ open, setOpen }) {
               </h2>
             )}
 
-            <p id="child-modal-description">
+            <p id='child-modal-description'>
               If you want to continue with this prescription please provide a
               valid reason below:
             </p>
             <TextField
               autoFocus
-              margin="dense"
-              id="drugInteractionOverride"
-              label="Reason to continue prescription"
-              type="text"
-              name="interactionReason"
+              margin='dense'
+              id='drugInteractionOverride'
+              label='Reason to continue prescription'
+              type='text'
+              name='interactionReason'
               fullWidth
-              variant="standard"
+              variant='standard'
               onChange={handleOverrideChange}
               error={reasonText ? false : true}
               required
@@ -286,11 +285,14 @@ export default function PendingDialog({ open, setOpen }) {
   }
   return (
     <>
-      <Dialog onClose={handleClose} open={open} maxWidth="lg" fullWidth>
+      {pending.length > 0 ? (
+        <ButtonComponent text1={'Pending Prescriptions'} onClick={setOpen} />
+      ) : null}
+      <Dialog onClose={handleClose} open={open} maxWidth='lg' fullWidth>
         {pending.length === 0 ? (
           <div>No current pending prescriptions</div>
         ) : (
-          <div className="pendingBox">
+          <div className='pendingBox'>
             <section>
               {' '}
               <DialogTitle>Pending Prescriptions</DialogTitle>
