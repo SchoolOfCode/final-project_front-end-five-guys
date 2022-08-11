@@ -9,3 +9,7 @@ textarea {
   width: 2em;
   align-self: flex-end;
 }
+.icon {
+  height: 4em;
+  width: 4em;
+}
