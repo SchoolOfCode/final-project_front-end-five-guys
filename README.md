@@ -7,8 +7,8 @@ A proof-of-concept app demonstrating research-driven approaches to combatting me
 
 ## Authors
 
-- Ben Greenwood [LinkedIn]() [GitHub] ()
-- Brycen Barron-Borden [LinkedIn](https://www.linkedin.com/in/brycenbb/) [GitHub] (https://github.com/brycenbb)
-- Michael Rushton [LinkedIn](www.linkedin.com/in/michael-rushton) [GitHub] (https://github.com/michaelrushton-dev)
-- Rajesh Reel [LinkedIn](https://www.linkedin.com/in/rajesh-reel) [GitHub] (https://www.github.com/rajesh-reel)
-- Tom Birbeck [LinkedIn](https://www.linkedin.com/in/tom-birbeck-036356248/) [GitHub] (https://github.com/TomBirbeck)
+- Ben Greenwood [LinkedIn]() [GitHub]()
+- Brycen Barron-Borden [LinkedIn](https://www.linkedin.com/in/brycenbb/) [GitHub](https://github.com/brycenbb)
+- Michael Rushton [LinkedIn](www.linkedin.com/in/michael-rushton) [GitHub](https://github.com/michaelrushton-dev)
+- Rajesh Reel [LinkedIn](https://www.linkedin.com/in/rajesh-reel) [GitHub](https://www.github.com/rajesh-reel)
+- Tom Birbeck [LinkedIn](https://www.linkedin.com/in/tom-birbeck-036356248/)[GitHub] (https://github.com/TomBirbeck)
