@@ -93,7 +93,7 @@ function PrescriptionDisplay() {
     // console.log('asdasdasd', filteredObj);
     return { ...item, overrideMessage };
   });
-  console.log(itemInteractions, itemInteractionsCombo);
+  // console.log(itemInteractions, itemInteractionsCombo);
   if (isLoading) {
     return <div>Loading...</div>;
   }

@@ -45,7 +45,7 @@ export default function PendingDialog({ open, setOpen }) {
       );
       let prescriptionJson = await prescriptonResponse.json();
       let list = prescriptionJson.data;
-      console.log('asddasadsdasadsdas', list);
+      // console.log('asddasadsdasadsdas', list);
       let url = 'https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=';
       for (let i = 0; i < list.length; i++) {
         let res = await fetch(
@@ -58,8 +58,8 @@ export default function PendingDialog({ open, setOpen }) {
       try {
         let response = await fetch(url + '&sources=ONCHigh');
         let obj = await response.json();
-        console.log('interactions here: ', obj);
-        console.log('new drug name here: ', prescription.name);
+        // console.log('interactions here: ', obj);
+        // console.log('new drug name here: ', prescription.name);
         if (!obj.fullInteractionTypeGroup) {
           setSend(true);
           return;
@@ -73,9 +73,9 @@ export default function PendingDialog({ open, setOpen }) {
                 item.minConcept[1].name.toLowerCase()
             );
           });
-        console.log('fil', filtered);
+        // console.log('fil', filtered);
         if (filtered.length !== 0) {
-          console.log('There are  interactions with the new drug'); //There is an interaction and we need to stop the closure and display the warning
+          // console.log('There are  interactions with the new drug'); //There is an interaction and we need to stop the closure and display the warning
           let temp = [];
           for (let i = 0; i < filtered.length; i++) {
             temp.push(
@@ -85,7 +85,7 @@ export default function PendingDialog({ open, setOpen }) {
             );
           }
           setInteractedDrugs([...temp]);
-          console.log('about to set open status');
+          // console.log('about to set open status');
           setOpenStatusC(true);
         } else {
           setSend(true);
@@ -99,35 +99,35 @@ export default function PendingDialog({ open, setOpen }) {
         await fetchPrescriptionsAndCheckForInteractions();
       }
       if (send) {
-        console.log('OBJECT TO SEND TO DB', prescription, 'reason', reason);
+        // console.log('OBJECT TO SEND TO DB', prescription, 'reason', reason);
         if (settledPrescription.approved) {
           //post
-          // const response = await fetch(
-          //   `https://fiveguysproject.herokuapp.com/prescriptions/${prescription.patient_id}`,
-          //   {
-          //     method: 'POST',
-          //     headers: { 'Content-Type': 'application/json' },
-          //     body: reason
-          //       ? JSON.stringify({ ...prescription, override: reason })
-          //       : JSON.stringify(prescription),
-          //   }
-          // );
-          // let json = await response.json();
+          const response = await fetch(
+            `https://fiveguysproject.herokuapp.com/prescriptions/${prescription.patient_id}`,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: reason
+                ? JSON.stringify({ ...prescription, override: reason })
+                : JSON.stringify(prescription),
+            }
+          );
+          let json = await response.json();
           // console.log('posted new prescription!:', json);
         }
         //delete
-        // const response2 = await fetch(
-        //   `https://fiveguysproject.herokuapp.com/pending/${prescription.pending_id}`,
-        //   {
-        //     method: 'DELETE',
-        //     headers: { 'Content-Type': 'application/json' },
-        //   }
-        // );
-        // let json2 = await response2.json();
+        const response2 = await fetch(
+          `https://fiveguysproject.herokuapp.com/pending/${prescription.pending_id}`,
+          {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
+        let json2 = await response2.json();
         // console.log('deleted pending prescription:', json2);
 
         let index;
-        console.log('pending:', pending);
+        // console.log('pending:', pending);
         for (let i = 0; i < pending.length; i++) {
           let keys = Object.keys(pending[i]);
           console.log('current pending:', pending[i], keys);
@@ -143,14 +143,14 @@ export default function PendingDialog({ open, setOpen }) {
             break;
           }
         }
-        console.table(
-          'Checking progress:',
-          index,
-          prescription,
-          settledPrescription,
+        // console.table(
+        //   'Checking progress:',
+        //   index,
+        //   prescription,
+        //   settledPrescription,
 
-          pending
-        );
+        //   pending
+        // );
         setPending([...pending.slice(0, index), ...pending.slice(index + 1)]);
         setPrescription(
           [...pending.slice(0, index), ...pending.slice(index + 1)][0]
@@ -184,7 +184,7 @@ export default function PendingDialog({ open, setOpen }) {
     setPrescription({ ...item });
   }
   function handleDecision(approval) {
-    console.log('in handle decision');
+    // console.log('in handle decision');
     setSettledPrescription({ ...prescription, approved: approval });
   }
 
@@ -208,7 +208,7 @@ export default function PendingDialog({ open, setOpen }) {
       setReasonText(e.target.value);
     }
     function handleOverrideClick() {
-      console.log(document.querySelector('#drugInteractionOverride').value);
+      // console.log(document.querySelector('#drugInteractionOverride').value);
       setReason(document.querySelector('#drugInteractionOverride').value);
       setOpenStatusC(false);
       setSend(true);
@@ -228,14 +228,14 @@ export default function PendingDialog({ open, setOpen }) {
           hideBackdrop
           open={openStatusC}
           onClose={handleCloseChild}
-          aria-labelledby='child-modal-title'
-          aria-describedby='child-modal-description'
+          aria-labelledby="child-modal-title"
+          aria-describedby="child-modal-description"
         >
           <Box sx={{ ...style }}>
             {!prescription ? (
               <></>
             ) : (
-              <h2 id='child-modal-title'>
+              <h2 id="child-modal-title">
                 WARNING: There is a severe interaction between{' '}
                 {prescription.name} and other drugs {prescription.firstname}{' '}
                 {prescription.surname} is currently prescribed{' '}
@@ -247,19 +247,19 @@ export default function PendingDialog({ open, setOpen }) {
               </h2>
             )}
 
-            <p id='child-modal-description'>
+            <p id="child-modal-description">
               If you want to continue with this prescription please provide a
               valid reason below:
             </p>
             <TextField
               autoFocus
-              margin='dense'
-              id='drugInteractionOverride'
-              label='Reason to continue prescription'
-              type='text'
-              name='interactionReason'
+              margin="dense"
+              id="drugInteractionOverride"
+              label="Reason to continue prescription"
+              type="text"
+              name="interactionReason"
               fullWidth
-              variant='standard'
+              variant="standard"
               onChange={handleOverrideChange}
               error={reasonText ? false : true}
               required
@@ -288,11 +288,11 @@ export default function PendingDialog({ open, setOpen }) {
       {pending.length > 0 ? (
         <ButtonComponent text1={'Pending Prescriptions'} onClick={setOpen} />
       ) : null}
-      <Dialog onClose={handleClose} open={open} maxWidth='lg' fullWidth>
+      <Dialog onClose={handleClose} open={open} maxWidth="lg" fullWidth>
         {pending.length === 0 ? (
           <div>No current pending prescriptions</div>
         ) : (
-          <div className='pendingBox'>
+          <div className="pendingBox">
             <section>
               {' '}
               <DialogTitle>Pending Prescriptions</DialogTitle>

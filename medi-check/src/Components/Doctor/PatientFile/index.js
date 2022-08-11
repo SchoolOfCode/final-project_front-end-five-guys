@@ -54,9 +54,8 @@ function PatientFile({ info, onClick }) {
       );
       let json = await res.json();
 
-      console.log('OTC ionfo:', json);
+      // console.log('OTC ionfo:', json);
       setOverCounter(json.data);
-
     }
     getOTC();
   }, [info.patient_id]);
@@ -82,18 +81,17 @@ function PatientFile({ info, onClick }) {
       </button>
 
       <div>
-
-        <section className='patientInfo'>
-          <table id='patient-info-table'>
+        <section className="patientInfo">
+          <table id="patient-info-table">
             <tbody>
               <tr>
-                <td className='headings'>Name:</td>
+                <td className="headings">Name:</td>
                 <td>
-                  {info.title} {info.firstname} {info.surname}
+                  {info.title + ' ' + info.firstname + ' ' + info.surname}
                 </td>
               </tr>
               <tr>
-                <td className='headings'>DOB:</td>
+                <td className="headings">DOB:</td>
                 <td>
                   {String(info.dob).slice(0, 2) +
                     '-' +
@@ -103,51 +101,54 @@ function PatientFile({ info, onClick }) {
                 </td>
               </tr>
               <tr>
-                <td className='headings'>Gender:</td>
+                <td className="headings">Gender:</td>
                 <td>{info.gender}</td>
               </tr>
               <tr>
-                <td className='headings'>Ethnicity:</td>
+                <td className="headings">Ethnicity:</td>
                 <td>{info.ethnicity}</td>
               </tr>
               <tr>
-                <td className='headings'>Address:</td>
+                <td className="headings">Address:</td>
                 <td>{info.address}</td>
               </tr>
               <tr>
-                <td className='headings'>Postcode:</td>
+                <td className="headings">Postcode:</td>
                 <td>{info.postcode}</td>
               </tr>
               <tr>
-                <td className='headings'>Phone Number:</td>
+                <td className="headings">Phone Number:</td>
                 <td>{info.phonenumber}</td>
               </tr>
               <tr>
-                <td className='headings'>NHS Number:</td>
+                <td className="headings">NHS Number:</td>
                 <td>{info.nhsnumber}</td>
               </tr>
               <tr>
-                <td className='headings'>GP:</td>
+                <td className="headings">GP:</td>
                 <td>{info.gpsurgery}</td>
               </tr>
             </tbody>
           </table>
         </section>
         <div>
-          <table className='allergy-table'>
-            <tbody className='allergy-column'>
-              <tr className='allergy-header'>Allergies</tr>
-
+          <table className="allergy-table">
+            <tbody className="allergy-column">
+              <tr className="allergy-header">
+                <td>Allergies</td>
+              </tr>
               {allergies.map((allergy) => {
                 return (
                   <tr key={uuidv4()}>
-                    <td className='heading'>{allergy.name}:</td>
+                    <td className="heading">{allergy.name}:</td>
                   </tr>
                 );
               })}
             </tbody>
-            <tbody className='reactions-column'>
-              <tr className='reactions-header'>Reactions</tr>
+            <tbody className="reactions-column">
+              <tr className="reactions-header">
+                <td>Reactions</td>
+              </tr>
               {allergies.map((allergy) => {
                 return (
                   <tr key={uuidv4()}>
@@ -158,6 +159,9 @@ function PatientFile({ info, onClick }) {
             </tbody>
           </table>
         </div>
+        {overCounter.map((item) => {
+          return <div key={uuidv4()}>{item.name}</div>;
+        })}
         <div className="button-mover">
           <FormDialog
             first={info.FirstNames}
@@ -174,4 +178,3 @@ function PatientFile({ info, onClick }) {
 }
 
 export default PatientFile;
-

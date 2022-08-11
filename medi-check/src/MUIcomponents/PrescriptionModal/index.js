@@ -25,7 +25,7 @@ export default function FormDialog({
   prescriptions,
   setPrescriptions,
 }) {
-  console.log(Date.now(), Date.UTC());
+  // console.log(Date.now(), Date.UTC());
   const style = {
     position: 'absolute',
     top: '50%',
@@ -50,7 +50,7 @@ export default function FormDialog({
       return;
     }
     let inputs = document.querySelectorAll('input');
-    console.log('inputs', inputs);
+    // console.log('inputs', inputs);
     //send to DB
     let prescription = {
       name: inputs[1].value,
@@ -187,12 +187,12 @@ export default function FormDialog({
 
   function handleChange(event) {
     let obj = textFields;
-    console.log(typeof textFields['total']);
+    // console.log(typeof textFields['total']);
     Number.isInteger(Number(event.target.value));
     !Number.isInteger(Number(event.target.value))
       ? (obj[event.target.name] = event.target.value)
       : (obj[event.target.name] = Number(event.target.value));
-    console.log(obj);
+    // console.log(obj);
     setTextFields({ ...obj });
   }
   const handleClickOpen = () => {
@@ -213,7 +213,7 @@ export default function FormDialog({
     //look for .3 type numbers and put a 0 on the left. Run on total, dosage, quantity
     //Test whether or not we need to make the page refresh after sending to database or just reset state to 0
     let inputs = document.querySelectorAll('input');
-    console.log('ion', inputs);
+    // console.log('ion', inputs);
     let date = new Date();
     let day = date.getDay() < 10 ? '0' + String(date.getDay()) : date.getDay();
     let prescription = {
@@ -232,13 +232,13 @@ export default function FormDialog({
       monitoringSchedule: Number(inputs[8].value),
       monitoringFrequency: inputs[9].value,
     };
-    console.log('no override but do not send back to DB here,', prescription);
+    // console.log('no override but do not send back to DB here,', prescription);
     setPrescriptionObj({ ...prescription });
 
     setPrescription(prescription.name);
   }
   function handleOverrideClick() {
-    console.log(document.querySelector('#drugInteractionOverride').value);
+    // console.log(document.querySelector('#drugInteractionOverride').value);
     setReason(document.querySelector('#drugInteractionOverride').value);
     setOpenStatus(false);
     setOpen(false);
