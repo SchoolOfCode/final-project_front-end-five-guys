@@ -8,7 +8,9 @@ export default function CurrentMedication({ prescriptions, allergies }) {
   return (
     <table className="current-med-table">
       <thead>
-        <tr className="current-med-header">Current Prescriptions</tr>
+        <tr className="current-med-header">
+          <td>Current Prescriptions</td>
+        </tr>
       </thead>
       {prescriptions.map((med) => {
         return (
