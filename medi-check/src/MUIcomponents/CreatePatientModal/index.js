@@ -50,6 +50,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
       );
       let result = await res.json();
       console.log('posted new patient', result);
+      let registrationCode = result.registrationID[0].code;
       setList([...list, result.patient[0]]);
     }
     if (Object.keys(newPatient).length !== 0) {
