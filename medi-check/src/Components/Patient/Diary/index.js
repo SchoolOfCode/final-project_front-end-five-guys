@@ -53,7 +53,7 @@ const marks = [
   },
 ];
 
-export function DiaryModal({ setAnchorEl }) {
+export function DiaryModal({ setAnchorEl, setSubmitted, submitted }) {
   //temporary hard coded patient email until auth0 is done
   const { user, isAuthenticated, isLoading } = useAuth0();
   // const pEmail = 'rsmith123@email.com';
@@ -100,6 +100,7 @@ export function DiaryModal({ setAnchorEl }) {
       await fetch(db_url, newPost);
       // console.log(res);
       setSubmit(false);
+      setSubmitted(!submitted);
     }
 
     if (submit && isAuthenticated) {

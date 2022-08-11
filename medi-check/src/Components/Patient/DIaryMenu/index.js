@@ -9,6 +9,7 @@ import { DiaryPopup } from './dialog';
 export default function DiaryMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { user, isAuthenticated, isLoading } = useAuth0();
+  const [submitted, setSubmitted] = React.useState(false);
 
   const [diary, setDiary] = React.useState([]);
   const open = Boolean(anchorEl);
@@ -30,7 +31,7 @@ export default function DiaryMenu() {
     if (user.email && isAuthenticated) {
       getPatientDiary();
     }
-  }, [user.email, isAuthenticated]);
+  }, [user.email, isAuthenticated, submitted]);
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -69,7 +70,11 @@ export default function DiaryMenu() {
         }}
       >
         <DiaryPopup setAnchorEl={setAnchorEl} diary={diary}></DiaryPopup>
-        <DiaryModal setAnchorEl={setAnchorEl} />
+        <DiaryModal
+          setAnchorEl={setAnchorEl}
+          setSubmitted={setSubmitted}
+          submitted={submitted}
+        />
       </Menu>
     </div>
   );
