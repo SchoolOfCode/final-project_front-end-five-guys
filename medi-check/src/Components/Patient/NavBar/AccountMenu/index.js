@@ -7,6 +7,7 @@ import AllergiesModal from '../../../../MUIcomponents/AllergiesModal';
 import './accountmenu.css';
 import { textAlign } from '@mui/system';
 import PrePaidModal from '../../../../MUIcomponents/PrePaidModal';
+import OTCModal from '../../../../MUIcomponents/OTCModal';
 
 export default function BasicMenu() {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -55,12 +56,7 @@ export default function BasicMenu() {
                     Pre-Paid
                 </MenuItem> */}
                  <PrePaidModal setAnchorEl={setAnchorEl}></PrePaidModal>
-                <MenuItem
-                    onClick={handleClose}
-                    sx={{ fontFamily: 'inter, sans-serif' }}
-                >
-                    OTC{' '}
-                </MenuItem>
+                <OTCModal setAnchorEl={setAnchorEl}></OTCModal>
                 <AllergiesModal
                     setAnchorEl={setAnchorEl}
                     sx={{
@@ -73,5 +69,6 @@ export default function BasicMenu() {
             </Menu>
         </div>
     );
+
 
 }

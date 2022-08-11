@@ -83,7 +83,9 @@ export default function AllergiesModal({ setAnchorEl }) {
   }
   return (
     <div>
-      <Button onClick={handleOpen}>Allergies</Button>
+      <Button onClick={handleOpen} sx={{ width: '100%' }}>
+        Allergies
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}

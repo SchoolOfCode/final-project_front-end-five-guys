@@ -65,22 +65,25 @@ export default function PrePaidModal({ setAnchorEl, patient }) {
   }
 
   return (
-    <div id='pre-paid-modal'>
-      <Button onClick={handleOpen}>Pre-paid</Button>
+    <div id="pre-paid-modal">
+      <Button onClick={handleOpen} sx={{ width: '100%' }}>
+        Pre-paid
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby='modal-modal-title'
-        aria-describedby='modal-modal-description'
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id='modal-modal-title' variant='h6' component='h2'>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
             Your Pre-paid prescription expiry date is :
           </Typography>
-          <Typography id='modal-modal-description' sx={{ mt: 2, mb: 3 }}>
+          <Typography id="modal-modal-description" sx={{ mt: 2, mb: 3 }}>
             If you have renewed it, please click below to update our records
             accordingly.
           </Typography>
+
           <PrePaidDateCalender
             id='calender'
             value={value}
