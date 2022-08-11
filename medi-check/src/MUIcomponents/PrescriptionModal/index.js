@@ -24,6 +24,8 @@ export default function FormDialog({
   patient_id,
   prescriptions,
   setPrescriptions,
+  refresh,
+  setRefresh,
 }) {
   // console.log(Date.now(), Date.UTC());
   const style = {
@@ -170,7 +172,8 @@ export default function FormDialog({
       let json = await response.json();
       console.log('posted pres', json);
       console.log('setting pres', [...prescriptions, prescriptionObj]);
-      setPrescriptions([...prescriptions, prescriptionObj]);
+      // setPrescriptions([...prescriptions, prescriptionObj]);
+      setRefresh(!refresh);
       setPrescriptionObj({});
     }
     if (Object.keys(prescriptionObj).length !== 0) {

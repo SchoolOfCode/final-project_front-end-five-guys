@@ -10,6 +10,7 @@ function PatientFile({ info, onClick }) {
   const [overCounter, setOverCounter] = useState([]);
   const [diary, setDiary] = useState([]);
   const [open, setOpen] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   // console.log('patient file', info);
   useEffect(() => {
@@ -34,7 +35,7 @@ function PatientFile({ info, onClick }) {
       setPrescriptions([...json.data]);
     }
     getPrescriptions();
-  }, [info.patient_id]);
+  }, [info.patient_id, refresh]);
 
   useEffect(() => {
     async function getPatientDiary() {
@@ -169,6 +170,8 @@ function PatientFile({ info, onClick }) {
             patient_id={info.patient_id}
             prescriptions={prescriptions}
             setPrescriptions={setPrescriptions}
+            refresh={refresh}
+            setRefresh={setRefresh}
           />
         </div>
       </div>
