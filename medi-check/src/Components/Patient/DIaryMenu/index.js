@@ -3,15 +3,14 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import { ImBook } from 'react-icons/im/';
 import { DiaryModal } from '../Diary';
-import DiaryDialog from '../../../MUIcomponents/DiaryDialog';
 import { useAuth0 } from '@auth0/auth0-react';
+import { DiaryPopup } from './dialog';
 
 export default function DiaryMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   const [diary, setDiary] = React.useState([]);
-  const [open2, setOpen2] = React.useState(false);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -69,14 +68,7 @@ export default function DiaryMenu() {
           horizontal: 'center',
         }}
       >
-        <DiaryDialog
-          open={open}
-          setOpen={setOpen2}
-          setAnchorEl={setAnchorEl}
-          diary={diary.sort((a, b) => {
-            return a.diary_id > b.diary_id;
-          })}
-        ></DiaryDialog>
+        <DiaryPopup setAnchorEl={setAnchorEl} diary={diary}></DiaryPopup>
         <DiaryModal setAnchorEl={setAnchorEl} />
       </Menu>
     </div>
