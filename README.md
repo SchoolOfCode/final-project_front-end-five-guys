@@ -8,7 +8,7 @@ A proof-of-concept full-stack React app demonstrating research-driven approaches
 
 ## Authors
 
-- Ben Greenwood [LinkedIn]() [GitHub]()
+- Ben Greenwood [LinkedIn]() [GitHub](https://github.com/B-P-Greenwood)
 - Brycen Barron-Borden [LinkedIn](https://www.linkedin.com/in/brycenbb/) [GitHub](https://github.com/brycenbb)
 - Michael Rushton [LinkedIn](www.linkedin.com/in/michael-rushton) [GitHub](https://github.com/michaelrushton-dev)
 - Rajesh Reel [LinkedIn](https://www.linkedin.com/in/rajesh-reel) [GitHub](https://www.github.com/rajesh-reel)
