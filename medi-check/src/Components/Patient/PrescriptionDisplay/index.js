@@ -17,6 +17,7 @@ function PrescriptionDisplay() {
   // const pEmail = 'vickismith@email.com';
   // console.log(user.email);
   const [prescriptions, setPrescriptions] = useState([]);
+  const [overCounter, setOverCounter] = useState([]);
   useEffect(() => {
     async function getPrescriptions() {
       let res = await fetch(
@@ -30,6 +31,20 @@ function PrescriptionDisplay() {
       getPrescriptions();
     }
   }, [pEmail, isAuthenticated]);
+  useEffect(() => {
+    async function getOTC() {
+      let res = await fetch(
+        `https://fiveguysproject.herokuapp.com/otc?email=${pEmail}`
+      );
+      let json = await res.json();
+      // console.log('json', json);
+      setOverCounter(json.data);
+    }
+    if (pEmail && isAuthenticated) {
+      getOTC();
+    }
+  }, [pEmail, isAuthenticated]);
+
   let itemInteractions = useInteractions(prescriptions);
   // let itemInteractions = testInteractions;
 
@@ -118,6 +133,13 @@ function PrescriptionDisplay() {
         title={<h3>Past Prescriptions</h3>}
         drugArray={history}
       ></CustomizedAccordions>
+      {overCounter.map((item) => {
+        return (
+          <div key={uuidv4()}>
+            {item.name} {'-'} {item.reason}
+          </div>
+        );
+      })}
     </div>
   );
 }
