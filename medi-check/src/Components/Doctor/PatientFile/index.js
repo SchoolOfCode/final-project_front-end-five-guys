@@ -7,10 +7,9 @@ import CurrentMedication from '../CurrentMedication';
 function PatientFile({ info, onClick }) {
   const [allergies, setAllergies] = useState([]);
   const [prescriptions, setPrescriptions] = useState([]);
-  const [OTC, setOTC] = useState([]);
+  const [overCounter, setOverCounter] = useState([]);
   const [diary, setDiary] = useState([]);
   const [open, setOpen] = useState(false);
-  console.log(OTC);
 
   // console.log('patient file', info);
   useEffect(() => {
@@ -54,8 +53,10 @@ function PatientFile({ info, onClick }) {
         `https://fiveguysproject.herokuapp.com/otc?id=${info.patient_id}`
       );
       let json = await res.json();
-      console.log('OTC info:', json);
-      setOTC(json);
+
+      console.log('OTC ionfo:', json);
+      setOverCounter(json.data);
+
     }
     getOTC();
   }, [info.patient_id]);
@@ -65,8 +66,8 @@ function PatientFile({ info, onClick }) {
   }
 
   return (
-    <main className='patient-section'>
-      <button className='close-button' onClick={onClick}>
+    <main className="patient-section">
+      <button className="close-button" onClick={onClick}>
         Close Patient
       </button>
       <DiaryDialog
@@ -76,11 +77,12 @@ function PatientFile({ info, onClick }) {
           return a.diary_id > b.diary_id;
         })}
       ></DiaryDialog>
-      <button className='close-button' id='diary' onClick={showDiary}>
+      <button className="close-button" id="diary" onClick={showDiary}>
         Show Diary
       </button>
 
       <div>
+
         <section className='patientInfo'>
           <table id='patient-info-table'>
             <tbody>
@@ -156,7 +158,7 @@ function PatientFile({ info, onClick }) {
             </tbody>
           </table>
         </div>
-        <div className='button-mover'>
+        <div className="button-mover">
           <FormDialog
             first={info.FirstNames}
             last={info.Surname}
@@ -173,4 +175,3 @@ function PatientFile({ info, onClick }) {
 
 export default PatientFile;
 
-//new dev

@@ -14,8 +14,6 @@ import {
 } from 'react-icons/ri';
 import './diary.css';
 import { useAuth0 } from '@auth0/auth0-react';
-import { ImBook } from 'react-icons/im/';
-
 
 const style = {
   display: 'flex',
@@ -35,27 +33,27 @@ const style = {
 const marks = [
   {
     value: 0,
-    label: <RiEmotionSadLine className='icon' />,
+    label: <RiEmotionSadLine className="icon" />,
   },
   {
     value: 25,
-    label: <RiEmotionUnhappyLine className='icon' />,
+    label: <RiEmotionUnhappyLine className="icon" />,
   },
   {
     value: 50,
-    label: <RiEmotionNormalLine className='icon' />,
+    label: <RiEmotionNormalLine className="icon" />,
   },
   {
     value: 75,
-    label: <RiEmotionHappyLine className='icon' />,
+    label: <RiEmotionHappyLine className="icon" />,
   },
   {
     value: 100,
-    label: <RiEmotionLine className='icon' />,
+    label: <RiEmotionLine className="icon" />,
   },
 ];
 
-export function DiaryModal() {
+export function DiaryModal({ setAnchorEl, setSubmitted, submitted }) {
   //temporary hard coded patient email until auth0 is done
   const { user, isAuthenticated, isLoading } = useAuth0();
   // const pEmail = 'rsmith123@email.com';
@@ -63,7 +61,6 @@ export function DiaryModal() {
   const [open, setOpen] = useState(false);
   const [submit, setSubmit] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const date = new Date();
   const today = date.toLocaleDateString();
   const [entry, SetEntry] = useState({
@@ -71,6 +68,11 @@ export function DiaryModal() {
     details: '',
     date: today,
   });
+
+  function handleClose() {
+    setOpen(false);
+    setAnchorEl(null);
+  }
 
   function handleText(e) {
     SetEntry({ ...entry, details: e.target.value });
@@ -88,16 +90,17 @@ export function DiaryModal() {
   useEffect(() => {
     async function postDiaryEntry() {
       const db_url = `https://fiveguysproject.herokuapp.com/diary/${pEmail}`;
-          const value = entry.mood / 25;
+      const value = entry.mood / 25;
 
       const newPost = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-       body: JSON.stringify({ ...entry, mood: value }),
+        body: JSON.stringify({ ...entry, mood: value }),
       };
       await fetch(db_url, newPost);
       // console.log(res);
       setSubmit(false);
+      setSubmitted(!submitted);
     }
 
     if (submit && isAuthenticated) {
@@ -106,44 +109,35 @@ export function DiaryModal() {
   });
   if (isLoading) {
     return <div>Loading...</div>;
-
   }
   return (
     <div>
-      <Button onClick={handleOpen}>
-        <ImBook
-          style={{
-            width: '4em',
-            height: '4em',
-            color: 'var(--font-color)',
-          }}
-        />
-      </Button>
+      <Button onClick={handleOpen}>Add Diary Entry</Button>
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby='modal-modal-title'
-        aria-describedby='modal-modal-description'
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <button id='close' onClick={handleClose}>
+          <button id="close" onClick={handleClose}>
             x
           </button>
           <Typography
             style={{}}
-            id='modal-modal-title'
-            variant='h2'
-            component='h2'
+            id="modal-modal-title"
+            variant="h2"
+            component="h2"
           >
             Diary
           </Typography>
           <Typography>{today}</Typography>
-          <Typography id='modal-modal-title' variant='h6' component='h2'>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
             How are you feeling today?
           </Typography>
           <Box sx={{ width: '100%' }}>
             <Slider
-              aria-label='Restricted values'
+              aria-label="Restricted values"
               defaultValue={50}
               step={null}
               marks={marks}
@@ -151,7 +145,7 @@ export function DiaryModal() {
               onChange={handleSlider}
             />
           </Box>
-          <Typography id='side-effects-title' variant='h6' component='h2'>
+          <Typography id="side-effects-title" variant="h6" component="h2">
             Side Effects/Mood/Symptoms
           </Typography>
           <textarea

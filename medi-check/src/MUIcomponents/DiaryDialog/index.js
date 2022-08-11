@@ -39,28 +39,31 @@ const marks = [
 function DiaryDialog(props) {
   const handleClose = () => {
     props.setOpen(false);
+    props.setAnchorEl(null);
   };
 
   return (
     <Dialog
-      className='diary-modal'
+      className="diary-modal"
       // onClose={handleClose}
       open={props.open}
-      maxWidth='md'
+      maxWidth="md"
       fullWidth
-      scroll='body'
+      scroll="body"
     >
-      <div className='diary-top'>
+      <div className="diary-top">
         <ButtonComponent text1={'Close Diary'} onClick={handleClose} />
         <DialogTitle>Diary</DialogTitle>
       </div>
-      <List className='diary-list'>
+      <List className="diary-list">
         {props.diary.map((item) => {
           return (
+
             <div className='diary-entry' key={uuidv4()}>
               <Typography className='diary-date'>{item.date}</Typography>
               <div className='diary-mood'>{marks[item.mood].label}</div>
               <Typography className='diary-text'>{item.details}</Typography>
+
             </div>
           );
         })}

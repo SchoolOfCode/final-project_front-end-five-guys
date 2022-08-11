@@ -46,12 +46,6 @@ export default function BasicMenu() {
           horizontal: 'center',
         }}
       >
-        {/* <MenuItem
-                    onClick={handleClose}
-                    sx={{ fontFamily: 'inter, sans-serif' }}
-                
-                    Pre-Paid
-                </MenuItem> */}
         <PrePaidModal setAnchorEl={setAnchorEl}></PrePaidModal>
         <OTCModal setAnchorEl={setAnchorEl}></OTCModal>
         <AllergiesModal
