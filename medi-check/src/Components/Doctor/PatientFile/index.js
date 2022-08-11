@@ -134,7 +134,7 @@ function PatientFile({ info, onClick }) {
         <div>
           <table className='allergy-table'>
             <tbody className='allergy-column'>
-              <tr className='allergy-heading'>Allergies</tr>
+              <tr className='allergy-header'>Allergies</tr>
 
               {allergies.map((allergy) => {
                 return (
