@@ -3,7 +3,6 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import { v4 as uuidv4 } from 'uuid';
-
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import Typography from '@mui/material/Typography';
@@ -288,16 +287,17 @@ export default function PendingDialog({ open, setOpen }) {
       {pending.length > 0 ? (
         <ButtonComponent text1={'Pending Prescriptions'} onClick={setOpen} />
       ) : null}
-      <Dialog onClose={handleClose} open={open} maxWidth='lg' fullWidth>
+      <Dialog open={open} maxWidth='lg' fullWidth>
         {pending.length === 0 ? (
           <div>No current pending prescriptions</div>
         ) : (
           <div className='pendingBox'>
-            <section>
-              {' '}
-              <DialogTitle>Pending Prescriptions</DialogTitle>
+            <section className='pending-patients'>
+              <DialogTitle className='pending-title'>
+                Prescriptions Pending for:
+              </DialogTitle>
+
               <>
-                {' '}
                 {pending.map((item) => {
                   return (
                     <Typography
@@ -312,8 +312,8 @@ export default function PendingDialog({ open, setOpen }) {
                 })}
               </>
             </section>
-            <section>
-              <h4>
+            <section className='pending-item'>
+              <h4 className='pending-item-title'>
                 {prescription.firstname} {prescription.surname}{' '}
                 {prescription.date}
               </h4>
@@ -343,23 +343,42 @@ export default function PendingDialog({ open, setOpen }) {
               ) : (
                 <></>
               )}
-              <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                <button
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-around',
+                  paddingTop: '0.5em',
+                }}
+              >
+                {/* <button
                   onClick={() => {
                     handleDecision(true);
                   }}
                 >
                   {' '}
                   Approve
-                </button>
-                <button
+                </button> */}
+                <ButtonComponent
+                  text1={'Approve'}
+                  onClick={() => {
+                    handleDecision(true);
+                  }}
+                />
+                <ButtonComponent
+                  text1={'Deny'}
+                  onClick={() => {
+                    handleDecision(false);
+                  }}
+                />
+                <ButtonComponent text1={'Close'} onClick={handleClose} />
+                {/* <button
                   onClick={() => {
                     handleDecision(false);
                   }}
                 >
                   {' '}
                   Deny
-                </button>
+                </button> */}
               </div>
             </section>
           </div>

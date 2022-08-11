@@ -16,23 +16,23 @@ import ButtonComponent from '../ButtonComponent';
 const marks = [
   {
     value: 0,
-    label: <RiEmotionSadLine className="icon" />,
+    label: <RiEmotionSadLine className='icon' />,
   },
   {
     value: 25,
-    label: <RiEmotionUnhappyLine className="icon" />,
+    label: <RiEmotionUnhappyLine className='icon' />,
   },
   {
     value: 50,
-    label: <RiEmotionNormalLine className="icon" />,
+    label: <RiEmotionNormalLine className='icon' />,
   },
   {
     value: 75,
-    label: <RiEmotionHappyLine className="icon" />,
+    label: <RiEmotionHappyLine className='icon' />,
   },
   {
     value: 100,
-    label: <RiEmotionLine className="icon" />,
+    label: <RiEmotionLine className='icon' />,
   },
 ];
 function DiaryDialog(props) {
@@ -43,24 +43,26 @@ function DiaryDialog(props) {
 
   return (
     <Dialog
-      className="diary-modal"
+      className='diary-modal'
       // onClose={handleClose}
       open={props.open}
-      maxWidth="md"
+      maxWidth='md'
       fullWidth
-      scroll="body"
+      scroll='body'
     >
-      <div className="diary-top">
+      <div className='diary-top'>
         <ButtonComponent text1={'Close Diary'} onClick={handleClose} />
-        <DialogTitle>Diary</DialogTitle>
+        <DialogTitle sx={{ fontWeight: 'bold', fontSize: '2em' }}>
+          Diary
+        </DialogTitle>
       </div>
-      <List className="diary-list">
+      <List className='diary-list'>
         {props.diary.map((item) => {
           return (
-            <div className="diary-entry">
-              <Typography className="diary-date">{item.date}</Typography>
-              <div className="diary-mood">{marks[item.mood].label}</div>
-              <Typography className="diary-text">{item.details}</Typography>
+            <div className='diary-entry'>
+              <Typography className='diary-date'>{item.date}</Typography>
+              <div className='diary-mood'>{marks[item.mood].label}</div>
+              <Typography className='diary-text'>{item.details}</Typography>
             </div>
           );
         })}

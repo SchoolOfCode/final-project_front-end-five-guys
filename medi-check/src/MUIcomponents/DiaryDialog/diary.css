@@ -22,10 +22,14 @@
 
 .diary-date {
   width: 5vw;
+  font-family: Inter, sans-serif;
+  font-size: 1.1em;
 }
 .diary-mood {
   width: 5vw;
 }
 .diary-text {
   width: 30vw;
+  font-family: Inter, sans-serif;
+  font-size: 1.1em;
 }
