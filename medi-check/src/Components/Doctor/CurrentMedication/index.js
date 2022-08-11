@@ -1,46 +1,47 @@
 import './currentmed.css';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function CurrentMedication({ prescriptions, allergies }) {
   console.log('allergies', allergies);
   console.log('prescriptions', prescriptions);
 
   return (
-    <table className='current-med-table'>
-      <th className='current-med-header'>Current Prescriptions</th>
+    <table className="current-med-table">
+      <th className="current-med-header">Current Prescriptions</th>
       {prescriptions.map((med) => {
         return (
-          <div className='current-med-columns'>
+          <div className="current-med-columns" key={uuidv4()}>
             <tr>
-              <td className='headings'>Prescription drug:</td>
+              <td className="headings">Prescription drug:</td>
               <td>{med.name}</td>
-              <td className='headings'> Date issued:</td>
+              <td className="headings"> Date issued:</td>
               <td>{med.date}</td>
             </tr>
             <tr>
-              <td className='headings'>Reason for prescription:</td>
+              <td className="headings">Reason for prescription:</td>
               <td>{med.reason}</td>
             </tr>
             <tr>
-              <td className='headings'>Dosage:</td>
+              <td className="headings">Dosage:</td>
               <td>
                 {med.dosage} {med.measurement}
               </td>
-              <td className='headings'> Frequency:</td>
+              <td className="headings"> Frequency:</td>
               <td>
                 {med.quantity} {med.frequency}
               </td>
-              <td className='headings'>Total:</td>
+              <td className="headings">Total:</td>
               <td>{med.total}</td>
             </tr>
             <tr>
-              <td className='headings'>Status:</td>
+              <td className="headings">Status:</td>
               <td>{med.status}</td>
-              <td className='headings'>Type:</td>
+              <td className="headings">Type:</td>
               <td>{med.type}</td>
             </tr>
             {med.override && (
               <tr>
-                <td className='headings'>Override reason:</td>
+                <td className="headings">Override reason:</td>
                 <td>{med.override}</td>
               </tr>
             )}
