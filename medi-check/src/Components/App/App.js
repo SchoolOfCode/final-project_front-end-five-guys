@@ -58,6 +58,7 @@ function App() {
     setDisplay('doctor');
   }
 
+  // let mode = darkMode ? 'dark-mode App' : 'App';
   if (isLoading) {
     return <div>Loading...</div>;
   }
