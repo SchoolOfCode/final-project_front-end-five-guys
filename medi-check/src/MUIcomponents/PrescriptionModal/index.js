@@ -75,7 +75,11 @@ export default function FormDialog({
   React.useEffect(() => {
     let names = [];
     names.push(prescription);
+    for (let i = 0; i < prescriptions.length; i++) {
+      names.push(prescriptions[i].name);
+    }
     async function fetchData(nameArray) {
+      console.log('name array', nameArray);
       let url = 'https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=';
       for (let i = 0; i < nameArray.length; i++) {
         let res = await fetch(
@@ -91,6 +95,7 @@ export default function FormDialog({
         let response = await fetch(url + '&sources=ONCHigh');
         let obj = await response.json();
         console.log('interactions here: ', obj);
+        console.log('iurl ', url);
         let filtered =
           obj.fullInteractionTypeGroup[0].fullInteractionType.filter((item) => {
             return (
@@ -126,6 +131,7 @@ export default function FormDialog({
           };
           console.log('sending this back to the DB:', prescription);
           setPrescriptionObj({ ...prescription });
+          setPrescription('');
           handleClose();
           return;
         }
@@ -138,6 +144,7 @@ export default function FormDialog({
               : filtered[i].minConcept[0].name
           );
         }
+        console.log('interacted drugs, open status', [...temp], true);
         setInteractedDrugs([...temp]);
         setOpenStatus(true);
       } catch (error) {
@@ -148,7 +155,7 @@ export default function FormDialog({
       //Comment out this line if testing and not wanting to query the API
       fetchData(names);
     }
-  }, [prescription]);
+  }, [prescription, prescriptions]);
 
   React.useEffect(() => {
     async function sendPrescription() {
@@ -166,7 +173,17 @@ export default function FormDialog({
       setPrescriptionObj({});
     }
     if (Object.keys(prescriptionObj).length !== 0) {
-      sendPrescription();
+      if (interactedDrugs) {
+        console.log('interacted druigs exist, here is the reason', reason);
+        if (reason) {
+          console.log('about to send with interactions');
+
+          sendPrescription();
+        }
+      } else {
+        console.log('in else, meaning should be no interacted drugs?');
+        sendPrescription();
+      }
     }
   }, [prescriptionObj, patient_id, prescriptions, setPrescriptions]);
   //States for all of the textfields
@@ -232,7 +249,7 @@ export default function FormDialog({
       monitoringSchedule: Number(inputs[8].value),
       monitoringFrequency: inputs[9].value,
     };
-    // console.log('no override but do not send back to DB here,', prescription);
+    console.log('no override but do not send back to DB here,', prescription);
     setPrescriptionObj({ ...prescription });
 
     setPrescription(prescription.name);
@@ -352,7 +369,7 @@ export default function FormDialog({
               fullWidth
               variant="standard"
               onChange={handleChange}
-              value="For testing"
+              defaultValue="For testing"
               required
             />
             <TextField
@@ -478,9 +495,7 @@ export default function FormDialog({
             <Button type="button" onClick={handleClose}>
               Cancel
             </Button>
-            <Button type="submit" onClick={handleClose}>
-              Prescribe
-            </Button>
+            <Button type="submit">Prescribe</Button>
           </DialogActions>
         </form>
       </Dialog>
