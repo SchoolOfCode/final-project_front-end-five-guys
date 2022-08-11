@@ -10,22 +10,21 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [status, setStatus] = useState(false);
   const { user, isAuthenticated, isLoading } = useAuth0();
-   const [largeFont, setLargeFont] = useState(false);
-    const [mode, setMode] = useState('App');
+  const [largeFont, setLargeFont] = useState(false);
+  const [mode, setMode] = useState('App');
 
-  
   useEffect(() => {
-        if (darkMode && largeFont) {
-            setMode('dark-mode large-font App');
-        } else if (largeFont) {
-            setMode('large-font App');
-        } else if (darkMode) {
-            setMode('dark-mode App');
-        } else {
-            setMode('App');
-        }
-    }, [darkMode, largeFont]);
-  
+    if (darkMode && largeFont) {
+      setMode('dark-mode large-font App');
+    } else if (largeFont) {
+      setMode('large-font App');
+    } else if (darkMode) {
+      setMode('dark-mode App');
+    } else {
+      setMode('App');
+    }
+  }, [darkMode, largeFont]);
+
   useEffect(() => {
     async function findUser() {
       let doctorCheck = await fetch(
@@ -59,7 +58,6 @@ function App() {
     setDisplay('doctor');
   }
 
-  let mode = darkMode ? 'dark-mode App' : 'App';
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -71,8 +69,12 @@ function App() {
       <button onClick={handlePatientClick}>Patient</button>
       <button onClick={handleDoctorClick}> Doctor</button>
       {display === 'patient' ? (
-        <PatientHome registered={status} setRegistered={setStatus} setDarkMode={setDarkMode} setLargeFont={setLargeFont} />
-
+        <PatientHome
+          registered={status}
+          setRegistered={setStatus}
+          setDarkMode={setDarkMode}
+          setLargeFont={setLargeFont}
+        />
       ) : display === 'doctor' ? (
         <DoctorHome setDarkMode={setDarkMode} setLargeFont={setLargeFont} />
       ) : (
