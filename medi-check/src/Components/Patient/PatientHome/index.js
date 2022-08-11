@@ -7,7 +7,12 @@ import './patientHome.css';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
 
-export function PatientHome({ registered, setRegistered, setDarkMode, setLargeFont}) {
+export function PatientHome({
+  registered,
+  setRegistered,
+  setDarkMode,
+  setLargeFont,
+}) {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
@@ -67,7 +72,6 @@ export function PatientHome({ registered, setRegistered, setDarkMode, setLargeFo
         {error && <div>{error}</div>}
         <div>
           Welcome, please input your code to register your account to your email
-
         </div>
         <input onChange={handleChange}></input>
         <button
@@ -88,9 +92,9 @@ export function PatientHome({ registered, setRegistered, setDarkMode, setLargeFo
         padding: '1em',
       }}
     >
-      <div className='patient-top-bar'>
+      <div className="patient-top-bar">
         <div>
-          <img id='patient-logo' src={logo} alt='medi-check logo' />
+          <img id="patient-logo" src={logo} alt="medi-check logo" />
         </div>
         <div>
           <Notifications />
@@ -100,7 +104,7 @@ export function PatientHome({ registered, setRegistered, setDarkMode, setLargeFo
       <PrescriptionDisplay />
       <UserSearchBar />
       <div style={{ marginTop: '30%', left: '0%' }}>
-        <PatientNavBar setDarkMode={setDarkMode} setLargeFont={setLargeFont}/>
+        <PatientNavBar setDarkMode={setDarkMode} setLargeFont={setLargeFont} />
       </div>
     </div>
   );

@@ -99,30 +99,34 @@ function PrescriptionDisplay() {
   }
   return (
     <div>
-      <div className="accordian-container">
-        {itemInteractionsCombo.map((item) => {
-          return (
-            <section style={{ width: '100%' }} key={uuidv4()}>
-              <h3>Interaction Alert</h3>
-              <h4
-                style={{
-                  color: 'var(--font-color)',
-                }}
-              >
-                {' '}
-                {item.minConcept[0].name} and {item.minConcept[1].name}
-              </h4>
+      {itemInteractionsCombo.length === 0 ? (
+        <></>
+      ) : (
+        <div className="accordian-container">
+          {itemInteractionsCombo.map((item) => {
+            return (
+              <section style={{ width: '100%' }} key={uuidv4()}>
+                <h3>Interaction Alert</h3>
+                <h4
+                  style={{
+                    color: 'var(--font-color)',
+                  }}
+                >
+                  {' '}
+                  {item.minConcept[0].name} and {item.minConcept[1].name}
+                </h4>
 
-              <div style={{ width: '100%' }}>
-                Doctor's Note: {item.overrideMessage}
-              </div>
-              <div style={{ width: '100%' }}>
-                {item.interactionPair[0].description}
-              </div>
-            </section>
-          );
-        })}
-      </div>
+                <div style={{ width: '100%' }}>
+                  Doctor's Note: {item.overrideMessage}
+                </div>
+                <div style={{ width: '100%' }}>
+                  {item.interactionPair[0].description}
+                </div>
+              </section>
+            );
+          })}
+        </div>
+      )}
       <br />
       <CustomizedAccordions
         title={<h3>Current Prescriptions</h3>}
