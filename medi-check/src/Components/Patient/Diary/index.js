@@ -14,8 +14,6 @@ import {
 } from 'react-icons/ri';
 import './diary.css';
 import { useAuth0 } from '@auth0/auth0-react';
-import { ImBook } from 'react-icons/im/';
-
 
 const style = {
   display: 'flex',
@@ -55,7 +53,7 @@ const marks = [
   },
 ];
 
-export function DiaryModal() {
+export function DiaryModal({ setAnchorEl }) {
   //temporary hard coded patient email until auth0 is done
   const { user, isAuthenticated, isLoading } = useAuth0();
   // const pEmail = 'rsmith123@email.com';
@@ -63,7 +61,6 @@ export function DiaryModal() {
   const [open, setOpen] = useState(false);
   const [submit, setSubmit] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const date = new Date();
   const today = date.toLocaleDateString();
   const [entry, SetEntry] = useState({
@@ -71,6 +68,11 @@ export function DiaryModal() {
     details: '',
     date: today,
   });
+
+  function handleClose() {
+    setOpen(false);
+    setAnchorEl(null);
+  }
 
   function handleText(e) {
     SetEntry({ ...entry, details: e.target.value });
@@ -88,12 +90,12 @@ export function DiaryModal() {
   useEffect(() => {
     async function postDiaryEntry() {
       const db_url = `https://fiveguysproject.herokuapp.com/diary/${pEmail}`;
-          const value = entry.mood / 25;
+      const value = entry.mood / 25;
 
       const newPost = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-       body: JSON.stringify({ ...entry, mood: value }),
+        body: JSON.stringify({ ...entry, mood: value }),
       };
       await fetch(db_url, newPost);
       // console.log(res);
@@ -106,19 +108,10 @@ export function DiaryModal() {
   });
   if (isLoading) {
     return <div>Loading...</div>;
-
   }
   return (
     <div>
-      <Button onClick={handleOpen}>
-        <ImBook
-          style={{
-            width: '4em',
-            height: '4em',
-            color: 'var(--font-color)',
-          }}
-        />
-      </Button>
+      <Button onClick={handleOpen}>Add Diary Entry</Button>
       <Modal
         open={open}
         onClose={handleClose}

@@ -1,13 +1,10 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
-import { CgProfile } from 'react-icons/cg';
-import AllergiesModal from '../../../../MUIcomponents/AllergiesModal';
-import './accountmenu.css';
-import PrePaidModal from '../../../../MUIcomponents/PrePaidModal';
-import OTCModal from '../../../../MUIcomponents/OTCModal';
+import { ImBook } from 'react-icons/im/';
+import { DiaryModal } from '../Diary';
 
-export default function BasicMenu() {
+export default function DiaryMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -26,7 +23,12 @@ export default function BasicMenu() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <CgProfile id='profile-button' />
+        <ImBook
+          style={{
+            width: '4em',
+            height: '4em',
+          }}
+        />
       </Button>
       <Menu
         id='basic-menu'
@@ -46,17 +48,8 @@ export default function BasicMenu() {
           horizontal: 'center',
         }}
       >
-        <PrePaidModal setAnchorEl={setAnchorEl}></PrePaidModal>
-        <OTCModal setAnchorEl={setAnchorEl}></OTCModal>
-        <AllergiesModal
-          setAnchorEl={setAnchorEl}
-          sx={{
-            textDecoration: 'none',
-            fontFamily: 'inter, sans-serif',
-          }}
-        >
-          Allergies
-        </AllergiesModal>
+        <p>See All Diary Entries{/*Brycen replace this with your bit :)*/}</p>
+        <DiaryModal setAnchorEl={setAnchorEl} />
       </Menu>
     </div>
   );
