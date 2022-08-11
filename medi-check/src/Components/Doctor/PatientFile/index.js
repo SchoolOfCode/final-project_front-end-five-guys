@@ -8,7 +8,7 @@ import CurrentMedication from '../CurrentMedication';
 function PatientFile({ info, onClick }) {
   const [allergies, setAllergies] = useState([]);
   const [prescriptions, setPrescriptions] = useState([]);
-  const [OTC, setOTC] = useState([]);
+  const [overCounter, setOverCounter] = useState([]);
   const [diary, setDiary] = useState([]);
   const [open, setOpen] = useState(false);
   console.log(OTC);
@@ -56,7 +56,7 @@ function PatientFile({ info, onClick }) {
       );
       let json = await res.json();
       console.log('OTC ionfo:', json);
-      setOTC(json);
+      setOverCounter(json.data);
     }
     getOTC();
   }, [info.patient_id]);
@@ -134,6 +134,20 @@ function PatientFile({ info, onClick }) {
             </tr>
           </table>
         </section>
+        {overCounter && (
+          <table>
+            {' '}
+            <th>OTC medicine</th>
+            {overCounter.map((item) => {
+              return (
+                <tr>
+                  <td>{item.name}</td>
+                  <td>{item.reason}</td>
+                </tr>
+              );
+            })}
+          </table>
+        )}
         <div>
           <table>
             <div className='allergy-table'>
