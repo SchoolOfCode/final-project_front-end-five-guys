@@ -100,9 +100,9 @@ export function PatientHome({
           <Notifications />
         </div>
       </div>
+      <UserSearchBar />
 
       <PrescriptionDisplay />
-      <UserSearchBar />
       <div style={{ marginTop: '30%', left: '0%' }}>
         <PatientNavBar setDarkMode={setDarkMode} setLargeFont={setLargeFont} />
       </div>
