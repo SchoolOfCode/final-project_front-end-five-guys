@@ -93,6 +93,27 @@
   flex-direction: column;
 }
 
+.otc-card {
+  padding: 1em;
+  background-color: var(--bg-color);
+  display: flex;
+  border-radius: 1em;
+  margin-left: 10.8em;
+  margin-top: 1.5em;
+  font-family: Inter, sans-serif;
+  font-size: 1.1em;
+  flex-direction: column;
+  box-shadow: 6px 6px 15px -5px rgba(0, 0, 0, 0.55);
+  height: fit-content;
+}
+
+.otc-header {
+  font-family: Inter, sans-serif;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin: 0.5em 0 1em 0;
+}
+
 /* .allergy-table th {
   padding-left: 0.4em;
   gap: 5em;
