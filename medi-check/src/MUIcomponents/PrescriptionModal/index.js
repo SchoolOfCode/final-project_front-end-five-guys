@@ -169,6 +169,7 @@ export default function FormDialog({
       );
       let json = await response.json();
       console.log('posted pres', json);
+      console.log('setting pres', [...prescriptions, prescriptionObj]);
       setPrescriptions([...prescriptions, prescriptionObj]);
       setPrescriptionObj({});
     }
