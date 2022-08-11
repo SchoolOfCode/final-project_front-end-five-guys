@@ -1,10 +1,11 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=8157292&assignment_repo_type=AssignmentRepo)
+# MEDI-CHECK
+A proof-of-concept app demonstrating research-driven approaches to combatting medication error. This project was developed as part of the 4-week final team project at School of Code. Developement followed a short-sprint Scrum Agile methodology that utilised a veteran General Practitioner and Senior Social Worker as product owners. 
 
-# final-project_front-end_five-guys
+## Live Link
+[Here](https://medi-check.netlify.app/
+)
 
-https://medi-check.netlify.app/
-
-## authors
+## Authors
 
 - Ben Greenwood
 - Brycen Barron-Borden
