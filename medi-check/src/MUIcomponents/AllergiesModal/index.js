@@ -89,22 +89,22 @@ export default function AllergiesModal({ setAnchorEl }) {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
       >
         <Box sx={style}>
           <Typography
             sx={{ mb: 0.5 }}
-            id="modal-modal-title"
-            variant="h5"
-            component="h2"
+            id='modal-modal-title'
+            variant='h5'
+            component='h2'
           >
             Allergies
           </Typography>
           {CurrentAllergy.length > 0 ? (
             CurrentAllergy.map((item) => {
               return (
-                <Typography key={uuidv4()} id="modal-modal-description">
+                <Typography key={uuidv4()} id='modal-modal-description'>
                   {item.name}
                 </Typography>
               );
@@ -116,17 +116,17 @@ export default function AllergiesModal({ setAnchorEl }) {
           <textarea
             style={{ resize: 'none', height: '5vh', width: '100%' }}
             onChange={handleText}
-            name="name"
+            name='name'
           ></textarea>{' '}
           <Typography sx={{ mb: 0.4 }}>New Allergy Reaction</Typography>
           <textarea
             style={{ resize: 'none', height: '5vh', width: '100%' }}
             onChange={handleText}
-            name="reaction"
+            name='reaction'
           ></textarea>
-          <button style={{ alignSelf: 'center' }} onClick={handleSubmit}>
+          <Button style={{ alignSelf: 'center' }} onClick={handleSubmit}>
             Submit
-          </button>
+          </Button>
         </Box>
       </Modal>
     </div>

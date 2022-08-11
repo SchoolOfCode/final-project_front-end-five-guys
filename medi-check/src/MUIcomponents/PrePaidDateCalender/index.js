@@ -21,7 +21,7 @@ export default function PrePaidDateCalender({ value, setValue }) {
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <MobileDatePicker
         label='Date mobile'
-        inputFormat='MM/dd/yyyy'
+        inputFormat='DD/MM/YYYY'
         value={value}
         onChange={handleChange}
         renderInput={(params) => <TextField {...params} />}
