@@ -17,11 +17,3 @@ test('Searchbar is displayed', function () {
 
     expect(searchbar).toBeVisible();
 });
-
-test('Pending prescriptions button is displayed', function () {
-    render(<DoctorHome />);
-
-    const prescriptionButton = screen.getByAltText('Pending Prescriptions');
-    // prescriptionButton.getByText('Pending Prescriptions')
-    expect(prescriptionButton).toBeVisible();
-});
