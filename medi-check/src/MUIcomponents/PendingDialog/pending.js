@@ -319,8 +319,8 @@ export default function PendingDialog({ open, setOpen }) {
                 })}
               </>
             </section>
-            <section>
-              <h4>
+            <section className='pending-item'>
+              <h4 className='pending-title'>
                 {prescription.firstname} {prescription.surname}{' '}
                 {prescription.date}
               </h4>
