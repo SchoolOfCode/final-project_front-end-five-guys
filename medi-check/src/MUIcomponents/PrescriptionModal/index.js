@@ -171,10 +171,9 @@ export default function FormDialog({
       );
       let json = await response.json();
       console.log('posted pres', json);
-      console.log('setting pres', [...prescriptions, prescriptionObj]);
-      // setPrescriptions([...prescriptions, prescriptionObj]);
       setRefresh(!refresh);
       setPrescriptionObj({});
+      setPrescription('');
     }
     if (Object.keys(prescriptionObj).length !== 0) {
       if (interactedDrugs) {
@@ -189,7 +188,16 @@ export default function FormDialog({
         sendPrescription();
       }
     }
-  }, [prescriptionObj, patient_id, prescriptions, setPrescriptions]);
+  }, [
+    prescriptionObj,
+    patient_id,
+    prescriptions,
+    setPrescriptions,
+    interactedDrugs,
+    refresh,
+    reason,
+    setRefresh,
+  ]);
   //States for all of the textfields
   // const [name, setName] = React.useState('');
   // const [dosage, setDosage] = React.useState(0);
@@ -273,7 +281,7 @@ export default function FormDialog({
     // const handleOpen = () => {
     //   setOpen(true);
     // };
-    const handleClose = () => {
+    const handleClose2 = () => {
       setOpenStatus(false);
       // setOpen(false);
     };
@@ -284,7 +292,7 @@ export default function FormDialog({
         <Modal
           hideBackdrop
           open={openStatus}
-          onClose={handleClose}
+          onClose={handleClose2}
           aria-labelledby="child-modal-title"
           aria-describedby="child-modal-description"
         >
@@ -321,7 +329,7 @@ export default function FormDialog({
                 justifyContent: 'space-evenly',
               }}
             >
-              <Button onClick={handleClose}>Cancel</Button>
+              <Button onClick={handleClose2}>Cancel</Button>
               <Button
                 onClick={handleOverrideClick}
                 disabled={reasonText ? false : true}
@@ -411,15 +419,6 @@ export default function FormDialog({
               defaultValue="100"
               name="dosage"
             />
-            {/* <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Drug Form (e.g. tablet, capsule)"
-            type="form"
-            fullWidth
-            variant="standard"
-          /> */}
             <TextField
               autoFocus
               margin="dense"
