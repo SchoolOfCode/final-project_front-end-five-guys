@@ -126,10 +126,18 @@ export default function AllergiesModal({ setAnchorEl }) {
             name='reaction'
           ></textarea>
           <div id='allergies-buttons-area'>
-            <Button className='allergies-buttons' onClick={handleSubmit}>
+            <Button
+              style={{ border: 'solid black 1px', color: 'black' }}
+              className='allergies-buttons'
+              onClick={handleSubmit}
+            >
               Submit
             </Button>
-            <Button className='allergies-buttons' onClick={handleClose}>
+            <Button
+              style={{ border: 'solid black 1px', color: 'black' }}
+              className='allergies-buttons'
+              onClick={handleClose}
+            >
               Cancel
             </Button>
           </div>
