@@ -21,11 +21,11 @@
 .dark-mode {
   --font-color: white;
   --dark-mode-font: white;
-  --bg-color: black;
+  --bg-color: rgb(14, 18, 59);
   --modal-color: darkblue;
   --button-color: rgb(10, 92, 143);
   --button-hover-color: blue;
-  --accordian-color: rgb(14, 18, 59);
+  --accordian-color: rgb(14, 20, 88);
   --table-color: rgb(14, 18, 59);
   --table-alternate-rows: #d9d9d9;
   --alert: red;
