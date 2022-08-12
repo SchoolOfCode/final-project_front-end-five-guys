@@ -103,7 +103,7 @@ function PrescriptionDisplay() {
       {itemInteractionsCombo.length === 0 ? (
         <></>
       ) : (
-        <div className="accordian-container">
+        <div className='accordian-container'>
           {itemInteractionsCombo.map((item) => {
             return (
               <section style={{ width: '100%' }} key={uuidv4()}>
@@ -134,17 +134,28 @@ function PrescriptionDisplay() {
         drugArray={current}
       ></CustomizedAccordions>
       <br />
-      <CustomizedAccordions
-        title={<h3>Past Prescriptions</h3>}
-        drugArray={history}
-      ></CustomizedAccordions>
-      {overCounter.map((item) => {
-        return (
-          <div key={uuidv4()}>
-            {item.name} {'-'} {item.reason}
-          </div>
-        );
-      })}
+      {history.length > 0 ? (
+        <CustomizedAccordions
+          title={<h3>Past Prescriptions</h3>}
+          drugArray={history}
+        ></CustomizedAccordions>
+      ) : (
+        <></>
+      )}
+      {overCounter.length === 0 ? (
+        <></>
+      ) : (
+        <div className='accordian-container'>
+          <h4 style={{ marginBottom: '1em' }}>Over the Counter Medications</h4>
+          {overCounter.map((item) => {
+            return (
+              <div key={uuidv4()}>
+                {item.name} {'-'} {item.reason}
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
