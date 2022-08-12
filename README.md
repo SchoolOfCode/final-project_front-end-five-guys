@@ -2,6 +2,9 @@
 A proof-of-concept full-stack React app demonstrating research-driven approaches to combatting medication error. This project was developed as part of the 4-week final team project at School of Code. Developement followed a short-sprint Scrum Agile methodology that utilised a veteran General Practitioner and Senior Social Worker as product owners. 
 
 ## Overview
+Our app Medi-Check aims to reduce this by giving autonomy back to the doctor when prescribing medications as our app will check accordingly with patients other meds if the is an interaction and will highlight high severity interactions via an alert.
+
+It also allows the patient to view their medical history in one location and even allows the patient to enter "OTC" (over the counter) medications to check against their current meds to see if their is a high severity interaction.
 
 ## Live Link
 [Here](https://medi-check.netlify.app/
