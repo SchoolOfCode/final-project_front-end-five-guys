@@ -15,3 +15,14 @@
 .pendingBox > section > p:hover {
   text-decoration: underline;
 }
+
+.pending-patients {
+  margin: 0 0 1em 1em;
+}
+
+.pending-item {
+  margin: 1em 0 1em 5em;
+}
+.pending-item-title {
+  margin-bottom: 1em;
+}
