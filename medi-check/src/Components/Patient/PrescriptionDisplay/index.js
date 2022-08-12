@@ -48,7 +48,7 @@ function PrescriptionDisplay() {
   let itemInteractions = useInteractions(prescriptions);
   // let itemInteractions = testInteractions;
 
-  // console.log('itemInter', itemInteractions);
+  console.log('prescrip', prescriptions);
   //This is taking the API data and for each drug interaction it is grouping together the drug, the drug it is interacting with, and the description
   let combo = prescriptions.map((obj) => {
     let overview = itemInteractions.filter((info) => {
@@ -69,6 +69,7 @@ function PrescriptionDisplay() {
       drugInfo: obj.dosage + obj.measurement + ' ' + obj.frequency,
       status: obj.status,
       message: obj.override,
+      reason: obj.reason,
     };
   });
   //filter out inactive
