@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import { v4 as uuidv4 } from 'uuid';
 import MenuItem from '@mui/material/MenuItem';
@@ -109,7 +108,7 @@ export default function PendingDialog({ open, setOpen }) {
         // console.log('OBJECT TO SEND TO DB', prescription, 'reason', reason);
         if (settledPrescription.approved) {
           //post
-          const response = await fetch(
+          await fetch(
             `https://fiveguysproject.herokuapp.com/prescriptions/${prescription.patient_id}`,
             {
               method: 'POST',
@@ -119,18 +118,18 @@ export default function PendingDialog({ open, setOpen }) {
                 : JSON.stringify(prescription),
             }
           );
-          let json = await response.json();
+          //let json = await response.json();
           // console.log('posted new prescription!:', json);
         }
         //delete
-        const response2 = await fetch(
+        await fetch(
           `https://fiveguysproject.herokuapp.com/pending/${prescription.pending_id}`,
           {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
           }
         );
-        let json2 = await response2.json();
+
         // console.log('deleted pending prescription:', json2);
 
         let index;
@@ -198,7 +197,7 @@ export default function PendingDialog({ open, setOpen }) {
 
   function ChildModal() {
     // const [open, setOpen] = React.useState(false);
-    const [reasonText, setReasonText] = React.useState('');
+    //const [reasonText, setReasonText] = React.useState('');
     const style = {
       position: 'absolute',
       top: '50%',
@@ -215,9 +214,9 @@ export default function PendingDialog({ open, setOpen }) {
     function validate(e) {
       setReasonValidate(e.target.value);
     }
-    function handleOverrideChange(e) {
-      setReasonText(e.target.value);
-    }
+    // function handleOverrideChange(e) {
+    //   setReasonText(e.target.value);
+    // }
     function handleOverrideClick() {
       // console.log(document.querySelector('#drugInteractionOverride').value);
       setReason(reasonValidate);
@@ -240,14 +239,14 @@ export default function PendingDialog({ open, setOpen }) {
           hideBackdrop
           open={openStatusC}
           onClose={handleCloseChild}
-          aria-labelledby="child-modal-title"
-          aria-describedby="child-modal-description"
+          aria-labelledby='child-modal-title'
+          aria-describedby='child-modal-description'
         >
           <Box sx={{ ...style }}>
             {!prescription ? (
               <></>
             ) : (
-              <h2 id="child-modal-title">
+              <h2 id='child-modal-title'>
                 WARNING: There is a severe interaction between{' '}
                 {prescription.name} and other drugs {prescription.firstname}{' '}
                 {prescription.surname} is currently prescribed{' '}
@@ -259,17 +258,17 @@ export default function PendingDialog({ open, setOpen }) {
               </h2>
             )}
 
-            <p id="child-modal-description">
+            <p id='child-modal-description'>
               If you want to continue with this prescription please provide a
               valid reason below:
             </p>
             <FormControl fullWidth>
-              <InputLabel id="overrideReason">Reason</InputLabel>
+              <InputLabel id='overrideReason'>Reason</InputLabel>
               <Select
-                labelId="overrideReason"
-                id="demo-simple-select"
+                labelId='overrideReason'
+                id='demo-simple-select'
                 value={reasonValidate}
-                label="Reason"
+                label='Reason'
                 onChange={validate}
               >
                 <MenuItem value={'Patient intolerant of alternative drug'}>
@@ -319,11 +318,11 @@ export default function PendingDialog({ open, setOpen }) {
           }}
         />
       ) : null}
-      <Dialog onClose={handleClose} open={open} maxWidth="lg" fullWidth>
+      <Dialog onClose={handleClose} open={open} maxWidth='lg' fullWidth>
         {pending.length === 0 ? (
           <div>No current pending prescriptions</div>
         ) : (
-          <div className="pendingBox">
+          <div className='pendingBox'>
             <section>
               {' '}
               <DialogTitle>Pending Prescriptions</DialogTitle>
