@@ -19,6 +19,7 @@ function DoctorHome({ setDarkMode, setLargeFont }) {
   const [reset, setReset] = useState(0);
   const DOCTOR_EMAIL = 'bens@gmail.com';
 
+
   useEffect(() => {
     async function getPatients() {
       let res = await fetch(
