@@ -31,23 +31,23 @@ const style = {
 const marks = [
   {
     value: 0,
-    label: <RiEmotionSadLine className="icon" />,
+    label: <RiEmotionSadLine className='icon' />,
   },
   {
     value: 25,
-    label: <RiEmotionUnhappyLine className="icon" />,
+    label: <RiEmotionUnhappyLine className='icon' />,
   },
   {
     value: 50,
-    label: <RiEmotionNormalLine className="icon" />,
+    label: <RiEmotionNormalLine className='icon' />,
   },
   {
     value: 75,
-    label: <RiEmotionHappyLine className="icon" />,
+    label: <RiEmotionHappyLine className='icon' />,
   },
   {
     value: 100,
-    label: <RiEmotionLine className="icon" />,
+    label: <RiEmotionLine className='icon' />,
   },
 ];
 
@@ -68,27 +68,40 @@ export function DiaryPopup({ setAnchorEl, diary }) {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
       >
         <Box sx={style}>
-          <button id="close" onClick={handleClose}>
+          <button id='close' onClick={handleClose}>
             x
           </button>
           <Typography
             style={{}}
-            id="modal-modal-title"
-            variant="h2"
-            component="h2"
+            id='modal-modal-title'
+            variant='h2'
+            component='h2'
           >
             Diary
           </Typography>
           {diary.map((item) => {
             return (
-              <div className="diary-entry" key={uuidv4()}>
-                <Typography className="diary-date">{item.date}</Typography>
-                <div className="diary-mood">{marks[item.mood].label}</div>
-                <Typography className="diary-text">{item.details}</Typography>
+              <div
+                className='diary-entry'
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                }}
+                key={uuidv4()}
+              >
+                <Typography
+                  className='diary-date'
+                  style={{ marginRight: '1em' }}
+                >
+                  {item.date}
+                </Typography>
+                <div className='diary-mood'>{marks[item.mood].label}</div>
+                <Typography className='diary-text'>{item.details}</Typography>
               </div>
             );
           })}
