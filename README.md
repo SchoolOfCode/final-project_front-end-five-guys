@@ -1,6 +1,7 @@
 # MEDI-CHECK
 A proof-of-concept full-stack React app demonstrating research-driven approaches to combatting medication error. This project was developed as part of the 4-week final team project at School of Code. Developement followed a short-sprint Scrum Agile methodology that utilised a veteran General Practitioner and Senior Social Worker as product owners. 
-##Overview
+
+## Overview
 
 ## Live Link
 [Here](https://medi-check.netlify.app/
@@ -8,7 +9,7 @@ A proof-of-concept full-stack React app demonstrating research-driven approaches
 
 ## Authors
 
-- Ben Greenwood [LinkedIn]() [GitHub](https://github.com/B-P-Greenwood)
+- Ben Greenwood [LinkedIn](www.linkedin.com/in/b-p-greenwood/) [GitHub](https://github.com/B-P-Greenwood)
 - Brycen Barron-Borden [LinkedIn](https://www.linkedin.com/in/brycenbb/) [GitHub](https://github.com/brycenbb)
 - Michael Rushton [LinkedIn](www.linkedin.com/in/michael-rushton) [GitHub](https://github.com/michaelrushton-dev)
 - Rajesh Reel [LinkedIn](https://www.linkedin.com/in/rajesh-reel) [GitHub](https://www.github.com/rajesh-reel)
