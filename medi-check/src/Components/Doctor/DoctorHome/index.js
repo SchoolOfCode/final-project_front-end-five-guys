@@ -40,7 +40,6 @@ function DoctorHome({ setDarkMode, setLargeFont }) {
   // const handleClickOpen = () => {
   //   setOpen(true);
   // };
-  console.log('passing them down', open, setOpen);
   return (
     <div className="doctor-home">
       <Header name="Smuggles" />

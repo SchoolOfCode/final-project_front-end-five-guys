@@ -24,7 +24,6 @@ export default function PendingDialog({ open, setOpen }) {
   const [reason, setReason] = React.useState('');
   const [interactedDrugs, setInteractedDrugs] = React.useState([]);
   const [reasonValidate, setReasonValidate] = React.useState('');
-  console.log('AYO', open, setOpen);
   useEffect(() => {
     async function getPending() {
       const response = await fetch(
@@ -50,21 +49,24 @@ export default function PendingDialog({ open, setOpen }) {
       );
       let prescriptionJson = await prescriptonResponse.json();
       let list = prescriptionJson.data;
-      // console.log('asddasadsdasadsdas', list);
+      list.push(prescription);
+      console.log('asddasadsdasadsdas', list);
       let url = 'https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=';
       for (let i = 0; i < list.length; i++) {
         let res = await fetch(
           `https://rxnav.nlm.nih.gov/REST/rxcui.json?name=${list[i].name}`
         );
         let json = await res.json();
-        console.log(list[i].name, list);
-        url += `+${json.idGroup.rxnormId[0]}`;
+        console.log(list[i].name, json);
+        if (json.idGroup.rxnormId) {
+          url += `+${json.idGroup.rxnormId[0]}`;
+        }
       }
       try {
         let response = await fetch(url + '&sources=ONCHigh');
         let obj = await response.json();
-        // console.log('interactions here: ', obj);
-        // console.log('new drug name here: ', prescription.name);
+        console.log('interactions here: ', obj);
+        console.log('new drug name here: ', prescription.name);
         if (!obj.fullInteractionTypeGroup) {
           setSend(true);
           return;
@@ -78,9 +80,9 @@ export default function PendingDialog({ open, setOpen }) {
                 item.minConcept[1].name.toLowerCase()
             );
           });
-        // console.log('fil', filtered);
+        console.log('fil', filtered);
         if (filtered.length !== 0) {
-          // console.log('There are  interactions with the new drug'); //There is an interaction and we need to stop the closure and display the warning
+          console.log('There are  interactions with the new drug'); //There is an interaction and we need to stop the closure and display the warning
           let temp = [];
           for (let i = 0; i < filtered.length; i++) {
             temp.push(
@@ -107,29 +109,29 @@ export default function PendingDialog({ open, setOpen }) {
         // console.log('OBJECT TO SEND TO DB', prescription, 'reason', reason);
         if (settledPrescription.approved) {
           //post
-          // const response = await fetch(
-          //   `https://fiveguysproject.herokuapp.com/prescriptions/${prescription.patient_id}`,
-          //   {
-          //     method: 'POST',
-          //     headers: { 'Content-Type': 'application/json' },
-          //     body: reason
-          //       ? JSON.stringify({ ...prescription, override: reason })
-          //       : JSON.stringify(prescription),
-          //   }
-          // );
-          // let json = await response.json();
-          // // console.log('posted new prescription!:', json);
+          const response = await fetch(
+            `https://fiveguysproject.herokuapp.com/prescriptions/${prescription.patient_id}`,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: reason
+                ? JSON.stringify({ ...prescription, override: reason })
+                : JSON.stringify(prescription),
+            }
+          );
+          let json = await response.json();
+          // console.log('posted new prescription!:', json);
         }
         //delete
-        // const response2 = await fetch(
-        //   `https://fiveguysproject.herokuapp.com/pending/${prescription.pending_id}`,
-        //   {
-        //     method: 'DELETE',
-        //     headers: { 'Content-Type': 'application/json' },
-        //   }
-        // );
-        // let json2 = await response2.json();
-        // // console.log('deleted pending prescription:', json2);
+        const response2 = await fetch(
+          `https://fiveguysproject.herokuapp.com/pending/${prescription.pending_id}`,
+          {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
+        let json2 = await response2.json();
+        // console.log('deleted pending prescription:', json2);
 
         let index;
         // console.log('pending:', pending);
@@ -307,7 +309,7 @@ export default function PendingDialog({ open, setOpen }) {
               <Button onClick={handleCloseChild}>Cancel</Button>
               <Button
                 onClick={handleOverrideClick}
-                disabled={reasonText ? false : true}
+                disabled={reasonValidate ? false : true}
               >
                 Confirm Prescription
               </Button>
