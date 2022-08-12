@@ -1,0 +1,5 @@
+#allergies-buttons-area {
+  display: flex;
+  justify-content: space-around;
+  gap: 3em;
+}

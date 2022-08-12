@@ -1,12 +1,16 @@
 #patient-logo {
-    height: 6em;
-    width: 6em;
+  height: 6em;
+  width: 6em;
 }
 .patient-top-bar {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--font-color);
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--font-color);
+}
+
+#register-code-field {
+  margin: 1em;
 }
