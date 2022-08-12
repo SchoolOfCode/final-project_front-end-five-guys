@@ -1,10 +1,11 @@
-import { useState } from "react";
-import "./Searchbar.css";
-import ButtonComponent from "../../../MUIcomponents/Button2";
+//
+import { useState } from 'react';
+import './Searchbar.css';
+import ButtonComponent from '../../../MUIcomponents/ButtonComponent';
 // import { AiOutlineSearch } from "react-icons/ai";
 
 export default function SearchBar(props) {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const list = props.list;
 
   function handleChange(e) {
@@ -17,7 +18,7 @@ export default function SearchBar(props) {
     search.toLowerCase() === search.toUpperCase()
       ? searchByNHSNumber()
       : searchByName();
-    setSearch("");
+    setSearch('');
   }
 
   //when reset button is pressed, increments the reset state to trigger useEffect that calls the db patient
@@ -29,7 +30,7 @@ export default function SearchBar(props) {
     props.setReset(number);
     props.setPatient(null);
 
-    setSearch("");
+    setSearch('');
   }
 
   //function used to call patient data from back end from search
@@ -60,20 +61,20 @@ export default function SearchBar(props) {
 
   return (
     <div>
-      <form id="patient-search" onSubmit={searchPatient}>
+      <form id='patient-search' onSubmit={searchPatient}>
         <label>
           <input
-            className="search-bar"
-            type="text"
-            placeholder="Search Patients"
+            className='search-bar'
+            type='text'
+            placeholder='Search Patients'
             value={search}
             onChange={handleChange}
           ></input>
         </label>
-        <ButtonComponent text1="Search" type="submit" />
+        <ButtonComponent text1='Search' type='submit' />
         <ButtonComponent
-          text1="Reset"
-          type="submit"
+          text1='Reset'
+          type='submit'
           onClick={resetPatientList}
         />
       </form>

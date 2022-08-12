@@ -5,11 +5,14 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 // import DialogContentText from '@mui/material/DialogContentText';
+//
 import DialogTitle from '@mui/material/DialogTitle';
 import ControlledSwitches from '../ControlledSwitch';
 import BasicSelect from '../Box';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
+import ButtonComponent from '../ButtonComponent';
+import { MdOutlineAddCircle } from 'react-icons/md';
 
 import './index.css';
 // import useInteractions from '../../Hooks/useInteractionsFromName';
@@ -17,7 +20,7 @@ import './index.css';
 import { dummy } from '../../Components/Patient/PrescriptionDisplay/dummyData.js';
 //Easy tester drug: ketoconazole
 
-export default function FormDialog({ first, last }) {
+export default function FormDialog({ first, last, patient_id }) {
   console.log(Date.now(), Date.UTC());
   const style = {
     position: 'absolute',
@@ -34,6 +37,7 @@ export default function FormDialog({ first, last }) {
   };
   const [open, setOpen] = React.useState(false);
   const [prescription, setPrescription] = React.useState('');
+  const [prescriptionObj, setPrescriptionObj] = React.useState({});
   const [openStatus, setOpenStatus] = React.useState(false);
   const [reason, setReason] = React.useState('');
   const [interactedDrugs, setInteractedDrugs] = React.useState([]);
@@ -52,15 +56,16 @@ export default function FormDialog({ first, last }) {
       measurement: inputs[5].value,
       quantity: prependZero(inputs[6].value),
       frequency: inputs[7].value,
-      status: inputs[8].checked ? 'acute' : 'repeat',
+      status: 'active',
       override: reason,
-      active: true,
+      type: inputs[10].checked ? 'acute' : 'repeat',
       date: new Date(),
       monitoring: Number(inputs[8].value) === 0 ? false : true,
       monitoringSchedule: Number(inputs[8].value),
       monitoringFrequency: inputs[9].value,
     };
     console.log('overrided,', prescription);
+    setPrescriptionObj({ ...prescription });
   }, [reason]);
 
   React.useEffect(() => {
@@ -68,6 +73,7 @@ export default function FormDialog({ first, last }) {
     for (let i = 0; i < dummy.length; i++) {
       names.push(dummy[i].name);
     }
+
     names.push(prescription);
     async function fetchData(nameArray) {
       let url = 'https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=';
@@ -97,7 +103,9 @@ export default function FormDialog({ first, last }) {
           );
           let inputs = document.querySelectorAll('input');
           console.log('inputs', inputs);
-
+          let date = new Date();
+          let day =
+            date.getDay() < 10 ? '0' + String(date.getDay()) : date.getDay();
           let prescription = {
             name: inputs[1].value,
             reason: inputs[2].value,
@@ -106,15 +114,16 @@ export default function FormDialog({ first, last }) {
             measurement: inputs[5].value,
             quantity: prependZero(inputs[6].value),
             frequency: inputs[7].value,
-            status: inputs[10].checked ? 'acute' : 'repeat',
+            type: inputs[10].checked ? 'acute' : 'repeat',
             override: '',
-            active: true,
-            date: new Date(),
+            status: 'active',
+            date: `${day}-${date.getMonth()}-${date.getFullYear()}`,
             monitoring: Number(inputs[8].value) === 0 ? false : true,
             monitoringSchedule: Number(inputs[8].value),
             monitoringFrequency: inputs[9].value,
           };
           console.log('sending this back to the DB:', prescription);
+          setPrescriptionObj({ ...prescription });
           handleClose();
           return;
         }
@@ -138,6 +147,24 @@ export default function FormDialog({ first, last }) {
       fetchData(names);
     }
   }, [prescription]);
+
+  React.useEffect(() => {
+    async function sendPrescription() {
+      let response = await fetch(
+        `https://fiveguysproject.herokuapp.com/prescriptions/${patient_id}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(prescriptionObj),
+        }
+      );
+      let json = await response.json();
+      console.log('posted pres', json);
+    }
+    if (Object.keys(prescriptionObj).length !== 0) {
+      sendPrescription();
+    }
+  }, [prescriptionObj, patient_id]);
   //States for all of the textfields
   // const [name, setName] = React.useState('');
   // const [dosage, setDosage] = React.useState(0);
@@ -164,12 +191,10 @@ export default function FormDialog({ first, last }) {
     console.log(obj);
     setTextFields({ ...obj });
   }
-
   const handleClickOpen = () => {
     setOpen(true);
     console.log('dum data', dummy);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
@@ -186,6 +211,8 @@ export default function FormDialog({ first, last }) {
     //Test whether or not we need to make the page refresh after sending to database or just reset state to 0
     let inputs = document.querySelectorAll('input');
     console.log('ion', inputs);
+    let date = new Date();
+    let day = date.getDay() < 10 ? '0' + String(date.getDay()) : date.getDay();
     let prescription = {
       name: inputs[1].value,
       reason: inputs[2].value,
@@ -194,15 +221,16 @@ export default function FormDialog({ first, last }) {
       measurement: inputs[5].value,
       quantity: prependZero(inputs[6].value),
       frequency: inputs[7].value,
-      status: inputs[9].checked ? 'acute' : 'repeat',
+      type: inputs[9].checked ? 'acute' : 'repeat',
       override: '',
-      active: true,
-      date: new Date(),
+      status: 'active',
+      date: `${day}-${date.getMonth()}-${date.getFullYear()}`,
       monitoring: Number(inputs[8].value) === 0 ? false : true,
       monitoringSchedule: Number(inputs[8].value),
       monitoringFrequency: inputs[9].value,
     };
     console.log('no override but do not send back to DB here,', prescription);
+    setPrescriptionObj({ ...prescription });
 
     setPrescription(prescription.name);
   }
@@ -233,11 +261,11 @@ export default function FormDialog({ first, last }) {
           hideBackdrop
           open={openStatus}
           onClose={handleClose}
-          aria-labelledby="child-modal-title"
-          aria-describedby="child-modal-description"
+          aria-labelledby='child-modal-title'
+          aria-describedby='child-modal-description'
         >
           <Box sx={{ ...style }}>
-            <h2 id="child-modal-title">
+            <h2 id='child-modal-title'>
               WARNING: There is a severe interaction between {prescription} and
               other drugs {first} {last} is currently prescribed{' '}
               {interactedDrugs.length === 0 ? (
@@ -246,24 +274,29 @@ export default function FormDialog({ first, last }) {
                 interactedDrugs.reduce((curr, prev) => curr + ', ' + prev)
               )}
             </h2>
-            <p id="child-modal-description">
+            <p id='child-modal-description'>
               If you want to continue with this prescription please provide a
               valid reason below:
             </p>
             <TextField
               autoFocus
-              margin="dense"
-              id="drugInteractionOverride"
-              label="Reason to continue prescription"
-              type="text"
-              name="interactionReason"
+              margin='dense'
+              id='drugInteractionOverride'
+              label='Reason to continue prescription'
+              type='text'
+              name='interactionReason'
               fullWidth
-              variant="standard"
+              variant='standard'
               onChange={handleOverrideChange}
               error={reasonText ? false : true}
               required
             />
-            <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-evenly',
+              }}
+            >
               <Button onClick={handleClose}>Cancel</Button>
               <Button
                 onClick={handleOverrideClick}
@@ -279,9 +312,6 @@ export default function FormDialog({ first, last }) {
   }
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Add New Prescription
-      </Button>
       <Dialog
         open={open}
         onClose={(event, reason) => {
@@ -299,57 +329,63 @@ export default function FormDialog({ first, last }) {
           <DialogContent>
             <TextField
               autoFocus
-              margin="dense"
-              id="drugName"
-              label="Drug Name"
-              type="text"
-              name="name"
+              margin='dense'
+              id='drugName'
+              label='Drug Name'
+              type='text'
+              name='name'
               fullWidth
-              variant="standard"
+              variant='standard'
               onChange={handleChange}
               required
             />
             <TextField
               autoFocus
-              margin="dense"
-              id="drugReason"
-              label="Drug Reason"
-              type="text"
-              name="reason"
+              margin='dense'
+              id='drugReason'
+              label='Drug Reason'
+              type='text'
+              name='reason'
               fullWidth
-              variant="standard"
+              variant='standard'
               onChange={handleChange}
-              value="For testing"
+              value='For testing'
               required
             />
             <TextField
               autoFocus
-              margin="dense"
-              id="drugTotal"
-              label="Drug Total Amount"
+              margin='dense'
+              id='drugTotal'
+              label='Drug Total Amount'
               fullWidth
-              type="text"
+              type='text'
               onChange={handleChange}
-              variant="standard"
-              name="total"
-              inputProps={{ inputMode: 'numeric', pattern: '[0-9.]*' }}
+              variant='standard'
+              name='total'
+              inputProps={{
+                inputMode: 'numeric',
+                pattern: '[0-9.]*',
+              }}
               error={!Number.isNaN(Number(textFields['total'])) ? false : true}
-              value="200"
+              defaultValue='200'
               required
             />
             <TextField
               autoFocus
-              margin="dense"
-              id="drugDosage"
-              label="Drug Dosage"
+              margin='dense'
+              id='drugDosage'
+              label='Drug Dosage'
               fullWidth
-              variant="standard"
+              variant='standard'
               onChange={handleChange}
-              inputProps={{ inputMode: 'numeric', pattern: '[0-9.]*' }}
+              inputProps={{
+                inputMode: 'numeric',
+                pattern: '[0-9.]*',
+              }}
               error={!Number.isNaN(Number(textFields['dosage'])) ? false : true}
               required
-              value="100"
-              name="dosage"
+              defaultValue='100'
+              name='dosage'
             />
             {/* <TextField
             autoFocus
@@ -362,11 +398,11 @@ export default function FormDialog({ first, last }) {
           /> */}
             <TextField
               autoFocus
-              margin="dense"
-              id="drugMeasurement"
+              margin='dense'
+              id='drugMeasurement'
               onChange={handleChange}
-              label="Drug Measurement (e.g. mg, puff etc.)"
-              type="text"
+              label='Drug Measurement (e.g. mg, puff etc.)'
+              type='text'
               error={
                 !Number.isInteger(Number(textFields['measurement']))
                   ? false
@@ -375,38 +411,41 @@ export default function FormDialog({ first, last }) {
                   : true
               }
               fullWidth
-              variant="standard"
+              variant='standard'
               required
-              value="mg"
-              name="measurement"
+              defaultValue='mg'
+              name='measurement'
             />
             <TextField
               autoFocus
-              margin="dense"
-              id="drugQuantity"
-              label="Drug Quantity (e.g. 1 or 2)"
-              inputProps={{ inputMode: 'numeric', pattern: '[0-9.]*' }}
+              margin='dense'
+              id='drugQuantity'
+              label='Drug Quantity (e.g. 1 or 2)'
+              inputProps={{
+                inputMode: 'numeric',
+                pattern: '[0-9.]*',
+              }}
               fullWidth
               onChange={handleChange}
               error={
                 !Number.isNaN(Number(textFields['quantity'])) ? false : true
               }
-              variant="standard"
+              variant='standard'
               required
-              name="quantity"
-              value="250"
+              name='quantity'
+              defaultValue='250'
             />
             <TextField
               autoFocus
-              margin="dense"
-              id="drugFrequency"
-              label="Drug Frequency (e.g. daily or twice daily etc.)"
-              type="text"
+              margin='dense'
+              id='drugFrequency'
+              label='Drug Frequency (e.g. daily or twice daily etc.)'
+              type='text'
               fullWidth
-              variant="standard"
+              variant='standard'
               onChange={handleChange}
               required
-              value="daily"
+              defaultValue='daily'
               error={
                 !Number.isInteger(Number(textFields['frequency']))
                   ? false
@@ -414,17 +453,17 @@ export default function FormDialog({ first, last }) {
                   ? false
                   : true
               }
-              name="frequency"
+              name='frequency'
             />
             <TextField
               autoFocus
-              margin="dense"
-              id="monitoring"
-              label="Monitoring (duration)"
-              type="number"
+              margin='dense'
+              id='monitoring'
+              label='Monitoring (duration)'
+              type='number'
               inputProps={{ step: 1, min: 0 }}
-              variant="standard"
-              value={0}
+              variant='standard'
+              defaultValue={0}
             />
             <BasicSelect></BasicSelect>
 
@@ -433,13 +472,18 @@ export default function FormDialog({ first, last }) {
             </div>
           </DialogContent>
           <DialogActions>
-            <Button type="button" onClick={handleClose}>
+            <Button type='button' onClick={handleClose}>
               Cancel
             </Button>
-            <Button type="submit">Prescribe</Button>
+            <Button type='submit'>Prescribe</Button>
           </DialogActions>
         </form>
       </Dialog>
+      <ButtonComponent
+        text1=' Add New Prescription'
+        text2={<MdOutlineAddCircle style={{ marginLeft: '0.5em' }} />}
+        onClick={handleClickOpen}
+      ></ButtonComponent>
     </div>
   );
 }
