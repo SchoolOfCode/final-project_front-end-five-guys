@@ -5,7 +5,10 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 // import DialogContentText from '@mui/material/DialogContentText';
-//
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
 import DialogTitle from '@mui/material/DialogTitle';
 import ControlledSwitches from '../ControlledSwitch';
 import BasicSelect from '../Box';
@@ -47,6 +50,7 @@ export default function FormDialog({
   const [openStatus, setOpenStatus] = React.useState(false);
   const [interactedDrugs, setInteractedDrugs] = React.useState([]);
   const [reason, setReason] = React.useState('');
+  const [reasonValidate, setReasonValidate] = React.useState('');
   React.useEffect(() => {
     if (!reason) {
       return;
@@ -174,6 +178,7 @@ export default function FormDialog({
       setRefresh(!refresh);
       setPrescriptionObj({});
       setPrescription('');
+      setReasonValidate('');
     }
     if (Object.keys(prescriptionObj).length !== 0) {
       if (interactedDrugs) {
@@ -268,7 +273,7 @@ export default function FormDialog({
   }
   function handleOverrideClick() {
     // console.log(document.querySelector('#drugInteractionOverride').value);
-    setReason(document.querySelector('#drugInteractionOverride').value);
+    setReason(reasonValidate);
     setOpenStatus(false);
     setOpen(false);
   }
@@ -285,6 +290,9 @@ export default function FormDialog({
       setOpenStatus(false);
       // setOpen(false);
     };
+    function validate(e) {
+      setReasonValidate(e.target.value);
+    }
 
     return (
       <React.Fragment>
@@ -299,30 +307,47 @@ export default function FormDialog({
           <Box sx={{ ...style }}>
             <h2 id="child-modal-title">
               WARNING: There is a severe interaction between {prescription} and
-              other drugs {first} {last} is currently prescribed{' '}
+              other drugs {first} {last} is currently prescribed:{' '}
               {interactedDrugs.length === 0 ? (
                 <></>
               ) : (
                 interactedDrugs.reduce((curr, prev) => curr + ', ' + prev)
               )}
             </h2>
+            <br></br>
             <p id="child-modal-description">
               If you want to continue with this prescription please provide a
               valid reason below:
             </p>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="drugInteractionOverride"
-              label="Reason to continue prescription"
-              type="text"
-              name="interactionReason"
-              fullWidth
-              variant="standard"
-              onChange={handleOverrideChange}
-              error={reasonText ? false : true}
-              required
-            />
+            <br></br>
+
+            <FormControl fullWidth>
+              <InputLabel id="overrideReason">Reason</InputLabel>
+              <Select
+                labelId="overrideReason"
+                id="demo-simple-select"
+                value={reasonValidate}
+                label="Reason"
+                onChange={validate}
+              >
+                <MenuItem value={'Patient intolerant of alternative drug'}>
+                  Patient intolerant of alternative drug
+                </MenuItem>
+                <MenuItem
+                  value={'Patient aware of risk and prefers this treatment'}
+                >
+                  Patient aware of risk and prefers this treatment
+                </MenuItem>
+                <MenuItem value={'Palliative care'}>Palliative care</MenuItem>
+                <MenuItem value={'Benefits of treatment outweight risks'}>
+                  Benefits of treatment outweight risks
+                </MenuItem>
+                <MenuItem value={'Spurious pathology result'}>
+                  Spurious pathology result
+                </MenuItem>
+              </Select>
+            </FormControl>
+
             <div
               style={{
                 display: 'flex',
@@ -332,7 +357,7 @@ export default function FormDialog({
               <Button onClick={handleClose2}>Cancel</Button>
               <Button
                 onClick={handleOverrideClick}
-                disabled={reasonText ? false : true}
+                disabled={reasonValidate ? false : true}
               >
                 Confirm Prescription
               </Button>
