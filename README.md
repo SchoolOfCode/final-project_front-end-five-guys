@@ -14,11 +14,11 @@ It also allows the patient to view their medical history in one location and eve
 
 ## Authors
 
-- Ben Greenwood [LinkedIn](www.linkedin.com/in/b-p-greenwood/)  &ensp;    [GitHub](https://github.com/B-P-Greenwood)
-- Brycen Barron-Borden [LinkedIn](https://www.linkedin.com/in/brycenbb/) [GitHub](https://github.com/brycenbb)
-- Michael Rushton [LinkedIn](www.linkedin.com/in/michael-rushton) [GitHub](https://github.com/michaelrushton-dev)
-- Rajesh Reel [LinkedIn](https://www.linkedin.com/in/rajesh-reel) [GitHub](https://www.github.com/rajesh-reel)
-- Tom Birbeck [LinkedIn](https://www.linkedin.com/in/tom-birbeck-036356248/) [GitHub](https://github.com/TomBirbeck)
+- Ben Greenwood [LinkedIn](www.linkedin.com/in/b-p-greenwood/)  &ensp;&ensp;    [GitHub](https://github.com/B-P-Greenwood)
+- Brycen Barron-Borden [LinkedIn](https://www.linkedin.com/in/brycenbb/)  &ensp;&ensp; [GitHub](https://github.com/brycenbb)
+- Michael Rushton [LinkedIn](www.linkedin.com/in/michael-rushton)  &ensp;&ensp; [GitHub](https://github.com/michaelrushton-dev)
+- Rajesh Reel [LinkedIn](https://www.linkedin.com/in/rajesh-reel)  &ensp;&ensp; [GitHub](https://www.github.com/rajesh-reel)
+- Tom Birbeck [LinkedIn](https://www.linkedin.com/in/tom-birbeck-036356248/)  &ensp;&ensp; [GitHub](https://github.com/TomBirbeck)
 
 ## Frontend tech s tack
 - React
