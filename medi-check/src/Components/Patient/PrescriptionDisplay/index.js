@@ -37,7 +37,7 @@ function PrescriptionDisplay() {
         `https://fiveguysproject.herokuapp.com/otc?email=${pEmail}`
       );
       let json = await res.json();
-      // console.log('json', json);
+      console.log('otc', json);
       setOverCounter(json.data);
     }
     if (pEmail && isAuthenticated) {
@@ -48,7 +48,7 @@ function PrescriptionDisplay() {
   let itemInteractions = useInteractions(prescriptions);
   // let itemInteractions = testInteractions;
 
-  // console.log('itemInter', itemInteractions);
+  console.log('prescrip', prescriptions);
   //This is taking the API data and for each drug interaction it is grouping together the drug, the drug it is interacting with, and the description
   let combo = prescriptions.map((obj) => {
     let overview = itemInteractions.filter((info) => {
@@ -69,6 +69,7 @@ function PrescriptionDisplay() {
       drugInfo: obj.dosage + obj.measurement + ' ' + obj.frequency,
       status: obj.status,
       message: obj.override,
+      reason: obj.reason,
     };
   });
   //filter out inactive
@@ -99,47 +100,62 @@ function PrescriptionDisplay() {
   }
   return (
     <div>
-      <div className="accordian-container">
-        {itemInteractionsCombo.map((item) => {
-          return (
-            <section style={{ width: '100%' }} key={uuidv4()}>
-              <h3>Interaction Alert</h3>
-              <h4
-                style={{
-                  color: 'var(--font-color)',
-                }}
-              >
-                {' '}
-                {item.minConcept[0].name} and {item.minConcept[1].name}
-              </h4>
+      {itemInteractionsCombo.length === 0 ? (
+        <></>
+      ) : (
+        <div className='accordian-container'>
+          {itemInteractionsCombo.map((item) => {
+            return (
+              <section style={{ width: '100%' }} key={uuidv4()}>
+                <h3>Interaction Alert</h3>
+                <h4
+                  style={{
+                    color: 'var(--font-color)',
+                  }}
+                >
+                  {' '}
+                  {item.minConcept[0].name} and {item.minConcept[1].name}
+                </h4>
 
-              <div style={{ width: '100%' }}>
-                Doctor's Note: {item.overrideMessage}
-              </div>
-              <div style={{ width: '100%' }}>
-                {item.interactionPair[0].description}
-              </div>
-            </section>
-          );
-        })}
-      </div>
+                <div style={{ width: '100%' }}>
+                  Doctor's Note: {item.overrideMessage}
+                </div>
+                <div style={{ width: '100%' }}>
+                  {item.interactionPair[0].description}
+                </div>
+              </section>
+            );
+          })}
+        </div>
+      )}
       <br />
       <CustomizedAccordions
         title={<h3>Current Prescriptions</h3>}
         drugArray={current}
       ></CustomizedAccordions>
       <br />
-      <CustomizedAccordions
-        title={<h3>Past Prescriptions</h3>}
-        drugArray={history}
-      ></CustomizedAccordions>
-      {overCounter.map((item) => {
-        return (
-          <div key={uuidv4()}>
-            {item.name} {'-'} {item.reason}
-          </div>
-        );
-      })}
+      {history.length > 0 ? (
+        <CustomizedAccordions
+          title={<h3>Past Prescriptions</h3>}
+          drugArray={history}
+        ></CustomizedAccordions>
+      ) : (
+        <></>
+      )}
+      {overCounter.length === 0 ? (
+        <></>
+      ) : (
+        <div className='accordian-container'>
+          <h4 style={{ marginBottom: '1em' }}>Over the Counter Medications</h4>
+          {overCounter.map((item) => {
+            return (
+              <div key={uuidv4()}>
+                {item.name} {'-'} {item.reason}
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

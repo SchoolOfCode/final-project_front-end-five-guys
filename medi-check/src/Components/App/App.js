@@ -58,34 +58,34 @@ function App() {
         setDisplay('doctor');
     }
 
-    // let mode = darkMode ? 'dark-mode App' : 'App';
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-    return (
-        <div className={mode} alt='app'>
-            {/* darkMode? <div className="dark-mode"/>:<div className="App"/> */}
-            {!user && <LoginButton></LoginButton>}
-            {user && <LogoutButton></LogoutButton>}
-            <button onClick={handlePatientClick}>Patient</button>
-            <button onClick={handleDoctorClick}> Doctor</button>
-            {display === 'patient' ? (
-                <PatientHome
-                    registered={status}
-                    setRegistered={setStatus}
-                    setDarkMode={setDarkMode}
-                    setLargeFont={setLargeFont}
-                />
-            ) : display === 'doctor' ? (
-                <DoctorHome
-                    setDarkMode={setDarkMode}
-                    setLargeFont={setLargeFont}
-                />
-            ) : (
-                <p>Please select a home page to display: </p>
-            )}
-        </div>
-    );
+
+  // let mode = darkMode ? 'dark-mode App' : 'App';
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  return (
+    <div className={mode}>
+      {/* darkMode? <div className="dark-mode"/>:<div className="App"/> */}
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        {!user && <LoginButton></LoginButton>}
+        {user && <LogoutButton></LogoutButton>}
+        <button onClick={handlePatientClick}>Patient</button>
+        <button onClick={handleDoctorClick}> Doctor</button>
+      </div>
+      {display === 'patient' ? (
+        <PatientHome
+          registered={status}
+          setRegistered={setStatus}
+          setDarkMode={setDarkMode}
+          setLargeFont={setLargeFont}
+        />
+      ) : display === 'doctor' ? (
+        <DoctorHome setDarkMode={setDarkMode} setLargeFont={setLargeFont} />
+      ) : (
+        <p>Please select a home page to display: </p>
+      )}
+    </div>
+  );
 }
 
 export default App;

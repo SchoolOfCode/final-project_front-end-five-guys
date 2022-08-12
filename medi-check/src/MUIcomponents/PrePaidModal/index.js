@@ -25,7 +25,7 @@ export default function PrePaidModal({ setAnchorEl }) {
   const [value, setValue] = useState(new Date());
   const [submit, setSubmit] = useState(false);
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const [displayDate, setDisplayDate] = useState({});
+  const [displayDate, setDisplayDate] = useState('');
 
   const pEmail = user.email;
 
@@ -38,12 +38,14 @@ export default function PrePaidModal({ setAnchorEl }) {
       let json = await response.json();
       // console.log('patient data ', json.data[0]);
 
-      const dateOfExpiry = findDate(json.data[0].prepaid);
-      setDisplayDate(
-        `${dateOfExpiry.getDate()}/${
-          dateOfExpiry.getMonth() + 1
-        }/${dateOfExpiry.getFullYear()}`
-      );
+      if (json.data[0].prepaid) {
+        const dateOfExpiry = findDate(json.data[0].prepaid);
+        setDisplayDate(
+          `${dateOfExpiry.getDate()}/${
+            dateOfExpiry.getMonth() + 1
+          }/${dateOfExpiry.getFullYear()}`
+        );
+      }
     }
 
     // function takes the prepaid expiry date string and formats it into a full date
@@ -107,14 +109,22 @@ export default function PrePaidModal({ setAnchorEl }) {
         aria-describedby='modal-modal-description'
       >
         <Box sx={style}>
-          <Typography id='modal-modal-title' variant='h6' component='h2'>
-            Your Pre-paid prescription expiry date is : {displayDate}
-          </Typography>
-          <Typography id='modal-modal-description' sx={{ mt: 2, mb: 3 }}>
-            If you have renewed it, please click below to update our records
-            accordingly.
-          </Typography>
-
+          {displayDate.length > 0 ? (
+            <div>
+              <Typography id='modal-modal-title' variant='h6' component='h2'>
+                Your Pre-paid prescription expiry date is : {displayDate}
+              </Typography>
+              <Typography id='modal-modal-description' sx={{ mt: 2, mb: 3 }}>
+                If you have renewed it, please click below to update our records
+                accordingly.
+              </Typography>
+            </div>
+          ) : (
+            <Typography id='modal-modal-description' sx={{ mt: 2, mb: 3 }}>
+              We do not currently have a Pre-paid prescription expiry date for
+              you. Please click below to update our records accordingly.
+            </Typography>
+          )}
           <PrePaidDateCalender
             id='calender'
             value={value}
