@@ -1,4 +1,4 @@
-# MEDI-CHECK
+# MEDI-CHECK <img src="./medi-check.png" width='200'/>
 A proof-of-concept full-stack React app demonstrating research-driven approaches to combatting medication error. This project was developed as part of the 4-week final team project at School of Code. Developement followed a short-sprint Scrum Agile methodology that utilised a veteran General Practitioner and Senior Social Worker as product owners. 
 
 ## Overview
