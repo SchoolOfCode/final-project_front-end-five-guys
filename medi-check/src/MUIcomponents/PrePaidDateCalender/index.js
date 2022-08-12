@@ -8,20 +8,20 @@ import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 
 export default function PrePaidDateCalender({ value, setValue }) {
   const handleChange = (newValue) => {
-    console.log(newValue._d);
-    console.log(
-      `${newValue._d.getFullYear()}-${
-        newValue._d.getMonth() + 1
-      }-${newValue._d.getDate()}`
-    );
+    // console.log(newValue._d);
+    // console.log(
+    //   `${newValue._d.getFullYear()}-${
+    //     newValue._d.getMonth() + 1
+    //   }-${newValue._d.getDate()}`
+    // );
     setValue(newValue._d);
   };
 
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <MobileDatePicker
-        label='Date mobile'
-        inputFormat='DD/MM/YYYY'
+        label="Date mobile"
+        inputFormat="DD/MM/YYYY"
         value={value}
         onChange={handleChange}
         renderInput={(params) => <TextField {...params} />}

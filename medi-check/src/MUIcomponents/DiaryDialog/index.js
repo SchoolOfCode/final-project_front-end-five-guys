@@ -4,6 +4,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import Typography from '@mui/material/Typography';
 import './diary.css';
+import { v4 as uuidv4 } from 'uuid';
 
 import {
   RiEmotionNormalLine,
@@ -38,7 +39,6 @@ const marks = [
 function DiaryDialog(props) {
   const handleClose = () => {
     props.setOpen(false);
-    props.setAnchorEl(null);
   };
 
   return (
@@ -59,10 +59,11 @@ function DiaryDialog(props) {
       <List className='diary-list'>
         {props.diary.map((item) => {
           return (
-            <div className='diary-entry'>
+            <div className='diary-entry' key={uuidv4()}>
               <Typography className='diary-date'>{item.date}</Typography>
               <div className='diary-mood'>{marks[item.mood].label}</div>
               <Typography className='diary-text'>{item.details}</Typography>
+
             </div>
           );
         })}

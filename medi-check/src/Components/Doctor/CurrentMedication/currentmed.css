@@ -20,6 +20,10 @@
 }
 
 .current-med-header {
+  display: flex;
+  align-self: baseline;
   font-size: 1.5em;
   margin: 1em 0 0 11em;
+  font-family: Inter, sans-serif;
+  font-weight: bold;
 }

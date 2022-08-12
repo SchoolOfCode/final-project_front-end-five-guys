@@ -2,19 +2,23 @@ import './currentmed.css';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function CurrentMedication({ prescriptions, allergies }) {
-  console.log('allergies', allergies);
-  console.log('prescriptions', prescriptions);
+  // console.log('allergies', allergies);
+  // console.log('prescriptions', prescriptions);
 
   return (
     <table className="current-med-table">
-      <th className="current-med-header">Current Prescriptions</th>
+      <thead>
+        <tr className="current-med-header">
+          <td>Current Prescriptions</td>
+        </tr>
+      </thead>
       {prescriptions.map((med) => {
         return (
-          <div className="current-med-columns" key={uuidv4()}>
+          <tbody className="current-med-columns" key={uuidv4()}>
             <tr>
               <td className="headings">Prescription drug:</td>
               <td>{med.name}</td>
-              <td className="headings"> Date issued:</td>
+              <td className="headings">Date issued:</td>
               <td>{med.date}</td>
             </tr>
             <tr>
@@ -24,11 +28,13 @@ export default function CurrentMedication({ prescriptions, allergies }) {
             <tr>
               <td className="headings">Dosage:</td>
               <td>
-                {med.dosage} {med.measurement}
+                {med.dosage}
+                {med.measurement}
               </td>
-              <td className="headings"> Frequency:</td>
+              <td className="headings">Frequency:</td>
               <td>
-                {med.quantity} {med.frequency}
+                {med.quantity}
+                {med.frequency}
               </td>
               <td className="headings">Total:</td>
               <td>{med.total}</td>
@@ -45,7 +51,7 @@ export default function CurrentMedication({ prescriptions, allergies }) {
                 <td>{med.override}</td>
               </tr>
             )}
-          </div>
+          </tbody>
         );
       })}
     </table>

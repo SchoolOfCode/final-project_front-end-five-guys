@@ -27,11 +27,11 @@ export default function OTCModal({ setAnchorEl }) {
   const handleOpen = () => setOpen(true);
   useEffect(() => {
     async function submitMe() {
-      console.log({
-        name: document.getElementById('nameOTC').value,
-        reason: document.getElementById('reasonOTC').value,
-        amount: document.getElementById('amountOTC').value,
-      });
+      // console.log({
+      //   name: document.getElementById('nameOTC').value,
+      //   reason: document.getElementById('reasonOTC').value,
+      //   amount: document.getElementById('amountOTC').value,
+      // });
 
       let res = await fetch(
         `https://fiveguysproject.herokuapp.com/otc/${user.email}`,
@@ -46,7 +46,7 @@ export default function OTCModal({ setAnchorEl }) {
         }
       );
       let json = await res.json();
-      console.log('winner?', json);
+      // console.log('winner?', json);
       setSubmit(false);
       handleClose();
     }

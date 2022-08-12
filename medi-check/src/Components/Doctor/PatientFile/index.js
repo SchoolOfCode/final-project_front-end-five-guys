@@ -1,4 +1,3 @@
-//
 import FormDialog from '../../../MUIcomponents/PrescriptionModal';
 import { v4 as uuidv4 } from 'uuid';
 import './patientFile.css';
@@ -11,6 +10,7 @@ function PatientFile({ info, onClick }) {
   const [overCounter, setOverCounter] = useState([]);
   const [diary, setDiary] = useState([]);
   const [open, setOpen] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   // console.log('patient file', info);
   useEffect(() => {
@@ -35,7 +35,7 @@ function PatientFile({ info, onClick }) {
       setPrescriptions([...json.data]);
     }
     getPrescriptions();
-  }, [info.patient_id]);
+  }, [info.patient_id, refresh]);
 
   useEffect(() => {
     async function getPatientDiary() {
@@ -54,7 +54,8 @@ function PatientFile({ info, onClick }) {
         `https://fiveguysproject.herokuapp.com/otc?id=${info.patient_id}`
       );
       let json = await res.json();
-      console.log('OTC ionfo:', json);
+
+      // console.log('OTC ionfo:', json);
       setOverCounter(json.data);
     }
     getOTC();
@@ -63,10 +64,6 @@ function PatientFile({ info, onClick }) {
     // console.log(diary);
     setOpen(true);
   }
-
-  // console.log('dob', info.dob);
-
-  console.log('allergies', allergies);
 
   return (
     <main className="patient-section">
@@ -87,97 +84,85 @@ function PatientFile({ info, onClick }) {
       <div>
         <section className="patientInfo">
           <table id="patient-info-table">
-            <tr>
-              <td className="headings">Name:</td>
-              <td>
-                {info.title} {info.firstname} {info.surname}
-              </td>
-            </tr>
-            <tr>
-              <td className="headings">DOB:</td>
-              <td>
-                {String(info.dob).slice(0, 2) +
-                  '-' +
-                  String(info.dob).slice(2, 4) +
-                  '-' +
-                  String(info.dob).slice(4)}
-              </td>
-            </tr>
-            <tr>
-              <td className="headings">Gender:</td>
-              <td>{info.gender}</td>
-            </tr>
-            <tr>
-              <td className="headings">Ethnicity:</td>
-              <td>{info.ethnicity}</td>
-            </tr>
-            <tr>
-              <td className="headings">Address:</td>
-              <td>{info.address}</td>
-            </tr>
-            <tr>
-              <td className="headings">Postcode:</td>
-              <td>{info.postcode}</td>
-            </tr>
-            <tr>
-              <td className="headings">Phone Number:</td>
-              <td>{info.phonenumber}</td>
-            </tr>
-            <tr>
-              <td className="headings">NHS Number:</td>
-              <td>{info.nhsnumber}</td>
-            </tr>
-            <tr>
-              <td className="headings">GP:</td>
-              <td>{info.gpsurgery}</td>
-            </tr>
-          </table>
-        </section>
-        {overCounter && (
-          <table>
-            {' '}
-            <th>OTC medicine</th>
-            {overCounter.map((item) => {
-              return (
-                <tr key={uuidv4()}>
-                  <td>{item.name}</td>
-                  <td>{item.reason}</td>
-                </tr>
-              );
-            })}
-          </table>
-        )}
-        <div>
-          <table>
-            <div className="allergy-table">
-              <tr className="allergy-column">
-                <th className="allergy-heading">Allergies</th>
+            <tbody>
+              <tr>
+                <td className="headings">Name:</td>
                 <td>
-                  {allergies.map((allergy) => {
-                    return (
-                      <tr>
-                        <td className="heading" key={uuidv4()}>
-                          {allergy.name}:
-                        </td>
-                      </tr>
-                    );
-                  })}
+                  {info.title + ' ' + info.firstname + ' ' + info.surname}
                 </td>
               </tr>
-
-              <tr className="reactions-column">
-                <td className="reactions-header">Reactions</td>
-                {allergies.map((allergy) => {
-                  return (
-                    <tr>
-                      <td>{allergy.reaction}</td>
-                    </tr>
-                  );
-                })}
+              <tr>
+                <td className="headings">DOB:</td>
+                <td>
+                  {String(info.dob).slice(0, 2) +
+                    '-' +
+                    String(info.dob).slice(2, 4) +
+                    '-' +
+                    String(info.dob).slice(4)}
+                </td>
               </tr>
-            </div>
+              <tr>
+                <td className="headings">Gender:</td>
+                <td>{info.gender}</td>
+              </tr>
+              <tr>
+                <td className="headings">Ethnicity:</td>
+                <td>{info.ethnicity}</td>
+              </tr>
+              <tr>
+                <td className="headings">Address:</td>
+                <td>{info.address}</td>
+              </tr>
+              <tr>
+                <td className="headings">Postcode:</td>
+                <td>{info.postcode}</td>
+              </tr>
+              <tr>
+                <td className="headings">Phone Number:</td>
+                <td>{info.phonenumber}</td>
+              </tr>
+              <tr>
+                <td className="headings">NHS Number:</td>
+                <td>{info.nhsnumber}</td>
+              </tr>
+              <tr>
+                <td className="headings">GP:</td>
+                <td>{info.gpsurgery}</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <div>
+          <table className="allergy-table">
+            <tbody className="allergy-column">
+              <tr className="allergy-header">
+                <th>Allergies</th>
+              </tr>
+              {allergies.map((allergy) => {
+                return (
+                  <tr key={uuidv4()}>
+                    <td className="heading">{allergy.name}:</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+            <tbody className="reactions-column">
+              <tr className="reactions-header">
+                <th>Reactions</th>
+              </tr>
+              {allergies.map((allergy) => {
+                return (
+                  <tr key={uuidv4()}>
+                    <td>{allergy.reaction}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
         </div>
+        {overCounter.map((item) => {
+          return <div key={uuidv4()}>{item.name}</div>;
+        })}
         <div className="button-mover">
           <FormDialog
             first={info.FirstNames}
@@ -185,6 +170,8 @@ function PatientFile({ info, onClick }) {
             patient_id={info.patient_id}
             prescriptions={prescriptions}
             setPrescriptions={setPrescriptions}
+            refresh={refresh}
+            setRefresh={setRefresh}
           />
         </div>
       </div>
@@ -194,5 +181,3 @@ function PatientFile({ info, onClick }) {
 }
 
 export default PatientFile;
-
-//new dev

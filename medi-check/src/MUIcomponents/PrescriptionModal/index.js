@@ -5,7 +5,10 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 // import DialogContentText from '@mui/material/DialogContentText';
-//
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
 import DialogTitle from '@mui/material/DialogTitle';
 import ControlledSwitches from '../ControlledSwitch';
 import BasicSelect from '../Box';
@@ -24,8 +27,10 @@ export default function FormDialog({
   patient_id,
   prescriptions,
   setPrescriptions,
+  refresh,
+  setRefresh,
 }) {
-  console.log(Date.now(), Date.UTC());
+  // console.log(Date.now(), Date.UTC());
   const style = {
     position: 'absolute',
     top: '50%',
@@ -45,12 +50,13 @@ export default function FormDialog({
   const [openStatus, setOpenStatus] = React.useState(false);
   const [interactedDrugs, setInteractedDrugs] = React.useState([]);
   const [reason, setReason] = React.useState('');
+  const [reasonValidate, setReasonValidate] = React.useState('');
   React.useEffect(() => {
     if (!reason) {
       return;
     }
     let inputs = document.querySelectorAll('input');
-    console.log('inputs', inputs);
+    // console.log('inputs', inputs);
     //send to DB
     let prescription = {
       name: inputs[1].value,
@@ -75,7 +81,11 @@ export default function FormDialog({
   React.useEffect(() => {
     let names = [];
     names.push(prescription);
+    for (let i = 0; i < prescriptions.length; i++) {
+      names.push(prescriptions[i].name);
+    }
     async function fetchData(nameArray) {
+      console.log('name array', nameArray);
       let url = 'https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=';
       for (let i = 0; i < nameArray.length; i++) {
         let res = await fetch(
@@ -91,6 +101,7 @@ export default function FormDialog({
         let response = await fetch(url + '&sources=ONCHigh');
         let obj = await response.json();
         console.log('interactions here: ', obj);
+        console.log('iurl ', url);
         let filtered =
           obj.fullInteractionTypeGroup[0].fullInteractionType.filter((item) => {
             return (
@@ -126,6 +137,7 @@ export default function FormDialog({
           };
           console.log('sending this back to the DB:', prescription);
           setPrescriptionObj({ ...prescription });
+          setPrescription('');
           handleClose();
           return;
         }
@@ -138,6 +150,7 @@ export default function FormDialog({
               : filtered[i].minConcept[0].name
           );
         }
+        console.log('interacted drugs, open status', [...temp], true);
         setInteractedDrugs([...temp]);
         setOpenStatus(true);
       } catch (error) {
@@ -148,7 +161,7 @@ export default function FormDialog({
       //Comment out this line if testing and not wanting to query the API
       fetchData(names);
     }
-  }, [prescription]);
+  }, [prescription, prescriptions]);
 
   React.useEffect(() => {
     async function sendPrescription() {
@@ -162,13 +175,34 @@ export default function FormDialog({
       );
       let json = await response.json();
       console.log('posted pres', json);
-      setPrescriptions([...prescriptions, prescriptionObj]);
+      setRefresh(!refresh);
       setPrescriptionObj({});
+      setPrescription('');
+      setReasonValidate('');
     }
     if (Object.keys(prescriptionObj).length !== 0) {
-      sendPrescription();
+      if (interactedDrugs) {
+        console.log('interacted druigs exist, here is the reason', reason);
+        if (reason) {
+          console.log('about to send with interactions');
+
+          sendPrescription();
+        }
+      } else {
+        console.log('in else, meaning should be no interacted drugs?');
+        sendPrescription();
+      }
     }
-  }, [prescriptionObj, patient_id, prescriptions, setPrescriptions]);
+  }, [
+    prescriptionObj,
+    patient_id,
+    prescriptions,
+    setPrescriptions,
+    interactedDrugs,
+    refresh,
+    reason,
+    setRefresh,
+  ]);
   //States for all of the textfields
   // const [name, setName] = React.useState('');
   // const [dosage, setDosage] = React.useState(0);
@@ -187,12 +221,12 @@ export default function FormDialog({
 
   function handleChange(event) {
     let obj = textFields;
-    console.log(typeof textFields['total']);
+    // console.log(typeof textFields['total']);
     Number.isInteger(Number(event.target.value));
     !Number.isInteger(Number(event.target.value))
       ? (obj[event.target.name] = event.target.value)
       : (obj[event.target.name] = Number(event.target.value));
-    console.log(obj);
+    // console.log(obj);
     setTextFields({ ...obj });
   }
   const handleClickOpen = () => {
@@ -213,7 +247,7 @@ export default function FormDialog({
     //look for .3 type numbers and put a 0 on the left. Run on total, dosage, quantity
     //Test whether or not we need to make the page refresh after sending to database or just reset state to 0
     let inputs = document.querySelectorAll('input');
-    console.log('ion', inputs);
+    // console.log('ion', inputs);
     let date = new Date();
     let day = date.getDay() < 10 ? '0' + String(date.getDay()) : date.getDay();
     let prescription = {
@@ -238,24 +272,19 @@ export default function FormDialog({
     setPrescription(prescription.name);
   }
   function handleOverrideClick() {
-    console.log(document.querySelector('#drugInteractionOverride').value);
-    setReason(document.querySelector('#drugInteractionOverride').value);
+    // console.log(document.querySelector('#drugInteractionOverride').value);
+    setReason(reasonValidate);
     setOpenStatus(false);
     setOpen(false);
   }
   function ChildModal() {
-    // const [open, setOpen] = React.useState(false);
-    const [reasonText, setReasonText] = React.useState('');
-    function handleOverrideChange(e) {
-      setReasonText(e.target.value);
-    }
-    // const handleOpen = () => {
-    //   setOpen(true);
-    // };
-    const handleClose = () => {
+    const handleClose2 = () => {
       setOpenStatus(false);
       // setOpen(false);
     };
+    function validate(e) {
+      setReasonValidate(e.target.value);
+    }
 
     return (
       <React.Fragment>
@@ -263,47 +292,64 @@ export default function FormDialog({
         <Modal
           hideBackdrop
           open={openStatus}
-          onClose={handleClose}
+          onClose={handleClose2}
           aria-labelledby="child-modal-title"
           aria-describedby="child-modal-description"
         >
           <Box sx={{ ...style }}>
             <h2 id="child-modal-title">
               WARNING: There is a severe interaction between {prescription} and
-              other drugs {first} {last} is currently prescribed{' '}
+              other drugs {first} {last} is currently prescribed:{' '}
               {interactedDrugs.length === 0 ? (
                 <></>
               ) : (
                 interactedDrugs.reduce((curr, prev) => curr + ', ' + prev)
               )}
             </h2>
+            <br></br>
             <p id="child-modal-description">
               If you want to continue with this prescription please provide a
               valid reason below:
             </p>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="drugInteractionOverride"
-              label="Reason to continue prescription"
-              type="text"
-              name="interactionReason"
-              fullWidth
-              variant="standard"
-              onChange={handleOverrideChange}
-              error={reasonText ? false : true}
-              required
-            />
+            <br></br>
+
+            <FormControl fullWidth>
+              <InputLabel id="overrideReason">Reason</InputLabel>
+              <Select
+                labelId="overrideReason"
+                id="demo-simple-select"
+                value={reasonValidate}
+                label="Reason"
+                onChange={validate}
+              >
+                <MenuItem value={'Patient intolerant of alternative drug'}>
+                  Patient intolerant of alternative drug
+                </MenuItem>
+                <MenuItem
+                  value={'Patient aware of risk and prefers this treatment'}
+                >
+                  Patient aware of risk and prefers this treatment
+                </MenuItem>
+                <MenuItem value={'Palliative care'}>Palliative care</MenuItem>
+                <MenuItem value={'Benefits of treatment outweight risks'}>
+                  Benefits of treatment outweight risks
+                </MenuItem>
+                <MenuItem value={'Spurious pathology result'}>
+                  Spurious pathology result
+                </MenuItem>
+              </Select>
+            </FormControl>
+
             <div
               style={{
                 display: 'flex',
                 justifyContent: 'space-evenly',
               }}
             >
-              <Button onClick={handleClose}>Cancel</Button>
+              <Button onClick={handleClose2}>Cancel</Button>
               <Button
                 onClick={handleOverrideClick}
-                disabled={reasonText ? false : true}
+                disabled={reasonValidate ? false : true}
               >
                 Confirm Prescription
               </Button>
@@ -352,7 +398,7 @@ export default function FormDialog({
               fullWidth
               variant="standard"
               onChange={handleChange}
-              value="For testing"
+              defaultValue="For testing"
               required
             />
             <TextField
@@ -390,15 +436,6 @@ export default function FormDialog({
               defaultValue="100"
               name="dosage"
             />
-            {/* <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Drug Form (e.g. tablet, capsule)"
-            type="form"
-            fullWidth
-            variant="standard"
-          /> */}
             <TextField
               autoFocus
               margin="dense"
@@ -478,9 +515,7 @@ export default function FormDialog({
             <Button type="button" onClick={handleClose}>
               Cancel
             </Button>
-            <Button type="submit" onClick={handleClose}>
-              Prescribe
-            </Button>
+            <Button type="submit">Prescribe</Button>
           </DialogActions>
         </form>
       </Dialog>
