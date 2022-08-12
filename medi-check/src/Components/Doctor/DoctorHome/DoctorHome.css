@@ -12,10 +12,10 @@
   flex-direction: row;
   justify-content: flex-start;
   height: 90vh;
-  width: 70%;
+  width: 80%;
   background-color: var(--table-color);
   border-radius: 1em;
-  overflow-y: scroll;
+  overflow: auto;
 }
 
 .doctor-navigation {
@@ -30,4 +30,12 @@
 
 .searchbar {
   gap: 2em;
+}
+
+.pending-create {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 1em;
+  width: 30vw;
 }

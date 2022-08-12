@@ -44,7 +44,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: '1px solid rgba(0, 0, 0, .125)',
 }));
 
-export default function CustomizedAccordions({ drugArray }) {
+export default function CustomizedAccordions({ drugArray, title }) {
   const [expanded, setExpanded] = React.useState('panel1');
 
   const handleChange = (panel) => (event, newExpanded) => {
@@ -65,7 +65,9 @@ export default function CustomizedAccordions({ drugArray }) {
     return 0;
   }
   return (
-    <section className='accordian-container' key={uuidv4()}>
+    <section className="accordian-container" key={uuidv4()}>
+      {title}
+      <br />
       {drugArray
         .sort((a, b) => {
           return b.interactionInfo.length - a.interactionInfo.length;
@@ -76,6 +78,13 @@ export default function CustomizedAccordions({ drugArray }) {
         .map((item, index) => {
           return (
             <Accordion
+              sx={{
+                width: '100%',
+                color: 'var(--font-color)',
+                backgroundColor: 'var(--table-color)',
+                borderRadius: '10px',
+                marginBottom: '1em',
+              }}
               expanded={expanded === `panel${index}`}
               onChange={handleChange(`panel${index}`)}
               key={uuidv4()}
@@ -88,18 +97,26 @@ export default function CustomizedAccordions({ drugArray }) {
               >
                 {/* Here we need to append the doctor prescription info in */}
                 {item.interactionInfo.length === 0 ? (
-                  <div className='noInteraction'></div>
+                  <div className="noInteraction"></div>
                 ) : (
-                  <div className='interaction'>A</div>
+                  <div className="interaction">A</div>
                 )}
-                <Typography>
+                <Typography sx={{ fontSize: 'var(--large-font)' }}>
                   {item.drug} {item.drugInfo} {item.status}
                 </Typography>
               </AccordionSummary>
               <AccordionDetails key={uuidv4()}>
-                <div className='msg' key={uuidv4()}>
+                <div className="msg" key={uuidv4()}>
+                  {item.message ? (
+                    <div style={{ fontWeight: 'bold' }}>
+                      Doctor's note:
+                      {item.message}
+                    </div>
+                  ) : (
+                    <></>
+                  )}
                   <div style={{ fontWeight: 'bold' }}>
-                    Doctor's note: {item.message ? item.message : 'None'}
+                    Reason: {item.reason}
                   </div>
                   {item.interactionInfo.map((item) => {
                     return (

@@ -41,7 +41,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
   React.useEffect(() => {
     async function createPatient() {
       let res = await fetch(
-        `http://localhost:3001/patients?doctoremail=${DOCTOR_EMAIL}`,
+        `https://fiveguysproject.herokuapp.com/patients?doctoremail=${DOCTOR_EMAIL}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -49,7 +49,8 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
         }
       );
       let result = await res.json();
-      console.log('posted new patient', result);
+      // console.log('posted new patient', result);
+      //let registrationCode = result.registrationID[0].code;
       setList([...list, result.patient[0]]);
     }
     if (Object.keys(newPatient).length !== 0) {
@@ -64,7 +65,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
   const handleClose = () => {
     //check if each input is valid
     let inputs = document.querySelectorAll('input');
-    console.log(inputs);
+    // console.log(inputs);
     let newUser = {
       title: inputs[1].value,
       firstName: inputs[2].value,
@@ -81,12 +82,12 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
       weight: inputs[5].value,
     };
     setNewPatient({ ...newUser });
-    console.log(newUser);
+    // console.log(newUser);
     setOpen(false);
   };
   function handleSubmit(e) {
     e.preventDefault();
-    console.log('handle submit');
+    // console.log('handle submit');
     // submit text fields to database and reset and cast mixed number/letter text into a string
 
     handleClose();
@@ -97,12 +98,16 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
     !Number.isInteger(Number(event.target.value))
       ? (obj[event.target.name] = event.target.value)
       : (obj[event.target.name] = Number(event.target.value));
-    console.log(obj);
+    // console.log(obj);
     setTextFields({ ...obj });
+  }
+  function cancel() {
+    document.getElementById('myForm').reset();
+    setOpen(false);
   }
   const label = { inputProps: { 'aria-label': 'Pregnancy Status' } };
   return (
-    <div>
+    <div alt='create'>
       <ButtonComponent
         text1='Add New Patient'
         text2={<MdOutlineAddCircle style={{ marginLeft: '0.5em' }} />}
@@ -119,7 +124,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
           }
         }}
       >
-        <form onSubmit={handleSubmit}>
+        <form id='myForm' onSubmit={handleSubmit}>
           {/* <DialogTitle>
                     New Prescription for {first} {last}
                 </DialogTitle> */}
@@ -212,7 +217,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
               margin='dense'
               id='weight'
               onChange={handleChange}
-              label='Weight'
+              label='Weight (kg)'
               inputProps={{
                 inputMode: 'numeric',
                 pattern: '[0-9]*',
@@ -325,10 +330,12 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
               margin='dense'
               id='nhsNumber'
               onChange={handleChange}
-              label='NHS Number'
+              label='NHS Number (must be 9 digits long)'
               inputProps={{
                 inputMode: 'numeric',
                 pattern: '[0-9]*',
+                min: 0,
+                maxLength: 9,
               }}
               error={
                 Number.isInteger(Number(textFields['nhsNumber'])) ? false : true
@@ -353,7 +360,7 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={cancel}>Cancel</Button>
             <Button type='submit'>Add New Patient</Button>
           </DialogActions>
         </form>

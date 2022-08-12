@@ -1,5 +1,5 @@
 //
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -13,16 +13,17 @@ import {
   RiEmotionHappyLine,
 } from 'react-icons/ri';
 import './diary.css';
-
-//temporary hard coded patient email until auth0 is done
-const pEmail = 'rsmith123@email.com';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const style = {
+  display: 'flex',
+  flexDirection: 'column',
+  objectFit: 'contain',
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 500,
+  width: '90%',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -52,10 +53,14 @@ const marks = [
   },
 ];
 
-export function DiaryModal() {
+export function DiaryModal({ setAnchorEl, setSubmitted, submitted }) {
+  //temporary hard coded patient email until auth0 is done
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  // const pEmail = 'rsmith123@email.com';
+  const pEmail = user.email;
   const [open, setOpen] = useState(false);
+  const [submit, setSubmit] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const date = new Date();
   const today = date.toLocaleDateString();
   const [entry, SetEntry] = useState({
@@ -64,34 +69,52 @@ export function DiaryModal() {
     date: today,
   });
 
-  function handleSlider(e) {
-    SetEntry({ ...entry, mood: e.target.value / 25 });
+  function handleClose() {
+    setOpen(false);
+    setAnchorEl(null);
   }
 
   function handleText(e) {
     SetEntry({ ...entry, details: e.target.value });
   }
 
+  function handleSlider(e) {
+    SetEntry({ ...entry, mood: e.target.value });
+  }
+
   function handleSubmit() {
-    postDiaryEntry();
     handleClose();
+    setSubmit(true);
   }
   // const id = 1;
+  useEffect(() => {
+    async function postDiaryEntry() {
+      const db_url = `https://fiveguysproject.herokuapp.com/diary/${pEmail}`;
+      const value = entry.mood / 25;
 
-  async function postDiaryEntry() {
-    const db_url = `https://fiveguysproject.herokuapp.com/diary/${pEmail}`;
-    const newPost = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(entry),
-    };
-    const res = await fetch(db_url, newPost);
-    console.log(res);
+      const newPost = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...entry, mood: value }),
+      };
+      await fetch(db_url, newPost);
+      // console.log(res);
+      setSubmit(false);
+      setSubmitted(!submitted);
+    }
+
+    if (submit && isAuthenticated) {
+      postDiaryEntry();
+    }
+  });
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
-
   return (
     <div>
-      <Button onClick={handleOpen}>Diary</Button>
+      <Button style={{ color: 'black' }} onClick={handleOpen}>
+        Add Diary Entry
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -109,7 +132,7 @@ export function DiaryModal() {
           <Typography id='modal-modal-title' variant='h6' component='h2'>
             How are you feeling today?
           </Typography>
-          <Box sx={{ width: 400 }}>
+          <Box sx={{ width: '100%' }}>
             <Slider
               aria-label='Restricted values'
               defaultValue={50}
@@ -123,10 +146,24 @@ export function DiaryModal() {
             Side Effects/Mood/Symptoms
           </Typography>
           <textarea
-            style={{ resize: 'none', height: '10vh', width: '20vw' }}
+            style={{
+              resize: 'none',
+              height: '10vh',
+              width: '100%',
+            }}
             onChange={handleText}
           ></textarea>
-          <button onClick={handleSubmit}>Submit entry</button>
+
+          <Button
+            style={{
+              alignSelf: 'center',
+              border: 'solid black 1px',
+              color: 'black',
+            }}
+            onClick={handleSubmit}
+          >
+            Submit entry
+          </Button>
         </Box>
       </Modal>
     </div>

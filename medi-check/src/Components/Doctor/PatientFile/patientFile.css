@@ -1,3 +1,7 @@
+.patient-section {
+  display: flex;
+}
+
 .close-button {
   display: flex;
   align-items: center;
@@ -15,6 +19,18 @@
   padding: 0.2em 1em;
   min-width: 3em;
   box-shadow: 0px 8px 7px -7px rgba(0, 0, 0, 0.44);
+  position: absolute;
+}
+
+#patient-info-table {
+  font-size: 0.8em;
+}
+.headings {
+  font-weight: bold;
+}
+
+#diary {
+  margin-top: 3em;
 }
 
 .close-button:hover {
@@ -31,7 +47,9 @@
   font-size: 1.5em;
   flex-direction: column;
   box-shadow: 6px 6px 15px -5px rgba(0, 0, 0, 0.55);
+  height: fit-content;
 }
+
 .displayPatient {
   display: flex;
 }
@@ -40,5 +58,79 @@
 }
 .button-mover {
   margin-top: 1em;
-  margin-left: 20em;
+  margin-left: 18em;
 }
+
+.allergy-table {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 1em 11em 1em 1em;
+  background-color: var(--bg-color);
+  border-radius: 1em;
+  margin: 1.5em 0 0 10.8em;
+  font-family: Inter, sans-serif;
+  font-size: 1.1em;
+  box-shadow: 6px 6px 15px -5px rgba(0, 0, 0, 0.55);
+  width: 25vw;
+}
+
+.reactions-header {
+  font-weight: bold;
+}
+
+.allergy-header {
+  font-weight: bold;
+}
+
+.allergy-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.reactions-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.otc-card {
+  padding: 1em;
+  background-color: var(--bg-color);
+  display: flex;
+  border-radius: 1em;
+  margin-left: 10.8em;
+  margin-top: 1.5em;
+  font-family: Inter, sans-serif;
+  font-size: 1.1em;
+  flex-direction: column;
+  box-shadow: 6px 6px 15px -5px rgba(0, 0, 0, 0.55);
+  height: fit-content;
+}
+
+.otc-header {
+  font-family: Inter, sans-serif;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin: 0.5em 0 1em 0;
+}
+
+/* .allergy-table th {
+  padding-left: 0.4em;
+  gap: 5em;
+  display: flex;
+  justify-content: flex-start;
+} */
+
+/* .allergy-info {
+  background-color: blueviolet;
+  padding-left: 0.4em;
+  gap: 5em;
+  display: flex;
+  justify-content: space-between;
+  min-width: 15em;
+} */
+/* 
+.allergy-info {
+  display: flex;
+  justify-content: flex-start;
+} */

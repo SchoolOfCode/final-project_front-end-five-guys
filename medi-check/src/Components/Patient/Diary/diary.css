@@ -1,11 +1,15 @@
-.icon {
-  height: 4em;
-  width: 4em;
-}
 #side-effects-title {
   margin-top: 2em;
 }
 
 textarea {
   margin-bottom: 2em;
+}
+#close {
+  width: 2em;
+  align-self: flex-end;
+}
+.icon {
+  height: 4em;
+  width: 4em;
 }

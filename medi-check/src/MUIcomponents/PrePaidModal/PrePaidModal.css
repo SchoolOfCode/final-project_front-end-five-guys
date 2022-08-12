@@ -1,0 +1,9 @@
+#pre-paid-modal {
+  display: flex;
+}
+
+#pre-paid-modal-buttons {
+  margin-top: 1em;
+  display: flex;
+  justify-content: space-around;
+}

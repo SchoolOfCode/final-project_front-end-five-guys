@@ -1,16 +1,23 @@
+#basic {
+    color: var(--font-color);
+    padding-top: 1em;
+    display: flex;
+    border-radius: 1em;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--button-color);
+    height: 12em;
+    width: 20em;
+    top: 50%;
+    left: 90%;
+    position: fixed;
+    z-index: 1;
+}
+
 .access-menu {
-  color: var(--font-color);
-  padding-top: 1em;
-  display: flex;
-  border-radius: 1em;
-  flex-direction: column;
-  align-items: center;
-  background-color: var(--button-color);
-  height: 12em;
-  width: 20em;
-  top: 50%;
-  left: 90%;
-  position: fixed;
-  z-index: 1;
-  transform: translate(-90%, -40%);
+    transform: translate(-90%, -40%);
+}
+
+.access-menu-patient {
+    transform: translate(-100%, 80%);
 }

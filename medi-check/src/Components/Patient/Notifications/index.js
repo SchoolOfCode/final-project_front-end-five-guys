@@ -24,65 +24,48 @@ for new prescription requirement we will need to:
 import { useEffect, useState } from 'react';
 //import BasicModal from '../../../MUIcomponents/PrescriptionModal';
 import './notifications.css';
+// import logo from '../../../Assets/medi-check.png';
+
 import BasicPopover from '../../../MUIcomponents/Popover';
+import { useAuth0 } from '@auth0/auth0-react';
 
-//dummy data for prepaid expiry
-const pEmail = 'vickismith@email.com';
+export function Notifications() {
+  const { user, isAuthenticated, isLoading } = useAuth0();
 
-export const dummyData = [
-  {
-    name: 'simvastatin',
-    dosage: '200',
-    measurement: 'mg',
-    freq1: '2',
-    freq2: 'day',
-    amount: 14,
-    prescription_date: '2022-7-20',
-    status: 'paused',
-  },
-  {
-    name: 'apixaban',
-    dosage: '400',
-    measurement: 'mg',
-    freq1: '2',
-    freq2: 'day',
-    amount: 14,
-    prescription_date: '2022-7-20',
-    status: 'paused',
-  },
-  {
-    name: 'atorvastatin',
-    dosage: '100',
-    measurement: 'ml',
-    freq1: '2',
-    freq2: 'day',
-    amount: 14,
-    prescription_date: '2022-7-20',
-    status: 'active',
-  },
-];
+  //dummy data for prepaid expiry
+  // const pEmail = 'vickismith@email.com';
+  const pEmail = user.email;
 
-export function Notifications({ data }) {
   //alerts state contains medication that will need to be renewed and notifications state holds the number of them
   const [alerts, SetAlerts] = useState([]);
   const [notifications, SetNotifications] = useState(0);
   const [paidDate, setPaidDate] = useState('');
   const [patient, setPatient] = useState({});
+  const [data, setData] = useState([]);
 
   //gets patient data
   useEffect(() => {
-    if (pEmail) {
-      async function getPatient() {
-        let response = await fetch(
-          `https://fiveguysproject.herokuapp.com/patient?email=${pEmail}`
-        );
-        let data = await response.json();
-        // console.log('patient data ', data.data[0]);
-        setPatient(data.data[0]);
-      }
+    async function getPatient() {
+      let response = await fetch(
+        `https://fiveguysproject.herokuapp.com/patient?email=${pEmail}`
+      );
+      let json = await response.json();
+      // console.log('patient data ', json.data[0]);
+      setPatient({ ...json.data[0] });
+
+      let response2 = await fetch(
+        `https://fiveguysproject.herokuapp.com/prescriptions?email=${pEmail}`
+      );
+      let json2 = await response2.json();
+      // console.log('patient data2 ', json2.data);
+
+      setData(json2.data ? [...json2.data] : []);
+    }
+
+    if (pEmail && isAuthenticated) {
       getPatient();
     }
-  }, []);
+  }, [pEmail, isAuthenticated]);
 
   //works out if pre paid need updating prepaid
   useEffect(() => {
@@ -103,7 +86,7 @@ export function Notifications({ data }) {
       return Math.floor((utc2 - utc1) / _MS_PER_DAY);
     }
 
-    if (Object.keys(patient).length !== 0) {
+    if (Object.keys(patient).length !== 0 && patient.prepaid) {
       const today = new Date();
 
       const dateOfExpiry = findDate(patient.prepaid);
@@ -141,7 +124,7 @@ export function Notifications({ data }) {
   useEffect(() => {
     // function takes the prescription date string and formats it into a full date
     function findDate(obj) {
-      let prescription_date = obj.prescription_date;
+      let prescription_date = obj.date;
       const date = prescription_date.split('-');
       const newDate = new Date();
       newDate.setFullYear(date[0], date[1] - 1, date[2]);
@@ -196,9 +179,11 @@ export function Notifications({ data }) {
       return compareDates(data);
     });
   }, [data, alerts]);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
-    <div className='notification-box'>
-      <h2>Notifications</h2>
+    <div>
       {/* <button>{notifications}</button> */}
       {/*<BasicModal data = {alerts} notifications = {notifications}/>*/}
       <BasicPopover

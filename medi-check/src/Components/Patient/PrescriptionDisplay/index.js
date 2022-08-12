@@ -5,12 +5,19 @@ import useInteractions from '../../../Hooks/useInteractionsFromName';
 import CustomizedAccordions from '../../../MUIcomponents/Accordian';
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+import './prescriptionDisplay.css';
 
 //Will fetch backend to get the patient prescription names and information, then plug that into the API twice.
 //Working on functionality now, not completeness
 function PrescriptionDisplay() {
-  const pEmail = 'rsmith123@email.com';
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  const pEmail = user.email;
+  // const pEmail = 'vickismith@email.com';
+  // console.log(user.email);
   const [prescriptions, setPrescriptions] = useState([]);
+  const [overCounter, setOverCounter] = useState([]);
   useEffect(() => {
     async function getPrescriptions() {
       let res = await fetch(
@@ -20,14 +27,28 @@ function PrescriptionDisplay() {
       // console.log('json', json);
       setPrescriptions(json.data);
     }
-    if (pEmail) {
+    if (pEmail && isAuthenticated) {
       getPrescriptions();
     }
-  }, []);
+  }, [pEmail, isAuthenticated]);
+  useEffect(() => {
+    async function getOTC() {
+      let res = await fetch(
+        `https://fiveguysproject.herokuapp.com/otc?email=${pEmail}`
+      );
+      let json = await res.json();
+      console.log('otc', json);
+      setOverCounter(json.data);
+    }
+    if (pEmail && isAuthenticated) {
+      getOTC();
+    }
+  }, [pEmail, isAuthenticated]);
+
   let itemInteractions = useInteractions(prescriptions);
   // let itemInteractions = testInteractions;
 
-  // console.log('itemInter', itemInteractions);
+  console.log('prescrip', prescriptions);
   //This is taking the API data and for each drug interaction it is grouping together the drug, the drug it is interacting with, and the description
   let combo = prescriptions.map((obj) => {
     let overview = itemInteractions.filter((info) => {
@@ -48,6 +69,7 @@ function PrescriptionDisplay() {
       drugInfo: obj.dosage + obj.measurement + ' ' + obj.frequency,
       status: obj.status,
       message: obj.override,
+      reason: obj.reason,
     };
   });
   //filter out inactive
@@ -72,33 +94,69 @@ function PrescriptionDisplay() {
     // console.log('asdasdasd', filteredObj);
     return { ...item, overrideMessage };
   });
-  // console.log('lol', itemInteractionsCombo);
+  // console.log(itemInteractions, itemInteractionsCombo);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
-    <>
-      <h3>Interaction Alert</h3>
-      {itemInteractionsCombo.map((item) => {
-        return (
-          <section style={{ width: '50%' }} key={uuidv4()}>
-            <h4 style={{ width: '50%' }}>
-              {' '}
-              {item.minConcept[0].name} and {item.minConcept[1].name}
-            </h4>
+    <div>
+      {itemInteractionsCombo.length === 0 ? (
+        <></>
+      ) : (
+        <div className='additional-container'>
+          {itemInteractionsCombo.map((item) => {
+            return (
+              <section style={{ width: '100%' }} key={uuidv4()}>
+                <h3>Interaction Alert</h3>
+                <h4
+                  style={{
+                    color: 'var(--font-color)',
+                  }}
+                >
+                  {' '}
+                  {item.minConcept[0].name} and {item.minConcept[1].name}
+                </h4>
 
-            <div style={{ width: '50%' }}>
-              Doctor's Note: {item.overrideMessage}
-            </div>
-            <div style={{ width: '50%' }}>
-              {item.interactionPair[0].description}
-            </div>
-          </section>
-        );
-      })}
-      <h3>Current Prescriptions</h3>
-      <CustomizedAccordions drugArray={current}></CustomizedAccordions>
-      <h3>Past Prescriptions</h3>
-
-      <CustomizedAccordions drugArray={history}></CustomizedAccordions>
-    </>
+                <div style={{ width: '100%' }}>
+                  Doctor's Note: {item.overrideMessage}
+                </div>
+                <div style={{ width: '100%' }}>
+                  {item.interactionPair[0].description}
+                </div>
+              </section>
+            );
+          })}
+        </div>
+      )}
+      <br />
+      <CustomizedAccordions
+        title={<h3>Current Prescriptions</h3>}
+        drugArray={current}
+      ></CustomizedAccordions>
+      <br />
+      {history.length > 0 ? (
+        <CustomizedAccordions
+          title={<h3>Past Prescriptions</h3>}
+          drugArray={history}
+        ></CustomizedAccordions>
+      ) : (
+        <></>
+      )}
+      {overCounter.length === 0 ? (
+        <></>
+      ) : (
+        <div className='additional-container'>
+          <h4 style={{ marginBottom: '1em' }}>Over the Counter Medications</h4>
+          {overCounter.map((item) => {
+            return (
+              <div key={uuidv4()}>
+                {item.name} {'-'} {item.reason}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
   );
 }
 

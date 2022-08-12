@@ -1,0 +1,35 @@
+.diary-entry {
+  display: flex;
+  width: 50vw;
+  padding: 1em;
+}
+
+.diary-top {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15em;
+  height: 4em;
+  padding: 1em;
+}
+
+.diary-list {
+  display: flex;
+  flex-direction: column;
+  max-height: 40vh;
+  overflow-x: hidden;
+}
+
+.diary-date {
+  width: 5vw;
+  font-family: Inter, sans-serif;
+  font-size: 1.1em;
+}
+.diary-mood {
+  width: 5vw;
+}
+.diary-text {
+  width: 30vw;
+  font-family: Inter, sans-serif;
+  font-size: 1.1em;
+}

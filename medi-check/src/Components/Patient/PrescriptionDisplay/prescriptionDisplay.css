@@ -1,3 +1,20 @@
 #display-box {
   border: 3px solid var(--font-color);
 }
+.patient-home-box {
+  background-color: aqua;
+}
+
+.additional-container {
+  /* border: 3px solid var(--font-color); */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--font-color);
+  /* text-align: center; */
+  background-color: var(--accordian-color);
+  border-radius: 5%;
+  padding: 2rem;
+  /* max-height: 500px; */
+  /* overflow-y: scroll; */
+}

@@ -5,7 +5,10 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 // import DialogContentText from '@mui/material/DialogContentText';
-//
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
 import DialogTitle from '@mui/material/DialogTitle';
 import ControlledSwitches from '../ControlledSwitch';
 import BasicSelect from '../Box';
@@ -16,12 +19,18 @@ import { MdOutlineAddCircle } from 'react-icons/md';
 
 import './index.css';
 // import useInteractions from '../../Hooks/useInteractionsFromName';
-//Temp import to get the dummy data for prescriptions
-import { dummy } from '../../Components/Patient/PrescriptionDisplay/dummyData.js';
 //Easy tester drug: ketoconazole
 
-export default function FormDialog({ first, last, patient_id }) {
-  console.log(Date.now(), Date.UTC());
+export default function FormDialog({
+  first,
+  last,
+  patient_id,
+  prescriptions,
+  setPrescriptions,
+  refresh,
+  setRefresh,
+}) {
+  // console.log(Date.now(), Date.UTC());
   const style = {
     position: 'absolute',
     top: '50%',
@@ -39,15 +48,18 @@ export default function FormDialog({ first, last, patient_id }) {
   const [prescription, setPrescription] = React.useState('');
   const [prescriptionObj, setPrescriptionObj] = React.useState({});
   const [openStatus, setOpenStatus] = React.useState(false);
-  const [reason, setReason] = React.useState('');
   const [interactedDrugs, setInteractedDrugs] = React.useState([]);
+  const [reason, setReason] = React.useState('');
+  const [reasonValidate, setReasonValidate] = React.useState('');
   React.useEffect(() => {
     if (!reason) {
       return;
     }
     let inputs = document.querySelectorAll('input');
-    console.log('inputs', inputs);
+    // console.log('inputs', inputs);
     //send to DB
+    let date = new Date();
+    let day = date.getDay() < 10 ? '0' + String(date.getDay()) : date.getDay();
     let prescription = {
       name: inputs[1].value,
       reason: inputs[2].value,
@@ -59,7 +71,7 @@ export default function FormDialog({ first, last, patient_id }) {
       status: 'active',
       override: reason,
       type: inputs[10].checked ? 'acute' : 'repeat',
-      date: new Date(),
+      date: `${day}-${date.getMonth()}-${date.getFullYear()}`,
       monitoring: Number(inputs[8].value) === 0 ? false : true,
       monitoringSchedule: Number(inputs[8].value),
       monitoringFrequency: inputs[9].value,
@@ -70,12 +82,12 @@ export default function FormDialog({ first, last, patient_id }) {
 
   React.useEffect(() => {
     let names = [];
-    for (let i = 0; i < dummy.length; i++) {
-      names.push(dummy[i].name);
-    }
-
     names.push(prescription);
+    for (let i = 0; i < prescriptions.length; i++) {
+      names.push(prescriptions[i].name);
+    }
     async function fetchData(nameArray) {
+      console.log('name array', nameArray);
       let url = 'https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=';
       for (let i = 0; i < nameArray.length; i++) {
         let res = await fetch(
@@ -83,19 +95,26 @@ export default function FormDialog({ first, last, patient_id }) {
         );
         let json = await res.json();
         console.log(nameArray[i], nameArray, json);
-        url += `+${json.idGroup.rxnormId[0]}`;
+        if (json.idGroup.rxnormId) {
+          url += `+${json.idGroup.rxnormId[0]}`;
+        }
       }
       try {
         let response = await fetch(url + '&sources=ONCHigh');
         let obj = await response.json();
         console.log('interactions here: ', obj);
-        let filtered =
-          obj.fullInteractionTypeGroup[0].fullInteractionType.filter((item) => {
-            return (
-              prescription === item.minConcept[0].name ||
-              prescription === item.minConcept[1].name
-            );
-          });
+        console.log('iurl ', url);
+        let filtered = [];
+        if (obj.fullInteractionTypeGroup) {
+          filtered = obj.fullInteractionTypeGroup[0].fullInteractionType.filter(
+            (item) => {
+              return (
+                prescription === item.minConcept[0].name ||
+                prescription === item.minConcept[1].name
+              );
+            }
+          );
+        }
         console.log('fil', filtered);
         if (filtered.length === 0) {
           console.log(
@@ -124,6 +143,7 @@ export default function FormDialog({ first, last, patient_id }) {
           };
           console.log('sending this back to the DB:', prescription);
           setPrescriptionObj({ ...prescription });
+          setPrescription('');
           handleClose();
           return;
         }
@@ -136,17 +156,19 @@ export default function FormDialog({ first, last, patient_id }) {
               : filtered[i].minConcept[0].name
           );
         }
+        console.log('interacted drugs, open status', [...temp], true);
         setInteractedDrugs([...temp]);
         setOpenStatus(true);
       } catch (error) {
         console.log('error', error);
       }
     }
+
     if (prescription) {
       //Comment out this line if testing and not wanting to query the API
       fetchData(names);
     }
-  }, [prescription]);
+  }, [prescription, prescriptions]);
 
   React.useEffect(() => {
     async function sendPrescription() {
@@ -160,17 +182,40 @@ export default function FormDialog({ first, last, patient_id }) {
       );
       let json = await response.json();
       console.log('posted pres', json);
+      setPrescriptionObj({});
+      setPrescription('');
+      setReasonValidate('');
+      setRefresh(!refresh);
     }
     if (Object.keys(prescriptionObj).length !== 0) {
-      sendPrescription();
+      if (interactedDrugs.length !== 0) {
+        console.log('interacted druigs exist, here is the reason', reason);
+        console.log(
+          'interacted druigs exist, here are the interactioins',
+          interactedDrugs
+        );
+        if (reason) {
+          console.log('about to send with interactions');
+
+          sendPrescription();
+        }
+      } else {
+        console.log('in else, meaning should be no interacted drugs?');
+        sendPrescription();
+      }
     }
-  }, [prescriptionObj, patient_id]);
+  }, [
+    prescriptionObj,
+    patient_id,
+    prescriptions,
+    setPrescriptions,
+    interactedDrugs,
+    refresh,
+    reason,
+    setRefresh,
+  ]);
   //States for all of the textfields
-  // const [name, setName] = React.useState('');
-  // const [dosage, setDosage] = React.useState(0);
-  // const [measurement, setMeasurement] = React.useState('');
-  // const [quantity, setQuantity] = React.useState(0);
-  // const [frequency, setFrequency] = React.useState('');
+
   const [textFields, setTextFields] = React.useState({
     name: '',
     dosage: 0,
@@ -183,17 +228,16 @@ export default function FormDialog({ first, last, patient_id }) {
 
   function handleChange(event) {
     let obj = textFields;
-    console.log(typeof textFields['total']);
+    // console.log(typeof textFields['total']);
     Number.isInteger(Number(event.target.value));
     !Number.isInteger(Number(event.target.value))
       ? (obj[event.target.name] = event.target.value)
       : (obj[event.target.name] = Number(event.target.value));
-    console.log(obj);
+    // console.log(obj);
     setTextFields({ ...obj });
   }
   const handleClickOpen = () => {
     setOpen(true);
-    console.log('dum data', dummy);
   };
   const handleClose = () => {
     setOpen(false);
@@ -210,7 +254,7 @@ export default function FormDialog({ first, last, patient_id }) {
     //look for .3 type numbers and put a 0 on the left. Run on total, dosage, quantity
     //Test whether or not we need to make the page refresh after sending to database or just reset state to 0
     let inputs = document.querySelectorAll('input');
-    console.log('ion', inputs);
+    // console.log('ion', inputs);
     let date = new Date();
     let day = date.getDay() < 10 ? '0' + String(date.getDay()) : date.getDay();
     let prescription = {
@@ -230,29 +274,24 @@ export default function FormDialog({ first, last, patient_id }) {
       monitoringFrequency: inputs[9].value,
     };
     console.log('no override but do not send back to DB here,', prescription);
-    setPrescriptionObj({ ...prescription });
-
+    // setPrescriptionObj({ ...prescription });
     setPrescription(prescription.name);
   }
   function handleOverrideClick() {
-    console.log(document.querySelector('#drugInteractionOverride').value);
-    setReason(document.querySelector('#drugInteractionOverride').value);
+    // console.log(document.querySelector('#drugInteractionOverride').value);
+    setReason(reasonValidate);
     setOpenStatus(false);
     setOpen(false);
   }
+
   function ChildModal() {
-    // const [open, setOpen] = React.useState(false);
-    const [reasonText, setReasonText] = React.useState('');
-    function handleOverrideChange(e) {
-      setReasonText(e.target.value);
-    }
-    // const handleOpen = () => {
-    //   setOpen(true);
-    // };
-    const handleClose = () => {
+    const handleClose2 = () => {
       setOpenStatus(false);
       // setOpen(false);
     };
+    function validate(e) {
+      setReasonValidate(e.target.value);
+    }
 
     return (
       <React.Fragment>
@@ -260,47 +299,64 @@ export default function FormDialog({ first, last, patient_id }) {
         <Modal
           hideBackdrop
           open={openStatus}
-          onClose={handleClose}
-          aria-labelledby='child-modal-title'
-          aria-describedby='child-modal-description'
+          onClose={handleClose2}
+          aria-labelledby="child-modal-title"
+          aria-describedby="child-modal-description"
         >
           <Box sx={{ ...style }}>
-            <h2 id='child-modal-title'>
+            <h2 id="child-modal-title">
               WARNING: There is a severe interaction between {prescription} and
-              other drugs {first} {last} is currently prescribed{' '}
+              other drugs {first} {last} is currently prescribed:{' '}
               {interactedDrugs.length === 0 ? (
                 <></>
               ) : (
                 interactedDrugs.reduce((curr, prev) => curr + ', ' + prev)
               )}
             </h2>
-            <p id='child-modal-description'>
+            <br></br>
+            <p id="child-modal-description">
               If you want to continue with this prescription please provide a
               valid reason below:
             </p>
-            <TextField
-              autoFocus
-              margin='dense'
-              id='drugInteractionOverride'
-              label='Reason to continue prescription'
-              type='text'
-              name='interactionReason'
-              fullWidth
-              variant='standard'
-              onChange={handleOverrideChange}
-              error={reasonText ? false : true}
-              required
-            />
+            <br></br>
+
+            <FormControl fullWidth>
+              <InputLabel id="overrideReason">Reason</InputLabel>
+              <Select
+                labelId="overrideReason"
+                id="demo-simple-select"
+                value={reasonValidate}
+                label="Reason"
+                onChange={validate}
+              >
+                <MenuItem value={'Patient intolerant of alternative drug'}>
+                  Patient intolerant of alternative drug
+                </MenuItem>
+                <MenuItem
+                  value={'Patient aware of risk and prefers this treatment'}
+                >
+                  Patient aware of risk and prefers this treatment
+                </MenuItem>
+                <MenuItem value={'Palliative care'}>Palliative care</MenuItem>
+                <MenuItem value={'Benefits of treatment outweight risks'}>
+                  Benefits of treatment outweight risks
+                </MenuItem>
+                <MenuItem value={'Spurious pathology result'}>
+                  Spurious pathology result
+                </MenuItem>
+              </Select>
+            </FormControl>
+
             <div
               style={{
                 display: 'flex',
                 justifyContent: 'space-evenly',
               }}
             >
-              <Button onClick={handleClose}>Cancel</Button>
+              <Button onClick={handleClose2}>Cancel</Button>
               <Button
                 onClick={handleOverrideClick}
-                disabled={reasonText ? false : true}
+                disabled={reasonValidate ? false : true}
               >
                 Confirm Prescription
               </Button>
@@ -329,54 +385,54 @@ export default function FormDialog({ first, last, patient_id }) {
           <DialogContent>
             <TextField
               autoFocus
-              margin='dense'
-              id='drugName'
-              label='Drug Name'
-              type='text'
-              name='name'
+              margin="dense"
+              id="drugName"
+              label="Drug Name"
+              type="text"
+              name="name"
               fullWidth
-              variant='standard'
+              variant="standard"
               onChange={handleChange}
               required
             />
             <TextField
               autoFocus
-              margin='dense'
-              id='drugReason'
-              label='Drug Reason'
-              type='text'
-              name='reason'
+              margin="dense"
+              id="drugReason"
+              label="Drug Reason"
+              type="text"
+              name="reason"
               fullWidth
-              variant='standard'
+              variant="standard"
               onChange={handleChange}
-              value='For testing'
+              defaultValue="For testing"
               required
             />
             <TextField
               autoFocus
-              margin='dense'
-              id='drugTotal'
-              label='Drug Total Amount'
+              margin="dense"
+              id="drugTotal"
+              label="Drug Total Amount"
               fullWidth
-              type='text'
+              type="text"
               onChange={handleChange}
-              variant='standard'
-              name='total'
+              variant="standard"
+              name="total"
               inputProps={{
                 inputMode: 'numeric',
                 pattern: '[0-9.]*',
               }}
               error={!Number.isNaN(Number(textFields['total'])) ? false : true}
-              defaultValue='200'
+              defaultValue="200"
               required
             />
             <TextField
               autoFocus
-              margin='dense'
-              id='drugDosage'
-              label='Drug Dosage'
+              margin="dense"
+              id="drugDosage"
+              label="Drug Dosage"
               fullWidth
-              variant='standard'
+              variant="standard"
               onChange={handleChange}
               inputProps={{
                 inputMode: 'numeric',
@@ -384,25 +440,16 @@ export default function FormDialog({ first, last, patient_id }) {
               }}
               error={!Number.isNaN(Number(textFields['dosage'])) ? false : true}
               required
-              defaultValue='100'
-              name='dosage'
+              defaultValue="100"
+              name="dosage"
             />
-            {/* <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Drug Form (e.g. tablet, capsule)"
-            type="form"
-            fullWidth
-            variant="standard"
-          /> */}
             <TextField
               autoFocus
-              margin='dense'
-              id='drugMeasurement'
+              margin="dense"
+              id="drugMeasurement"
               onChange={handleChange}
-              label='Drug Measurement (e.g. mg, puff etc.)'
-              type='text'
+              label="Drug Measurement (e.g. mg, puff etc.)"
+              type="text"
               error={
                 !Number.isInteger(Number(textFields['measurement']))
                   ? false
@@ -411,16 +458,16 @@ export default function FormDialog({ first, last, patient_id }) {
                   : true
               }
               fullWidth
-              variant='standard'
+              variant="standard"
               required
-              defaultValue='mg'
-              name='measurement'
+              defaultValue="mg"
+              name="measurement"
             />
             <TextField
               autoFocus
-              margin='dense'
-              id='drugQuantity'
-              label='Drug Quantity (e.g. 1 or 2)'
+              margin="dense"
+              id="drugQuantity"
+              label="Drug Quantity (e.g. 1 or 2)"
               inputProps={{
                 inputMode: 'numeric',
                 pattern: '[0-9.]*',
@@ -430,22 +477,22 @@ export default function FormDialog({ first, last, patient_id }) {
               error={
                 !Number.isNaN(Number(textFields['quantity'])) ? false : true
               }
-              variant='standard'
+              variant="standard"
               required
-              name='quantity'
-              defaultValue='250'
+              name="quantity"
+              defaultValue="250"
             />
             <TextField
               autoFocus
-              margin='dense'
-              id='drugFrequency'
-              label='Drug Frequency (e.g. daily or twice daily etc.)'
-              type='text'
+              margin="dense"
+              id="drugFrequency"
+              label="Drug Frequency (e.g. daily or twice daily etc.)"
+              type="text"
               fullWidth
-              variant='standard'
+              variant="standard"
               onChange={handleChange}
               required
-              defaultValue='daily'
+              defaultValue="daily"
               error={
                 !Number.isInteger(Number(textFields['frequency']))
                   ? false
@@ -453,16 +500,16 @@ export default function FormDialog({ first, last, patient_id }) {
                   ? false
                   : true
               }
-              name='frequency'
+              name="frequency"
             />
             <TextField
               autoFocus
-              margin='dense'
-              id='monitoring'
-              label='Monitoring (duration)'
-              type='number'
+              margin="dense"
+              id="monitoring"
+              label="Monitoring (duration)"
+              type="number"
               inputProps={{ step: 1, min: 0 }}
-              variant='standard'
+              variant="standard"
               defaultValue={0}
             />
             <BasicSelect></BasicSelect>
@@ -472,15 +519,15 @@ export default function FormDialog({ first, last, patient_id }) {
             </div>
           </DialogContent>
           <DialogActions>
-            <Button type='button' onClick={handleClose}>
+            <Button type="button" onClick={handleClose}>
               Cancel
             </Button>
-            <Button type='submit'>Prescribe</Button>
+            <Button type="submit">Prescribe</Button>
           </DialogActions>
         </form>
       </Dialog>
       <ButtonComponent
-        text1=' Add New Prescription'
+        text1=" Add New Prescription"
         text2={<MdOutlineAddCircle style={{ marginLeft: '0.5em' }} />}
         onClick={handleClickOpen}
       ></ButtonComponent>

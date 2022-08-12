@@ -1,0 +1,11 @@
+#otc-modal {
+  display: flex;
+  width: 100%;
+  text-align: left;
+}
+
+#otc-buttons {
+  margin-top: 1em;
+  display: flex;
+  justify-content: space-around;
+}
