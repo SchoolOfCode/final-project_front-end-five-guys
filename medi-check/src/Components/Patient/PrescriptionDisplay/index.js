@@ -37,7 +37,7 @@ function PrescriptionDisplay() {
         `https://fiveguysproject.herokuapp.com/otc?email=${pEmail}`
       );
       let json = await res.json();
-      // console.log('json', json);
+      console.log('otc', json);
       setOverCounter(json.data);
     }
     if (pEmail && isAuthenticated) {
