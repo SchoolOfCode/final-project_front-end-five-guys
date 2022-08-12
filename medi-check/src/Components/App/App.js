@@ -65,10 +65,12 @@ function App() {
   return (
     <div className={mode}>
       {/* darkMode? <div className="dark-mode"/>:<div className="App"/> */}
-      {!user && <LoginButton></LoginButton>}
-      {user && <LogoutButton></LogoutButton>}
-      <button onClick={handlePatientClick}>Patient</button>
-      <button onClick={handleDoctorClick}> Doctor</button>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        {!user && <LoginButton></LoginButton>}
+        {user && <LogoutButton></LogoutButton>}
+        <button onClick={handlePatientClick}>Patient</button>
+        <button onClick={handleDoctorClick}> Doctor</button>
+      </div>
       {display === 'patient' ? (
         <PatientHome
           registered={status}
