@@ -3,6 +3,10 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import { v4 as uuidv4 } from 'uuid';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
 
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
@@ -19,7 +23,8 @@ export default function PendingDialog({ open, setOpen }) {
   const [openStatusC, setOpenStatusC] = useState(false);
   const [reason, setReason] = React.useState('');
   const [interactedDrugs, setInteractedDrugs] = React.useState([]);
-
+  const [reasonValidate, setReasonValidate] = React.useState('');
+  console.log('AYO', open, setOpen);
   useEffect(() => {
     async function getPending() {
       const response = await fetch(
@@ -102,29 +107,29 @@ export default function PendingDialog({ open, setOpen }) {
         // console.log('OBJECT TO SEND TO DB', prescription, 'reason', reason);
         if (settledPrescription.approved) {
           //post
-          const response = await fetch(
-            `https://fiveguysproject.herokuapp.com/prescriptions/${prescription.patient_id}`,
-            {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: reason
-                ? JSON.stringify({ ...prescription, override: reason })
-                : JSON.stringify(prescription),
-            }
-          );
-          let json = await response.json();
-          // console.log('posted new prescription!:', json);
+          // const response = await fetch(
+          //   `https://fiveguysproject.herokuapp.com/prescriptions/${prescription.patient_id}`,
+          //   {
+          //     method: 'POST',
+          //     headers: { 'Content-Type': 'application/json' },
+          //     body: reason
+          //       ? JSON.stringify({ ...prescription, override: reason })
+          //       : JSON.stringify(prescription),
+          //   }
+          // );
+          // let json = await response.json();
+          // // console.log('posted new prescription!:', json);
         }
         //delete
-        const response2 = await fetch(
-          `https://fiveguysproject.herokuapp.com/pending/${prescription.pending_id}`,
-          {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-          }
-        );
-        let json2 = await response2.json();
-        // console.log('deleted pending prescription:', json2);
+        // const response2 = await fetch(
+        //   `https://fiveguysproject.herokuapp.com/pending/${prescription.pending_id}`,
+        //   {
+        //     method: 'DELETE',
+        //     headers: { 'Content-Type': 'application/json' },
+        //   }
+        // );
+        // let json2 = await response2.json();
+        // // console.log('deleted pending prescription:', json2);
 
         let index;
         // console.log('pending:', pending);
@@ -143,14 +148,15 @@ export default function PendingDialog({ open, setOpen }) {
             break;
           }
         }
-        // console.table(
-        //   'Checking progress:',
-        //   index,
-        //   prescription,
-        //   settledPrescription,
+        console.table(
+          'Checking progress:',
+          index,
+          prescription,
+          settledPrescription,
 
-        //   pending
-        // );
+          pending
+        );
+        console.log('phrescription obj', prescription, reason);
         setPending([...pending.slice(0, index), ...pending.slice(index + 1)]);
         setPrescription(
           [...pending.slice(0, index), ...pending.slice(index + 1)][0]
@@ -204,12 +210,16 @@ export default function PendingDialog({ open, setOpen }) {
       px: 4,
       pb: 3,
     };
+    function validate(e) {
+      setReasonValidate(e.target.value);
+    }
     function handleOverrideChange(e) {
       setReasonText(e.target.value);
     }
     function handleOverrideClick() {
       // console.log(document.querySelector('#drugInteractionOverride').value);
-      setReason(document.querySelector('#drugInteractionOverride').value);
+      setReason(reasonValidate);
+
       setOpenStatusC(false);
       setSend(true);
     }
@@ -251,6 +261,32 @@ export default function PendingDialog({ open, setOpen }) {
               If you want to continue with this prescription please provide a
               valid reason below:
             </p>
+            <FormControl fullWidth>
+              <InputLabel id="overrideReason">Reason</InputLabel>
+              <Select
+                labelId="overrideReason"
+                id="demo-simple-select"
+                value={reasonValidate}
+                label="Reason"
+                onChange={validate}
+              >
+                <MenuItem value={'Patient intolerant of alternative drug'}>
+                  Patient intolerant of alternative drug
+                </MenuItem>
+                <MenuItem
+                  value={'Patient aware of risk and prefers this treatment'}
+                >
+                  Patient aware of risk and prefers this treatment
+                </MenuItem>
+                <MenuItem value={'Palliative care'}>Palliative care</MenuItem>
+                <MenuItem value={'Benefits of treatment outweight risks'}>
+                  Benefits of treatment outweight risks
+                </MenuItem>
+                <MenuItem value={'Spurious pathology result'}>
+                  Spurious pathology result
+                </MenuItem>
+              </Select>
+            </FormControl>
             <TextField
               autoFocus
               margin="dense"
@@ -260,8 +296,6 @@ export default function PendingDialog({ open, setOpen }) {
               name="interactionReason"
               fullWidth
               variant="standard"
-              onChange={handleOverrideChange}
-              error={reasonText ? false : true}
               required
             />
             <div
@@ -286,7 +320,12 @@ export default function PendingDialog({ open, setOpen }) {
   return (
     <>
       {pending.length > 0 ? (
-        <ButtonComponent text1={'Pending Prescriptions'} onClick={setOpen} />
+        <ButtonComponent
+          text1={'Pending Prescriptions'}
+          onClick={() => {
+            setOpen(true);
+          }}
+        />
       ) : null}
       <Dialog onClose={handleClose} open={open} maxWidth="lg" fullWidth>
         {pending.length === 0 ? (
