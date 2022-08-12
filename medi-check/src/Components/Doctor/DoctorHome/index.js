@@ -55,11 +55,7 @@ function DoctorHome({ setDarkMode, setLargeFont }) {
                     />
                 </div>
                 <div className='pending-create'>
-                    <PendingDialog
-                        data-testid='pending'
-                        open={open}
-                        setOpen={setOpen}
-                    />
+                    <PendingDialog open={open} setOpen={setOpen} />
                     <CreatePatientDialog setList={setList} list={list} />
                 </div>
             </section>
