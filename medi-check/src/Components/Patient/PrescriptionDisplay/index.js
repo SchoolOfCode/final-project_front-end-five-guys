@@ -142,13 +142,20 @@ function PrescriptionDisplay() {
       ) : (
         <></>
       )}
-      {overCounter.map((item) => {
-        return (
-          <div key={uuidv4()}>
-            {item.name} {'-'} {item.reason}
-          </div>
-        );
-      })}
+      {overCounter.length === 0 ? (
+        <></>
+      ) : (
+        <div className='accordian-container'>
+          <h4 style={{ marginBottom: '1em' }}>Over the Counter Medications</h4>
+          {overCounter.map((item) => {
+            return (
+              <div key={uuidv4()}>
+                {item.name} {'-'} {item.reason}
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
