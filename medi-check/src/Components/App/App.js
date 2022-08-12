@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import LoginButton from '../../Auth0/login';
 import LogoutButton from '../../Auth0/logout';
 import { useAuth0 } from '@auth0/auth0-react';
+import logo from '../../Assets/medi-check.png';
 function App() {
   const [display, setDisplay] = useState('');
   const [darkMode, setDarkMode] = useState(false);
@@ -65,11 +66,18 @@ function App() {
   return (
     <div className={mode}>
       {/* darkMode? <div className="dark-mode"/>:<div className="App"/> */}
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div
+        style={{ display: 'flex', flexDirection: 'row', marginTop: '0.5em' }}
+      >
         {!user && <LoginButton></LoginButton>}
         {user && <LogoutButton></LogoutButton>}
-        <button onClick={handlePatientClick}>Patient</button>
-        <button onClick={handleDoctorClick}> Doctor</button>
+        <button className='navigation-button' onClick={handlePatientClick}>
+          Patient
+        </button>
+        <button className='navigation-button' onClick={handleDoctorClick}>
+          {' '}
+          Doctor
+        </button>
       </div>
       {display === 'patient' ? (
         <PatientHome
@@ -81,7 +89,14 @@ function App() {
       ) : display === 'doctor' ? (
         <DoctorHome setDarkMode={setDarkMode} setLargeFont={setLargeFont} />
       ) : (
-        <p>Please select a home page to display: </p>
+        <div id='landing-page'>
+          <img id='patient-logo-landing' src={logo} alt='medi-check logo' />
+          <h1 id='company-title'>Welcome to Medi-Check</h1>
+          <p>
+            Please select a home page to display from the navigation buttons at
+            the top of the page
+          </p>
+        </div>
       )}
     </div>
   );
