@@ -3,6 +3,10 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import { v4 as uuidv4 } from 'uuid';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
 
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
@@ -19,7 +23,7 @@ export default function PendingDialog({ open, setOpen }) {
   const [openStatusC, setOpenStatusC] = useState(false);
   const [reason, setReason] = React.useState('');
   const [interactedDrugs, setInteractedDrugs] = React.useState([]);
-
+  const [reasonValidate, setReasonValidate] = React.useState('');
   useEffect(() => {
     async function getPending() {
       const response = await fetch(
@@ -45,21 +49,24 @@ export default function PendingDialog({ open, setOpen }) {
       );
       let prescriptionJson = await prescriptonResponse.json();
       let list = prescriptionJson.data;
-      // console.log('asddasadsdasadsdas', list);
+      list.push(prescription);
+      console.log('asddasadsdasadsdas', list);
       let url = 'https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=';
       for (let i = 0; i < list.length; i++) {
         let res = await fetch(
           `https://rxnav.nlm.nih.gov/REST/rxcui.json?name=${list[i].name}`
         );
         let json = await res.json();
-        console.log(list[i].name, list);
-        url += `+${json.idGroup.rxnormId[0]}`;
+        console.log(list[i].name, json);
+        if (json.idGroup.rxnormId) {
+          url += `+${json.idGroup.rxnormId[0]}`;
+        }
       }
       try {
         let response = await fetch(url + '&sources=ONCHigh');
         let obj = await response.json();
-        // console.log('interactions here: ', obj);
-        // console.log('new drug name here: ', prescription.name);
+        console.log('interactions here: ', obj);
+        console.log('new drug name here: ', prescription.name);
         if (!obj.fullInteractionTypeGroup) {
           setSend(true);
           return;
@@ -73,9 +80,9 @@ export default function PendingDialog({ open, setOpen }) {
                 item.minConcept[1].name.toLowerCase()
             );
           });
-        // console.log('fil', filtered);
+        console.log('fil', filtered);
         if (filtered.length !== 0) {
-          // console.log('There are  interactions with the new drug'); //There is an interaction and we need to stop the closure and display the warning
+          console.log('There are  interactions with the new drug'); //There is an interaction and we need to stop the closure and display the warning
           let temp = [];
           for (let i = 0; i < filtered.length; i++) {
             temp.push(
@@ -143,14 +150,15 @@ export default function PendingDialog({ open, setOpen }) {
             break;
           }
         }
-        // console.table(
-        //   'Checking progress:',
-        //   index,
-        //   prescription,
-        //   settledPrescription,
+        console.table(
+          'Checking progress:',
+          index,
+          prescription,
+          settledPrescription,
 
-        //   pending
-        // );
+          pending
+        );
+        console.log('phrescription obj', prescription, reason);
         setPending([...pending.slice(0, index), ...pending.slice(index + 1)]);
         setPrescription(
           [...pending.slice(0, index), ...pending.slice(index + 1)][0]
@@ -204,12 +212,16 @@ export default function PendingDialog({ open, setOpen }) {
       px: 4,
       pb: 3,
     };
+    function validate(e) {
+      setReasonValidate(e.target.value);
+    }
     function handleOverrideChange(e) {
       setReasonText(e.target.value);
     }
     function handleOverrideClick() {
       // console.log(document.querySelector('#drugInteractionOverride').value);
-      setReason(document.querySelector('#drugInteractionOverride').value);
+      setReason(reasonValidate);
+
       setOpenStatusC(false);
       setSend(true);
     }
@@ -251,19 +263,33 @@ export default function PendingDialog({ open, setOpen }) {
               If you want to continue with this prescription please provide a
               valid reason below:
             </p>
-            <TextField
-              autoFocus
-              margin='dense'
-              id='drugInteractionOverride'
-              label='Reason to continue prescription'
-              type='text'
-              name='interactionReason'
-              fullWidth
-              variant='standard'
-              onChange={handleOverrideChange}
-              error={reasonText ? false : true}
-              required
-            />
+            <FormControl fullWidth>
+              <InputLabel id="overrideReason">Reason</InputLabel>
+              <Select
+                labelId="overrideReason"
+                id="demo-simple-select"
+                value={reasonValidate}
+                label="Reason"
+                onChange={validate}
+              >
+                <MenuItem value={'Patient intolerant of alternative drug'}>
+                  Patient intolerant of alternative drug
+                </MenuItem>
+                <MenuItem
+                  value={'Patient aware of risk and prefers this treatment'}
+                >
+                  Patient aware of risk and prefers this treatment
+                </MenuItem>
+                <MenuItem value={'Palliative care'}>Palliative care</MenuItem>
+                <MenuItem value={'Benefits of treatment outweight risks'}>
+                  Benefits of treatment outweight risks
+                </MenuItem>
+                <MenuItem value={'Spurious pathology result'}>
+                  Spurious pathology result
+                </MenuItem>
+              </Select>
+            </FormControl>
+
             <div
               style={{
                 display: 'flex',
@@ -273,7 +299,7 @@ export default function PendingDialog({ open, setOpen }) {
               <Button onClick={handleCloseChild}>Cancel</Button>
               <Button
                 onClick={handleOverrideClick}
-                disabled={reasonText ? false : true}
+                disabled={reasonValidate ? false : true}
               >
                 Confirm Prescription
               </Button>
@@ -286,7 +312,12 @@ export default function PendingDialog({ open, setOpen }) {
   return (
     <>
       {pending.length > 0 ? (
-        <ButtonComponent text1={'Pending Prescriptions'} onClick={setOpen} />
+        <ButtonComponent
+          text1={'Pending Prescriptions'}
+          onClick={() => {
+            setOpen(true);
+          }}
+        />
       ) : null}
       <Dialog onClose={handleClose} open={open} maxWidth='lg' fullWidth>
         {pending.length === 0 ? (

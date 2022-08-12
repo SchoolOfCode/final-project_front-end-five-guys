@@ -279,6 +279,7 @@ export default function FormDialog({
     setOpenStatus(false);
     setOpen(false);
   }
+
   function ChildModal() {
     const handleClose2 = () => {
       setOpenStatus(false);
