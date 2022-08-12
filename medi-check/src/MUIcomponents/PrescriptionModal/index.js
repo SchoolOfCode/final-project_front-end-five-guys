@@ -278,14 +278,6 @@ export default function FormDialog({
     setOpen(false);
   }
   function ChildModal() {
-    // const [open, setOpen] = React.useState(false);
-    const [reasonText, setReasonText] = React.useState('');
-    function handleOverrideChange(e) {
-      setReasonText(e.target.value);
-    }
-    // const handleOpen = () => {
-    //   setOpen(true);
-    // };
     const handleClose2 = () => {
       setOpenStatus(false);
       // setOpen(false);
