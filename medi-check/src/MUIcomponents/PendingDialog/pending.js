@@ -293,11 +293,18 @@ export default function PendingDialog({ open, setOpen }) {
           <div>No current pending prescriptions</div>
         ) : (
           <div className='pendingBox'>
-            <section>
-              {' '}
-              <DialogTitle>Pending Prescriptions</DialogTitle>
+            <section className='pending-patients'>
+              <DialogTitle
+                sx={{
+                  fontSize: '1.1em',
+                  fontWeight: 'bold',
+                  marginLeft: '-1.3em',
+                  fontFamily: 'Inter, sans-serif',
+                }}
+              >
+                Prescriptions Pending for:
+              </DialogTitle>
               <>
-                {' '}
                 {pending.map((item) => {
                   return (
                     <Typography
@@ -344,7 +351,7 @@ export default function PendingDialog({ open, setOpen }) {
                 <></>
               )}
               <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                <button
+                {/* <button
                   onClick={() => {
                     handleDecision(true);
                   }}
@@ -359,7 +366,20 @@ export default function PendingDialog({ open, setOpen }) {
                 >
                   {' '}
                   Deny
-                </button>
+                </button> */}
+                <ButtonComponent
+                  text1={'Approve'}
+                  onClick={() => {
+                    handleDecision(true);
+                  }}
+                />
+                <ButtonComponent
+                  text1={'Deny'}
+                  onClick={() => {
+                    handleDecision(false);
+                  }}
+                />
+                <ButtonComponent text1={'Close'} onClick={handleClose} />
               </div>
             </section>
           </div>
