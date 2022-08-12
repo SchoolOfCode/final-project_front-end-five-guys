@@ -64,7 +64,9 @@ export function DiaryPopup({ setAnchorEl, diary }) {
 
   return (
     <div>
-      <Button onClick={handleOpen}>View Diary</Button>
+      <Button style={{ color: 'black' }} onClick={handleOpen}>
+        View Diary
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -90,6 +92,7 @@ export function DiaryPopup({ setAnchorEl, diary }) {
                 style={{
                   width: '100%',
                   display: 'flex',
+                  flexDirection: 'column',
                   justifyContent: 'space-between',
                 }}
                 key={uuidv4()}
@@ -100,8 +103,16 @@ export function DiaryPopup({ setAnchorEl, diary }) {
                 >
                   {item.date}
                 </Typography>
-                <div className='diary-mood'>{marks[item.mood].label}</div>
-                <Typography className='diary-text'>{item.details}</Typography>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <div className='diary-mood'>{marks[item.mood].label}</div>
+                  <Typography className='diary-text'>{item.details}</Typography>
+                </div>
               </div>
             );
           })}

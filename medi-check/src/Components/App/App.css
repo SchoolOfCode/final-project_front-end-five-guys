@@ -90,3 +90,7 @@
 .navigation-button:hover {
   background-color: var(--button-hover-color);
 }
+
+.landing-description {
+  text-align: center;
+}

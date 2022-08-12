@@ -1,0 +1,10 @@
+.allergies-buttons {
+  border: solid black 1px;
+  color: black;
+}
+
+#allergies-buttons-area {
+  display: flex;
+  justify-content: space-around;
+  gap: 3em;
+}

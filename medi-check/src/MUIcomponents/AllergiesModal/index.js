@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { v4 as uuidv4 } from 'uuid';
 import { useAuth0 } from '@auth0/auth0-react';
+import './allergies.css';
 
 const style = {
   display: 'flex',
@@ -83,7 +84,7 @@ export default function AllergiesModal({ setAnchorEl }) {
   }
   return (
     <div>
-      <Button onClick={handleOpen} sx={{ width: '100%' }}>
+      <Button onClick={handleOpen} sx={{ width: '100%', color: 'black' }}>
         Allergies
       </Button>
       <Modal
@@ -124,9 +125,14 @@ export default function AllergiesModal({ setAnchorEl }) {
             onChange={handleText}
             name='reaction'
           ></textarea>
-          <Button style={{ alignSelf: 'center' }} onClick={handleSubmit}>
-            Submit
-          </Button>
+          <div id='allergies-buttons-area'>
+            <Button className='allergies-buttons' onClick={handleSubmit}>
+              Submit
+            </Button>
+            <Button className='allergies-buttons' onClick={handleClose}>
+              Cancel
+            </Button>
+          </div>
         </Box>
       </Modal>
     </div>

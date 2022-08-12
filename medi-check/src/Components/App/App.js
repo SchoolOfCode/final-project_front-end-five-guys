@@ -7,7 +7,7 @@ import LogoutButton from '../../Auth0/logout';
 import { useAuth0 } from '@auth0/auth0-react';
 import logo from '../../Assets/medi-check.png';
 function App() {
-  const [display, setDisplay] = useState('');
+  const [display, setDisplay] = useState('homepage');
   const [darkMode, setDarkMode] = useState(false);
   const [status, setStatus] = useState(false);
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -52,9 +52,9 @@ function App() {
       findUser();
     }
   }, [isAuthenticated, user]);
-  function handlePatientClick() {
+  /*function handlePatientClick() {
     setDisplay('patient');
-  }
+  }*/
   function handleDoctorClick() {
     setDisplay('doctor');
   }
@@ -69,15 +69,20 @@ function App() {
       <div
         style={{ display: 'flex', flexDirection: 'row', marginTop: '0.5em' }}
       >
-        {!user && <LoginButton></LoginButton>}
+        {display === 'homepage' && <LoginButton></LoginButton>}
         {user && <LogoutButton></LogoutButton>}
-        <button className='navigation-button' onClick={handlePatientClick}>
-          Patient
-        </button>
-        <button className='navigation-button' onClick={handleDoctorClick}>
-          {' '}
-          Doctor
-        </button>
+        {display === 'doctor' && <LogoutButton></LogoutButton>}
+        {/*display === 'homepage' && (
+          <button className='navigation-button' onClick={handlePatientClick}>
+            Patient
+          </button>
+        )*/}
+        {display === 'homepage' && (
+          <button className='navigation-button' onClick={handleDoctorClick}>
+            {' '}
+            Doctor
+          </button>
+        )}
       </div>
       {display === 'patient' ? (
         <PatientHome
@@ -92,7 +97,7 @@ function App() {
         <div id='landing-page'>
           <img id='patient-logo-landing' src={logo} alt='medi-check logo' />
           <h1 id='company-title'>Welcome to Medi-Check</h1>
-          <p>
+          <p className='landing-description'>
             Please select a home page to display from the navigation buttons at
             the top of the page
           </p>
