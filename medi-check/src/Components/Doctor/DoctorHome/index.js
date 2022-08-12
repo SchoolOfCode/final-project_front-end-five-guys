@@ -37,41 +37,44 @@ function DoctorHome({ setDarkMode, setLargeFont }) {
     //     setList([...dummyList]); //this is imported for proof of concept
     // }, [reset]);
 
+    // const handleClickOpen = () => {
+    //   setOpen(true);
+    // };
 
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
-
-  return (
-    <div className='doctor-home'>
-      <Header name='Smuggles' />
-      <section className='doctor-navigation'>
-        <div className='searchbar'>
-          <SearchBar
-            list={list}
-            setFilteredList={setFilteredList}
-            setList={setList}
-            setReset={setReset}
-            reset={reset}
-            setPatient={setPatient}
-          />
-        </div>
-        <div className='pending-create'>
-          <PendingDialog open={open} setOpen={setOpen} />
-          <CreatePatientDialog setList={setList} list={list} />
-        </div>
-      </section>
-      <div className='patient-table-con'>
-        {filteredList.length === 0 ? (
-          <PatientList list={list} patient={patient} setPatient={setPatient} />
-        ) : (
-          <PatientList
-            list={filteredList}
-            patient={patient}
-            setPatient={setPatient}
-          />
-        )}
-      </div>
+    return (
+        <div className='doctor-home'>
+            <Header name='Smuggles' />
+            <section className='doctor-navigation'>
+                <div className='searchbar'>
+                    <SearchBar
+                        list={list}
+                        setFilteredList={setFilteredList}
+                        setList={setList}
+                        setReset={setReset}
+                        reset={reset}
+                        setPatient={setPatient}
+                    />
+                </div>
+                <div className='pending-create'>
+                    <PendingDialog test-id='' open={open} setOpen={setOpen} />
+                    <CreatePatientDialog setList={setList} list={list} />
+                </div>
+            </section>
+            <div className='patient-table-con'>
+                {filteredList.length === 0 ? (
+                    <PatientList
+                        list={list}
+                        patient={patient}
+                        setPatient={setPatient}
+                    />
+                ) : (
+                    <PatientList
+                        list={filteredList}
+                        patient={patient}
+                        setPatient={setPatient}
+                    />
+                )}
+            </div>
 
             <Accessibility
                 setDarkMode={setDarkMode}
