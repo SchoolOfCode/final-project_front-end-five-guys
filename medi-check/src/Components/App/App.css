@@ -21,11 +21,11 @@
 .dark-mode {
   --font-color: white;
   --dark-mode-font: white;
-  --bg-color: black;
+  --bg-color: rgb(14, 18, 59);
   --modal-color: darkblue;
   --button-color: rgb(10, 92, 143);
   --button-hover-color: blue;
-  --accordian-color: rgb(14, 18, 59);
+  --accordian-color: rgb(14, 20, 88);
   --table-color: rgb(14, 18, 59);
   --table-alternate-rows: #d9d9d9;
   --alert: red;
@@ -50,4 +50,47 @@
 }
 .large-font {
   font-size: large;
+}
+
+#landing-page {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+#patient-logo-landing {
+  margin-top: 1em;
+  height: 15em;
+  width: 15em;
+}
+
+#company-title {
+  margin-bottom: 1em;
+}
+
+.navigation-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-transform: none;
+  border-style: none;
+  border-radius: 5em;
+  background-color: var(--button-color);
+  color: var(--font-color);
+  font-family: Inter, sans-serif;
+  font-size: 1.1em;
+  height: fit-content;
+  /* font-weight: 400; */
+  padding: 0.2em 1em;
+  width: auto;
+  box-shadow: 0px 8px 7px -7px rgba(0, 0, 0, 0.44);
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.navigation-button:hover {
+  background-color: var(--button-hover-color);
+}
+
+.landing-description {
+  text-align: center;
 }

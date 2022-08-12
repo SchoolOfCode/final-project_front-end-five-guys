@@ -103,7 +103,7 @@ function PrescriptionDisplay() {
       {itemInteractionsCombo.length === 0 ? (
         <></>
       ) : (
-        <div className='accordian-container'>
+        <div className='additional-container'>
           {itemInteractionsCombo.map((item) => {
             return (
               <section style={{ width: '100%' }} key={uuidv4()}>
@@ -145,7 +145,7 @@ function PrescriptionDisplay() {
       {overCounter.length === 0 ? (
         <></>
       ) : (
-        <div className='accordian-container'>
+        <div className='additional-container'>
           <h4 style={{ marginBottom: '1em' }}>Over the Counter Medications</h4>
           {overCounter.map((item) => {
             return (

@@ -68,13 +68,17 @@ export function PatientHome({
     );
     //Need to prompt the user to put in their code and all that jazz
     return (
-      <div>
+      <div id='landing-page'>
         {error && <div>{error}</div>}
+        <img id='patient-logo-landing' src={logo} alt='medi-check logo' />
+        <h1 id='company-title'>Welcome to Medi-Check</h1>
         <div>
-          Welcome, please input your code to register your account to your email
+          Please input your registration code to connect your account to your
+          email
         </div>
-        <input onChange={handleChange}></input>
+        <input id='register-code-field' onChange={handleChange}></input>
         <button
+          className='navigation-button'
           onClick={() => {
             setSubmit(true);
           }}
@@ -92,9 +96,9 @@ export function PatientHome({
         padding: '1em',
       }}
     >
-      <div className="patient-top-bar">
+      <div className='patient-top-bar'>
         <div>
-          <img id="patient-logo" src={logo} alt="medi-check logo" />
+          <img id='patient-logo' src={logo} alt='medi-check logo' />
         </div>
         <div>
           <Notifications />

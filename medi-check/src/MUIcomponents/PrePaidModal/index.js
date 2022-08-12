@@ -99,7 +99,7 @@ export default function PrePaidModal({ setAnchorEl }) {
 
   return (
     <div id='pre-paid-modal'>
-      <Button onClick={handleOpen} sx={{ width: '100%' }}>
+      <Button onClick={handleOpen} sx={{ width: '100%', color: 'black' }}>
         Pre-paid
       </Button>
       <Modal
@@ -131,8 +131,18 @@ export default function PrePaidModal({ setAnchorEl }) {
             setValue={setValue}
           ></PrePaidDateCalender>
           <div id='pre-paid-modal-buttons'>
-            <Button onClick={submitDate}>Submit</Button>
-            <Button onClick={handleClose}>Close</Button>
+            <Button
+              style={{ border: 'solid black 1px', color: 'black' }}
+              onClick={submitDate}
+            >
+              Submit
+            </Button>
+            <Button
+              style={{ border: 'solid black 1px', color: 'black' }}
+              onClick={handleClose}
+            >
+              Close
+            </Button>
           </div>
         </Box>
       </Modal>
