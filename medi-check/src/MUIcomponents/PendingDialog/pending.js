@@ -289,17 +289,7 @@ export default function PendingDialog({ open, setOpen }) {
                 </MenuItem>
               </Select>
             </FormControl>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="drugInteractionOverride"
-              label="Reason to continue prescription"
-              type="text"
-              name="interactionReason"
-              fullWidth
-              variant="standard"
-              required
-            />
+
             <div
               style={{
                 display: 'flex',
