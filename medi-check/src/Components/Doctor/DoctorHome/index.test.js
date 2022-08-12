@@ -1,6 +1,7 @@
 import { test, expect } from '@jest/globals';
 import { render, screen } from '@testing-library/react';
 import DoctorHome from '../DoctorHome';
+import PendingDialog from '../../../MUIcomponents/PendingDialog/pending';
 
 test("List of doctor's patients is displayed on doctor homepage", function () {
     render(<DoctorHome />);
@@ -20,8 +21,9 @@ test('Searchbar is displayed', function () {
 
 test('Pending prescriptions button is displayed', function () {
     render(<DoctorHome />);
+    const { queryByTestId } = render(<PendingDialog />);
 
-    const prescriptionButton = screen.getByAltText('Pending Prescriptions');
+    // const prescriptionButton = screen.getByAltText('Pending Prescriptions');
     // prescriptionButton.getByText('Pending Prescriptions')
-    expect(prescriptionButton).toBeVisible();
+    expect(screen.queryByTestId('pending')).toBeVisible();
 });
