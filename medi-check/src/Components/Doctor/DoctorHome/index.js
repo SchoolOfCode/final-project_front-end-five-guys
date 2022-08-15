@@ -42,7 +42,7 @@ function DoctorHome({ setDarkMode, setLargeFont }) {
     // };
     return (
         <div className='doctor-home'>
-            <Header name='Smuggles' />
+            <Header name='Smith' />
             <section className='doctor-navigation'>
                 <div className='searchbar'>
                     <SearchBar
