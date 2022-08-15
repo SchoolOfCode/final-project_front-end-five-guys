@@ -17,12 +17,16 @@
 }
 
 .pending-patients {
-  margin: 0 0 1em 1em;
+  margin: 0 0 1em 2em;
 }
 
 .pending-item {
   margin: 1em 0 1em 5em;
 }
+.pending-items {
+  margin: 0 0 0.5em;
+  font-family: Inter, sans-serif;
+}
 .pending-item-title {
-  margin-bottom: 1em;
+  margin-bottom: 3em 0 1em 5em;
 }

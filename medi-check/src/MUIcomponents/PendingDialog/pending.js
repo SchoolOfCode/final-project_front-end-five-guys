@@ -318,14 +318,22 @@ export default function PendingDialog({ open, setOpen }) {
           }}
         />
       ) : null}
-      <Dialog onClose={handleClose} open={open} maxWidth='lg' fullWidth>
+      <Dialog open={open} maxWidth='lg' fullWidth>
         {pending.length === 0 ? (
           <div>No current pending prescriptions</div>
         ) : (
           <div className='pendingBox'>
             <section>
               {' '}
-              <DialogTitle>Pending Prescriptions</DialogTitle>
+              <DialogTitle
+                sx={{
+                  marginTop: '0.5em',
+                  fontFamily: 'Inter, sans-serif',
+                  fontWeight: '700',
+                }}
+              >
+                Pending Prescriptions
+              </DialogTitle>
               <>
                 {' '}
                 {pending.map((item) => {
@@ -335,6 +343,10 @@ export default function PendingDialog({ open, setOpen }) {
                       onClick={() => {
                         handleOpen(item);
                       }}
+                      sx={{
+                        fontFamily: 'Inter, sans-serif',
+                        margin: '0 0 1em 2em',
+                      }}
                     >
                       {item.firstname} {item.surname} {item.name}
                     </Typography>
@@ -343,38 +355,84 @@ export default function PendingDialog({ open, setOpen }) {
               </>
             </section>
             <section>
-              <h4>
+              <h4
+                className='pending-item-title'
+                style={{
+                  fontFamily: 'Inter, sans-serif',
+                  margin: '2em 0 1em 5em',
+                }}
+              >
                 {prescription.firstname} {prescription.surname}{' '}
                 {prescription.date}
               </h4>
-              <div>
-                {prescription.name} {'-'}
-                {prescription.quantity + ', '}
-                {prescription.dosage}
-                {prescription.measurement}
-                {', '}
-                {prescription.frequency}
-                {', '}
-                {prescription.total + ' total'}
-                {' (' + prescription.type + ')'}
-              </div>
-
-              <div>{prescription.reason}</div>
-              <div>{'Pregnancy status: ' + prescription.pregnant}</div>
-              <div>{'Weight: ' + prescription.weight + 'kg'}</div>
-              <div>{'DOB: ' + prescription.dob}</div>
-              {prescription.monitoring ? (
-                <div>
-                  {'Monitoring every ' +
-                    prescription.monitoringschedule +
-                    ' ' +
-                    prescription.monitoringfrequency}
+              <div className='pending-item'>
+                <div className='pending-items'>
+                  {'Prescription name: ' + prescription.name} {'-'}
+                  {prescription.quantity + ', '}
+                  {prescription.dosage}
+                  {prescription.measurement}
+                  {', '}
+                  {prescription.frequency}
+                  {', '}
+                  {prescription.total + ' total'}
+                  {' (' + prescription.type + ')'}
                 </div>
-              ) : (
-                <></>
-              )}
-              <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                <button
+
+                <div className='pending-items'>
+                  {'Prescription reason: ' + prescription.reason}
+                </div>
+                <div className='pending-items'>
+                  {'Pregnancy status: ' + prescription.pregnant}
+                </div>
+                <div className='pending-items'>
+                  {'Weight: ' + prescription.weight + 'kg'}
+                </div>
+                <div className='pending-items'>
+                  {'DOB: ' +
+                    String(prescription.dob).slice(0, 4) +
+                    '-' +
+                    String(prescription.dob).slice(4, 6) +
+                    '-' +
+                    String(prescription.dob).slice(6)}
+                </div>
+                {prescription.monitoring ? (
+                  <div className='pending-items'>
+                    {'Monitoring every ' +
+                      prescription.monitoringschedule +
+                      ' ' +
+                      prescription.monitoringfrequency}
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  gap: '5em',
+                  marginBottom: '1em',
+                }}
+              >
+                <ButtonComponent
+                  text1={'Approve'}
+                  onClick={() => {
+                    handleDecision(true);
+                  }}
+                />
+                <ButtonComponent
+                  text1={'Deny'}
+                  onClick={() => {
+                    handleDecision(false);
+                  }}
+                />
+                <ButtonComponent
+                  text1={'Close'}
+                  onClick={() => {
+                    handleClose();
+                  }}
+                />
+                {/* <button
                   onClick={() => {
                     handleDecision(true);
                   }}
@@ -389,7 +447,7 @@ export default function PendingDialog({ open, setOpen }) {
                 >
                   {' '}
                   Deny
-                </button>
+                </button> */}
               </div>
             </section>
           </div>
