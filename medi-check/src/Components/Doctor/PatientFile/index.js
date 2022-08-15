@@ -8,6 +8,7 @@ function PatientFile({ info, onClick }) {
   const [allergies, setAllergies] = useState([]);
   const [prescriptions, setPrescriptions] = useState([]);
   const [overCounter, setOverCounter] = useState([]);
+  const [code, setCode] = useState('');
   const [diary, setDiary] = useState([]);
   const [open, setOpen] = useState(false);
   const [refresh, setRefresh] = useState(false);
@@ -60,14 +61,27 @@ function PatientFile({ info, onClick }) {
     }
     getOTC();
   }, [info.patient_id]);
+
+  useEffect(() => {
+    async function getCode() {
+      let res = await fetch(
+        `https://fiveguysproject.herokuapp.com/signup/patient/${info.patient_id}`
+      );
+      let json = await res.json();
+
+      console.log('OTC ionfo:', json);
+      setCode(json.data[0].code);
+    }
+    getCode();
+  }, [code, info.patient_id]);
   function showDiary() {
     // console.log(diary);
     setOpen(true);
   }
 
   return (
-    <main className='patient-section'>
-      <button className='close-button' onClick={onClick}>
+    <main className="patient-section">
+      <button className="close-button" onClick={onClick}>
         Close Patient
       </button>
       <DiaryDialog
@@ -77,22 +91,25 @@ function PatientFile({ info, onClick }) {
           return a.diary_id > b.diary_id;
         })}
       ></DiaryDialog>
-      <button className='close-button' id='diary' onClick={showDiary}>
+      <button className="close-button" id="diary" onClick={showDiary}>
         Show Diary
       </button>
 
       <div>
-        <section className='patientInfo'>
-          <table id='patient-info-table'>
+        <section className="patientInfo">
+          <div style={{ fontSize: '0.7em', textAlign: 'center' }}>
+            Patient Code: {code}
+          </div>
+          <table id="patient-info-table">
             <tbody>
               <tr>
-                <td className='headings'>Name:</td>
+                <td className="headings">Name:</td>
                 <td>
                   {info.title + ' ' + info.firstname + ' ' + info.surname}
                 </td>
               </tr>
               <tr>
-                <td className='headings'>DOB:</td>
+                <td className="headings">DOB:</td>
                 <td>
                   {String(info.dob).slice(0, 2) +
                     '-' +
@@ -102,52 +119,52 @@ function PatientFile({ info, onClick }) {
                 </td>
               </tr>
               <tr>
-                <td className='headings'>Gender:</td>
+                <td className="headings">Gender:</td>
                 <td>{info.gender}</td>
               </tr>
               <tr>
-                <td className='headings'>Ethnicity:</td>
+                <td className="headings">Ethnicity:</td>
                 <td>{info.ethnicity}</td>
               </tr>
               <tr>
-                <td className='headings'>Address:</td>
+                <td className="headings">Address:</td>
                 <td>{info.address}</td>
               </tr>
               <tr>
-                <td className='headings'>Postcode:</td>
+                <td className="headings">Postcode:</td>
                 <td>{info.postcode}</td>
               </tr>
               <tr>
-                <td className='headings'>Phone Number:</td>
+                <td className="headings">Phone Number:</td>
                 <td>{info.phonenumber}</td>
               </tr>
               <tr>
-                <td className='headings'>NHS Number:</td>
+                <td className="headings">NHS Number:</td>
                 <td>{info.nhsnumber}</td>
               </tr>
               <tr>
-                <td className='headings'>GP:</td>
+                <td className="headings">GP:</td>
                 <td>{info.gpsurgery}</td>
               </tr>
             </tbody>
           </table>
         </section>
         <div>
-          <table className='allergy-table'>
-            <tbody className='allergy-column'>
-              <tr className='allergy-header'>
+          <table className="allergy-table">
+            <tbody className="allergy-column">
+              <tr className="allergy-header">
                 <th>Allergies</th>
               </tr>
               {allergies.map((allergy) => {
                 return (
                   <tr key={uuidv4()}>
-                    <td className='heading'>{allergy.name}:</td>
+                    <td className="heading">{allergy.name}:</td>
                   </tr>
                 );
               })}
             </tbody>
-            <tbody className='reactions-column'>
-              <tr className='reactions-header'>
+            <tbody className="reactions-column">
+              <tr className="reactions-header">
                 <th>Reactions</th>
               </tr>
               {allergies.map((allergy) => {
@@ -160,15 +177,15 @@ function PatientFile({ info, onClick }) {
             </tbody>
           </table>
         </div>
-        <div className='otc-card'>
-          <p className='otc-header'>
+        <div className="otc-card">
+          <p className="otc-header">
             Non-Prescribed Medication currently taken
           </p>
           {overCounter.map((item) => {
             return <div key={uuidv4()}>{item.name}</div>;
           })}
         </div>
-        <div className='button-mover'>
+        <div className="button-mover">
           <FormDialog
             first={info.FirstNames}
             last={info.Surname}
