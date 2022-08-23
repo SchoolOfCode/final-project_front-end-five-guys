@@ -1,7 +1,7 @@
 //
 import { useEffect, useState } from 'react';
 
-export default function useInteractions(prescriptionArray) {
+export default function useInteractions(prescriptionArray, overCounterArray) {
   const [data, setData] = useState([]);
   useEffect(() => {
     async function fetchData(prescriptionArray) {
@@ -29,14 +29,15 @@ export default function useInteractions(prescriptionArray) {
         }
         let response = await fetch(url + '&sources=ONCHigh');
         let obj = await response.json();
-        // console.log(obj);
+        console.log('resposne', obj);
         // console.log(obj.fullInteractionTypeGroup[0].fullInteractionType);
         setData(obj.fullInteractionTypeGroup[0].fullInteractionType);
       } catch (error) {
         console.log(error);
       }
     }
-    fetchData(prescriptionArray);
-  }, [prescriptionArray]);
+    let combined = [...prescriptionArray, ...overCounterArray];
+    fetchData(combined);
+  }, [prescriptionArray, overCounterArray]);
   return data;
 }

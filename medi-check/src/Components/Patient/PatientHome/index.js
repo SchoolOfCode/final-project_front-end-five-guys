@@ -17,6 +17,7 @@ export function PatientHome({
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
   const [submit, setSubmit] = useState(false);
+  const [updateOTC, setUpdateOTC] = useState(false);
 
   useEffect(() => {
     async function checkCode() {
@@ -68,17 +69,17 @@ export function PatientHome({
     );
     //Need to prompt the user to put in their code and all that jazz
     return (
-      <div id='landing-page'>
+      <div id="landing-page">
         {error && <div>{error}</div>}
-        <img id='patient-logo-landing' src={logo} alt='medi-check logo' />
-        <h1 id='company-title'>Welcome to Medi-Check</h1>
+        <img id="patient-logo-landing" src={logo} alt="medi-check logo" />
+        <h1 id="company-title">Welcome to Medi-Check</h1>
         <div>
           Please input your registration code to connect your account to your
           email
         </div>
-        <input id='register-code-field' onChange={handleChange}></input>
+        <input id="register-code-field" onChange={handleChange}></input>
         <button
-          className='navigation-button'
+          className="navigation-button"
           onClick={() => {
             setSubmit(true);
           }}
@@ -96,9 +97,9 @@ export function PatientHome({
         padding: '1em',
       }}
     >
-      <div className='patient-top-bar'>
+      <div className="patient-top-bar">
         <div>
-          <img id='patient-logo' src={logo} alt='medi-check logo' />
+          <img id="patient-logo" src={logo} alt="medi-check logo" />
         </div>
         <div>
           <Notifications />
@@ -106,9 +107,14 @@ export function PatientHome({
       </div>
       <UserSearchBar />
 
-      <PrescriptionDisplay />
+      <PrescriptionDisplay updateOTC={updateOTC} />
       <div style={{ marginTop: '30%', left: '0%' }}>
-        <PatientNavBar setDarkMode={setDarkMode} setLargeFont={setLargeFont} />
+        <PatientNavBar
+          setDarkMode={setDarkMode}
+          setLargeFont={setLargeFont}
+          setUpdateOTC={setUpdateOTC}
+          updateOTC={updateOTC}
+        />
       </div>
     </div>
   );
