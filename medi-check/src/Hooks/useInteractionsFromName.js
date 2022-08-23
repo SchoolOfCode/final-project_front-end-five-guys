@@ -29,7 +29,7 @@ export default function useInteractions(prescriptionArray, overCounterArray) {
         }
         let response = await fetch(url + '&sources=ONCHigh');
         let obj = await response.json();
-        console.log('resposne', obj);
+        // console.log('resposne', obj);
         // console.log(obj.fullInteractionTypeGroup[0].fullInteractionType);
         setData(obj.fullInteractionTypeGroup[0].fullInteractionType);
       } catch (error) {

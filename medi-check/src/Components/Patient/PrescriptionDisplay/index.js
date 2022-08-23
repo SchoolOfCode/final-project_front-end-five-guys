@@ -24,7 +24,7 @@ function PrescriptionDisplay({ updateOTC }) {
         `https://fiveguysproject.herokuapp.com/prescriptions?email=${pEmail}`
       );
       let json = await res.json();
-      console.log('pres', json);
+      // console.log('pres', json);
       setPrescriptions(json.data);
     }
     if (pEmail && isAuthenticated) {
@@ -37,7 +37,7 @@ function PrescriptionDisplay({ updateOTC }) {
         `https://fiveguysproject.herokuapp.com/otc?email=${pEmail}`
       );
       let json = await res.json();
-      console.log('otc', json);
+      // console.log('otc', json);
       setOverCounter(json.data);
     }
     if (pEmail && isAuthenticated) {
@@ -48,7 +48,7 @@ function PrescriptionDisplay({ updateOTC }) {
   let itemInteractions = useInteractions(prescriptions, overCounter);
   // let itemInteractions = testInteractions;
 
-  console.log('prescrip', prescriptions);
+  // console.log('prescrip', prescriptions);
   //This is taking the API data and for each drug interaction it is grouping together the drug, the drug it is interacting with, and the description
   let combo = prescriptions.map((obj) => {
     let overview = itemInteractions.filter((info) => {
@@ -88,7 +88,7 @@ function PrescriptionDisplay({ updateOTC }) {
         item.minConcept[1].name === index.drug
       );
     });
-    console.log(filteredObj);
+    // console.log(filteredObj);
     let overrideMessage = filteredObj
       ? filteredObj[0]
         ? filteredObj[0].message
