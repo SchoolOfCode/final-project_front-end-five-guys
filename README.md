@@ -14,13 +14,13 @@ It also allows the patient to view their medical history in one location and eve
 
 ## Authors
 
-- Ben Greenwood [LinkedIn](www.linkedin.com/in/b-p-greenwood/)  &ensp;&ensp;    [GitHub](https://github.com/B-P-Greenwood)
-- Brycen Barron-Borden [LinkedIn](https://www.linkedin.com/in/brycenbb/)  &ensp;&ensp; [GitHub](https://github.com/brycenbb)
-- Michael Rushton [LinkedIn](www.linkedin.com/in/michael-rushton)  &ensp;&ensp; [GitHub](https://github.com/michaelrushton-dev)
-- Rajesh Reel [LinkedIn](https://www.linkedin.com/in/rajesh-reel)  &ensp;&ensp; [GitHub](https://www.github.com/rajesh-reel)
-- Tom Birbeck [LinkedIn](https://www.linkedin.com/in/tom-birbeck-036356248/)  &ensp;&ensp; [GitHub](https://github.com/TomBirbeck)
+- Ben Greenwood - [LinkedIn](www.linkedin.com/in/b-p-greenwood/) / [GitHub](https://github.com/B-P-Greenwood)
+- Brycen Barron-Borden - [LinkedIn](https://www.linkedin.com/in/brycenbb/) / [GitHub](https://github.com/brycenbb)
+- Michael Rushton - [LinkedIn](www.linkedin.com/in/michael-rushton) / [GitHub](https://github.com/michaelrushton-dev)
+- Rajesh Reel - [LinkedIn](https://www.linkedin.com/in/rajesh-reel) / [GitHub](https://www.github.com/rajesh-reel)
+- Tom Birbeck - [LinkedIn](https://www.linkedin.com/in/tom-birbeck-036356248/) / [GitHub](https://github.com/TomBirbeck)
 
-## Frontend tech s tack
+## Frontend Tech Stack
 - React
 - Javascript
 - Heroku
@@ -35,7 +35,7 @@ It also allows the patient to view their medical history in one location and eve
 - [Cypress](https://www.cypress.io/)
 - [RxNav API](https://lhncbc.nlm.nih.gov/RxNav/)
 
-## Installation and setup
+## Installation and Setup
 
 To get the full experience of this app, first clone both this repo and the backend code found [HERE](https://github.com/SchoolOfCode/final-project_back-end-five-guys) and follow the installation instructions there to set up your server and database. Log in functionality can be completed by setting up a single-page-application with Auth0 by following the first two steps [here](https://auth0.com/docs/quickstart/spa/react/01-login#install-the-auth0-react-sdk=).
 
