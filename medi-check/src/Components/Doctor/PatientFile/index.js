@@ -70,7 +70,7 @@ function PatientFile({ info, onClick }) {
     async function getCode() {
       let res = await fetch(
         // `https://fiveguysproject.herokuapp.com/signup/patient/${info.patient_id}`
-        `https://final-projectback-end-five-guys-production.up.railway.app/patient/${info.patient_id}`
+        `https://final-projectback-end-five-guys-production.up.railway.app/signup/patient/${info.patient_id}`
       );
       let json = await res.json();
       
