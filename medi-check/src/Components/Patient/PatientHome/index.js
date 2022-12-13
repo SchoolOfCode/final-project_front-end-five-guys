@@ -23,7 +23,8 @@ export function PatientHome({
     async function checkCode() {
       // console.log('sending off code', code);
       let codeCheck = await fetch(
-        `https://fiveguysproject.herokuapp.com/signup?code=${code}`
+        // `https://fiveguysproject.herokuapp.com/signup?code=${code}`
+        `https://final-projectback-end-five-guys-production.up.railway.app/signup?code=${code}`
       );
       let json = await codeCheck.json();
       // console.log('in there?', json);
@@ -33,7 +34,8 @@ export function PatientHome({
       }
       if (json.data.length !== 0) {
         let codeUpdate = await fetch(
-          `https://fiveguysproject.herokuapp.com/signup?code=${code}`,
+          // `https://fiveguysproject.herokuapp.com/signup?code=${code}`,
+          `https://final-projectback-end-five-guys-production.up.railway.app/signup?code=${code}`,
           {
             method: 'PUT',
           }
@@ -41,7 +43,8 @@ export function PatientHome({
         let json = await codeUpdate.json();
         // console.log('in there 2?', json.data[0].patient_id);
         let alignUser = await fetch(
-          `https://fiveguysproject.herokuapp.com/patients?id=${json.data[0].patient_id}&email=${user.email}`,
+          // `https://fiveguysproject.herokuapp.com/patients?id=${json.data[0].patient_id}&email=${user.email}`,
+          `https://final-projectback-end-five-guys-production.up.railway.app/patients?id=${json.data[0].patient_id}&email=${user.email}`,
           {
             method: 'PUT',
           }

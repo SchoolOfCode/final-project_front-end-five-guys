@@ -33,7 +33,8 @@ export default function OTCModal({ setAnchorEl, updateOTC, setUpdateOTC }) {
       //   amount: document.getElementById('amountOTC').value,
       // });
 
-      await fetch(`https://fiveguysproject.herokuapp.com/otc/${user.email}`, {
+      // await fetch(`https://fiveguysproject.herokuapp.com/otc/${user.email}`, {
+      await fetch(`https://final-projectback-end-five-guys-production.up.railway.app/otc/${user.email}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

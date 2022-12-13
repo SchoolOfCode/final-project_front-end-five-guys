@@ -89,7 +89,8 @@ export function DiaryModal({ setAnchorEl, setSubmitted, submitted }) {
   // const id = 1;
   useEffect(() => {
     async function postDiaryEntry() {
-      const db_url = `https://fiveguysproject.herokuapp.com/diary/${pEmail}`;
+      // const db_url = `https://fiveguysproject.herokuapp.com/diary/${pEmail}`;
+      const db_url = `https://final-projectback-end-five-guys-production.up.railway.app/diary/${pEmail}`;
       const value = entry.mood / 25;
 
       const newPost = {

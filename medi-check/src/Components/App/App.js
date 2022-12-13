@@ -29,12 +29,14 @@ function App() {
   useEffect(() => {
     async function findUser() {
       let doctorCheck = await fetch(
-        `https://fiveguysproject.herokuapp.com/doctor?email=${user.email}`
+        // `https://fiveguysproject.herokuapp.com/doctor?email=${user.email}`
+        `https://final-projectback-end-five-guys-production.up.railway.app/doctor?email=${user.email}`
       );
       let doctorData = await doctorCheck.json();
       if (doctorData.data.length === 0) {
         let patientCheck = await fetch(
-          `https://fiveguysproject.herokuapp.com/patient?email=${user.email}`
+          // `https://fiveguysproject.herokuapp.com/patient?email=${user.email}`
+          `https://final-projectback-end-five-guys-production.up.railway.app/patient?email=${user.email}`
         );
         let patientData = await patientCheck.json();
         if (patientData.data.length === 0) {
