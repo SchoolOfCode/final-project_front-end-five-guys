@@ -22,7 +22,8 @@ function DoctorHome({ setDarkMode, setLargeFont }) {
     useEffect(() => {
         async function getPatients() {
             let res = await fetch(
-                `https://fiveguysproject.herokuapp.com/patients?doctoremail=${DOCTOR_EMAIL}`
+                // `https://fiveguysproject.herokuapp.com/patients?doctoremail=${DOCTOR_EMAIL}`
+                `https://final-projectback-end-five-guys-production.up.railway.app/patients?doctoremail=${DOCTOR_EMAIL}`
             );
             // console.log(res);
             let json = await res.json();

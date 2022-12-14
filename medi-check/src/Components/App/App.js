@@ -29,12 +29,14 @@ function App() {
   useEffect(() => {
     async function findUser() {
       let doctorCheck = await fetch(
-        `https://fiveguysproject.herokuapp.com/doctor?email=${user.email}`
+        // `https://fiveguysproject.herokuapp.com/doctor?email=${user.email}`
+        `https://final-projectback-end-five-guys-production.up.railway.app/doctor?email=${user.email}`
       );
       let doctorData = await doctorCheck.json();
       if (doctorData.data.length === 0) {
         let patientCheck = await fetch(
-          `https://fiveguysproject.herokuapp.com/patient?email=${user.email}`
+          // `https://fiveguysproject.herokuapp.com/patient?email=${user.email}`
+          `https://final-projectback-end-five-guys-production.up.railway.app/patient?email=${user.email}`
         );
         let patientData = await patientCheck.json();
         if (patientData.data.length === 0) {
@@ -64,7 +66,7 @@ function App() {
     return <div>Loading...</div>;
   }
   return (
-    <div id='background'>
+    <div id="background">
       <div className={mode}>
         {/* darkMode? <div className="dark-mode"/>:<div className="App"/> */}
         <div
@@ -79,7 +81,7 @@ function App() {
           </button>
         )*/}
           {display === 'homepage' && (
-            <button className='navigation-button' onClick={handleDoctorClick}>
+            <button className="navigation-button" onClick={handleDoctorClick}>
               {' '}
               Doctor
             </button>
@@ -95,12 +97,24 @@ function App() {
         ) : display === 'doctor' ? (
           <DoctorHome setDarkMode={setDarkMode} setLargeFont={setLargeFont} />
         ) : (
-          <div id='landing-page'>
-            <img id='patient-logo-landing' src={logo} alt='medi-check logo' />
-            <h1 id='company-title'>Welcome to Medi-Check</h1>
-            <p className='landing-description'>
+          <div id="landing-page">
+            <img id="patient-logo-landing" src={logo} alt="medi-check logo" />
+            <h1 id="company-title">Welcome to Medi-Check</h1>
+            <p className="landing-description">
               Please select a home page to display from the navigation buttons
-              at the top of the page
+              at the top of the page.
+            </p>
+            <p
+              className="landing-description"
+              style={{ marginTop: '1rem', fontSize: '1.5rem' }}
+            >
+              Guest patient log-in details -
+            </p>
+            <p className="landing-description" style={{ fontSize: '1.2rem' }}>
+              Email: fiveguy438@gmail.com
+            </p>
+            <p className="landing-description" style={{ fontSize: '1.2rem' }}>
+              Password: Password123!
             </p>
           </div>
         )}

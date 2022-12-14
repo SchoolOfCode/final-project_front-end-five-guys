@@ -7,7 +7,7 @@ import './accountmenu.css';
 import PrePaidModal from '../../../../MUIcomponents/PrePaidModal';
 import OTCModal from '../../../../MUIcomponents/OTCModal';
 
-export default function BasicMenu() {
+export default function BasicMenu({ updateOTC, setUpdateOTC }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -18,18 +18,18 @@ export default function BasicMenu() {
   };
 
   return (
-    <div id='account-menu'>
+    <div id="account-menu">
       <Button
-        id='basic-button'
+        id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup='true'
+        aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <CgProfile id='profile-button' />
+        <CgProfile id="profile-button" />
       </Button>
       <Menu
-        id='basic-menu'
+        id="basic-menu"
         sx={{ display: 'flex', textAlign: 'center' }}
         anchorEl={anchorEl}
         open={open}
@@ -47,7 +47,11 @@ export default function BasicMenu() {
         }}
       >
         <PrePaidModal setAnchorEl={setAnchorEl}></PrePaidModal>
-        <OTCModal setAnchorEl={setAnchorEl}></OTCModal>
+        <OTCModal
+          setAnchorEl={setAnchorEl}
+          setUpdateOTC={setUpdateOTC}
+          updateOTC={updateOTC}
+        ></OTCModal>
         <AllergiesModal
           setAnchorEl={setAnchorEl}
           sx={{

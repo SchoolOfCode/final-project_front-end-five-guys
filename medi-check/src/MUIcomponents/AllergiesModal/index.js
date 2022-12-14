@@ -44,7 +44,8 @@ export default function AllergiesModal({ setAnchorEl }) {
   useEffect(() => {
     async function getData() {
       let response = await fetch(
-        `https://fiveguysproject.herokuapp.com/allergy/?email=${pEmail}`
+        // `https://fiveguysproject.herokuapp.com/allergy/?email=${pEmail}`
+        `https://final-projectback-end-five-guys-production.up.railway.app/allergy/?email=${pEmail}`
       );
       let data = await response.json();
       setCurrentAllergy(data.data);
@@ -70,7 +71,8 @@ export default function AllergiesModal({ setAnchorEl }) {
   }
 
   async function postAllergy() {
-    const db_url = `https://fiveguysproject.herokuapp.com/allergy/${pEmail}`;
+    // const db_url = `https://fiveguysproject.herokuapp.com/allergy/${pEmail}`;
+    const db_url = `https://final-projectback-end-five-guys-production.up.railway.app/allergy/${pEmail}`;
     const newPost = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

@@ -19,7 +19,7 @@ const style = {
   p: 4,
 };
 
-export default function OTCModal({ setAnchorEl }) {
+export default function OTCModal({ setAnchorEl, updateOTC, setUpdateOTC }) {
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   const [open, setOpen] = useState(false);
@@ -33,7 +33,8 @@ export default function OTCModal({ setAnchorEl }) {
       //   amount: document.getElementById('amountOTC').value,
       // });
 
-      await fetch(`https://fiveguysproject.herokuapp.com/otc/${user.email}`, {
+      // await fetch(`https://fiveguysproject.herokuapp.com/otc/${user.email}`, {
+      await fetch(`https://final-projectback-end-five-guys-production.up.railway.app/otc/${user.email}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -45,6 +46,8 @@ export default function OTCModal({ setAnchorEl }) {
       //let json = await res.json();
       // console.log('winner?', json);
       setSubmit(false);
+      console.log('updatting otc');
+      setUpdateOTC(!updateOTC);
       handleClose();
     }
     if (submit && !isLoading && isAuthenticated) {
@@ -62,57 +65,57 @@ export default function OTCModal({ setAnchorEl }) {
   }
 
   return (
-    <div id='otc-modal'>
+    <div id="otc-modal">
       <Button onClick={handleOpen} sx={{ width: '100%', color: 'black' }}>
         OTC
       </Button>
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby='modal-modal-title'
-        aria-describedby='modal-modal-description'
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id='modal-modal-title' variant='h6' component='h2'>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
             Register a medicine you are taking over the counter:
           </Typography>
           <TextField
-            name='name'
+            name="name"
             autoFocus
-            margin='dense'
-            id='nameOTC'
-            label='Name'
-            type='text'
+            margin="dense"
+            id="nameOTC"
+            label="Name"
+            type="text"
             fullWidth
-            variant='standard'
-            defaultValue='Ibuprofen'
+            variant="standard"
+            defaultValue="Ibuprofen"
             required
           />
           <TextField
-            name='Daily amount'
+            name="Daily amount"
             autoFocus
-            margin='dense'
-            id='amountOTC'
-            label='Amount'
-            type='number'
+            margin="dense"
+            id="amountOTC"
+            label="Amount"
+            type="number"
             fullWidth
-            variant='standard'
-            defaultValue='4'
+            variant="standard"
+            defaultValue="4"
             required
           />
           <TextField
-            name='reason'
+            name="reason"
             autoFocus
-            margin='dense'
-            id='reasonOTC'
-            label='Reason'
-            type='text'
+            margin="dense"
+            id="reasonOTC"
+            label="Reason"
+            type="text"
             fullWidth
-            variant='standard'
-            defaultValue='Chronic headaches'
+            variant="standard"
+            defaultValue="Chronic headaches"
             required
           />
-          <div id='otc-buttons'>
+          <div id="otc-buttons">
             <Button
               style={{
                 border: 'solid black 1px',

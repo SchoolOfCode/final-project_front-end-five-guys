@@ -1,13 +1,60 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=8157292&assignment_repo_type=AssignmentRepo)
+<img src="./medi-check.png" width='200'/>
 
-# final-project_front-end_five-guys
+# MEDI-CHECK 
+A proof-of-concept full-stack React app demonstrating research-driven approaches to combatting medication error. This project was developed as part of the 4-week final team project at School of Code. Developement followed a short-sprint Scrum Agile methodology that utilised a veteran General Practitioner and Senior Social Worker as product owners. 
 
-https://medi-check.netlify.app/
+## Overview
+Our app Medi-Check aims to reduce this by giving autonomy back to the doctor when prescribing medications as our app will check accordingly with patients other meds if the is an interaction and will highlight high severity interactions via an alert.
 
-## authors
+It also allows the patient to view their medical history in one location and even allows the patient to enter "OTC" (over the counter) medications to check against their current meds to see if their is a high severity interaction.
 
-- Ben Greenwood
-- Brycen Barron-Borden
-- Michael Rushton
-- Rajesh Reel
-- Tom Birbeck
+## Live Link
+[Here](https://medi-check.netlify.app/
+)
+
+## Authors
+
+- Ben Greenwood - [LinkedIn](www.linkedin.com/in/b-p-greenwood/) / [GitHub](https://github.com/B-P-Greenwood)
+- Brycen Barron-Borden - [LinkedIn](https://www.linkedin.com/in/brycenbb/) / [GitHub](https://github.com/brycenbb)
+- Michael Rushton - [LinkedIn](www.linkedin.com/in/michael-rushton) / [GitHub](https://github.com/michaelrushton-dev)
+- Rajesh Reel - [LinkedIn](https://www.linkedin.com/in/rajesh-reel) / [GitHub](https://www.github.com/rajesh-reel)
+- Tom Birbeck - [LinkedIn](https://www.linkedin.com/in/tom-birbeck-036356248/) / [GitHub](https://github.com/TomBirbeck)
+
+## Frontend Tech Stack
+- React
+- Javascript
+- Heroku
+- Postgress
+- CSS
+- Node
+- [Material UI](https://mui.com/)
+- [Express](https://expressjs.com/)
+- [Auth0](https://auth0.com/)
+- [Jest](https://jestjs.io/)
+- [Supertest](https://www.npmjs.com/package/supertest)
+- [Cypress](https://www.cypress.io/)
+- [RxNav API](https://lhncbc.nlm.nih.gov/RxNav/)
+
+## Installation and Setup
+
+To get the full experience of this app, first clone both this repo and the backend code found [HERE](https://github.com/SchoolOfCode/final-project_back-end-five-guys) and follow the installation instructions there to set up your server and database. Log in functionality can be completed by setting up a single-page-application with Auth0 by following the first two steps [here](https://auth0.com/docs/quickstart/spa/react/01-login#install-the-auth0-react-sdk=).
+
+### Important Note:
+For public hosting purposes, certain aspects of the app have been disabled to prevent abuse of its features. These features can be
+re-enabled by uncommenting the documented code blocks. To connect the front and backend servers, replace the DATABASE_URL variable found throughout the project with your own local or hosted server path. 
+
+### Installation:
+
+npm install
+
+### To Run Test Suite:
+
+npm test
+
+### To Start the App:
+
+npm start
+
+### To Visit App:
+
+localhost:3000

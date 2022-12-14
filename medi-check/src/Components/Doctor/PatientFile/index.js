@@ -17,7 +17,8 @@ function PatientFile({ info, onClick }) {
   useEffect(() => {
     async function getAllergies() {
       let res = await fetch(
-        `https://fiveguysproject.herokuapp.com/allergy/${info.patient_id}`
+        // `https://fiveguysproject.herokuapp.com/allergy/${info.patient_id}`
+        `https://final-projectback-end-five-guys-production.up.railway.app/allergy/${info.patient_id}`
       );
       let json = await res.json();
       // console.log('fetched allerg', json);
@@ -29,7 +30,8 @@ function PatientFile({ info, onClick }) {
   useEffect(() => {
     async function getPrescriptions() {
       let res = await fetch(
-        `https://fiveguysproject.herokuapp.com/prescriptions/${info.patient_id}`
+        // `https://fiveguysproject.herokuapp.com/prescriptions/${info.patient_id}`
+        `https://final-projectback-end-five-guys-production.up.railway.app/prescriptions/${info.patient_id}`
       );
       let json = await res.json();
       // console.log('fetched presc', json);
@@ -41,7 +43,8 @@ function PatientFile({ info, onClick }) {
   useEffect(() => {
     async function getPatientDiary() {
       let res = await fetch(
-        `https://fiveguysproject.herokuapp.com/diary/${info.patient_id}`
+        // `https://fiveguysproject.herokuapp.com/diary/${info.patient_id}`
+        `https://final-projectback-end-five-guys-production.up.railway.app/diary/${info.patient_id}`
       );
       let json = await res.json();
       // console.log('patients diary, needs to be saved in state', json);
@@ -52,7 +55,8 @@ function PatientFile({ info, onClick }) {
   useEffect(() => {
     async function getOTC() {
       let res = await fetch(
-        `https://fiveguysproject.herokuapp.com/otc?id=${info.patient_id}`
+        // `https://fiveguysproject.herokuapp.com/otc?id=${info.patient_id}`
+        `https://final-projectback-end-five-guys-production.up.railway.app/otc?id=${info.patient_id}`
       );
       let json = await res.json();
 
@@ -65,10 +69,11 @@ function PatientFile({ info, onClick }) {
   useEffect(() => {
     async function getCode() {
       let res = await fetch(
-        `https://fiveguysproject.herokuapp.com/signup/patient/${info.patient_id}`
+        // `https://fiveguysproject.herokuapp.com/signup/patient/${info.patient_id}`
+        `https://final-projectback-end-five-guys-production.up.railway.app/signup/patient/${info.patient_id}`
       );
       let json = await res.json();
-
+      
       console.log('OTC ionfo:', json);
       setCode(json.data[0].code);
     }

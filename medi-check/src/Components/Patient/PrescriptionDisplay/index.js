@@ -10,7 +10,7 @@ import './prescriptionDisplay.css';
 
 //Will fetch backend to get the patient prescription names and information, then plug that into the API twice.
 //Working on functionality now, not completeness
-function PrescriptionDisplay() {
+function PrescriptionDisplay({ updateOTC }) {
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   const pEmail = user.email;
@@ -21,10 +21,11 @@ function PrescriptionDisplay() {
   useEffect(() => {
     async function getPrescriptions() {
       let res = await fetch(
-        `https://fiveguysproject.herokuapp.com/prescriptions?email=${pEmail}`
+        // `https://fiveguysproject.herokuapp.com/prescriptions?email=${pEmail}`
+        `https://final-projectback-end-five-guys-production.up.railway.app/prescriptions?email=${pEmail}`
       );
       let json = await res.json();
-      // console.log('json', json);
+      // console.log('pres', json);
       setPrescriptions(json.data);
     }
     if (pEmail && isAuthenticated) {
@@ -34,21 +35,22 @@ function PrescriptionDisplay() {
   useEffect(() => {
     async function getOTC() {
       let res = await fetch(
-        `https://fiveguysproject.herokuapp.com/otc?email=${pEmail}`
+        // `https://fiveguysproject.herokuapp.com/otc?email=${pEmail}`
+        `https://final-projectback-end-five-guys-production.up.railway.app/otc?email=${pEmail}`
       );
       let json = await res.json();
-      console.log('otc', json);
+      // console.log('otc', json);
       setOverCounter(json.data);
     }
     if (pEmail && isAuthenticated) {
       getOTC();
     }
-  }, [pEmail, isAuthenticated]);
+  }, [pEmail, isAuthenticated, updateOTC]);
 
-  let itemInteractions = useInteractions(prescriptions);
+  let itemInteractions = useInteractions(prescriptions, overCounter);
   // let itemInteractions = testInteractions;
 
-  console.log('prescrip', prescriptions);
+  // console.log('prescrip', prescriptions);
   //This is taking the API data and for each drug interaction it is grouping together the drug, the drug it is interacting with, and the description
   let combo = prescriptions.map((obj) => {
     let overview = itemInteractions.filter((info) => {
@@ -88,9 +90,14 @@ function PrescriptionDisplay() {
         item.minConcept[1].name === index.drug
       );
     });
-    let overrideMessage = filteredObj[0].message
-      ? filteredObj[0].message
-      : filteredObj[1].message;
+    // console.log(filteredObj);
+    let overrideMessage = filteredObj
+      ? filteredObj[0]
+        ? filteredObj[0].message
+        : filteredObj[1]
+        ? filteredObj[1].message
+        : 'None'
+      : 'N/A';
     // console.log('asdasdasd', filteredObj);
     return { ...item, overrideMessage };
   });
@@ -103,7 +110,7 @@ function PrescriptionDisplay() {
       {itemInteractionsCombo.length === 0 ? (
         <></>
       ) : (
-        <div className='additional-container'>
+        <div className="additional-container">
           {itemInteractionsCombo.map((item) => {
             return (
               <section style={{ width: '100%' }} key={uuidv4()}>
@@ -145,7 +152,7 @@ function PrescriptionDisplay() {
       {overCounter.length === 0 ? (
         <></>
       ) : (
-        <div className='additional-container'>
+        <div className="additional-container">
           <h4 style={{ marginBottom: '1em' }}>Over the Counter Medications</h4>
           {overCounter.map((item) => {
             return (
