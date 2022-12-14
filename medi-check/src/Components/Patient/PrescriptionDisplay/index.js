@@ -21,7 +21,8 @@ function PrescriptionDisplay({ updateOTC }) {
   useEffect(() => {
     async function getPrescriptions() {
       let res = await fetch(
-        `https://fiveguysproject.herokuapp.com/prescriptions?email=${pEmail}`
+        // `https://fiveguysproject.herokuapp.com/prescriptions?email=${pEmail}`
+        `https://final-projectback-end-five-guys-production.up.railway.app/prescriptions?email=${pEmail}`
       );
       let json = await res.json();
       // console.log('pres', json);
@@ -34,7 +35,8 @@ function PrescriptionDisplay({ updateOTC }) {
   useEffect(() => {
     async function getOTC() {
       let res = await fetch(
-        `https://fiveguysproject.herokuapp.com/otc?email=${pEmail}`
+        // `https://fiveguysproject.herokuapp.com/otc?email=${pEmail}`
+        `https://final-projectback-end-five-guys-production.up.railway.app/otc?email=${pEmail}`
       );
       let json = await res.json();
       // console.log('otc', json);

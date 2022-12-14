@@ -33,7 +33,8 @@ export default function PrePaidModal({ setAnchorEl }) {
   useEffect(() => {
     async function getPatient() {
       let response = await fetch(
-        `https://fiveguysproject.herokuapp.com/patient?email=${pEmail}`
+        // `https://fiveguysproject.herokuapp.com/patient?email=${pEmail}`
+        `https://final-projectback-end-five-guys-production.up.railway.app/patient?email=${pEmail}`
       );
       let json = await response.json();
       // console.log('patient data ', json.data[0]);
@@ -64,7 +65,8 @@ export default function PrePaidModal({ setAnchorEl }) {
   //update prepaid field
   useEffect(() => {
     async function postPrePaid() {
-      const db_url = `https://fiveguysproject.herokuapp.com/patient/${pEmail}`;
+      // const db_url = `https://fiveguysproject.herokuapp.com/patient/${pEmail}`;
+      const db_url = `https://final-projectback-end-five-guys-production.up.railway.app/patient/${pEmail}`;
 
       let date = `${value.getFullYear()}-${
         value.getMonth() + 1

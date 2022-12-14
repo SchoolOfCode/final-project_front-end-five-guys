@@ -41,7 +41,8 @@ export default function CreatePatientDialog({ first, last, setList, list }) {
   React.useEffect(() => {
     async function createPatient() {
       let res = await fetch(
-        `https://fiveguysproject.herokuapp.com/patients?doctoremail=${DOCTOR_EMAIL}`,
+        // `https://fiveguysproject.herokuapp.com/patients?doctoremail=${DOCTOR_EMAIL}`,
+        `https://final-projectback-end-five-guys-production.up.railway.app/patients?doctoremail=${DOCTOR_EMAIL}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

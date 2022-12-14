@@ -22,7 +22,8 @@ export default function DiaryMenu() {
   React.useEffect(() => {
     async function getPatientDiary() {
       let res = await fetch(
-        `https://fiveguysproject.herokuapp.com/diary?email=${user.email}`
+        // `https://fiveguysproject.herokuapp.com/diary?email=${user.email}`
+        `https://final-projectback-end-five-guys-production.up.railway.app/diary?email=${user.email}`
       );
       let json = await res.json();
       // console.log('patients diary, needs to be saved in state', json);

@@ -47,14 +47,16 @@ export function Notifications() {
   useEffect(() => {
     async function getPatient() {
       let response = await fetch(
-        `https://fiveguysproject.herokuapp.com/patient?email=${pEmail}`
+        // `https://fiveguysproject.herokuapp.com/patient?email=${pEmail}`
+        `https://final-projectback-end-five-guys-production.up.railway.app/patient?email=${pEmail}`
       );
       let json = await response.json();
       // console.log('patient data ', json.data[0]);
       setPatient({ ...json.data[0] });
 
       let response2 = await fetch(
-        `https://fiveguysproject.herokuapp.com/prescriptions?email=${pEmail}`
+        // `https://fiveguysproject.herokuapp.com/prescriptions?email=${pEmail}`
+        `https://final-projectback-end-five-guys-production.up.railway.app/prescriptions?email=${pEmail}`
       );
       let json2 = await response2.json();
       // console.log('patient data2 ', json2.data);

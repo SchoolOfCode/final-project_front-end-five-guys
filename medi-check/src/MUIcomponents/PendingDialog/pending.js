@@ -26,7 +26,8 @@ export default function PendingDialog({ open, setOpen }) {
   useEffect(() => {
     async function getPending() {
       const response = await fetch(
-        'https://fiveguysproject.herokuapp.com/pending'
+        // 'https://fiveguysproject.herokuapp.com/pending'
+        'https://final-projectback-end-five-guys-production.up.railway.app/pending'
       );
       const data = await response.json();
       setPending(data.data);
@@ -44,7 +45,8 @@ export default function PendingDialog({ open, setOpen }) {
         return;
       }
       let prescriptonResponse = await fetch(
-        `https://fiveguysproject.herokuapp.com/prescriptions/${prescription.patient_id}`
+        // `https://fiveguysproject.herokuapp.com/prescriptions/${prescription.patient_id}`
+        `https://final-projectback-end-five-guys-production.up.railway.app/prescriptions/${prescription.patient_id}`
       );
       let prescriptionJson = await prescriptonResponse.json();
       let list = prescriptionJson.data;
@@ -109,7 +111,8 @@ export default function PendingDialog({ open, setOpen }) {
         if (settledPrescription.approved) {
           //post
           await fetch(
-            `https://fiveguysproject.herokuapp.com/prescriptions/${prescription.patient_id}`,
+            // `https://fiveguysproject.herokuapp.com/prescriptions/${prescription.patient_id}`,
+            `https://final-projectback-end-five-guys-production.up.railway.app/prescriptions/${prescription.patient_id}`,
             {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -123,7 +126,8 @@ export default function PendingDialog({ open, setOpen }) {
         }
         //delete
         await fetch(
-          `https://fiveguysproject.herokuapp.com/pending/${prescription.pending_id}`,
+          // `https://fiveguysproject.herokuapp.com/pending/${prescription.pending_id}`,
+          `https://final-projectback-end-five-guys-production.up.railway.app/pending/${prescription.pending_id}`,
           {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
